@@ -1,0 +1,156 @@
+<%- include ("../../_header") %>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">จัดการประเภทคุกกี้</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/management/cookies">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item"><a href="/management/cookies">จัดการ Cookie</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">จัดการประเภทคุกกี้</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="card ">
+            <div class="border-bottom title-part-padding">
+                <h4 class="card-title mb-0">จัดการประเภทคุกกี้</h4>
+            </div>
+            <div class="card-body">
+                <div class="row pb-3">
+                    <div class="col-md-8">
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#add-cookietype-modal"><i class="fas fa-plus"></i>
+                            เพิ่มประเภทคุกกี้</button>
+                    </div>
+                    <div class="col-md-4 justify-content-end align-self-center d-block d-md-flex">
+                        <div class="input-group mb-2 ">
+                            <a class="btn btn-outline-warning" id="reface"><i data-feather="refresh-cw"></i></a>
+                            <input type="text" class="form-control" placeholder="ค้นหา.." aria-label="" value=""
+                                id="search" aria-describedby="button-addon2" required>
+                            <button class="btn btn-outline-warning" type="button" id="button-search"><i
+                                    class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive" id="table_test" style="min-height: 470px;"></div>
+
+                <div class="row mt-3">
+                    <div class="col-md-6 text-secondary">
+                        <div class="row">
+                            <span>แสดงผล <a id="show"></a> ถึง <a id="to_show"></a> ทั้งหมด <a id="show_all"></a>
+                                รายการ</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                        <nav aria-label="Page navigation example" class="mt-2">
+                            <ul class="pagination">
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal add Domain -->
+        <div class="modal fade" id="add-cookietype-modal" tabindex="-1" aria-labelledby="exampleModalLabel1">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header border-bottom">
+                        <h4 class="modal-title" id="exampleModalLabel1">เพิ่มประเภทคุกกี้</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/save/cookietypes" method="post">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="recipient-name" class="control-label">ชื่อหมวดหมู่คุกกี้</label>
+                                <input type="text" class="form-control" id="recipient-name1" name="name_cp" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="control-label">เนื้อหา</label>
+                                <textarea class="form-control" id="message-text1" name="detail_cp"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="justify-content: center;">
+                            <button type="submit" class="btn btn-success">ตกลง</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Modal edit cookietype -->
+        <div class="modal fade" id="edit-cookietype-modal" tabindex="-1" aria-labelledby="exampleModalLabel1">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header border-bottom">
+                        <h4 class="modal-title" id="exampleModalLabel1">เเก้ไขประเภทคุกกี้</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/edit/cookietypes" method="post">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="recipient-name" class="control-label">ชื่อหมวดหมู่คุกกี้</label>
+                                <input type="text" class="form-control" id="name_cp_id" name="name_cp" required>
+                                <input type="text" class="form-control" id="id_cp" name="id_cp" hidden>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="control-label">เนื้อหา</label>
+                                <textarea class="form-control" id="detail_cp_id" name="detail_cp"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="justify-content: center;">
+                            <button type="submit" class="btn btn-success">ตกลง</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal delete cookietype -->
+        <div class="modal fade" id="delete-cookietype-modal" tabindex="-1" aria-labelledby="exampleModalLabel1">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header border-bottom">
+                        <h4 class="modal-title" id="exampleModalLabel1">ลบประเภทคุกกี้</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/delete/cookietypes" method="post">
+                        <div class="modal-body">
+                            <div class="mb-3 row">
+                                <div class="col-md-4 d-flex justify-content-end">
+                                    <label class="control-label">ชื่อหมวดหมู่คุกกี้ :</label>
+                                </div>
+                                <div class="col-md-7 d-flex justify-content-start">
+                                    <label id="name_cp_id_delete" class="control-label"></label>
+                                </div>
+                                <input type="hidden" class="form-control" id="id_cp_delete" name="id_cp">
+                            </div>
+                            <div class="mb-3 row">
+                                <div class="col-md-4 d-flex justify-content-end">
+                                    <label class="control-label">เนื้อหา :</label>
+                                </div>
+                                <div class="col-md-7 d-flex justify-content-start">
+                                    <label id="detail_cp_id_delete" class="control-label"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="justify-content: center;">
+                            <button type="submit" class="btn btn-danger">ลบข้อมูล</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/dist/js/views_js/cookietype/cookietype.js"></script>
+    <%- include ("../../_footer") %>

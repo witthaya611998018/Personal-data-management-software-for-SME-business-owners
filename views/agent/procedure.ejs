@@ -1,0 +1,216 @@
+<%- include('../_header') -%>
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-md-5 align-self-center">
+            <h3 class="page-title">Agent Management</h3> <div class="d-flex align-items-center" style="margin-top: 1%;">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+                        <li class="breadcrumb-item"><a href="/agent_manage">Agent Management</a></li>
+                        <li class="breadcrumb-item">ขั้นตอนการติดตั้ง Service Agent (<%= manage[0].agm_name %>)</a>
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid" id="a_procedure">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="border-bottom title-part-padding">
+                    <h4 class="card-title mb-0">ขั้นตอนติดตั้ง Script Agent (<%=manage[0].agm_name%>)<a href="/agent_manage/procedureWindows/<%=manage[0].agm_id%>" style="float: right;">Windows</a></h4>
+                </div>
+                <div class="card-body">
+                    <div class="text-center"><span style="color: red;">*คำแนะนำ*</span>
+                        Server ที่ต้องการจะติดตั้งจำเป็นต้องมี
+                        <a href="https://git-scm.com/download/linux" target="_blank" rel="noopener noreferrer">Git</a> 
+                        และ
+                        <a href="https://docs.python-guide.org/starting/install3/linux/" target="_blank" rel="noopener noreferrer">Python@3.9+</a>
+                    </div><br/>
+                    <div class="form-group">
+                        <table class="table table-boardless">
+                            <div style="">1)&nbsp;&nbsp;เปิด Terminal หรือ Command prompt ขึ้นมา ทำการ "คัดลอก" คำสั่งด้านล่าง แล้วนำไป "วาง" ใน directory ของ Server ที่เลือก.</div>
+                            <div class="input-group" style="margin-top: 1%;">
+                                <textarea class="form-control controller" style="resize: none; display: inline; width: 60%;" rows="1" readonly>git clone https://github.com/kuzan04/agent_client.git</textarea>
+                                <div class="button-clip">
+                                    <button type="button" class="input-group-text" onclick="clipboard(this)" onmouseout="outFunc()">
+                                        <span class="tooltiptext Tooltip" >Copy to clipboard</span>
+                                        <i class="mdi mdi-checkbox-multiple-blank-outline"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <th></th>
+                        </table>
+                        <table class="table table-boardless">
+                            <div style="">2)&nbsp;&nbsp;สามารถเข้าไปที่ Directory ของ Agent Client หลังจาก Clone git แล้วโดยการ "คัดลอก" คำสั่งด้านล่าง แล้วนำไป "วาง" ใน Terminal หรือ Command prompt.</div>
+                            <div class="input-group" style="margin-top: 1%;">
+                                <textarea class="form-control controller" style="resize: none; display: inline; width: 60%;" rows="1" readonly>cd ./agent_client</textarea>
+                                <div class="button-clip">
+                                    <button type="button" class="input-group-text" onclick="clipboard(this)" onmouseout="outFunc()">
+                                        <span class="tooltiptext Tooltip" >Copy to clipboard</span>
+                                        <i class="mdi mdi-checkbox-multiple-blank-outline"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <th></th>
+                        </table>
+                        <table class="table table-boardless">
+                            <div style="">3)&nbsp;&nbsp;สร้าง Virtual Environment เพื่อจัดเก็บ Package และ Library ที่จำเป็นต้องใช้ script ให้ทำการ "คัดลอก" คำสั่งด้านล่าง แล้วนำไป "วาง" ใน Terminal หรือ Command. <span style="color: red;">*ครั้งแรกที่ติดตั้งเท่านั้น*</span></div>
+                            <div class="input-group" style="margin-top: 1%;">
+                                <div></div>
+                                <textarea class="form-control controller" style="resize: none; display: inline; width: 60%;" rows="1" readonly>virtualenv .env</textarea>
+                                <div class="button-clip">
+                                    <button type="button" class="input-group-text" onclick="clipboard(this)" onmouseout="outFunc()">
+                                        <span class="tooltiptext Tooltip" >Copy to clipboard</span>
+                                        <i class="mdi mdi-checkbox-multiple-blank-outline"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <th></th>
+                        </table>
+                        <table class="table table-boardless">
+                            <div style="">4)&nbsp;&nbsp;ต้องเปิดใช้งาน Virtual Environment Python ที่ได้มีการติดตั้ง Package และ Library ที่จำเป็นต่อการใช้งาน Script ในบางส่วนให้ทำการ "คัดลอก" คำสั่งด้านล่าง แล้วนำไป "วาง" ใน Terminal หรือ Command prompt.</div>
+                            <div class="input-group" style="margin-top: 1%;">
+                                <textarea class="form-control controller" style="resize: none; display: inline; width: 60%;" rows="1" readonly>source .env/bin/activate</textarea>
+                                <div class="button-clip">
+                                    <button type="button" class="input-group-text" onclick="clipboard(this)" onmouseout="outFunc()">
+                                        <span class="tooltiptext Tooltip" >Copy to clipboard</span>
+                                        <i class="mdi mdi-checkbox-multiple-blank-outline"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <th></th>
+                        </table>
+                        <table class="table table-boardless">
+                            <div style="">5)&nbsp;&nbsp;ติดตั้ง Package และ Library ที่จำเป็นต้องใช้ script ให้ทำการ "คัดลอก" คำสั่งด้านล่าง แล้วนำไป "วาง" ใน Terminal หรือ Command. <span style="color: red;">*ครั้งแรกที่ติดตั้งเท่านั้น*</span></div>
+                            <div style="margin-top: 0.5%;">Package manage เป็น "apt" (Ubuntu, Debian, and another)</div>
+                            <div class="input-group" style="margin-top: 1%;">
+                                <textarea class="form-control controller" style="resize: none; display: inline; width: 60%;" rows="1" readonly>sudo apt install gcc python3-dev</textarea>
+                                <div class="button-clip">
+                                    <button type="button" class="input-group-text" onclick="clipboard(this)" onmouseout="outFunc()">
+                                        <span class="tooltiptext Tooltip" >Copy to clipboard</span>
+                                        <i class="mdi mdi-checkbox-multiple-blank-outline"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div style="margin-top: 0.5%;">Package manage เป็น "yum" (CentOS, RHEL(Red Hat Enterprise Linux), Oracle, and another)</div>
+                            <div class="input-group" style="margin-top: 1%;">
+                                <textarea class="form-control controller" style="resize: none; display: inline; width: 60%;" rows="1" readonly>sudo yum install gcc python3-devel</textarea>
+                                <div class="button-clip">
+                                    <button type="button" class="input-group-text" onclick="clipboard(this)" onmouseout="outFunc()">
+                                        <span class="tooltiptext Tooltip" >Copy to clipboard</span>
+                                        <i class="mdi mdi-checkbox-multiple-blank-outline"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div style="margin-top: 0.5%;">Package manage เป็น "dnf" (Fedora, and another)</div>
+                            <div class="input-group" style="margin-top: 1%;">
+                                <textarea class="form-control controller" style="resize: none; display: inline; width: 60%;" rows="1" readonly>sudo dnf install gcc python3-devel</textarea>
+                                <div class="button-clip">
+                                    <button type="button" class="input-group-text" onclick="clipboard(this)" onmouseout="outFunc()">
+                                        <span class="tooltiptext Tooltip" >Copy to clipboard</span>
+                                        <i class="mdi mdi-checkbox-multiple-blank-outline"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div style="margin-top: 0.5%;">Package manage เป็น "zypper" (openSUSE, and another)</div>
+                            <div class="input-group" style="margin-top: 1%;">
+                                <textarea class="form-control controller" style="resize: none; display: inline; width: 60%;" rows="1" readonly>sudo zypper in gcc python3-devel</textarea>
+                                <div class="button-clip">
+                                    <button type="button" class="input-group-text" onclick="clipboard(this)" onmouseout="outFunc()">
+                                        <span class="tooltiptext Tooltip" >Copy to clipboard</span>
+                                        <i class="mdi mdi-checkbox-multiple-blank-outline"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div style="margin-top: 0.5%;">Package manage เป็น "apk" (Alpine, and another)</div>
+                            <div class="input-group" style="margin-top: 1%;">
+                                <textarea class="form-control controller" style="resize: none; display: inline; width: 60%;" rows="1" readonly>sudo apk add gcc python3-dev</textarea>
+                                <div class="button-clip">
+                                    <button type="button" class="input-group-text" onclick="clipboard(this)" onmouseout="outFunc()">
+                                        <span class="tooltiptext Tooltip" >Copy to clipboard</span>
+                                        <i class="mdi mdi-checkbox-multiple-blank-outline"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div style="margin-top: 0.5%;">Package manage เป็น "apt-cyg" (Cygwin, and another)</div>
+                            <div class="input-group" style="margin-top: 1%;">
+                                <textarea class="form-control controller" style="resize: none; display: inline; width: 60%;" rows="1" readonly>sudo apk add gcc python3-dev</textarea>
+                                <div class="button-clip">
+                                    <button type="button" class="input-group-text" onclick="clipboard(this)" onmouseout="outFunc()">
+                                        <span class="tooltiptext Tooltip" >Copy to clipboard</span>
+                                        <i class="mdi mdi-checkbox-multiple-blank-outline"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div style="margin-top: 0.5%;">Package manage เป็น "pacman" (Arch, and another)</div>
+                            <div class="input-group" style="margin-top: 1%;">
+                                <textarea class="form-control controller" style="resize: none; display: inline; width: 60%;" rows="1" readonly>sudo pacman -S cmake gcc</textarea>
+                                <div class="button-clip">
+                                    <button type="button" class="input-group-text" onclick="clipboard(this)" onmouseout="outFunc()">
+                                        <span class="tooltiptext Tooltip" >Copy to clipboard</span>
+                                        <i class="mdi mdi-checkbox-multiple-blank-outline"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div style="margin-top: 0.5%">สุดท้าย</div>
+                            <div class="input-group" style="margin-top: 1%;">
+                                <div></div>
+                                <textarea class="form-control controller" style="resize: none; display: inline; width: 60%;" rows="1" readonly>pip3 install mysql-connector-python cx_Oracle pysftp pyOpenSSL</textarea>
+                                <div class="button-clip">
+                                    <button type="button" class="input-group-text" onclick="clipboard(this)" onmouseout="outFunc()">
+                                        <span class="tooltiptext Tooltip" >Copy to clipboard</span>
+                                        <i class="mdi mdi-checkbox-multiple-blank-outline"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <th></th>
+                        </table>
+                        <table class="table table-boardless">
+                            <div style="">6)&nbsp;&nbsp;ทำการเปิดใช้งาน Script Agent Client โดยการ "คัดลอก" คำสั่งด้านล่าง แล้วนำไป "วาง" ใน Terminal or Command prompt</div>
+                            <div class="input-group" style="margin-top: 1%;">
+                                <textarea class="form-control controller" style="resize: none; display: inline; width: 60%;" rows="1" readonly>python3 client.py</textarea>
+                                <div class="button-clip">
+                                    <button type="button" class="input-group-text" onclick="clipboard(this)" onmouseout="outFunc()">
+                                        <span class="tooltiptext Tooltip" >Copy to clipboard</span>
+                                        <i class="mdi mdi-checkbox-multiple-blank-outline"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <th></th>
+                        </table>
+                        <table class="table table-boardless">
+                            <div style="">7)&nbsp;&nbsp;หลังจากที่ได้เปิดการใช้งาน Script Agent Client แล้วนั้น จำเป็นจะต้องใส่ Token ให้ทำการ "คัดลอก" ข้อความด้านล่าง แล้วนำไปใส่ เพื่อที่จะเป็นการเปิดใช้งานอย่างสมบูรณ์</div>
+                            <div class="input-group" style="margin-top: 1%;">
+                                <textarea class="form-control controller" style="resize: none; display: inline; width: 60%;" rows="1" readonly><%= manage[0].agm_token %></textarea>
+                                <div class="button-clip">
+                                    <button type="button" class="input-group-text" onclick="clipboard(this)" onmouseout="outFunc()">
+                                        <span class="tooltiptext Tooltip" >Copy to clipboard</span>
+                                        <i class="mdi mdi-checkbox-multiple-blank-outline"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <th></th>
+                        </table>
+                    </div>
+                    <div class="text-center">
+                        <span style="color: red;">*กรณีต้องการหยุดการทำงาน*</span>
+                        <table class="table table-boardless">
+                            <div>
+                                - ถ้ายังไม่ได้ใส่ Token สามารถกดปุ่ม "Ctrl+C" เพื่อหยุดทำงาน หรือ "Enter" ธรรมดาได้เลย <br/>
+                                - และ ถ้าใส่ Token เสร็จแล้ว สามารถกดปุ่ม "Ctrl+C"
+                            </div>
+                            <th></th>
+                        </table>
+                    </div>
+                    <div class="text-center">
+                        <button onClick="history.back();" class="btn btn-info"> ย้อนกลับ </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../_footer') -%>

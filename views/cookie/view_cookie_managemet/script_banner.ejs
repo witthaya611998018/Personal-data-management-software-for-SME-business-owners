@@ -1,0 +1,60 @@
+<%- include ("../../_header") %>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">สคริปต์สำหรับติดตั้งแบนเนอร์คุกกี้</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/management/cookies">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item"><a href="/management/cookies">จัดการ Cookie</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">สคริปต์สำหรับติดตั้งแบนเนอร์คุกกี้
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-7 justify-content-end align-self-center d-none d-md-flex">
+                <a href="/management/cookies" class="btn btn-secondary">ย้อนกลับ</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="card">
+            <div class="border-bottom title-part-padding">
+                <h4 class="card-title mb-0">สคริปต์สำหรับติดตั้งแบนเนอร์คุกกี้</h4>
+            </div>
+            <div class="card-body">
+                <div class="card">
+                    <p>
+                        คัดลอกสคริปต์นี้แล้วนำไปวางระหว่างแท็ก
+
+                        <head> และ </head>เหนือสคริปต์อื่นๆของเว็บไซต์ของคุณเพื่อให้ alltra
+                        ทำการบล็อกคุกกี้หรือสคริปต์อื่นๆได้อย่างถูกต้อง
+                        หากคุณปรับแต่งแบนเนอร์แล้วคลิกอัปเดตสไตล์
+                        แบนเนอร์ของคุณจะถูกอัปเดตอัตโนมัติโดยไม่ต้องคัดลอกสคริปต์อีกครั้ง
+                    </p>
+                </div>
+                <textarea id="content" class="form-control border-info text-left"
+                    rows="5"><%=select_setting_tag[0].generate_script%></textarea>
+                <div class="col justify-content-center d-flex mt-2">
+                    <button id="copy" title="Copy Textarea Content" class="btn btn-warning mt-2">คัดลอก</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("copy").onclick = function () {
+            var copyTextarea = document.createElement("textarea");
+            copyTextarea.style.position = "fixed";
+            copyTextarea.style.opacity = "0";
+            copyTextarea.textContent = document.getElementById("content").value;
+            document.body.appendChild(copyTextarea);
+            copyTextarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(copyTextarea);
+        }
+    </script>
+    <%- include ("../../_footer") %>

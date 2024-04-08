@@ -1,0 +1,424 @@
+<%- include ("../_header") %>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-10 align-self-center">
+                <h3 class="page-title">เเก้ไขมาตรการรักษาความปลอดภัย</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/<%=process.env.SUBFOLDER%>index2">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item">
+                                <a href="/<%=process.env.SUBFOLDER%>security/section/Specific-Measures">
+                                    มาตรการรักษาความปลอดภัยขั้นต่ำที่ PDPA กำหนด (PDPA Specific Measures)
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">เเก้ไขมาตรการรักษาความปลอดภัย </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-2 d-flex justify-content-end align-items-center">
+                <a href="/<%=process.env.SUBFOLDER%>security/section/Specific-Measures"
+                    class="btn btn-secondary">ย้อนกลับ</a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="border-bottom title-part-padding">
+                <h4 class="card-title mb-0">เเก้ไขมาตรการรักษาความปลอดภัย</h4>
+            </div>
+            <div class="card-body">
+                <form action="/<%=process.env.SUBFOLDER%>Specific-Measures/edit/save" method="post">
+                    <input type="hidden" name="id" value="<%=specific[0].id_specific%>,<%=specific[0].id_measures%>">
+                    <div class="row mb-2">
+                        <div class="col-md-3  justify-content-end align-items-center d-flex ">
+                            กิจกรรมการประมวลผล
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <select name="event_process_id" class="form-control" id="process" required>
+                                <%if (process2.length>0) {%>
+                                    <% for (let i=0;i<process2.length;i++){%>
+                                        <% if (specific[0].event_process_id==process2[i].event_process_id) {%>
+                                            <option value="<%=process2[i].event_process_id%>" selected>
+                                                <%=process2[i].event_process_name%>
+                                            </option>
+                                            <%}else { %>
+                                                <option value="<%=process2[i].event_process_id%>">
+                                                    <%=process2[i].event_process_name%>
+                                                </option>
+                                                <%}%>
+                                                    <%}%>
+                                                        <%}%>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3 d-flex justify-content-end">
+                            ชื่อมาตรการ
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <input type="text" name="measures_section_name" class="form-control" required
+                                value="<%=specific[0].measures_section_name%>">
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3 d-flex justify-content-end">
+                            คำอธิบาย / รายละเอียด
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <textarea name="measures_detail" cols="65" rows="8" class="form-control"
+                                required><%=specific[0].measures_detail%></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3 d-flex justify-content-end align-content-center">
+                            เอกสารPDPA
+                        </div>
+                        <div class="col-md-6 d-flex align-content-center">
+                            <div class="input-group">
+                                <select name="doc_id" class="select2 form-control" multiple="multiple"
+                                    style="height: 36px;width: 100%;" id="selecte_type_policy">
+                                    <option value="0">
+                                        เลือก...
+                                    </option>
+                                    <% for (let i=0;i<doc.length;i++){%>
+                                        <option value="<%=doc[i].doc_id%>" <% for (let j=0;j<doc_id_name.length;j++){%>
+                                            <%if (doc_id_name[j]==doc[i].doc_id) {%>
+                                                selected <%}%>
+                                                    <%}%> >
+                                                        <%=doc[i].doc_name%>
+                                        </option>
+
+                                        <%}%>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center ">
+                            <a href="/<%=process.env.SUBFOLDER%>index" target="_blank">เพิ่มเอกสาร PDPA</a>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-3 d-flex justify-content-end align-items-center">
+                            <label style="text-align: right;">
+                                การควบคุมการเข้าถึงข้อมูลส่วนบุคคล (Access Control)
+                            </label>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-between">
+                            <% if (specific[0].specific_access_control==1) {%>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input success check-outline outline-success" type="radio"
+                                        name="specific_access_control" id="warning-outline-radio" value="1" checked="">
+                                    <label class="form-check-label" for="warning-outline-radio">มี</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                        name="specific_access_control" id="warning2-outline-radio" value="0">
+                                    <label class="form-check-label" for="warning2-outline-radio">ไม่มี</label>
+                                </div>
+                                <%}else { %>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input success check-outline outline-success"
+                                            type="radio" name="specific_access_control" id="warning-outline-radio"
+                                            value="1">
+                                        <label class="form-check-label" for="warning-outline-radio">มี</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                            name="specific_access_control" id="warning2-outline-radio" value="0"
+                                            checked="">
+                                        <label class="form-check-label" for="warning2-outline-radio">ไม่มี</label>
+                                    </div>
+                                    <%}%>
+                                        <label>
+                                            อธิบาย
+                                        </label>
+                        </div>
+                        <div class="col-md-5 d-flex justify-content-center align-items-center ">
+                            <textarea name="specific_access_control_explain"
+                                class="form-control"><%=specific[0].specific_access_control_explain%></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-3 d-flex justify-content-end align-items-center">
+                            <label style="text-align: right;">
+                                การบริหารจัดการการเข้าถึงของผู้ใช้งาน (user Access Management)
+                            </label>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-between">
+                            <% if (specific[0].specific_user_access_management==1) {%>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input success check-outline outline-success" type="radio"
+                                        id="success-outline-radio-5" name="specific_user_access_management" value="1"
+                                        checked="">
+                                    <label class="form-check-label" for="success-outline-radio-5">มี</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                        id="danger2-outline-radio" name="specific_user_access_management" value="0">
+                                    <label class="form-check-label" for="danger2-outline-radio">ไม่มี</label>
+                                </div>
+                                <%}else { %>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input success check-outline outline-success"
+                                            type="radio" id="success-outline-radio-5"
+                                            name="specific_user_access_management" value="1">
+                                        <label class="form-check-label" for="success-outline-radio-5">มี</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                            id="danger2-outline-radio" name="specific_user_access_management" value="0"
+                                            checked="">
+                                        <label class="form-check-label" for="danger2-outline-radio">ไม่มี</label>
+                                    </div>
+                                    <%}%>
+                                        <label>
+                                            อธิบาย
+                                        </label>
+                        </div>
+                        <div class="col-md-5 d-flex justify-content-center align-items-center ">
+                            <textarea name="specific_user_access_management_explain"
+                                class="form-control"><%=specific[0].specific_user_access_management_explain%></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-3 d-flex justify-content-end align-items-center">
+                            <label style="text-align: right;">
+                                การกำหนดหน้าที่ความรับผิดชอบของผู้ใช้งาน (User Responsibilitites)
+                            </label>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-between">
+                            <% if (specific[0].specific_user_responsibilitites==1) {%>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input success check-outline outline-success" type="radio"
+                                        name="specific_user_responsibilitites" id="primary-outline-radio" value="1"
+                                        checked="">
+                                    <label class="form-check-label" for="primary-outline-radio">มี</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                        name="specific_user_responsibilitites" id="primary2-outline-radio" value="0">
+                                    <label class="form-check-label" for="primary2-outline-radio">ไม่มี</label>
+                                </div>
+                                <%}else { %>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input success check-outline outline-success"
+                                            type="radio" name="specific_user_responsibilitites"
+                                            id="primary-outline-radio" value="1">
+                                        <label class="form-check-label" for="primary-outline-radio">มี</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                            name="specific_user_responsibilitites" id="primary2-outline-radio" value="0"
+                                            checked="">
+                                        <label class="form-check-label" for="primary2-outline-radio">ไม่มี</label>
+                                    </div>
+                                    <%}%>
+                                        <label>
+                                            อธิบาย
+                                        </label>
+                        </div>
+                        <div class="col-md-5 d-flex justify-content-center align-items-center ">
+                            <textarea name="specific_user_responsibilitites_explain" id=""
+                                class="form-control"><%=specific[0].specific_user_responsibilitites_explain%></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-3 d-flex justify-content-end align-items-center">
+                            <label style="text-align: right;">
+                                การจัดให้มีวิธีการเพื่อให้สามารถตรวจสอบย้อนหลังเกี่ยวกับการเข้าถึงเปลียนแปลงแก้ไขหรือลบ
+                                (Audit Trails)
+                            </label>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-between">
+                            <% if (specific[0].specific_audit_trails==1) {%>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input success check-outline outline-success" type="radio"
+                                        name="specific_audit_trails" id="secondary-radio" value="1" checked="">
+                                    <label class="form-check-label" for="secondary-radio">มี</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                        name="specific_audit_trails" id="secondary2-radio" value="0">
+                                    <label class="form-check-label" for="secondary2-radio">ไม่มี</label>
+                                </div>
+                                <%}else { %>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input success check-outline outline-success"
+                                            type="radio" name="specific_audit_trails" id="secondary-radio" value="1">
+                                        <label class="form-check-label" for="secondary-radio">มี</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                            name="specific_audit_trails" id="secondary2-radio" value="0" checked="">
+                                        <label class="form-check-label" for="secondary2-radio">ไม่มี</label>
+                                    </div>
+                                    <%}%>
+                                        <label>
+                                            อธิบาย
+                                        </label>
+                        </div>
+                        <div class="col-md-5 d-flex justify-content-center align-items-center ">
+                            <textarea name="specific_audit_trails_explain"
+                                class="form-control"><%=specific[0].specific_audit_trails_explain%></textarea>
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-2">
+                        <div class="col-md-3 d-flex justify-content-end align-items-center">
+                            <label style="text-align: right;">
+                                การสร้างเสริมความตระหนักรู้ด้านความสำคัญของการคุ้มครองข้อมูลส่วนบุคคลและการรักษาความมั่นคงปลอดภัย
+                                (privacy and security Awareness)
+                            </label>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-between">
+                            <% if (specific[0].specific_privacy_security_awareness==1) {%>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input success check-outline outline-success" type="radio"
+                                        name="specific_privacy_security_awareness" id="warning-radio" value="1"
+                                        checked="">
+                                    <label class="form-check-label" for="warning-radio">มี</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                        name="specific_privacy_security_awareness" id="warning2-radio" value="0">
+                                    <label class="form-check-label" for="warning2-radio">ไม่มี</label>
+                                </div>
+                                <%}else { %>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input success check-outline outline-success"
+                                            type="radio" name="specific_privacy_security_awareness" id="warning-radio"
+                                            value="1">
+                                        <label class="form-check-label" for="warning-radio">มี</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                            name="specific_privacy_security_awareness" id="warning2-radio" value="0"
+                                            checked="">
+                                        <label class="form-check-label" for="warning2-radio">ไม่มี</label>
+                                    </div>
+                                    <%}%>
+                                        <label>
+                                            อธิบาย
+                                        </label>
+                        </div>
+                        <div class="col-md-5 d-flex justify-content-center align-items-center ">
+                            <textarea name="specific_privacy_security_awareness_explain"
+                                class="form-control"><%=specific[0].specific_privacy_security_awareness_explain%></textarea>
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-2">
+                        <div class="col-md-3 d-flex justify-content-end align-items-center">
+                            <label style="text-align: right;">
+                                การแจ้งนโยบายการแจ้งเตือนแนวปฏิบัติ Review and Revision (Where incident occurs)
+                            </label>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-between">
+                            <% if (specific[0].specific_where_incident_occurs==1) {%>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input success check-outline outline-success" type="radio"
+                                        name="specific_where_incident_occurs" id="primary-radio" value="1" checked="">
+                                    <label class="form-check-label" for="primary-radio">มี</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                        name="specific_where_incident_occurs" id="primary2-radio" value="0">
+                                    <label class="form-check-label" for="primary2-radio">ไม่มี</label>
+                                </div>
+                                <%}else { %>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input success check-outline outline-success"
+                                            type="radio" name="specific_where_incident_occurs" id="primary-radio"
+                                            value="1">
+                                        <label class="form-check-label" for="primary-radio">มี</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                            name="specific_where_incident_occurs" id="primary2-radio" value="0"
+                                            checked="">
+                                        <label class="form-check-label" for="primary2-radio">ไม่มี</label>
+                                    </div>
+                                    <%}%>
+                                        <label>
+                                            อธิบาย
+                                        </label>
+                        </div>
+                        <div class="col-md-5 d-flex justify-content-center align-items-center ">
+                            <textarea name="specific_where_incident_occurs_explain"
+                                class="form-control"><%=specific[0].specific_where_incident_occurs_explain%></textarea>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row mb-2">
+                        <div class="col-md-3 d-flex justify-content-end">
+                            ระยะเวลาทบทวนมาตรการ
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <div class="input-group">
+                                <input type="date" name="measures_date" class="form-control"
+                                    value="<%=specific[0].day_measures%>" required>
+                                <input type="number" name="measures_date_count" class="form-control" required
+                                    value="<%=specific[0].measures_date_count%>"
+                                    placeholder="กรุณาป้อนจำนวนระยะเวลา...">
+                                <span class="input-group-text">วัน</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-3 d-flex justify-content-end align-items-center">
+                            ผู้ดูแลข้อมูลหรือผู้ดูแลระบบหรือผู้ควบคุมมาตรการ
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <select class="select2 form-control" multiple="multiple" name="measures_supervisor"
+                                style="height: 36px;width: 100%;" required>
+
+                                <%if(account){for (var i=0; i < account.length; i++) { %>
+                                    <%if(specific[0].measures_supervisor.indexOf(account[i].acc_id)>
+                                        -1){ %>
+                                        <option value="<%=account[i].acc_id%>" selected>
+                                            <%=account[i].firstname%>
+                                                <%=account[i].lastname%>
+                                        </option>
+                                        <%}else{%>
+                                            <option value="<%=account[i].acc_id%>">
+                                                <%=account[i].firstname%>
+                                                    <%=account[i].lastname%>
+                                            </option>
+                                            <%}%>
+                                                <%}}%>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer" style="justify-content: center;">
+                        <div class="">
+                            <button type="submit" class="btn btn-success me-2">บันทึก</button>
+                            <a href="/<%=process.env.SUBFOLDER%>security/section/Specific-Measures"
+                                class="btn btn-secondary">ย้อนกลับ</a>
+                        </div>
+                        <%if (specific[0].measures_consult==1) {%>
+                            <input class="form-check-input success check-outline outline-success" type="hidden"
+                                id="success-outline-check" name="measures_consult" value="1" checked>
+                            <%}else {%>
+                                <input class="form-check-input success check-outline outline-success" value="0"
+                                    type="hidden" id="success-outline-check" name="measures_consult">
+                                <%}%>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="/UI/assets/libs/select2/dist/js/select2.full.min.js"></script>
+    <script src="/UI/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="/UI/dist/js/pages/forms/select2/select2.init.js"></script>
+    <%- include ("../_footer") %>

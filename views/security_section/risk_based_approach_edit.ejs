@@ -1,0 +1,658 @@
+<%- include ("../_header") %>
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-10 align-self-center">
+                <h3 class="page-title">เพิ่มมาตรการรักษาความปลอดภัย</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/<%=process.env.SUBFOLDER%>index2">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item">
+                                <a href="/<%=process.env.SUBFOLDER%>security/section/Risk-based-Approach">
+                                    มาตรการที่ต้องสามารถระบุความเสี่ยงที่สำ คัญที่อาจจะเกิด (Risk-based Approach)
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">เพิ่มมาตรการรักษาความปลอดภัย </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-2 d-flex justify-content-end align-items-center">
+                <a href="/<%=process.env.SUBFOLDER%>security/section/Risk-based-Approach"
+                    class="btn btn-secondary">ย้อนกลับ</a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="border-bottom title-part-padding">
+                <h4 class="card-title mb-0">
+                    <% if (approach[0].approach_heading_risk_based==1) {%>
+                        เเก้ไข มาตรการรักษาความมั่นคงปลอดภัยเกี่ยวกับทรัพย์สินสารสนเทศ (Information assets)
+                        <%}else {%>
+                            เเก้ไข มาตรการรักษาความมั่นคงปลอดภัยส่วนประกอบต่าง ๆ (Network and Equipment)
+                            <%}%>
+                </h4>
+            </div>
+            <div class="card-body">
+                <form action="/<%=process.env.SUBFOLDER%>Risk-based-Approach/edit/save" method="post">
+                    <input type="hidden" name="id" value="<%=approach[0].approach_id%>,<%=approach[0].measures_id%>">
+                    <div class="row mb-2">
+                        <div class="col-md-3  justify-content-end align-items-center d-flex ">
+                            ชื่อทรัพย์สินสารสนเทศ
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <select name="assets_id" class="form-control" id="select_assets">
+                                <%for (let i=0;i<assets.length;i++){%>
+                                    <%if (assets[i].assets_id==approach[0].assets_id) {%>
+                                        <option value="<%=assets[i].assets_id%>" selected>
+                                            <%=assets[i].assets_name%>
+                                        </option>
+                                        <%} else {%>
+                                            <option value="<%=assets[i].assets_id%>">
+                                                <%=assets[i].assets_name%>
+                                            </option>
+                                            <%}%>
+                                                <%}%>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3  justify-content-end align-items-center d-flex ">
+                            หัวเรื่อง มาตรการที่ต้องสามารถระบุความเสี่ยงที่สำคัญที่อาจจะเกิด
+                            (Risk-based Approach)
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <% if (approach[0].approach_heading_risk_based==1) {%>
+                                <input type="text" class="form-control"
+                                    value=" มาตรการรักษาความมั่นคงปลอดภัยเกี่ยวกับทรัพย์สินสารสนเทศ (Information assets)"
+                                    readonly>
+                                <input type="hidden" class="form-control" name="approach_heading_risk_based" value="1"
+                                    readonly>
+                                <%}else {%>
+                                    <input type="text" class="form-control"
+                                        value="มาตรการรักษาความมั่นคงปลอดภัยส่วนประกอบต่าง ๆ (Network and  Equipment)"
+                                        readonly>
+                                    <input type="hidden" class="form-control" name="approach_heading_risk_based"
+                                        value="2" readonly>
+                                    <%}%>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3 d-flex justify-content-end">
+                            ชื่อมาตราการ
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <input type="text" name="measures_section_name" class="form-control" required
+                                value="<%=approach[0].measures_section_name%>">
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3 d-flex justify-content-end">
+                            คำอธิบาย / รายละเอียด
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <textarea name="measures_detail" id="" cols="65" rows="8" class="form-control"
+                                required><%=approach[0].measures_detail%></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3 d-flex justify-content-end align-content-center">
+                            เอกสารPDPA
+                        </div>
+                        <div class="col-md-6 d-flex align-content-center">
+                            <div class="input-group">
+                                <select name="doc_id" class="select2 form-control" multiple="multiple"
+                                    style="height: 36px;width: 100%;">
+                                    <% for (let i=0;i<doc.length;i++){%>
+                                        <option value="<%=doc[i].doc_id%>" <option value="<%=doc[i].doc_id%>" <% for
+                                            (let j=0;j<doc_id_name.length;j++){%>
+                                            <%if (doc_id_name[j]==doc[i].doc_id) {%>
+                                                selected <%}%>
+                                                    <%}%> >
+                                                        <%=doc[i].doc_name%>
+                                        </option>
+                                        <%}%>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3 d-flex justify-content-end">
+                            ระยะเวลาทบทวนมาตรการ
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <div class="input-group">
+                                <input type="date" name="measures_date" class="form-control"
+                                    value="<%=approach[0].day%>" required>
+                                <input type="number" name="measures_date_count" class="form-control"
+                                    value="<%=approach[0].measures_date_count%>" required
+                                    placeholder="กรุณาป้อนจำนวนระยะเวลา...">
+                                <span class="input-group-text">วัน</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--มาตรการรักษาความมั่นคงปลอดภัยเกี่ยวกับ ทรัพย์สินสารสนเทศ (Information assets) -->
+                    <% if (approach[0].approach_heading_risk_based==1) {%>
+                        <div id="Defense_Depth_div">
+                            <div class="row mb-2">
+                                <div class="col-md-3 d-flex justify-content-end align-items-center">
+                                    <label style="font-size: 13px;text-align: right;">
+                                        <font class="font-16">
+                                            ความลับ (confidentiality)
+                                        </font>
+                                        <br>
+                                        การควบคุมการเข้าถึงข้อมูลเฉพาะผู้ที่ได้รับอนุญาติเครื่องมือสำคัญได้แก่นโยบายกำหนดชั้นข้อมูล
+                                        (classification policy) เพื่อกำหนดประเภทของข้อมูลและประเภทของบุคคลที่จะเข้าถึง
+                                    </label>
+                                </div>
+                                <div class="col-md-2 d-flex align-items-center justify-content-between">
+                                    <%if (approach[0].approach_confidentiality==1) {%>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input success check-outline outline-success"
+                                                type="radio" name="approach_confidentiality" id="warning-outline-radio"
+                                                value="1" checked="">
+                                            <label class="form-check-label" for="warning-outline-radio">มี</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input danger check-outline outline-danger"
+                                                type="radio" name="approach_confidentiality" id="warning2-outline-radio"
+                                                value="0">
+                                            <label class="form-check-label" for="warning2-outline-radio">ไม่มี</label>
+                                        </div>
+                                        <%}else {%>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input success check-outline outline-success"
+                                                    type="radio" name="approach_confidentiality"
+                                                    id="warning-outline-radio" value="1">
+                                                <label class="form-check-label" for="warning-outline-radio">มี</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input danger check-outline outline-danger"
+                                                    type="radio" name="approach_confidentiality"
+                                                    id="warning2-outline-radio" value="0" checked="">
+                                                <label class="form-check-label"
+                                                    for="warning2-outline-radio">ไม่มี</label>
+                                            </div>
+                                            <%}%>
+                                                <label>
+                                                    อธิบาย
+                                                </label>
+                                </div>
+                                <div class="col-md-5 d-flex justify-content-center align-items-center ">
+                                    <textarea name="approach_confidentiality_explain"
+                                        class="form-control text-left"><%=approach[0].approach_confidentiality_explain%></textarea>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-3 d-flex justify-content-end align-items-center">
+                                    <label style="font-size: 13px;text-align: right;">
+                                        <font class="font-16">
+                                            ความถูกต้องครบถ้วน (integrity)
+                                        </font>
+                                        <br>
+                                        การควบคุมการแก้ไขข้อมูลโดยเครื่องมือสำคัญ ได้แก่
+                                        นโยบายแบ่งแยกหน้าที่ (separation of duty)
+                                        ให้มีผู้ปฏิบัติงานถ่วงดุลตรวจสอบกัน
+                                    </label>
+                                </div>
+                                <div class="col-md-2 d-flex align-items-center justify-content-between">
+                                    <%if (approach[0].approach_integrity==1) {%>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input success check-outline outline-success"
+                                                type="radio" id="success-outline-radio-5" name="approach_integrity"
+                                                value="1" checked="">
+                                            <label class="form-check-label" for="success-outline-radio-5">มี</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input danger check-outline outline-danger"
+                                                type="radio" id="danger2-outline-radio" name="approach_integrity"
+                                                value="0">
+                                            <label class="form-check-label" for="danger2-outline-radio">ไม่มี</label>
+                                        </div>
+                                        <%}else {%>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input success check-outline outline-success"
+                                                    type="radio" id="success-outline-radio-5" name="approach_integrity"
+                                                    value="1">
+                                                <label class="form-check-label" for="success-outline-radio-5">มี</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input danger check-outline outline-danger"
+                                                    type="radio" id="danger2-outline-radio" name="approach_integrity"
+                                                    value="0" checked="">
+                                                <label class="form-check-label"
+                                                    for="danger2-outline-radio">ไม่มี</label>
+                                            </div>
+                                            <%}%>
+
+                                                <label>
+                                                    อธิบาย
+                                                </label>
+                                </div>
+                                <div class="col-md-5 d-flex justify-content-center align-items-center ">
+                                    <textarea name="approach_integrity_explain"
+                                        class="form-control"><%=approach[0].approach_integrity_explain%></textarea>
+                                </div>
+                            </div>
+
+                            <div class="row mb-2">
+                                <div class="col-md-3 d-flex justify-content-end align-items-center">
+                                    <label style="font-size: 13px;text-align: right;">
+                                        <font class="font-16">
+                                            สภาพพร้อมใช้งาน (availability)
+                                        </font>
+                                        <br>
+                                        การควบคุมการหยุดชะงักของระบบให้ใช้งานได้อย่างต่อเนื่องโดยเครื่องมือสำคัญ ได้แก่
+                                        แผนฉุกเฉิน
+                                        (contingencyplanning)
+
+                                    </label>
+                                </div>
+                                <div class="col-md-2 d-flex align-items-center justify-content-between">
+                                    <%if (approach[0].approach_availability==1) {%>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input success check-outline outline-success"
+                                                type="radio" name="approach_availability" id="primary-outline-radio"
+                                                value="1" checked="">
+                                            <label class="form-check-label" for="primary-outline-radio">มี</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input danger check-outline outline-danger"
+                                                type="radio" name="approach_availability" id="primary2-outline-radio"
+                                                value="0">
+                                            <label class="form-check-label" for="primary2-outline-radio">ไม่มี</label>
+                                        </div>
+                                        <%}else {%>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input success check-outline outline-success"
+                                                    type="radio" name="approach_availability" id="primary-outline-radio"
+                                                    value="1">
+                                                <label class="form-check-label" for="primary-outline-radio">มี</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input danger check-outline outline-danger"
+                                                    type="radio" name="approach_availability"
+                                                    id="primary2-outline-radio" value="0" checked="">
+                                                <label class="form-check-label"
+                                                    for="primary2-outline-radio">ไม่มี</label>
+                                            </div>
+                                            <%}%>
+
+                                                <label>
+                                                    อธิบาย
+                                                </label>
+                                </div>
+                                <div class="col-md-5 d-flex justify-content-center align-items-center ">
+                                    <textarea name="approach_availability_explain"
+                                        class="form-control"><%=approach[0].approach_availability_explain%></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <%}else {%>
+                            <!--มาตรการรักษาความมั่นคงปลอดภัยเกี่ยวกับ ทรัพย์สินสารสนเทศ (Information assets) -->
+                            <div id="Measure_Depth_Div">
+                                <div class="row mb-2">
+                                    <div class="col-md-3 d-flex justify-content-end align-items-center">
+                                        <label style="text-align: right;">
+                                            หลักการป้องกันเชิงลึก (defense in depth)
+                                        </label>
+                                    </div>
+                                    <div class="col-md-2 d-flex align-items-center justify-content-between">
+                                        <%if (approach[0].approach_defense_principles==1) {%>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input success check-outline outline-success"
+                                                    type="radio" onchange="show_h(this.value)"
+                                                    id="success-outline-radio" name="approach_defense_principles"
+                                                    value="1" checked="">
+                                                <label class="form-check-label" for="success-outline-radio">มี</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input danger check-outline outline-danger"
+                                                    type="radio" onchange="show_h(this.value)"
+                                                    id="success2-outline-radio" name="approach_defense_principles"
+                                                    value="0">
+                                                <label class="form-check-label"
+                                                    for="success2-outline-radio">ไม่มี</label>
+                                            </div>
+                                            <%}else {%>
+                                                <div class="form-check form-check-inline">
+                                                    <input
+                                                        class="form-check-input success check-outline outline-success"
+                                                        type="radio" onchange="show_h(this.value)"
+                                                        id="success-outline-radio" name="approach_defense_principles"
+                                                        value="1">
+                                                    <label class="form-check-label"
+                                                        for="success-outline-radio">มี</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input danger check-outline outline-danger"
+                                                        type="radio" onchange="show_h(this.value)"
+                                                        id="success2-outline-radio" name="approach_defense_principles"
+                                                        value="0" checked="">
+                                                    <label class="form-check-label"
+                                                        for="success2-outline-radio">ไม่มี</label>
+                                                </div>
+                                                <%}%>
+
+                                    </div>
+                                </div>
+                                <%if (approach[0].approach_defense_principles==1) {%>
+                                    <div class="row mb-2" id="depth_id_defense_show">
+                                        <%}else {%>
+                                            <div class="row mb-2" id="depth_id_defense_show" style="display: none;">
+                                                <%}%>
+
+                                                    <div class="col-md-3 d-flex justify-content-end align-items-center">
+                                                        <label style="text-align: right;">
+                                                            หลักการป้องกันเชิงลึก
+                                                        </label>
+                                                    </div>
+                                                    <div
+                                                        class="col-md-5 d-flex align-items-center justify-content-between">
+                                                        <select name="depth_id_defense" class="select2 form-control"
+                                                            multiple="multiple" style="height: 36px;width: 100%;"
+                                                            id="Defense-Depth">
+                                                            <%for (let j=0; j < depth.length; j++) { %>
+                                                                <option value="<%=depth[j].depth_id%>" <%for (let k=0;
+                                                                    k<arr_new.length;k++){%>
+                                                                    <%if (arr_new[k]==depth[j].depth_id &&
+                                                                        depth[j].depth_type==1){%>
+                                                                        selected
+                                                                        <%}%>
+                                                                            <%}%>
+                                                                                >
+                                                                                <%=depth[j].depth_name%>
+                                                                </option>
+
+                                                                <%}%>
+
+                                                        </select>
+                                                    </div>
+                                                    <div
+                                                        class="col-md-3 d-flex align-items-center justify-content-between">
+                                                        <label for="">เลือกชั้น(เพิ่มได้หลายชั้น) </label>
+                                                    </div>
+                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-md-3 d-flex justify-content-end align-items-center">
+                                                    <label style="text-align: right;">
+                                                        อธิบาย
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-5 d-flex align-items-center">
+                                                    <textarea name="approach_defense_principles_explain"
+                                                        class="form-control"><%=approach[0].approach_defense_principles_explain%></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-2">
+                                                <div class="col-md-3 d-flex justify-content-end align-items-center">
+                                                    <label style="text-align: right;">
+                                                        มาตรการป้องกันหลายชั้น
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-2 d-flex align-items-center justify-content-between">
+                                                    <%if (approach[0].approach_defense_protection==1) {%>
+                                                        <div class="form-check form-check-inline">
+                                                            <input
+                                                                class="form-check-input success check-outline outline-success"
+                                                                type="radio" id="success-outline-radio"
+                                                                name="approach_defense_protection"
+                                                                onchange="show_h_2(this.value)" value="1" checked="">
+                                                            <label class="form-check-label"
+                                                                for="success-outline-radio">มี</label>
+                                                        </div>
+                                                        <div class="form-check form-check-inline">
+                                                            <input
+                                                                class="form-check-input danger check-outline outline-danger"
+                                                                type="radio" onchange="show_h_2(this.value)"
+                                                                id="success2-outline-radio"
+                                                                name="approach_defense_protection" value="0">
+                                                            <label class="form-check-label"
+                                                                for="success2-outline-radio">ไม่มี</label>
+                                                        </div>
+                                                        <%}else {%>
+                                                            <div class="form-check form-check-inline">
+                                                                <input
+                                                                    class="form-check-input success check-outline outline-success"
+                                                                    type="radio" id="success-outline-radio"
+                                                                    name="approach_defense_protection"
+                                                                    onchange="show_h_2(this.value)" value="1">
+                                                                <label class="form-check-label"
+                                                                    for="success-outline-radio">มี</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input
+                                                                    class="form-check-input danger check-outline outline-danger"
+                                                                    type="radio" id="success2-outline-radio"
+                                                                    name="approach_defense_protection"
+                                                                    onchange="show_h_2(this.value)" value="0"
+                                                                    checked="">
+                                                                <label class="form-check-label"
+                                                                    for="success2-outline-radio">ไม่มี</label>
+                                                            </div>
+                                                            <%}%>
+                                                </div>
+                                            </div>
+                                            <%if (approach[0].approach_defense_protection==1) {%>
+                                                <div class="row mb-2" id="depth_id_measures_show">
+                                                    <%}else {%>
+                                                        <div class="row mb-2" id="depth_id_measures_show"
+                                                            style="display: none;">
+                                                            <%}%>
+                                                                <div class="row mb-2" id="depth_id_measures_show">
+                                                                    <div
+                                                                        class="col-md-3 d-flex justify-content-end align-items-center">
+                                                                        <label style="text-align: right;">
+                                                                            เลือกมาตรการป้องกันเชิงลึก
+                                                                        </label>
+                                                                    </div>
+                                                                    <div
+                                                                        class="col-md-5 d-flex align-items-center justify-content-between">
+                                                                        <select name="depth_id_measures"
+                                                                            class="select2 form-control"
+                                                                            multiple="multiple"
+                                                                            style="height: 36px;width: 100%;"
+                                                                            id="Measure_Depth">
+                                                                            <%for (let j=0; j < depth.length; j++) { %>
+                                                                                <option value="<%=depth[j].depth_id%>"
+                                                                                    <%for (let k=0;
+                                                                                    k<arr_new.length;k++){%>
+                                                                                    <%if (arr_new[k]==depth[j].depth_id
+                                                                                        && depth[j].depth_type==2){%>
+                                                                                        selected
+                                                                                        <%}%>
+                                                                                            <%}%>
+                                                                                                >
+                                                                                                <%=depth[j].depth_name%>
+                                                                                </option>
+
+                                                                                <%}%>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div
+                                                                        class="col-md-3 d-flex align-items-center justify-content-between">
+                                                                        <label
+                                                                            for="">วิธีการป้องกัน(เพิ่มได้หลายวิธี)</label>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row mb-2">
+                                                                    <div
+                                                                        class="col-md-3 d-flex justify-content-end align-items-center">
+                                                                        <label style="text-align: right;">
+                                                                            อธิบาย
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="col-md-5 d-flex align-items-center">
+                                                                        <textarea
+                                                                            name="approach_defense_protection_explain"
+                                                                            class="form-control"><%=approach[0].approach_defense_protection_explain%></textarea>
+                                                                    </div>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                                <%}%>
+
+
+                                                    <div class="row mb-2">
+                                                        <div
+                                                            class="col-md-3 d-flex justify-content-end align-items-center">
+                                                            ผู้ดูแลข้อมูลหรือผู้ดูแลระบบหรือผู้ควบคุมมาตรการ
+                                                        </div>
+                                                        <div class="col-md-6 d-flex align-items-center">
+                                                            <select class="select2 form-control" multiple="multiple"
+                                                                name="measures_supervisor"
+                                                                style="height: 36px;width: 100%;" required>
+
+                                                                <%if(account){for (var i=0; i < account.length; i++) {
+                                                                    %>
+                                                                    <%if(approach[0].measures_supervisor.indexOf(account[i].acc_id)>
+                                                                        -1){ %>
+                                                                        <option value="<%=account[i].acc_id%>" selected>
+                                                                            <%=account[i].firstname%>
+                                                                                <%=account[i].lastname%>
+                                                                        </option>
+                                                                        <%}else{%>
+                                                                            <option value="<%=account[i].acc_id%>">
+                                                                                <%=account[i].firstname%>
+                                                                                    <%=account[i].lastname%>
+                                                                            </option>
+                                                                            <%}%>
+                                                                                <%}}%>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="modal-footer" style="justify-content: center;">
+                                                        <div class="">
+                                                            <button type="submit"
+                                                                class="btn btn-success me-2">บันทึก</button>
+                                                            <a href="/<%=process.env.SUBFOLDER%>security/section/Risk-based-Approach"
+                                                                class="btn btn-secondary">ยกเลิก</a>
+                                                        </div>
+                                                        <%if (approach[0].measures_consult==1) {%>
+                                                            <input
+                                                                class="form-check-input success check-outline outline-success"
+                                                                type="hidden" id="success-outline-check"
+                                                                name="measures_consult" value="1" checked disabled>
+                                                            <%}else {%>
+                                                                <input
+                                                                    class="form-check-input success check-outline outline-success"
+                                                                    value="0" type="hidden" id="success-outline-check"
+                                                                    name="measures_consult" disabled>
+                                                                <%}%>
+
+                                                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="level-up" class="modal fade" tabindex="-1" aria-labelledby="info-header-modalLabel" aria-modal="true"
+        role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h4 class="modal-title" id="info-header-modalLabel">
+                        เพิ่มระดับชั้น
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/<%=process.env.SUBFOLDER%>Risk-based-Approach/add" method="POST">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4 d-flex justify-content-start">
+                                หลักการป้องกันเชิงลึก
+                            </div>
+                            <div class="col-md-8 d-flex justify-content-center">
+                                <input type="text" name="depth_type_level_up" id="" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-success font-weight-medium">ยืนยัน</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="Add-measure" class="modal fade" tabindex="-1" aria-labelledby="info-header-modalLabel" aria-modal="true"
+        role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h4 class="modal-title" id="info-header-modalLabel">
+                        เพิ่มมาตรการป้องกัน
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/<%=process.env.SUBFOLDER%>Risk-based-Approach/add" method="POST">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4 d-flex justify-content-start">
+                                มาตรการป้องกันเชิงลึก
+                            </div>
+                            <div class="col-md-8 d-flex justify-content-center">
+                                <input type="text" name="depth_type_measures" id="" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-success font-weight-medium">ยืนยัน</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="/UI/assets/libs/select2/dist/js/select2.full.min.js"></script>
+    <script src="/UI/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="/UI/dist/js/pages/forms/select2/select2.init.js"></script>
+
+    <script>
+
+        $('#head_approach').on('change', async function () {
+            let Defense_Depth_div = document.getElementById("Defense_Depth_div")
+            let Measure_Depth_Div = document.getElementById("Measure_Depth_Div")
+            if ($(this).val() == '1') {
+                Defense_Depth_div.style.display = ""
+                Measure_Depth_Div.style.display = "none"
+                console.log(Defense_Depth_div);
+            } else {
+                Defense_Depth_div.style.display = "none"
+                Measure_Depth_Div.style.display = ""
+                Measure_Depth_Div.getElementsByTagName('select')[0].required = false
+                Measure_Depth_Div.getElementsByTagName('select')[1].required = false
+            }
+        })
+
+        function show_h(data) {
+            if (data == 1) {
+                document.getElementById('depth_id_defense_show').style.display = '';
+            } else {
+                document.getElementById('depth_id_defense_show').style.display = 'none';
+            }
+
+        }
+        function show_h_2(data) {
+            if (data == 1) {
+                document.getElementById('depth_id_measures_show').style.display = '';
+            } else {
+                document.getElementById('depth_id_measures_show').style.display = 'none';
+            }
+
+        }
+        let check_default = document.getElementsByName('approach_defense_principles').value;
+        console.log(check_default);
+
+
+    </script>
+    <%- include ("../_footer") %>

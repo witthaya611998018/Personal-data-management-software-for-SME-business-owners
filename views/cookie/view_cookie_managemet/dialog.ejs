@@ -1,0 +1,571 @@
+<%- include ("../../_header") %>
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">จัดการเนื้อหา Cookie</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/management/cookies">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">จัดการเนื้อหา Cookie</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-7 justify-content-end align-self-center d-none d-md-flex">
+                <div class="me-2">
+                    <a href="/management/cookies" class="btn btn-secondary ">ย้อนกลับ</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid">
+        <!-- <%- JSON.stringify(domaingroup) %> -->
+        <div class="card">
+            <div class="border-bottom title-part-padding">
+                <h4 class="card-title mb-0">จัดการเนื้อหา Cookie</h4>
+            </div>
+            <div class="card-body">
+                <div class="mb-2 row">
+                    <div class="col-2" style="font-weight: bold;">
+                        <label for="domainname">ชื่อโดเมน:</label>
+                    </div>
+                    <div class="col-md-6 control-label col-form-label">
+                        <label for="domainname">
+                            <%=domaingroup.namedomain_dg%>
+                        </label>
+                    </div>
+                </div>
+                <div class="mb-2 row">
+                    <div class="col-2" style="font-weight: bold;">
+                        <label for="domainname">ขื่อคุกกี้:</label>
+                    </div>
+                    <div class="col-md-6 control-label col-form-label">
+                        <label for="domainname">
+                            <%=domaingroup.name_cookie%>
+                        </label>
+                    </div>
+                </div>
+                <div class="mb-2 row">
+                    <div class="col-2" style="font-weight: bold;">
+                        <label for="domainname">หมายเหตุ</label>
+                    </div>
+                    <div class="col-md-6 control-label col-form-label">
+                        <label for="domainname">
+                            <%=domaingroup.message%>
+                        </label>
+                    </div>
+                </div>
+                <div class="mb-2 row">
+                    <div class="col-2" style="font-weight: bold;">
+                        <label for="domainname">สถานะ</label>
+                    </div>
+                    <div class="col-md-6 control-label col-form-label">
+                        <%if (domaingroup.status_name=="Cookies ร่าง" ) {%>
+                            <label for="domainname" style="color:#868e96;">
+                                <%=domaingroup.status_name%>
+                            </label>
+                            <%} else if (domaingroup.status_name=="Cookies ใช้งาน" ){%>
+                                <label for="domainname" style="color:#39c449;">
+                                    <%=domaingroup.status_name%>
+                                </label>
+                                <%}else {%>
+                                    <label for="domainname" style="color:#f74d6b;">
+                                        <%=domaingroup.status_name%>
+                                    </label>
+                                    <%}%>
+                    </div>
+                </div>
+                <hr>
+                <form action="/Savedialogs" method="post">
+                    <input type="text" name="id_dg" value="<%=domaingroup.id_dg%>" hidden>
+                    <input type="text" name="id_st" value="<%=domaingroup.id_st%>" hidden>
+                    <input type="text" name="id_dl" value="<%=domaingroup.id_dl%>" hidden>
+                    <input type="text" name="id_dsp" value="<%=domaingroup.id_dsp%>" hidden>
+                    <input type="text" value="<%=domaingroup.detail_dialog%>" id="rehistory_data" hidden>
+                    <textarea id="cookiepolicy" hidden><%- JSON.stringify(cookiepolicy) %></textarea>
+                    <div class="row">
+                        <div class="col-10">
+                            <!-- <button id="save" class="btn btn-info" type="button"
+                                onclick="save_dialog()">เเสดงตัวอย่าง</button> -->
+                            <div class="card-body">
+                                <textarea name="dialogs" id="dialogs"><%=domaingroup.detail_dialog%></textarea>
+                            </div>
+                        </div>
+                        <div class="col-2" style="display:grid;align-items: center;">
+                            <div>
+                                <div>
+                                    <i class="fas fa-history" style="color: #009efb;font-size: 30px;"
+                                        id="rehistory"></i>
+                                    <label class="form-check-label " for="rehistory">กลับไปค่าล่าสุด</label>
+                                </div>
+                                <br>
+                                <div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="default"
+                                            id="flexCheckDefault" style="background-color: rgb(196, 196, 196);">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            บันทึกเป็นค่าเริ่มต้น
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h4 style="color: rgb(56, 223, 223);">เเสดงตัวอย่าง</h4>
+                    <!-- <div class="card">
+                        <div class="card-body">
+                            <div id="banner" class="btn <%=domaingroup.nameclass%>">
+
+                                <div id="Preview-banner" <%if(domaingroup.height){%>style="height:
+                                    <%=domaingroup.height%>px;"<%}%> >
+                                </div>
+                                <div style="text-align: right;margin-top: 2px;">
+                                    <a style="color: rgb(56, 223, 223);font-size: 13px;">เลือกประเภทคุกกี้</a>
+                                    <button type="button" class="btn btn-success">ยอมรับ</button>
+                                    <button type="button" class="btn btn-danger">ไม่ยอมรับ</button>
+                                </div>
+                                <textarea class="form-control" value="<%=domaingroup.dialog_dg%>" id="dialogs-Preview"
+                                    hidden></textarea>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="col">
+                        <div class="card">
+                            <div id="banner" class="card-body row  <%=domaingroup.nameclass%>"
+                                style="border: #000 1px solid; border-radius: 20px;">
+                                <div class="col-1"
+                                    style="display: flex;align-items: center;justify-content: flex-start;">
+                                    <img src="<%=url_cookie%>" style="width: 100px;">
+                                </div>
+                                <div class="col-8">
+                                    <div id="Preview-banner"> </div>
+                                </div>
+                                <div class="col-3" style="display: flex;align-items: end;justify-content: flex-end;">
+                                    <button type="button" class="btn btn-secondary me-2">ตั้งค่าคุกกี้</button>
+                                    <button type="button" class="btn btn-info">ยอมรับทั้งหมด</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="row pb-3">
+                        <div class="col-md-2">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="CheckedBannerCookie">
+                                <label class="form-check-label" for="CheckedBannerCookie">ปรับเเต่ง Banner
+                                    Cookie</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4  d-block d-md-flex">
+                            <div class="input-group mb-2 align-items-center">
+                                <input id="demo" type="number" name="height" min="100" max="300" class="form-control"
+                                    value="<%=domaingroup.height%>" style="margin-right: 10px;" disabled>
+                                <label class="form-label"> ปรับความสูง Banner Cookie (px)</label>
+                            </div>
+                        </div>
+                    </div> -->
+
+
+                    <div class="row">
+                        <!-- <div class="col-7"> -->
+                        <h4>Theme</h4>
+                        <!-- </div> -->
+                        <!-- <div class="col-4">
+                            <h4>ตำเเหน่ง</h4>
+                        </div> -->
+                        <div class="col-5">
+                            <div class="card">
+                                <div class="card-body" id="Theme">
+                                    <div class="row">
+                                        <div class="col" style="text-align: center;">
+                                            <div class="circum-color-theme-ready" id="light-theme-circum">
+                                                <button type="button" class="btn btn-secondary"
+                                                    style="width: 90%;height: 40px;"
+                                                    onclick="ChiangthemeLight()"></button>
+                                                <label>Light Theme</label>
+                                            </div>
+                                        </div>
+                                        <div class="col" style="text-align: center;">
+                                            <div class="circum-color-theme-ready" id="dark-theme-circum">
+                                                <button type="button" class="btn btn-dark" name="dark"
+                                                    style="width: 90%;height: 40px;"
+                                                    onclick="chiangthemedark()"></button>
+                                                <label>Dark Theme</label>
+                                                <input type="text" name="class" value="<%=domaingroup.nameclass%>"
+                                                    hidden id="dark">
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-6">
+                                                <div class="circum-color-theme-ready" id="color-theme-circum">
+                                                    <div class="row">
+                                                        <div class="col" style="text-align: center;">
+                                                            <button type="button" class="btn btn-success"
+                                                                id="button-color" style="width: 90%;height: 40px;"
+                                                                onclick="chiangthemecolor()">
+                                                            </button>
+                                                            <br>
+                                                            <label>Color Theme</label>
+                                                        </div>
+                                                        <div class="col" style="text-align: left;">
+                                                            <input type="text" class="form-control" style="width:100%;"
+                                                                id="input-color-theme" onclick="chiangthemecolor()"
+                                                                onkeyup="keyupColortheme()">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-4">
+                            <div class="card">
+                                <div class="card-body" id="location">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="circum-color-ready" id="color-under">
+                                                <button type="button" class="form-control button-height"
+                                                    onclick="under()">
+                                                    <a class="form-control" id="location-buttom"></a>
+                                                </button>
+                                                <h5>ด้านล่าง</h5>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="circum-color-ready" id="color-tops">
+                                                <button type="button" class="form-control button-height"
+                                                    onclick="tops()">
+                                                    <a class="form-control" id="location-top"></a>
+                                                </button>
+                                                <h5>ด้านบน</h5>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="" id="color-middle">
+                                                <button type="button" class="form-control button-height"
+                                                    onclick="middle()">
+                                                    <a class="form-control" id="location-center"></a>
+                                                </button>
+                                                <h5>ตรงกลาง</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input name="namelocation" value="<%=domaingroup.namelocation%>" hidden
+                                        id="location-database">
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+
+                    <h4 style="color: rgb(56, 223, 223);">ปรับเเต่งค่าประเภทคุกกี้</h4>
+                    <div class="mt-3 row">
+                        <!-- <div class="col-2">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="Check_cookiepolicy">
+                                <label class="form-check-label">ปรับเเต่ง </label>
+                            </div>
+                        </div> -->
+                        <!-- <div class="col-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="flexCheckDefault-cookieType"
+                                    name="approve_cookieType" style="background-color: rgb(196, 196, 196);">
+                                <label class="form-check-label" for="flexCheckDefault-cookieType">
+                                    บันทึกเป็นค่าเริ่มต้น
+                                </label>
+                            </div>
+                        </div> -->
+                        <div class="col-5">
+                            <i class="fas fa-history" style="color: #009efb;font-size: 25px;"
+                                id="rehistory_cookiepolicy"></i>
+                            <label class="form-check-label " for="rehistory_cookiepolicy"> กลับไปค่าล่าสุด</label>
+                        </div>
+                    </div>
+                    <% if(cookiepolicy){ %>
+                        <% for(var i=0;i< cookiepolicy.length;i++) {%>
+                            <input type="text" name="id_dsc" value="<%=cookiepolicy[i].id_dsc%>" hidden>
+                            <div class="cookie-policy">
+                                <div class="row ">
+                                    <div class="col-2">
+                                        <input class="form-control type-cookie text-center enable_disable" disabled
+                                            name="name_cp" id="name_cp_<%=cookiepolicy[i].id_dsc%>"
+                                            onkeyup="keyuptype('<%=cookiepolicy[i].id_dsc%>')"
+                                            value="<%=cookiepolicy[i].name_cookietype%>">
+                                    </div>
+                                    <div class="col-8">
+                                        <textarea class="form-control enable_disable" disabled
+                                            onkeyup="keyupcontent('<%=cookiepolicy[i].id_dsc%>')"
+                                            id="content_<%=cookiepolicy[i].id_dsc%>"
+                                            name="detail_policy"><%=cookiepolicy[i].detail_cookie%></textarea>
+                                    </div>
+                                    <div class="col-2 d-flex justify-content-between align-items-center">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input check_class enable_disable" type="checkbox"
+                                                name="approve_cp" value="<%=cookiepolicy[i].id_dsc%>"
+                                                id="active_<%=cookiepolicy[i].id_dsc%>"
+                                                onclick="activeCheck('<%=cookiepolicy[i].id_dsc%>')"
+                                                <%if(cookiepolicy[i].approve==1){%>
+                                            checked<%}%>>
+                                                <label class="form-check-label check_label"
+                                                    id="label_<%=cookiepolicy[i].id_dsc%>"><b>
+                                                        <%if(cookiepolicy[i].approve==1){%> Active
+                                                            <%}else{%><b style="color: red;">No
+                                                                    active</b>
+                                                                <%}%>
+                                                    </b></label>
+                                        </div>
+                                        <div class="form-check me-4">
+                                            <input class="form-check-input" type="checkbox"
+                                                value="<%=cookiepolicy[i].id_dsc%>"
+                                                onclick="activeCheck_show('<%=cookiepolicy[i].id_dsc%>','<%=i%>')"
+                                                name="check_show" id="show_<%=cookiepolicy[i].id_dsc%>"
+                                                <%if(cookiepolicy[i].check_show==0){%>
+                                            checked<%}%>
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                    ปิด
+                                                </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <%}%>
+                                <% }%>
+                                    <br>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-2 ">
+                                            <label style="font-weight: bold;">เลือกนโยบายคุกกี้:</label>
+                                        </div>
+                                        <div class="col form-group">
+                                            <select class=" mr-sm-2 form-control" id="policy" name="doc_id"
+                                                data-href="<%=doc%>">
+                                                <option selected value="#javascript:void(0)">เลือกนโยบายคุกกี้...
+                                                </option>
+                                                <%if (document) {%>
+                                                    <%for (var i=0;i<document.length;i++){%>
+                                                        <% if (domaingroup.doc_id===document[i].doc_id) {%>
+                                                            <option selected value="<%=document[i].doc_id%>">
+                                                                <%=document[i].doc_name%>
+                                                            </option>
+                                                            <%} else { %>
+                                                                <option value="<%=document[i].doc_id%>">
+                                                                    <%=document[i].doc_name%>
+                                                                </option>
+                                                                <% }%>
+                                                                    <%}%>
+                                                                        <%}%>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <h4 style="color: rgb(56, 223, 223);margin-top: 1%;">เเสดงตัวอย่าง</h4>
+                                    <div class="card mt-3">
+                                        <div class="row card-body">
+                                            <div id="alltra_cookie_consent_popup">
+                                                <div class="alltra_cookie_consent_preference_popup">
+                                                    <div id="lcc_setting">
+                                                        <div class="lcc_setting_header">
+                                                            <b class="custom_font">
+                                                                ตั้งค่าความเป็นส่วนตัว
+                                                            </b>
+                                                            <div class="close_link"></div>
+                                                        </div>
+                                                        <div class="lcc_setting_body">
+                                                            <a href="<%=cookie_policy%>" target="_blank"
+                                                                id="preview_cookie_policy" class="lcc_profile">
+                                                                <div style="flex-grow: 1">
+                                                                    <img src="<%=url_robot%>" width="50" height="50">
+                                                                    <b>Cookie Policy (นโยบายคุ้กกี้)</b>
+                                                                    <span class="minor">
+                                                                        <%=domaingroup.namedomain_dg%>
+                                                                    </span>
+                                                                    <div class="clear"></div>
+                                                                </div>
+                                                                <div class="bullet"></div>
+                                                            </a>
+                                                            <P></P>
+                                                            <div class="cookie-flexLR">
+                                                                <label>กำหนดความยินยอมคุกกี้</label>
+                                                                <div class="cookie-all-button">
+                                                                    <div class="reject_button custom_font">
+                                                                        ไม่ยอมรับทั้งหมด</div>
+                                                                    <div class="accept_button custom_font">
+                                                                        ยอมรับทั้งหมด</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="lcc_setting_type">
+                                                                <% for(var i=0;i<cookiepolicy.length;i++) {%>
+                                                                    <% if(cookiepolicy[i].check_show==1){ %>
+                                                                        <div class="setting" id="preview_show_<%=i%>">
+                                                                            <div>
+                                                                                <div class="title"
+                                                                                    onclick="title_text(this)">
+                                                                                    <span class="bullet"></span>
+                                                                                    <font
+                                                                                        id="name_cp_preview_<%=cookiepolicy[i].id_dsc%>">
+                                                                                        <%=cookiepolicy[i].name_cookietype%>
+                                                                                    </font>
+                                                                                </div>
+                                                                                <div class="desc"
+                                                                                    id="content_preview_<%=cookiepolicy[i].id_dsc%>">
+                                                                                    <%=cookiepolicy[i].detail_cookie%>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="setting_switch">
+                                                                                <%if(cookiepolicy[i].approve==1){%>
+                                                                                    <div class="form-check form-switch">
+                                                                                        <input
+                                                                                            id="active_preview_<%=cookiepolicy[i].id_dsc%>"
+                                                                                            style="width: 50px;height: 30px;margin: 0 0 0 40px;"
+                                                                                            class="form-check-input"
+                                                                                            type="checkbox" checked>
+                                                                                    </div>
+                                                                                    <%}else {%>
+                                                                                        <div
+                                                                                            class="form-check form-switch">
+                                                                                            <input
+                                                                                                id="active_preview_<%=cookiepolicy[i].id_dsc%>"
+                                                                                                style="width: 50px;height: 30px;margin: 0 0 0 40px;"
+                                                                                                class="form-check-input"
+                                                                                                type="checkbox">
+                                                                                        </div>
+                                                                                        <%}%>
+                                                                            </div>
+                                                                        </div>
+                                                                        <%} else { %>
+                                                                            <div class="setting" hidden
+                                                                                id="preview_show_<%=i%>">
+                                                                                <div>
+                                                                                    <div class="title"
+                                                                                        onclick="title_text(this)">
+                                                                                        <span class="bullet"></span>
+                                                                                        <font
+                                                                                            id="name_cp_preview_<%=cookiepolicy[i].id_dsc%>">
+                                                                                            <%=cookiepolicy[i].name_cookietype%>
+                                                                                        </font>
+                                                                                    </div>
+                                                                                    <div class="desc"
+                                                                                        id="content_preview_<%=cookiepolicy[i].id_dsc%>">
+                                                                                        <%=cookiepolicy[i].detail_cookie%>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="setting_switch">
+                                                                                    <%if(cookiepolicy[i].approve==1){%>
+                                                                                        <div
+                                                                                            class="form-check form-switch">
+                                                                                            <input
+                                                                                                id="active_preview_<%=cookiepolicy[i].id_dsc%>"
+                                                                                                style="width: 50px;height: 30px;margin: 0 0 0 40px;"
+                                                                                                class="form-check-input"
+                                                                                                type="checkbox" checked>
+                                                                                        </div>
+                                                                                        <%}else {%>
+                                                                                            <div
+                                                                                                class="form-check form-switch">
+                                                                                                <input
+                                                                                                    id="active_preview_<%=cookiepolicy[i].id_dsc%>"
+                                                                                                    style="width: 50px;height: 30px;margin: 0 0 0 40px;"
+                                                                                                    class="form-check-input"
+                                                                                                    type="checkbox">
+                                                                                            </div>
+                                                                                            <%}%>
+                                                                                </div>
+                                                                            </div>
+                                                                            <% }%>
+                                                                                <% }%>
+                                                            </div>
+                                                        </div>
+                                                        <div class="lcc_setting_footer">
+                                                            <div>
+                                                                PDPA Cookie Consent Management
+                                                            </div>
+                                                            <div class="save_button custom_font">
+                                                                บันทึกการตั้งค่า</div>
+                                                            <input type="hidden" id="domain" value="432">
+                                                            <input type="hidden" id="ip_address" value="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div style="text-align: center;">
+                                            <button type="submit" class="btn btn-success">บันทึกข้อมูล</button>
+                                            <a href="/management/cookies" class="btn btn-secondary ">ย้อนกลับ</a>
+                                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+    <link rel="stylesheet" href="" id="css_preview">
+    <script>
+        function title_text(data) {
+            var x = data;
+            var it = x.closest('.setting');
+            if (!it.classList.contains('show_desc')) {
+                it.classList.add('show_desc');
+            } else {
+                it.classList.remove('show_desc');
+            }
+        }
+    </script>
+
+    <!-- <%if (domaingroup.namelocation=="middle" ) {%>
+        <script>
+            document.onreadystatechange = function () { // document.ready in jquery
+                const span = document.getElementById("color-middle");
+                const classes = span.classList;
+                classes.add("circum-color");
+            }
+        </script>
+        <%} else if (domaingroup.namelocation=="top" ) {%>
+            <script>
+                document.onreadystatechange = function () { // document.ready in jquery
+                    const span = document.getElementById("color-tops");
+                    const classes = span.classList;
+                    classes.add("circum-color");
+                }
+            </script>
+            <%} else {%>
+                <script>
+                    document.onreadystatechange = function () { // document.ready in jquery
+                        const span = document.getElementById("color-under");
+                        const classes = span.classList;
+                        classes.add("circum-color");
+                    }
+                </script>
+                <%}%> -->
+
+    <!-- script ของ สี theme -->
+    <% if (domaingroup.nameclass=="btn-dark" ) {%>
+        <script>
+            document.addEventListener("DOMContentLoaded", function (event) {
+                const span = document.getElementById("dark-theme-circum");
+                const classes = span.classList;
+                classes.remove("circum-color-theme-ready");
+                classes.add("circum-color-theme");
+                var css_preview = document.getElementById('css_preview')
+                css_preview.href = '/dist/css/css_preview/dark.css'
+            });
+        </script>
+        <% } else {%>
+            <script>
+                document.addEventListener("DOMContentLoaded", function (event) {
+                    const span = document.getElementById("light-theme-circum");
+                    const classes = span.classList;
+                    classes.remove("circum-color-theme-ready");
+                    classes.add("circum-color-theme");
+                    var css_preview = document.getElementById('css_preview')
+                    css_preview.href = '/dist/css/css_preview/light.css'
+                });
+            </script>
+            <%}%>
+                <!-- script ของ สี theme -->
+                <link rel="stylesheet" href="/dist/css/css_preview/dialog.css">
+                <script src="/UI/assets/extra-libs/summernote/summernote-lite.min.js"></script>
+                <script src="/dist/js/views_js/cookie_managemet/dialog.js"></script>
+                <%- include ("../../_footer") %>

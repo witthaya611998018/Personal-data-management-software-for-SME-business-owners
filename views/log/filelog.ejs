@@ -1,0 +1,144 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">ไฟล์ล็อก</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item"><a href="/index2">ล็อก</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">ไฟล์ล็อก</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="col-md-7 justify-content-end align-self-center d-none d-md-flex">
+                <div>
+                    <div class="dropdown me-2">
+                        <%if(data){%>
+                            <form action="/file/search" method="post">
+                                <div class="input-group mb-3">
+                                    <input class="form-control" type="datetime-local" name="date1" required>
+                                    <span class="input-group-text" id="basic-addon1">ถึง</span>
+                                    <input class="form-control" type="datetime-local" name="date2" required>
+                                    <button class="btn btn-outline-warning" type="submit"><i
+                                            class="fas fa-search"></i></button>
+
+                                </div>
+                            </form>
+                            <%}%>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 justify-content-start align-self-center d-none d-md-flex">
+                <h4 class="card-title mb-0"></h4>
+            </div>
+            <div class="col-md-4 justify-content-end align-self-center d-none d-md-flex space">
+                <div class="not_allowed">
+                    <a class="btn btn-info" id="csv">CSV</a>
+                    <a class="btn btn-success" id="excel">Excel</a>
+                    <a class="btn btn-warning" id="pdf"> PDF</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid" id="ajaxfilelog">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="row">
+
+                        <div class="card-body">
+                            <div class="border-bottom title-part-padding">
+                                <h4 class="card-title mb-0">ไฟล์ล็อก</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row pb-3">
+                                    <div class="col-md-8">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                                <div style="min-height: 470px; margin-left: 0.5%; margin-right: 1%;">
+                                    <table id="myTable"
+                                        class="tablesaw no-wrap table-striped table-bordered table-hover table"
+                                        data-tablesaw-mode="stack" data-tablesaw-sortable>
+                                        <thead>
+                                            <tr>
+                                                <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col
+                                                    data-tablesaw-priority="3" class="border text-center"
+                                                    style="width: 5%;">
+                                                    ลำดับ</th>
+                                                <th scope="col" data-tablesaw-sortable-col
+                                                    data-tablesaw-priority="persist" class="border">อุปกรณ์</th>
+
+                                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="5"
+                                                    class="border">โฮสต์เนม</th>
+
+                                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2"
+                                                    class="border">วัน เวลา</th>
+                                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2"
+                                                    class="border">ชื่อไฟล์</th>
+                                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1"
+                                                    class="border">Hash(SHA256)</th>
+                                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4"
+                                                    class="border">ดาวน์โหลด</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody id="table-body">
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 text-secondary">
+                                        <span>แสดงผล <span id="start"></span> ถึง <span id="end"></span> ทั้งหมด <span
+                                                id="total-db"></span> รายการ</span>
+                                    </div>
+                                    <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                                        <nav aria-label="Page navigation example" class="mt-2">
+                                            <ul class="pagination" id="pagination-wapper">
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Row -->
+
+
+    <!-- -------------------------------------------------------------- -->
+    <!-- End PAge Content -->
+    <!-- -------------------------------------------------------------- -->
+    <!--start overlay-->
+    <%- include('../_footer') -%>
+        <script>
+        </script>
+
+        <script src="/UI/assets/libs/apexcharts/dist/apexcharts.min.js "></script>
+
+        <script src="/UI/assets/libs/apexcharts/dist/apexcharts.min.js "></script>
+        <script src="/UI/assets/libs/chartist/dist/chartist.min.js "></script>
+        <script src="/UI/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js "></script>
+        <script src="/UI/assets/libs/flot/jquery.flot.js "></script>
+        <script src="/UI/dist/js/pages/widget/widget-charts.js "></script>
+        <script src="/UI/dist/js/app.min.js "></script>
+        <script type="text/javascript" src="/dist/js/xlsx.full.min.js"></script>
+        <script src="/dist/js/views_js/report_js/js_report_filelog.js"></script>
+        <script src="/dist/js/page/page_log.js"></script>
+        <script>
+            var datadownload = <%-JSON.stringify(datadownload) %>;
+            var csvFileData = <%-JSON.stringify(data) %>;
+            if (datadownload == '1') {
+                alert("ไม่สามารถดาวน์โหลดไฟล์ได้");
+            }
+        </script>

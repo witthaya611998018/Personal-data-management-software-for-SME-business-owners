@@ -1,0 +1,508 @@
+<%- include('../_header') -%>
+<div class="page-breadcrumb">
+    <div class='row'>
+        <div class="col-md5 align-self-center">
+            <h3 class="page-title"><i class="fas fa-circle-notch"></i> แก้ไขรูปแบบข้อมูล</h3>
+            <div class="d-flex align-items-center" style="margin-top: 1%;">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/index2">หน้าแรก</a></li>
+                        <li class="breadcrumb-item"><a href="/pattern">กำหนดรูปแบบข้อมูล (Pattern)</a></li>
+                        <li class="breadcrumb-item active" aria-current='page'>แก้ไขรูปแบบข้อมูล</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- Container fluid  -->
+<!-- ============================================================== -->
+<div class='container-fluid' id="edit">
+    <!-- Row -->
+    <div class='row'>
+        <!-- Column -->
+        <div class='col-12'>
+            <div class="card">
+                <div class="border-bottom title-part-padding">
+                    <h4 class="card-title mb-0">สร้างรูปแบบข้อมูล สำหรับค้นหาตรวจสอบ และ ป้องกัน <span class="text-secondary"></span></h4>
+                </div>
+                <form id="form_edit" action="/pattern/edit<%=pattern[0].pattern_id%>" method="POST" data-mark="<%=pattern[0].pattern_id%>">
+                    <div class='card-body'>
+                    <div class='h5' style="font-weight: bold;">
+                        กำหนดค่าข้อมูล
+                    </div>
+                    <div>
+                        <table class='table table-boardless'>
+                            <th style="width: 9%;">ชื่อรูปแบบข้อมูล: &nbsp; </th>
+                            <td style="text-align: left; width: 25%;"><input type='text' name='pattern_name' value="<% if (pattern[0].pattern_name != "" || pattern[0].pattern_name != null){%><%= pattern[0].pattern_name %><%}%>" placeholder='กรุณาป้อนชื่อรูปแบบ...' class='form-control' required /></td>
+                            <td style="text-align: left;">&nbsp; <a id='btn-add-policy' href='#add-policy' class='option-pattern' data-bs-toggle='modal'>เลือกข้อมูลตามเอกสาร Policy</a>
+                                <input name='doc_id' value="<% if(pattern[0].doc_id != "" || pattern[0].doc_id != null){%><%=pattern[0].doc_id%><%}%>" hidden readonly />
+                            </td>
+                        </table>
+                    </div>
+                    <div>
+                        <table class='table table-boardless'>
+                            <th style="width: 9%;">Tag: &nbsp; </th>
+                            <td style="text-align: left; width: 25%;"><input type="text" name="pattern_tag" value="<% if(pattern[0].pattern_tag != "" || pattern[0].pattern_tag != null){%><%= pattern[0].pattern_tag%><%}%>" placeholder='กรุณเลือกTag...' class='form-control' reuired readonly/></td>
+                            <td style="text-align: left;"> &nbsp; <a id='btn-add-tags' href="#add-tags" class='option-pattern' data-bs-toggle="modal">เพิ่ม Tag ที่ต้องการ</a></td>
+                        </table>
+                    </div>
+                    <div>
+                        <table class='table table-boardless'>
+                            <th style="width: 9%;"> Label: &nbsp; </th>
+                            <td style="text-align: left; width: 25%;"><input type='text' name="pattern_label" value="<% if(pattern[0].pattern_label != "" || pattern[0].pattern_lebel != null){%><%= pattern[0].pattern_label%><%}%>" placeholder="กรุณาป้อนLabel..." class='form-control' /></td>
+                            <td></td>
+                        </table>
+                    </div>
+                    <div>
+                        <table class='table table-boardless'>
+                            <th style="width: 9%;">เริ่ม: &nbsp; </th>
+                            <td style="text-align: left; width: 25%;"><input type='date' name="pattern_start_date" id='start_time' value="" class='form-control' required />
+                            <th style="text-align: left; width: 10%;">&nbsp;ระยะเวลาการจัดเก็บ</th>
+                            <td style="text-align: left; width: 25%;"><input type='number' placeholder="กรุณาป้อนจำนวนระยะเวลา..."  name='pattern_total_date' value="<% if(pattern[0].pattern_total_date != "" || pattern[0].pattern_total_date != null){%><%= pattern[0].pattern_total_date %><%}%>" min="1" class='form-control' required />
+                            <th style="text-align: left;">&nbsp;<span>วัน</span></th>
+                        </table>
+                    </div>
+                    <div class='h5' style='font-weight: bold;'>
+                        ชนิดข้อมูล
+                    </div>
+                    <div class="row">
+                        <div class='col-12'>
+                            <table class='table table-boardless'>
+                                <td width="30%" style="text-align: left; padding-left: 3%; vertical-align: top;">
+                                    <input type="checkbox" id="customCheck4" name="pattern_type_data_file" class="form-check-input" <% if(pattern[0].pattern_type_data_file == 1){%>checked<%}%> />
+                                    <label for="customCheck4" style="font-weight: 450">File MS Excel / CSV</label>
+                                    <span id="file_path">
+                                    </span>
+                                    <span id="path"></span>
+                                </td>
+                                <td width="60%" style="text-align: left; padding-left: 3%; vertical-align: top;">
+                                    <input type="checkbox" id="customCheck5" name="pattern_type_data_database" class="form-check-input" style="vertical-align: -5px;" <% if(pattern[0].pattern_type_data_database == 1){%>checked<%}%> />
+                                    <label for="customCheck5" style="font-weight: 450;">Database</label>
+                                    <span id="database"></span>
+                                </td>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="h5" style="font-weight: bold;">
+                        วิธีการจัดเก็บข้อมูลส่วนบุคคล
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-boardless">
+                                <td width="30%" style="text-align: left; padding-left: 3%; vertical-align: top;">
+                                    <input type="checkbox" id="customCheck6" name="pattern_storage_method_inside" class="form-check-input" style="vertical-align: middle;" <% if(pattern[0].pattern_storage_method_inside == 1){%>checked<%}%> />
+                                    <label for="customCheck6" style="font-weight: 450; vertical-align: middle;">ภายใน Alltra</label>
+                                </td>
+                                <td width="60%" style="text-align: left; padding-left: 3%; vertical-align: top;">
+                                    <input type="checkbox" id="customCheck7" name="pattern_storage_method_outside" class="form-check-input" <% if(pattern[0].pattern_storage_method_outside == 1){%>checked<%}%> />
+                                    <label for="customCheck7" style="font-weight: 450;">ภายนอก</label>
+                                    &nbsp;&nbsp;<span id="outside_storage_method"></span>
+                                    <span id="outside_option-storage_method"></span>
+                                </td>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="h5" style="font-weight: bold;">
+                        ข้อมูลส่วนบุคคลที่จัดเก็บ (ตัวอย่าง)
+                    </div>
+                    <div align="center">
+                        <table class="table table-boardless">
+                            <td>
+                                <% if(pattern[0].doc_id != "" || pattern[0].doc_id != null){%>
+                                    <a id="previewer" href="/show_slide/<%=pattern[0].doc_id%>" target="_blank" rel="noopener noreferrer" aria-disabled="false" class="btn btn-info">Preview</a>
+                                <%}else{%>
+                                   <a class="btn btn-secondary" id="previewer">Preview</a>
+                                <%}%>
+                            </td>
+                        </table>
+                    </div>
+                    <div id="select_processing_base">
+                        <table class="table table-boardless">
+                            <td style="text-align: left;">
+                                <span class="h5" style="font-weight: bold;">
+                                    ฐานการประมวลผล (ถ้าระบุได้)
+                                </span>
+                                &nbsp;
+                                <select class="form-control" name="pattern_processing_base_id" style="display: inline; width: 20%;">
+                                    <option value="" selected disabled>กรุณาเลือก</option>
+                                    <% for (i in process){%>
+                                        <% if (pattern[0].pattern_processing_base_id == process[i].pattern_processing_base_id){%>
+                                            <option value="<%= process[i].pattern_processing_base_id%>" selected><%= process[i].pattern_processing_base_name%></option>
+                                        <%}else{%>
+                                            <option value="<%= process[i].pattern_processing_base_id%>"><%= process[i].pattern_processing_base_name%></option>
+                                        <%}%>
+                                    <%}%>
+                                </select>
+                                &nbsp;&nbsp;
+                                <a id="btn_add_processing_base" href="#add-processing-base" data-bs-toggle="modal" class='option-pattern'>เพิ่มฐานการประมวล</a>
+                            </td>
+                        </table>
+                    </div>
+                    <div>
+                        <table class="table table-boardless">
+                            <td style="text-align: left;">
+                                <span class="h5" style="font-weight: bold;">
+                                    ผู้ประมวลผล (ถ้าระบุได้)
+                                </span>
+                                &nbsp;
+                                <input type="checkbox" id="customCheck1" name="pattern_processor_inside" class="form-check-input" style="vertical-align: middle;" <% if(pattern[0].pattern_processor_inside == 1){%>checked<%}%> />
+                                <label for="customeCheck1" style="vertical-align: middle;">ภายใน</label>
+                                <span id="process_inside"></span>
+                                <input type="text" name="pattern_processor_inside_id" value="<%= pattern[0].pattern_processor_inside_id.split(',') %>"readonly hidden/>
+                                <span id="users_inside"></span>
+                                <br/>
+                                <input type="checkbox" id="customCheck2" name="pattern_processor_outside" class="form-check-input" style="margin-left: 10.8%; margin-top: 1%;" <% if(pattern[0].pattern_processor_outside == 1){%>checked<%}%> />
+                                <label for="customCheck2" style="margin-top: 1%;">ภายนอก</label>
+                                <span id="process_outside"></span>
+                                <input type="text" name="pattern_processor_outside_id" value="<%= pattern[0].pattern_processor_outside_id.split(',') %>" readonly hidden />
+                                <span id="users_outside"></span>
+                            </td>
+                        </table>
+                    </div>
+                    <div>
+                        <table class="table table-boardless">
+                            <td style="text-align: left;">
+                                <input type="checkbox" id="customCheck3" name="pattern_set_end_date" class="form-check-input" style="vertical-align: center;" <% if(pattern[0].pattern_set_end_date == 1){%>checked<%}%> />
+                                <label for="customCheck3" class="h5" style="font-weight: bold;">
+                                    กำหนดระยะเวลาสิ้นสุด
+                                </label>
+                                <span id="total_stop_time"></span>
+                            </td>
+                        </table>
+                    </div>
+                    <div>
+                        <table class="table table-boardless">
+                            <td>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <input type="checkbox" id="customeCheck_1" name="pattern_dpo_approve_process" class="form-check-input" <% if(pattern[0].pattern_dpo_approve_process == 1){%>checked<%}%> />
+                                        <label for="customeCheck_1" class="h5" style="font-weight: bold;">
+                                            DPO ต้องอนุมัติทุกครั้งถึงสามารถประมวลผลได้
+                                        </label>
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="checkbox" id="customeCheck_2" name="pattern_dpo_approve_raw_file_out" class="form-check-input" <% if(pattern[0].pattern_dpo_approve_raw_file_out == 1){%>checked<%}%> />
+                                        <label for="customeCheck_2" class="h5" style="font-weight: bold;">
+                                            DPO ต้องอนุมัติทุกครั้งที่จะนำข้อมูล Raw file ออกได้
+                                        </label>
+                                    </div>
+                                </div>
+                            </td>
+                        </table>
+                    </div>
+                    <div align="center">
+                        <button type="submit" class="btn btn-success">ยืนยัน</button>
+                        <a href="javascript:history.back()" class="btn btn-danger">ยกเลิก</a>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modals Add Policy -->
+<div id="add-policy" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel" aria-hidden="true" style="display: none; margin-top: 5%;">
+    <div class="modal-dialog modal-lm">
+        <div class="modal-content">
+            <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                <h4 class="modal-title" style="color: black; font-weight: bold;">
+                    ข้อมูลที่ใช้
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="h5" style="font-weight: bold;">
+                    เลือกข้อมูลที่ต้องการใช้งาน
+                </div>
+                <div>
+                    <table class="table table-boardless" style="text-align: left;">
+                        <tbody id="table-body-policy-add">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 justify-content-center align-self-center d-block d-md-flex">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination" id="pagination-wapper-policy-add">
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col-md-12 text-secondary">
+                        <span> แสดงผล <span id="start-policy-add"></span> ถึง <span id="end-policy-add"></span> ทั้งหมด <span id="total-policy-add"></span> รายการ
+                        </span>
+                    </div>
+                </div>
+                <div align="center" style="margin-top: 5%;">
+                    <button type="button" class="btn btn-danger font-weight-large" data-bs-dismiss="modal"> ยกเลิก </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modals Add Tags -->
+<div id="add-tags" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel" aria-hidden="true" style="display: none; margin-top: 5%">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                <h4 class="modal-title" style="color: black; font-weight: bold;">
+                    ข้อมูลที่ใช้
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="h5" style="font-weight: bold;">
+                    เลือกข้อมูลที่ต้องการใช้งาน
+                </div>
+                <div>
+                    <table class="table table-boardless">
+                        <tbody id="table-body-tag-add">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 justify-content-center align-self-center d-block d-md-flex">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination" id="pagination-wapper-tag-add">
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col-md-12 text-secondary">
+                        <span>แสดงผล <span id="start-tag-add"></span> ถึง <span id="end-tag-add"></span> ทั้งหมด <span id="total-tag-add"></span> รายการ</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div style="margin-right: 42%;">
+                        <button type="button" class="btn btn-danger font-weight-large" data-bs-dismiss="modal">ยกเลิก</button>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>
+<!-- Modals Add Processing_base -->
+<div id="add-processing-base" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel" aria-hidden="true" style="display: none; margin-top: 5%;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                <h4 class="modal-title" style="color: black; font-weight: bold;">
+                    สร้างฐานการประมวลผล
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="h5" style="font-weight: bold;">
+                    สร้างฐานการประมวลผลที่ต้องการใช้งาน
+                </div>
+                <div>
+                    <table class="table table-boardless">
+                        <tbody id="">
+                            <th class="th-pattern1">ฐานการประมวลผล : </th>
+                            <td class="td-option-pattern"><input type="text" name="pattern_processing_base_name" placeholder="กรุณป้อนฐานการประมวลผล..." class='form-control' /></td>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <div class="button-center-success">
+                        <a id="add_processing_base" type="button" class="btn btn-success font-weight-large">ยืนยัน</a>
+                    </div>
+                    <div class="button-center-danger1">
+                        <button type="button" class="btn btn-danger font-weight-large" data-bs-dismiss="modal">ยกเลิก</button>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>
+<!-- Modals Add Processing_base -->
+<div id="add-processing-base" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel" aria-hidden="true" style="display: none; margin-top: 5%">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                <h4 class="modal-title" style="color: black; font-weight: bold;">
+                    สร้างฐานการประมวลผล
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="h5" style="font-weight: bold;">
+                    สร้างฐานการประมวลผลที่ต้องการใช้งาน
+                </div>
+                <div>
+                    <table class="table table-boardless">
+                        <tbody id="">
+                            <th class="th-pattern1">ฐานการประมวลผล : </th>
+                            <td class="td-option-pattern"><input type="text" name="pattern_processing_base_name" placeholder="กรุณป้อนฐานการประมวลผล..." class='form-control' /></td>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <div class="button-center-success">
+                        <a id="add_processing_base" type="button" class="btn btn-success font-weight-large">ยืนยัน</a>
+                    </div>
+                    <div class="button-center-danger1">
+                        <button type="button" class="btn btn-danger font-weight-large" data-bs-dismiss="modal">ยกเลิก</button>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>
+<!-- Modals Add Users (Inside) -->
+<div id="add-users" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel" aria-hidden="true" style="display: none; margin-top: 5%">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                <h4 class="modal-title" style="color: black; font-weight: bold;">
+                    สมาชิกในระบบ Alltra
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="h5" style="font-weight: bold;">
+                    เลือกสมาชิกในระบบ Alltra ที่ต้องการใช้งาน
+                </div>
+                <div>
+                    <table class="table table-boardless">
+                        <tbody id="table-body-users">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 justify-content-center align-self-center d-block d-md-flex">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination" id="pagination-wapper-users">
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col-md-12 text-secondary">
+                        <span>แสดงผล <span id="start-users"></span> ถึง <span id="end-users"></span> ทั้งหมด <span id="total-users"></span> รายการ</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div style="margin-right: 42%;">
+                        <button type="button" class="btn btn-danger font-weight-large" data-bs-dismiss="modal">ยกเลิก</button>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>
+<!-- Modals Add Users (Outside) -->
+<div id="add-users-1" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel"u aria-hidden="true" style="display: none; margin-top: 5%">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                <h4 class="modal-title" style="color: black; font-weight: bold;">
+                    สมาชิกในระบบ Alltra
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="h5" style="font-weight: bold;">
+                    เลือกสมาชิกในระบบ Alltra ที่ต้องการใช้งาน
+                </div>
+                <div>
+                    <table class="table table-boardless">
+                        <tbody id="table-body-users-1">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 justify-content-center align-self-center d-block d-md-flex">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination" id="pagination-wapper-users-1">
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col-md-12 text-secondary">
+                        <span>แสดงผล <span id="start-users-1"></span> ถึง <span id="end-users-1"></span> ทั้งหมด <span id="total-users-1"></span> รายการ</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div style="margin-right: 42%;">
+                        <button type="button" class="btn btn-danger font-weight-large" data-bs-dismiss="modal">ยกเลิก</button>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>
+<!-- Modals Agent -->
+<div id="select-agent" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel"u aria-hidden="true" style="display: none; margin-top: 5%">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                <h4 class="modal-title" style="color: black; font-weight: bold;">
+                                        เลือก Agent ที่ต้องการ
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="h5" style="font-weight: bold;">
+                                เลือก Agent ที่ต้องการใช้งาน
+                </div>
+                <div>
+                    <table class="table table-boardless">
+                        <tbody id="table-body-agent">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 justify-content-center align-self-center d-block d-md-flex">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination" id="pagination-wapper-agent">
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col-md-12 text-secondary">
+                        <span>แสดงผล <span id="start-agent"></span> ถึง <span id="end-agent"></span> ทั้งหมด <span id="total-agent"></span> รายการ</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div style="margin-right: 42%;">
+                        <button type="button" class="btn btn-danger font-weight-large" data-bs-dismiss="modal">ยกเลิก</button>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div
+<!-- ============================================================== -->
+<!-- End Container fluid  -->
+<!-- ============================================================== -->
+<script src="/UI/assets/libs/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript">
+        if ('<%- pattern[0].pattern_start_date%>' != "" || '<%- pattern[0].pattern_start_date %>' != null){
+        let _date = new Date('<%- pattern[0].pattern_start_date %>')
+        const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+        let month_name = month[_date.getMonth()]
+        let month_num = _date.getMonth() + 1;
+        let day = _date.getDate();
+        if (String(day).length == 1){
+        day = "0" + String(day);
+        }
+        if (String(month_num).length == 1){
+        month_num = "0" + String(month_num);
+        } 
+        let _date_ = _date.getFullYear() + "-" + month_num + "-" + day;
+        document.getElementById('start_time').value = _date_;
+        }
+</script>
+<%- include('../_footer') -%>

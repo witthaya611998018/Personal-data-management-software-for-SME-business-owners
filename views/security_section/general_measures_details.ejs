@@ -1,0 +1,119 @@
+<%- include ("../_header") %>
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-10 align-self-center">
+                <h3 class="page-title">ดูรายละเอียดมาตรการรักษาความปลอดภัย</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/<%=process.env.SUBFOLDER%>index2">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item">
+                                <a href="/<%=process.env.SUBFOLDER%>security/section/General-Measures"> 
+                                    มาตรการรักษาความมั่นคงปลอดภัยโดยทั่วไป (General Measures)
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">ดูรายละเอียดมาตรการรักษาความปลอดภัย </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-2 d-flex justify-content-end align-items-center">
+                <a href="/<%=process.env.SUBFOLDER%>security/section/General-Measures" class="btn btn-secondary">ย้อนกลับ</a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="d-flex border-bottom title-part-padding align-items-center">
+                <h4 class="card-title mb-0">
+                    มาตรการรักษาความมั่นคงปลอดภัยโดยทั่วไป (General Measures)
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="row mb-2">
+                    <div class="col-md-5  justify-content-end align-items-center d-flex ">
+                        หัวเรื่อง มาตรการรักษาความมั่นคงปลอดภัยโดยทั่วไป (General Measures) :
+                    </div>
+                    <div class="col-md-5 d-flex align-items-center justify-content-start">
+                        <%=general[0].measures_type%>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-5 justify-content-end  align-items-center d-flex text-right">
+                        ชื่อมาตราการ :
+                    </div>
+                    <div class="col-md-5 d-flex align-items-center justify-content-start">
+                        <%=general[0].measures_section_name%>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-5  justify-content-end align-items-center d-flex ">
+                        คำอธิบาย / รายละเอียด :
+                    </div>
+                    <div class="col-md-5 d-flex align-items-center justify-content-start">
+                        <%=general[0].measures_detail%>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-5  justify-content-end align-items-center d-flex ">
+                        เอกสารPDPA :
+                    </div>
+                    <div class="col-md-7">
+                        <%if (general[0].doc_id_measures==null) {%>
+                            -
+                            <%}else {%>
+                                <%for (let i=0;i<arr_doc.length;i++){%>
+                                    <%for (let j=0;j<doc.length;j++) {%>
+                                        <%if (arr_doc[i]==doc[j].doc_id) {%>      
+         <div>
+            <%=doc[j].doc_name%>
+            <a class="text-info ms-2" target="_blank" href="/<%=process.env.SUBFOLDER%>paper/<%=doc[j].doc_id%>"><i class=" fas fa-file-alt fa-2x"></i></a>
+         </div>
+               
+      
+                                            <%}%>
+                                                <%}%>
+                                                    <%}%>
+                                                    
+                                                        <%}%>
+                    </div>
+                </div>
+                            <div class="row mb-2">
+                                <div class="col-md-5  justify-content-end align-items-center d-flex ">
+                                    ระยะเวลาทบทวนมาตรการ :
+                                </div>
+                                <div class="col-md-5 d-flex align-items-center justify-content-start">
+                                    <%=general[0].mdate%> - <%=day_last%>
+                                            จำนวน
+                                            <font class="text-success p-1">
+                                                <%= general[0].measures_date_count%>
+                                            </font> วัน
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-5 d-flex justify-content-end align-items-center">
+                                    ผู้ดูแลข้อมูลหรือผู้ดูแลระบบหรือผู้ควบคุมมาตรการ :
+                                </div>
+                                <div class="col-md-6 d-flex align-items-center">
+                                    <% text_sum = '' %>
+                                    <% text_sum_2 = '' %>
+                                    <%if(account){for (var i=0; i < account.length; i++) { %>
+                                        <%if(general[0].measures_supervisor.indexOf(account[i].acc_id)>-1){ %>
+                                                <% text_sum = text_sum + account[i].firstname + ' ' +  account[i].lastname + ','%>
+                                            <%}}}%>
+                                            
+                                            <%if(text_sum[text_sum.length - 1] == ','){%>
+                                            <% text_sum_2 = text_sum.substring(0, text_sum.length - 1)%>
+                                            <%=text_sum_2%>
+                                                <%}%>
+                                            
+                                </div>
+                            </div>
+                            <div class="modal-footer" style="justify-content: center;">
+                                <a href="/<%=process.env.SUBFOLDER%>security/section/General-Measures" class="btn btn-secondary">ย้อนกลับ</a>
+                            </div>
+            </div>
+        </div>
+    </div>
+    <%- include ("../_footer") %>

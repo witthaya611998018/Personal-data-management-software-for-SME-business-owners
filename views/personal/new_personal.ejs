@@ -1,0 +1,218 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">ข้อมูลส่วนบุคคล</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item"><a href="/personal_data">ข้อมูลส่วนบุคคล</a></li>
+                            <li class="breadcrumb-item">เพิ่มข้อมูลส่วนบุคคล</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-7 d-flex justify-content-end align-items-center">
+                <a href="javascript:history.back();" class="btn btn-secondary">ย้อนกลับ</a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" style="margin-top: 1%;">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="border-bottom title-part-padding">
+                        <h4 class="card-title mb-0">เพิ่มข้อมูลส่วนบุคคล<span class="text-secondary"></span>
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row-6" align="center">
+                            <div class="col-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form action="/save_personal" method="POST">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-floating mb-3">
+                                                        <div class="input-group mb-3">
+                                                            <label class="input-group-text"
+                                                                for="inputGroupSelect01">ระดับของข้อมูลส่วนตัว</label>
+                                                            <select class="form-select" id="inputGroupSelect01"
+                                                                name="data_level_id" required>
+                                                                <option selected disabled value="">เลือก...
+                                                                </option>
+                                                                <% for (var i=0; i < level.length; i++) { %>
+                                                                    <option value="<%= level[i].level_id %>">
+                                                                        <%= level[i].level_name%>
+                                                                    </option>
+                                                                    <%}%>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div style="float: left;">
+                                                        <h5 style="color: red;">
+                                                            *ใช้ได้เฉพาะตัวอักษรภาษาอังกฤษ(a-z), ตัวเลข(0-9)
+                                                            และตัวอักษรพิเศษ( _ ) เท่านั้น</h5>
+                                                    </div>
+                                                    <br>
+                                                    <div class="input-group mb-3" id="new_data_code">
+                                                        <span class="input-group-text">Code : #</span>
+                                                        <input id="codes1" value="<%=codes1%>" readonly hidden />
+                                                        <input type="text" name="data_code" class="form-control"
+                                                            id="data_code" placeholder="กรอก Code .." required>
+                                                        <span class="input-group-text" id="icon_code"><i
+                                                                class="ti-minus"></i></span>
+                                                    </div>
+                                                    <p>
+                                                    <div id="show"></div>
+                                                    </p>
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" name="data_name" class="form-control"
+                                                            id="tb-fname" placeholder="ป้อนชื่อข้อมูลส่วนตัว.."
+                                                            required>
+                                                        <label for="tb-fname">ชื่อข้อมูลส่วนบุคคล :</label>
+                                                    </div>
+                                                    <div class="form-floating mb-3">
+                                                        <div class="input-group mb-3">
+                                                            <label class="input-group-text"
+                                                                for="inputGroupSelect01">ประเภทของข้อมูลส่วนตัว</label>
+                                                            <select class="form-select" id="inputGroupSelect01"
+                                                                name="data_type_id" required>
+                                                                <option selected disabled value="">เลือก...
+                                                                </option>
+                                                                <% for (var i=0; i < data_type.length; i++) { %>
+                                                                    <option value="<%= data_type[i].data_type_id %>">
+                                                                        <%= data_type[i].data_type_name%>
+                                                                    </option>
+                                                                    <%}%>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text"
+                                                            placeholder="ป้อนรายละเอียดเพิ่มเติมของข้อมูลส่วนตัว..."
+                                                            name="data_detail" id="tb-fname" class="form-control">
+                                                        <label for="tb-fname">
+                                                            รายละเอียดเพิ่มเติมของข้อมูลส่วนบุคคล :</label>
+                                                    </div>
+                                                    <div class="mb-3 row">
+                                                        <label for="example-datetime-local-input"
+                                                            class="col-md-2 col-form-label">เริ่ม
+                                                            :</label>
+                                                        <div class="col-md-10">
+                                                            <input class="form-control" type="datetime-local"
+                                                                name="data_date_start" id="example-datetime-local-input"
+                                                                required>
+                                                        </div>
+                                                    </div>
+                                                    <label style="float: right;" for="">ถึง</label>
+                                                    <br>
+                                                    <br>
+                                                    <div class="mb-3 row">
+                                                        <label for="example-datetime-local-input"
+                                                            class="col-md-2 col-form-label">สิ้นสุด :</label>
+                                                        <div class="col-md-10">
+                                                            <input class="form-control" type="datetime-local"
+                                                                name="data_date_end" id="example-datetime-local-input"
+                                                                required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" name="data_location_name"
+                                                            class="form-control" id="tb-fname"
+                                                            placeholder="ป้อนประเภทของข้อมูลส่วนตัว" required>
+                                                        <label for="tb-fname"> สถานที่จัดเก็บข้อมูล :</label>
+                                                    </div>
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text"
+                                                            placeholder="กรอกรายละเอียดเพิ่มเติมของสถานที่จัดเก็บข้อมูล..."
+                                                            name="data_location_detail" id="tb-fname"
+                                                            class="form-control">
+                                                        <label for="tb-fname">
+                                                            รายละเอียดเพิ่มเติมของสถานที่จัดเก็บข้อมูล :</label>
+                                                    </div>
+                                                    <input id="personal_dataTag" value="<%=tag_name%>" readonly
+                                                        hidden />
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="d-md-flex align-items-center mt-3">
+                                                        <div class="ms-auto mt-3 mt-md-0">
+                                                            <button type="submit" class="btn btn-success">
+                                                                บันทึกข้อมูล
+                                                            </button>
+                                                            <a href="/personal_data" class="btn btn-secondary">
+                                                                ยกเลิก
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/UI/assets/libs/jquery/dist/jquery.min.js"></script>
+    <!-- <script src="/UI/dist/js/pagination_data.js"></script> -->
+    <!-- <script src="/dist/js/views_js/pagination_data.js"></script> -->
+    <link rel="stylesheet" href="/UI/dist/css/amsify.suggestags.css">
+    <script src="/UI/dist/js/jquery.amsify.suggestags.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Get value on button click and show alert
+            $("#data_code").focus(function () {
+                $('#data_code').on("change keyup keydown paste click", function () {
+                    let str = $(this).val().toLowerCase();
+                    $(this).val(str)
+                    const codes1 = document.getElementById('codes1').value // data_code
+                    let sort_codes = codes1.split(',')
+                    let obj_code = []
+                    var new_data_code = document.getElementById("show_code");
+                    for (i in sort_codes) {
+                        obj_code.push({ "data_code": sort_codes[i] })
+                    }
+                    var letters = /^[a-z]+$/;
+                    var numbers = /^[0-9]+$/;
+                    var format = /[!@#$%^&*()+\-=\[\]{};':"\\|,.<>\/? ]+/;
+                    for (j in obj_code) {
+                        let mixCode = "#" + str;
+
+                        if (obj_code[j].data_code == mixCode || str.match(format) || (mixCode.length == 1)) {
+                            $("#icon_code").html('<i class="ti-close" style="color: red;"></i>');
+                            break
+                        } else if (obj_code[j].data_code != mixCode && str.match(letters) || !str.match(format) || str.match(numbers) && (mixCode.length > 1)) {
+                            $("#icon_code").html('<i class="ti-check" style="color: limegreen;"></i>');
+                        }
+                    }
+                });
+            });
+
+        });
+
+        const personal_dataTag = document.getElementById('personal_dataTag').value;
+        let sort_personal_dataTag = personal_dataTag.split(',')
+        let personal_dataTag_new = []
+        for (i in sort_personal_dataTag) {
+            personal_dataTag_new.push(sort_personal_dataTag[i])
+        }
+
+
+        $('input[name="personal_dataTag"]').amsifySuggestags({
+            suggestions: personal_dataTag_new,
+            whiteList: true
+        });
+
+        $('div.amsify-suggestags-list').css("width", "542px")
+
+    </script>
+
+
+
+    <%- include('../_footer') -%>

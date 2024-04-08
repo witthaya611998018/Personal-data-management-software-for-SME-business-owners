@@ -1,0 +1,128 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">ตั้งค่าระบบ</h3>
+                <div class="d-flex align-ข้อมูลบริษัท-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">ข้อมูลบริษัท</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="card">
+            <div class="border-bottom title-part-padding">
+                <h4 class="card-title  mb-0">ข้อมูลบริษัท </h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-5 d-flex justify-content-end">
+                        <b>
+                            ชื่อหน่วยงาน/องค์กร/บริษัท :
+                        </b>
+                    </div>
+                    <div class="col-md-6 d-flex justify-content-start">
+                        <%=setting_list[0].Name1%>
+                    </div>
+                    <div class="col-md-5 d-flex justify-content-end mt-2">
+                        <b>
+                            ที่อยู่ :
+                        </b>
+                    </div>
+                    <div class="col-md-6 d-flex justify-content-start">
+                        <%=setting_list[0].shortDescription1%>
+                    </div>
+                    <div class="col-md-5 d-flex justify-content-end mt-2">
+                        <b>
+                            อีเมล :
+                        </b>
+                    </div>
+                    <div class="col-md-6 d-flex justify-content-start">
+                        <%=setting_list[0].emailAddress1%>
+                    </div>
+                    <div class="col-md-5 d-flex justify-content-end mt-2">
+                        <b>
+                            เบอร์โทรศัพท์สำนักงาน :
+                        </b>
+                    </div>
+                    <div class="col-md-6 d-flex justify-content-start">
+                        <%=setting_list[0].phone1%>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                        data-bs-target="#edite-modal">เเก้ไขข้อมูล</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="edite-modal" class="modal fade show" tabindex="-1" aria-labelledby="info-header-modalLabel"
+        aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h4 class="modal-title"> เเก้ไขข้อมูล </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/setting/update" method="post">
+                        <div class="row">
+                            <div class="col-md-5 d-flex justify-content-end">
+                                <b>
+                                    ชื่อหน่วยงาน/องค์กร/บริษัท :
+                                </b>
+                            </div>
+                            <div class="col-md-6 d-flex justify-content-start">
+                                <input type="text" value="<%=setting_list[0].Name1%>" name="Name1" class="form-control">
+                            </div>
+                            <div class="col-md-5 d-flex justify-content-end mt-2">
+                                <b>
+                                    ที่อยู่ :
+                                </b>
+                            </div>
+                            <div class="col-md-6 d-flex justify-content-start">
+                                <input type="text" value="<%=setting_list[0].shortDescription1%>"
+                                    name="shortDescription1" class="form-control">
+                            </div>
+                            <div class="col-md-5 d-flex justify-content-end mt-2">
+                                <b>
+                                    อีเมล :
+                                </b>
+                            </div>
+                            <div class="col-md-6 d-flex justify-content-start">
+                                <input type="text" value="<%=setting_list[0].emailAddress1%>" class="form-control"
+                                    name="emailAddress1">
+                            </div>
+                            <div class="col-md-5 d-flex justify-content-end mt-2">
+                                <b>
+                                    เบอร์โทรศัพท์สำนักงาน :
+                                </b>
+                            </div>
+                            <div class="col-md-6 d-flex justify-content-start">
+                                <input type="text" value="<%=setting_list[0].phone1%>" class="form-control"
+                                    name="phone1">
+                                <input type="hidden" value="<%=setting_list[0].quest_id%>" class="form-control"
+                                    name="quest_id">
+
+                            </div>
+                        </div>
+                        <div class="mt-4  text-center">
+                            <button type="submit" class="btn btn-success">บันทึกข้อมูล</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                id="close-modal">ปิด</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../_footer') -%>

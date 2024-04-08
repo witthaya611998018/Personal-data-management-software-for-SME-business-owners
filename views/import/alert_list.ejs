@@ -1,0 +1,976 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-2 align-self-center">
+                <h3 class="page-title">การตั้งค่าการเตือน</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">หน้าหลัก</a></li>
+                            <!-- <li class="breadcrumb-item"><a href="#">การตั้งค่า</a></li> -->
+                            <li class="breadcrumb-item active" aria-current="page">การตั้งค่าการเตือน</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-2 align-self-center">
+                <div class="card">
+                    <div class="box p-2 rounded bg-success text-center">
+                        <h2 class="fw-light text-white">
+                            <% if (data3){%>
+                                <%=data3[0].count%>
+                                    <%}else{%>
+                                        0
+                                        <%}%>
+                        </h2>
+                        <h6 class="text-white">คำเตือนประจำเดือน</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 align-self-center">
+                <div class="card">
+                    <div class="box p-2 rounded bg-danger text-center">
+                        <h2 class="fw-light text-white">
+                            <% if (data7){%>
+                                <%=data7[0].count%>
+                                    <%}else{%>
+                                        0
+                                        <%}%>
+                        </h2>
+                        <h6 class="text-white">จำนวนการตั้งคำเตือนทั้งหมด</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 align-self-center">
+                <div class="card">
+                    <div class="box p-2 rounded bg-warning text-center">
+                        <h2 class="fw-light text-white">
+                            <% if (data4){%>
+                                <%=data4[0].enable%>
+                                    <%}else{%>
+                                        0
+                                        <%}%>
+                        </h2>
+                        <h6 class="text-white">จำนวนการตั้งคำเตือน</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 align-self-center">
+                <div class="card">
+                    <div class="box p-2 rounded bg-secondary text-center">
+                        <h2 class="fw-light text-white">
+                            <% if (data5){%>
+                                <%=data5[0].disable%>
+                                    <%}else{%>
+                                        0
+                                        <%}%>
+                        </h2>
+                        <h6 class="text-white">ปิดการเตือน</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 align-self-center">
+                <div class="card">
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+
+                <div class="card">
+
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="card">
+                                <div class="title-part-padding border-bottom">
+                                    <h4 class="card-title mb-0">Line Chart</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div id="morris-line-chart33" style="height: 250px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-3">
+                            <div class="card">
+                                <div class="box p-5 rounded text-center">
+                                    <h1 class="fw-light text-white"></h1>
+                                    <h6 class="text-white"> </h6>
+                                </div>
+                                <div class="box p-2 rounded text-center">
+                                    <h1 class="fw-light text-white"></h1>
+                                    <h6 class="text-white"> </h6>
+                                </div>
+                                <div class="box p-3 rounded bg-primary text-center">
+                                    <h1 class="fw-light text-white">
+                                        <% if (data8){%>
+                                            <%=data8[0].count%>
+                                                <%}else{%>
+                                                    0
+                                                    <%}%>
+                                    </h1>
+                                    <h6 class="text-white">คำเตือนทั้งหมด</h6>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="card">
+                                <div class="card-body analytics-info">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <h4 class="card-title mb-0">Total Visit</h4>
+
+                                        <div class="ms-auto">
+                                            <small class="text-success"><i data-feather="arrow-up" class="fill-white text-success feather-sm"></i> 18% High then last month</small>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex align-items-center">
+                                        <div class="border-end pe-3">
+                                            <h6 class="text-muted fw-normal">Overall Growth</h6>
+                                            <b>80.40%</b>
+                                        </div>
+                                        <div class="ms-3 border-end pe-3">
+                                            <h6 class="text-muted fw-normal">Montly</h6>
+                                            <b>15.40%</b>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h6 class="text-muted fw-normal">Day</h6>
+                                            <b>5.50%</b>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="mossparkline"></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="border-bottom title-part-padding ">
+                                <h4 class="card-title mb-0 ">การตั้งค่าการเตือน</h4>
+                            </div>
+                            <div class="card-body ">
+                                <div class="row pb-3">
+                                    <div class="col-md-8">
+                                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#samedata2-modal" data-bs-whatever="@mdo" type="button"><i class="fas fa-upload"></i> สร้างการเตือน</button>
+                                    </div>
+
+                                </div>
+
+                                <table class="tablesaw no-wrap table-striped table-bordered table-hover table " id="myTable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col " data-tablesaw-sortable-col data-tablesaw-sortable-default-col data-tablesaw-priority="3 " class="border ">ลำดับ</th>
+                                            <th scope="col " data-tablesaw-sortable-col data-tablesaw-priority="persist " class="border ">ชื่อการเตือน</th>
+                                            <th scope="col " data-tablesaw-sortable-col data-tablesaw-priority="2 " class="border ">แจ้งเตือนผ่าน</th>
+                                            <th scope="col " data-tablesaw-sortable-col data-tablesaw-priority="2 " class="border ">ชื่ออุปกรณ์</th>
+                                            <th scope="col " data-tablesaw-sortable-col data-tablesaw-priority="4 " class="border ">สถานะ</th>
+                                            <th scope="col " data-tablesaw-sortable-col data-tablesaw-priority="4 " class="border ">ดูข้อมูล</th>
+                                            <th scope="col " data-tablesaw-sortable-col data-tablesaw-priority="4 " class="border ">ลบข้อมูล</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% if (data){ for (var i = 0; i < data.length; i++) { %>
+                                            <tr>
+                                                <td class="title align-top ">
+                                                    <%= (i+1) %>
+                                                </td>
+                                                <td class="align-top ">
+                                                    <%=data[i].name%>
+                                                </td>
+                                                <td class="align-top ">
+                                                    <%=data[i].type_alert%>
+                                                </td>
+                                                <td class="align-top ">
+                                                    <%if(data[i].device_id == "alltra"){%>
+                                                        Alttra
+                                                        <%}else{%>
+                                                            <%=data[i].devicename%>
+                                                                <%}%>
+                                                </td>
+                                                <td class="align-top ">
+                                                    <%if(data[i].enable == "1"){%>
+                                                        <span class="badge bg-light-info text-info fw-normal" style="font-size: larger;">เปิดใช้งาน</span>
+
+                                                        <%}else{%>
+                                                            <span class="badge bg-light-danger text-danger fw-normal" style="font-size: large;">ปิดใช้งาน</span>
+                                                            <%}%>
+                                                </td>
+
+                                                <td class="center" align="center">
+                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#samedata3-modal<%=i%>" data-bs-whatever="@mdo" class="btn waves-effect waves-light btn-info">
+                                                        <i style="font-size: 22px;" data-feather="file-text" class="feather-icon"></i></button>
+                                                    <!-- <a href="/device/del/<%=data[i].device_id%>"><button type="button" class="btn waves-effect waves-light btn-danger"  ><i class="fas fa-trash-alt"></i></button> -->
+                                                    </a>
+                                                </td>
+                                                <td class="center" align="center">
+                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#samedata4-modal<%=i%>" data-bs-whatever="@mdo" class="btn waves-effect waves-light btn-danger">
+                                                      <i style=" font-size: 22px; "  class="fas fas fa-trash-alt "></i></button>
+                                                    </button>
+                                                    <!-- <a href="/device/del/<%=data[i].device_id%>"><button type="button" class="btn waves-effect waves-light btn-danger"><i class="fas fa-trash-alt"></i></button>                                                        -->
+                                                    </a>
+                                                </td>
+
+                                            </tr>
+                                            <%  }} %>
+                                                <%if(data){%>
+                                                    <% if (data.length == 0){%>
+                                                        <tr>
+                                                            <td class="title align-top " style="text-align: center; color: rgb(228, 20, 20); " colspan="6 ">
+                                                                ไม่พบข้อมูล
+                                                            </td>
+                                                        </tr>
+                                                        <%}%>
+                                                            <%}%>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- สร้างการเตือน -->
+        <div class="modal fade" id="samedata2-modal" tabindex="-1" aria-labelledby="exampleModalLabel1">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-header d-flex align-items-center">
+
+                        <h4 class="card-title"><i class="fas fa-upload"></i> &nbsp;ข้อกำหนดการเฝ้าระวัง
+                        </h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                    </div>
+                    <div class="modal-body">
+                        <form action="/createalert" method="post">
+                            <input type="hidden" value="1" name="enable">
+                            <input type="hidden" value="1" name="check_date">
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label text-secondary" for="sender">ชื่อข้อกำหนด</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control border border-info" placeholder="ภาษาอังกฤษ ห้ามมี *?/_" name="name" required>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label text-secondary">เลือกอุปกรณ์</label>
+                                <div class="col-sm-6">
+                                    <select onchange="disabled_alltra(this)" class=".select2-with-border border-info form-control" style="width: 100%; height:36px;" name="device_id">
+                                        <option  >กรุณาเลือก</option>
+                                        <%  if(data6){ %>
+                                            <option value="alltra">Alltra</option>
+                                            <%  for (var i = 0; i < data6.length; i++) {  %>
+                                          <option value="<%= data6[i].device_id %>" > <%= data6[i].name %>  </option>
+                                          <%  } }%>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label text-secondary">เลือกผู้การแจ้งเตือน</label>
+                                <div class="col-sm-6">
+                                    <select class="form-control" multiple="" id="select2-with-tags" style="width: 100%;height: 36px;" name="acc_id" required>
+                                            <option  >กรุณาเลือก</option>
+                                            
+                                            <%  if(data2){ %>
+
+                                            <%  for (var i = 0; i < data2.length; i++) {  %>
+                                          <option value="<%= data2[i].acc_id %>" > <%= data2[i].name %>  </option>
+                                          <%  } }%>
+                                    </select>
+
+                                </div>
+                            </div>
+                            <hr>
+
+                            <div id="alltra" style="display: none;">
+                                <div class="mb-3 row">
+                                    <label class="col-sm-3 text-end control-label col-form-label text-secondary">แจ้งเตือนเมื่อ</label>
+                                    <div id="services" class="col-sm-3">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input success check-outline outline-success" type="checkbox" name="services" value='1'>
+                                            <label class="form-check-label" for="hash">Services not available</label>
+                                        </div>
+                                    </div>
+                                    <div id="disk" class="col-sm-3">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input success check-outline outline-success" type="checkbox" name="disk" value='1'>
+                                            <label class="form-check-label" for="hash">Disk Space Full</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-3 text-end control-label col-form-label text-secondary"></label>
+                                    <div id="system" class="col-sm-3">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input warning check-outline outline-warning" type="checkbox" name="system" value='1'>
+                                            <label class="form-check-label" for="hash">System Overload</label>
+                                        </div>
+                                    </div>
+                                    <div id="web" class="col-sm-3">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input warning check-outline outline-warning" type="checkbox" name="web" value='1'>
+                                            <label class="form-check-label" for="hash">Web Admin Login</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="check_date" class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label text-secondary">แจ้งเตือนเมื่อ</label>
+                                <div class="col-sm-3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input primary check-outline outline-primary" type="checkbox">
+                                        <label class="form-check-label" for="hash">ไม่มีล็อกส่งมา</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input class="form-control border border-info" type="text" name="day" placeholder='จำนวนวัน'>
+                                </div>
+                            </div>
+                            <!-- ฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝ -->
+                            <hr>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label text-secondary">แจ้งเตือนผ่าน</label>
+                                <div class="col-sm-3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input primary check-outline outline-primary" type="checkbox" name="type_alert" value='phone' disabled>
+                                        <label class="form-check-label" for="secondary-radio">ผ่าน SMS</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label text-secondary"></label>
+                                <div class="col-sm-3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input success check-outline outline-success" type="checkbox" name="type_alert" value='email' required>
+                                        <label class="form-check-label" for="hash">ผ่าน E-Mail</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-5">
+                                </div>
+                                <div class="col-sm-1">
+                                    <button type="submit" class="btn btn-success btn waves-effect waves-light">ยืนยัน</button>
+                                </div>
+                                <div class="col-sm-1">
+                                    <button type="button" class="btn btn-secondary waves-effect waves-light" data-bs-dismiss="modal">ยกเลิก</button>
+                                </div>
+                                <div class="col-sm-5">
+                                </div>
+                            </div>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ดูการเตือน -->
+        <% if (data){ for (var i = 0; i < data.length; i++) { %>
+            <div class="modal fade" id="samedata3-modal<%=i%>" tabindex="-1" aria-labelledby="exampleModalLabel1">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header d-flex align-items-center">
+                            <h4 class="card-title"><i class="fas fa-upload"></i> &nbsp;ข้อกำหนดการเฝ้าระวัง
+                            </h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                        </div>
+                        <div class="modal-body">
+                            <form action="/updatealert/<%=data[i].alert_id%>" method="post">
+                                <!-- <input type="hidden" value="<%=data[i].alert_id%>" name="alert_id"> -->
+                                <div class="mb-3 row">
+                                    <label class="col-sm-7 text-end control-label col-form-label text-secondary" for="sender"></label>
+                                    <div class="col-sm-5">
+                                        <div class="bt-switch">
+                                            <%if(data[i].enable == 1){%>
+                                                <input type="checkbox" checked data-on-color="info" data-off-color="warning" data-on-text="เปิดใช้งาน" data-off-text="ปิดใช้งาน" name="enable" off>
+                                                <%}else{%>
+                                                    <input type="checkbox" data-on-color="info" data-off-color="warning" data-on-text="เปิดใช้งาน" data-off-text="ปิดใช้งาน" name="enable" off>
+                                                    <%}%>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-5 text-end control-label col-form-label text-secondary" for="sender">ชื่อข้อกำหนด</label>
+                                    <div class="col-sm-6">
+                                        <label class="control-label col-form-label "><%=data[i].name%></label>
+
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-5 text-end control-label col-form-label text-secondary">ชื่ออุปกรณ์</label>
+                                    <div class="col-sm-6">
+                                        <label class="control-label col-form-label "><%=data[i].devicename%></label>
+
+
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-5 text-end control-label col-form-label text-secondary">เลือกผู้การแจ้งเตือน</label>
+                                    <div class="col-sm-6">
+                                        <label class="control-label col-form-label "><%=data[i].acc_id%></label>
+
+                                    </div>
+                                </div>
+
+                                <hr>
+                                <%if(data[i].device_id == 'alltra'){%>
+                                    <div>
+                                        <div class="mb-3 row">
+                                            <label class="col-sm-4 text-end control-label col-form-label text-secondary">แจ้งเตือนเมื่อ</label>
+                                            <div class="col-sm-3">
+                                                <div class="form-check form-check-inline">
+                                                    <%if(data[i].services == '1'){%>
+                                                        <input class="form-check-input success check-outline outline-success" type="checkbox" name="services" value='1' checked>
+                                                        <%}else{%>
+                                                            <input class="form-check-input success check-outline outline-success" type="checkbox" name="services" value='0'>
+
+                                                            <%}%>
+                                                                <label class="form-check-label" for="hash">Services not available</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-check form-check-inline">
+                                                    <%if(data[i].disk == '1'){%>
+                                                        <input class="form-check-input success check-outline outline-success" type="checkbox" name="disk" value='1' checked>
+                                                        <%}else{%>
+                                                            <input class="form-check-input success check-outline outline-success" type="checkbox" name="disk" value='0'>
+                                                            <%}%>
+                                                                <label class="form-check-label" for="hash">Disk Space Full</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label class="col-sm-4 text-end control-label col-form-label text-secondary"></label>
+                                            <div class="col-sm-3">
+                                                <div class="form-check form-check-inline">
+                                                    <%if(data[i].system == '1'){%>
+                                                        <input class="form-check-input warning check-outline outline-warning" type="checkbox" name="system" value='1' checked>
+                                                        <%}else{%>
+                                                            <input class="form-check-input warning check-outline outline-warning" type="checkbox" name="system" value='0'>
+                                                            <%}%>
+                                                                <label class="form-check-label" for="hash">System Overload</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-check form-check-inline">
+                                                    <%if(data[i].web == '1'){%>
+                                                        <input class="form-check-input warning check-outline outline-warning" type="checkbox" name="web" value='1' checked>
+                                                        <%}else{%>
+                                                            <input class="form-check-input warning check-outline outline-warning" type="checkbox" name="web" value='0'>
+                                                            <%}%>
+                                                                <label class="form-check-label" for="hash">Web Admin Login</label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <%}else{%>
+                                        <div id="check_date" class="mb-3 row">
+                                            <label class="col-sm-4 text-end control-label col-form-label text-secondary">แจ้งเตือนเมื่อ</label>
+                                            <%if(data[i].day > 0){%>
+                                                <div class="col-sm-3">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input primary check-outline outline-primary" type="checkbox" checked required>
+                                                        <label class="form-check-label" for="hash">ไม่มีล็อกส่งมา</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <input class="form-control border border-info" type="text" name="day" value="<%=data[i].day%>" placeholder='จำนวนวัน'>
+                                                </div>
+                                                <%}%>
+                                        </div>
+                                        <%}%>
+
+
+                                            <!-- ฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝ -->
+                                            <hr>
+                                            <div class="mb-3 row">
+                                                <label class="col-sm-4 text-end control-label col-form-label text-secondary">แจ้งเตือนผ่าน</label>
+                                                <div class="col-sm-3">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input primary check-outline outline-primary" type="checkbox" name="type_alert" value='phone' disabled>
+                                                        <label class="form-check-label" for="secondary-radio">ผ่าน SMS</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label class="col-sm-4 text-end control-label col-form-label text-secondary"></label>
+                                                <div class="col-sm-3">
+                                                    <div class="form-check form-check-inline">
+                                                        <%if(data[i].day > 0){%>
+                                                            <input class="form-check-input success check-outline outline-success" type="checkbox" name="type_alert" value='email' checked>
+                                                            <%}else{%>
+                                                                <input class="form-check-input success check-outline outline-success" type="checkbox" name="type_alert" value='email'>
+                                                                <%}%>
+
+                                                                    <label class="form-check-label" for="hash">ผ่าน E-Mail</label>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-sm-5">
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <button type="submit" class="btn btn-success btn waves-effect waves-light">ยืนยัน</button>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <button type="button" class="btn btn-secondary waves-effect waves-light" data-bs-dismiss="modal">ยกเลิก</button>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                </div>
+                                            </div>
+                                            <br>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%  }} %>
+                <!-- ลบการเตือน -->
+                <% if (data){ for (var i = 0; i < data.length; i++) { %>
+                    <div class="modal fade" id="samedata4-modal<%=i%>" tabindex="-1" aria-labelledby="exampleModalLabel1">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header d-flex align-items-center">
+                                    <h4 class="card-title"><i class="fas fa-upload"></i> &nbsp;ลบข้อกำหนดการเฝ้าระวัง
+                                    </h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/dellert" method="post">
+                                        <input type="hidden" value="<%=data[i].alert_id%>" name="alert_id">
+                                        <div class="mb-3 row">
+                                            <label class="col-sm-7 text-end control-label col-form-label text-secondary" for="sender"></label>
+                                            <div class="col-sm-5">
+                                                <div class="bt-switch">
+                                                    <%if(data[i].enable == 1){%>
+                                                        <input type="checkbox" checked disabled data-on-color="info" data-off-color="warning" data-on-text="เปิดใช้งาน" data-off-text="ปิดใช้งาน" name="enable" off>
+                                                        <%}else{%>
+                                                            <input type="checkbox" disabled data-on-color="info" data-off-color="warning" data-on-text="เปิดใช้งาน" data-off-text="ปิดใช้งาน" name="enable" off>
+                                                            <%}%>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label class="col-sm-5 text-end control-label col-form-label text-secondary" for="sender">ชื่อข้อกำหนด</label>
+                                            <div class="col-sm-6">
+                                                <label class="control-label col-form-label "><%=data[i].name%></label>
+
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label class="col-sm-5 text-end control-label col-form-label text-secondary">ชื่ออุปกรณ์</label>
+                                            <div class="col-sm-6">
+                                                <label class="control-label col-form-label "><%=data[i].devicename%></label>
+
+
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label class="col-sm-5 text-end control-label col-form-label text-secondary">เลือกผู้การแจ้งเตือน</label>
+                                            <div class="col-sm-6">
+                                                <label class="control-label col-form-label "><%=data[i].acc_id%></label>
+
+                                            </div>
+                                        </div>
+
+                                        <hr>
+
+                                        <div class="mb-3 row">
+                                            <label class="col-sm-4 text-end control-label col-form-label text-secondary">แจ้งเตือนเมื่อ</label>
+                                            <div class="col-sm-3">
+                                                <div class="form-check form-check-inline">
+                                                    <%if(data[i].services == '1'){%>
+                                                        <input class="form-check-input success check-outline outline-success" type="checkbox" name="services" value='1' checked disabled>
+                                                        <%}else{%>
+                                                            <input class="form-check-input success check-outline outline-success" type="checkbox" name="services" value='0' disabled>
+
+                                                            <%}%>
+                                                                <label class="form-check-label" for="hash">Services not available</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-check form-check-inline">
+                                                    <%if(data[i].disk == '1'){%>
+                                                        <input class="form-check-input success check-outline outline-success" type="checkbox" name="disk" value='1' checked disabled>
+                                                        <%}else{%>
+                                                            <input class="form-check-input success check-outline outline-success" type="checkbox" name="disk" value='0' disabled>
+                                                            <%}%>
+                                                                <label class="form-check-label" for="hash">Disk Space Full</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label class="col-sm-4 text-end control-label col-form-label text-secondary"></label>
+                                            <div class="col-sm-3">
+                                                <div class="form-check form-check-inline">
+                                                    <%if(data[i].system == '1'){%>
+                                                        <input class="form-check-input warning check-outline outline-warning" type="checkbox" name="system" value='1' checked disabled>
+                                                        <%}else{%>
+                                                            <input class="form-check-input warning check-outline outline-warning" type="checkbox" name="system" value='0' disabled>
+                                                            <%}%>
+                                                                <label class="form-check-label" for="hash">System Overload</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-check form-check-inline">
+                                                    <%if(data[i].web == '1'){%>
+                                                        <input class="form-check-input warning check-outline outline-warning" type="checkbox" name="web" value='1' checked disabled>
+                                                        <%}else{%>
+                                                            <input class="form-check-input warning check-outline outline-warning" type="checkbox" name="web" value='0' disabled>
+                                                            <%}%>
+
+                                                                <label class="form-check-label" for="hash">Web Admin Login</label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label class="col-sm-4 text-end control-label col-form-label text-secondary"></label>
+                                            <div class="col-sm-4">
+                                                <div class="form-check form-check-inline">
+                                                    <%if(data[i].day>0){%>
+                                                        <input class="form-check-input primary check-outline outline-primary" type="checkbox" id="hash" checked disabled>
+
+                                                        <label class="control-label col-form-label " for="hash">ไม่มีล็อกส่งมา <%=data[i].day%> วัน</label>
+                                                        <%}else{%>
+                                                            <input class="form-check-input primary check-outline outline-primary" type="checkbox">
+                                                            <label class="form-check-label" for="hash">ไม่มีล็อกส่งมา</label>
+                                                            <%}%>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                            </div>
+                                        </div>
+                                        <!-- ฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝฝ -->
+                                        <hr>
+                                        <div class="mb-3 row">
+                                            <label class="col-sm-4 text-end control-label col-form-label text-secondary">แจ้งเตือนผ่าน</label>
+                                            <div class="col-sm-3">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input primary check-outline outline-primary" type="checkbox" name="type_alert" value='phone' disabled>
+                                                    <label class="form-check-label" for="secondary-radio">ผ่าน SMS</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label class="col-sm-4 text-end control-label col-form-label text-secondary"></label>
+                                            <div class="col-sm-3">
+                                                <div class="form-check form-check-inline">
+                                                    <%if(data[i].web == '1'){%>
+                                                        <input class="form-check-input success check-outline outline-success" type="checkbox" name="type_alert" value='email' checked disabled>
+                                                        <%}else{%>
+                                                            <input class="form-check-input success check-outline outline-success" type="checkbox" name="type_alert" value='email'>
+                                                            <%}%>
+
+                                                                <label class="form-check-label" for="hash">ผ่าน E-Mail</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-5">
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button type="submit" class="btn btn-success btn waves-effect waves-light">ยืนยัน</button>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <button type="button" class="btn btn-secondary waves-effect waves-light" data-bs-dismiss="modal">ยกเลิก</button>
+                                            </div>
+                                            <div class="col-sm-5">
+                                            </div>
+                                        </div>
+                                        <br>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <%  }} %>
+                        <!-- google -->
+                        <% if (data){ for (var i = 0; i < data.length; i++) { %>
+                            <div class="modal fade" id="tests<%=i%>" tabindex="-1" aria-labelledby="exampleModalLabel1">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header d-flex align-items-center"></div>
+                                        <div class="modal-body">
+                                            <div class="mb-3 row">
+                                                <h4 class="text-center">OTP by Google Authenticator
+
+                                                </h4><br>
+                                                <hr><br>
+                                                <div class="col-sm-3"></div>
+                                                <div class="col-sm-6">
+                                                    <input type="text" class="form-control border border-info" placeholder="รหัสจาก Google Authenticator" id="authen">
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <button type="button" onclick="check2('<%=data[i].ftp_id %>')" class="btn btn-success btn waves-effect waves-light">ยืนยัน</button>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <button type="button" class="btn btn-secondary waves-effect waves-light" data-bs-dismiss="modal">ยกเลิก</button>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    </div>
+    <%  }} %>
+        <!-- -------------------------------------------------------------- -->
+        <!-- End PAge Content -->
+        <!-- -------------------------------------------------------------- -->
+        <!--start overlay-->
+        <%- include('../_footer') -%>
+
+            <script src="/UI/assets/libs/datatables/media/js/jquery.dataTables.min.js "></script>
+            <script src="/UI/dist/js/pages/datatable/custom-datatable.js "></script>
+            <script src="/UI/dist/js/pages/datatable/datatable-basic.init.js "></script>
+            <script src="/UI/assets/libs/apexcharts/dist/apexcharts.min.js "></script>
+
+            <!-- <script src="/UI/assets/libs/chartist/dist/chartist.min.js "></script>
+                                    <script src="/UI/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js "></script> -->
+            <script src="/UI/assets/libs/flot/jquery.flot.js "></script>
+
+            <script src="/UI/dist/js/pages/widget/widget-charts.js "></script>
+
+            <script src="/UI/assets/libs/raphael/raphael.min.js"></script>
+
+            <script src="/UI/assets/libs/morris.js/morris.min.js"></script>
+
+            <script src="/UI/assets/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
+            <script src="/UI/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+            <!-- <script src="/UI/dist/js/pages/sparkline/jquery.charts-sparkline.js"></script> -->
+            <script src="/UI/assets/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
+
+            <script src="/UI/assets/libs/select2/dist/js/select2.full.min.js"></script>
+            <script src="/UI/assets/libs/select2/dist/js/select2.min.js"></script>
+            <script src="/UI/dist/js/pages/forms/select2/select2.init.js"></script>
+
+            <script src="/UI/assets/libs/bootstrap-switch/dist/js/bootstrap-switch.min.js"></script>
+
+            <script>
+                $(document).ready(function() {
+                    $("#select2-with-tags").select2({
+                        dropdownParent: $("#samedata2-modal")
+                    });
+                });
+            </script>
+
+            <script>
+                var userid = <%-JSON.stringify(session.userid)%>;
+
+                function check(id) {
+                    var result = []
+                        // console.log(id);
+                    result.value = document.getElementById("authen").value;
+                    if (result.value) {
+                        var request2 = function() {
+                            result["userid"] = userid;
+                            // console.log(result);
+                            $.ajax({
+                                url: "http://127.0.0.1:8081/ajaxcheckuser",
+                                type: "post",
+                                data: {
+                                    value: result.value,
+                                    userid: userid
+                                },
+                                success: function(data) {
+                                    var result = data.data;
+                                    if (result.length == 0) {
+                                        alert("ใส่รหัสผ่านผิด")
+                                        setInterval('location.reload()', 200);
+                                    } else {
+                                        $.ajax({
+                                            url: "http://127.0.0.1:8081/device/confirmdelete/" + id,
+                                            type: "post",
+                                            // success: function(data2) {
+                                            //     console.log(data2);
+                                            //     // if (data2) {
+                                            //     alert("ลบอุปกรณ์ต้นทางเรียบร้อย");
+                                            //     setInterval('location.reload()', 200);
+                                            //     // } else {
+                                            //     //     alert("ข้อมูลผิดพลาด")
+                                            //     //     setInterval('location.reload()', 200);
+                                            //     // }
+
+                                            // }
+                                        });
+                                        alert("ลบอุปกรณ์ต้นทางเรียบร้อย");
+                                        setInterval('location.reload()', 200);
+                                    }
+
+                                }
+                            });
+                        }
+                        request2();
+                    }
+                };
+            </script>
+            <script>
+                $(document).ready(function() {
+                    $("#mossparkline").sparkline([2, 4, 4, 6, 8, 5, 6, 4, 8, 6, 6, 2], {
+                        type: 'line',
+                        width: '100%',
+                        height: '160',
+                        lineColor: '#39c449',
+                        fillColor: '#39c449',
+                        maxSpotColor: '#39c449',
+                        highlightLineColor: 'rgba(0, 0, 0, 0.2)',
+                        highlightSpotColor: '#39c449'
+                    });
+                });
+            </script>
+            <script>
+                var line = new Morris.Line({
+                    element: 'morris-line-chart33',
+                    resize: true,
+                    data: [{
+                        y: '2011 Q1',
+                        item1: 2666
+                    }, {
+                        y: '2011 Q2',
+                        item1: 2778
+                    }, {
+                        y: '2011 Q3',
+                        item1: 4912
+                    }, {
+                        y: '2011 Q4',
+                        item1: 3767
+                    }, {
+                        y: '2012 Q1',
+                        item1: 6810
+                    }, {
+                        y: '2012 Q2',
+                        item1: 5670
+                    }, {
+                        y: '2012 Q3',
+                        item1: 4820
+                    }, {
+                        y: '2012 Q4',
+                        item1: 15073
+                    }, {
+                        y: '2013 Q1',
+                        item1: 10687
+                    }, {
+                        y: '2013 Q2',
+                        item1: 8432
+                    }],
+                    xkey: 'y',
+                    ykeys: ['item1'],
+                    labels: ['Item 1'],
+                    gridLineColor: '#eef0f2',
+                    lineColors: ['#009efb'],
+                    lineWidth: 1,
+                    hideHover: 'auto'
+                });
+            </script>
+            <script>
+                var userid = <%-JSON.stringify(session.userid)%>;
+
+                function check2(id) {
+                    var result = []
+                    console.log(id);
+                    result.value = document.getElementById("authen").value;
+                    if (result.value) {
+                        var request2 = function() {
+                            result["userid"] = userid;
+                            // console.log(result);
+                            $.ajax({
+                                url: "http://127.0.0.1:8081/ajaxcheckuser",
+                                type: "post",
+                                data: {
+                                    value: result.value,
+                                    userid: userid
+                                },
+                                success: function(data) {
+                                    var result = data.data;
+                                    if (result.length == 0) {
+                                        alert("ใส่รหัสผ่านผิด")
+                                        setInterval('location.reload()', 200);
+                                    } else {
+                                        $.ajax({
+                                            url: "http://127.0.0.1:8081/deleteftp/" + id,
+                                            type: "post",
+                                            // success: function(data2) {
+                                            //     console.log(data2);
+                                            //     // if (data2) {
+                                            //     alert("ลบอุปกรณ์ต้นทางเรียบร้อย");
+                                            //     setInterval('location.reload()', 200);
+                                            //     // } else {
+                                            //     //     alert("ข้อมูลผิดพลาด")
+                                            //     //     setInterval('location.reload()', 200);
+                                            //     // }
+
+                                            // }
+                                        });
+                                        alert("ลบนำเข้าข้อมูลต่างๆด้วยFTPเรียบร้อย");
+                                        setInterval('location.reload()', 200);
+                                    }
+
+                                }
+                            });
+                        }
+                        request2();
+                    }
+                };
+            </script>
+            <script>
+                function disabled_alltra(select) {
+
+                    var selected = $(select).val();
+                    if (selected == 'alltra') {
+                        document.getElementById(selected).style.display = "";
+                        document.getElementById('check_date').style.display = "none";
+
+                    } else {
+                        document.getElementById('alltra').style.display = "none";
+                        document.getElementById('check_date').style.display = "";
+
+                    }
+                }
+            </script>
+            <script>
+                $(".bt-switch input[type='checkbox'], .bt-switch input[type='radio']").bootstrapSwitch();
+                var radioswitch = function() {
+                    var bt = function() {
+                        $(".radio-switch").on("switch-change", function() {
+                            $(".radio-switch").bootstrapSwitch("toggleRadioState")
+                        }), $(".radio-switch").on("switch-change", function() {
+                            $(".radio-switch").bootstrapSwitch("toggleRadioStateAllowUncheck")
+                        }), $(".radio-switch").on("switch-change", function() {
+                            $(".radio-switch").bootstrapSwitch("toggleRadioStateAllowUncheck", !1)
+                        })
+                    };
+                    return {
+                        init: function() {
+                            bt()
+                        }
+                    }
+                }();
+                $(document).ready(function() {
+                    radioswitch.init()
+                });
+            </script>
+            <!-- <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script> -->
+            <!-- <script>
+                                            $(document).ready(function() {
+                                                $('#toggle-demo').bootstrapToggle('off')
+
+                                            });
+                                        </script> -->

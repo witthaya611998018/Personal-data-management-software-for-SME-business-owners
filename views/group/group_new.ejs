@@ -1,0 +1,127 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-6 align-self-center">
+                <h3 class="page-title">ข้อมูลกลุ่มผู้ใช้</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item"><a href="/index2">การจัดการผู้ใช้</a></li>
+                            <li class="breadcrumb-item"><a href="/group/list">ข้อมูลกลุ่มผู้ใช้</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                เพิ่มกลุ่มผู้ใช้และอุปกรณ์ของกลุ่ม
+                            </li>
+
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+
+        <div class="row">
+            <!-- Column -->
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <form action="/group/adduser" method="post">
+                            <div class="col-12">
+                                <div class="card">
+                                    <input type="hidden" name="group_id" value="m">
+                                    <input type="hidden" name="group_id" value="<%= data3[0].group_id %>">
+                                    <input type="hidden" name="acc_id" value="m">
+                                    <input type="hidden" name="de_id" value="m">
+                                    <div class="border-bottom title-part-padding">
+                                        <h4 class="card-title">เพิ่มกลุ่มผู้ใช้และอุปกรณ์ของกลุ่ม
+                                            <%= data3[0].g_name %>
+                                        </h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-3 row">
+                                            <!-- <label for="group_id" class="col-sm-3 text-end control-label col-form-label text-secondary">กลุ่ม</label> -->
+                                            <div class="col-sm-3">
+                                                <input type="hidden" class="form-control border border-info" id="group_id" value="<%= data3[0].g_name %>" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <select multiple="multiple" size="10" class="duallistbox-custom-height" name="acc_id">
+                                                <%  if(data){ %>
+                                                    <%  for (var i = 0; i < data.length; i++) {  %>
+                                                        <option value="<%= data[i].acc_id %>"> <%= data[i].name %></option>
+                                                        
+                                                        <%  } }%>
+                                                        <%  if(data4){ %>
+                                                            <%  for (var i = 0; i < data4.length; i++) {  %>
+                                                                <option selected="selected" value="<%= data4[i].acc_id %>"> <%= data4[i].name %></option>
+                                                                
+                                                                <%  } }%>
+                                                </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="border-bottom title-part-padding">
+                                        <h4 class="card-title">เพิ่มกลุ่มผู้ใช้และอุปกรณ์</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <select multiple="multiple" size="10" class="duallistbox-custom-height" name="de_id">
+                                                <%  if(data2){ %>
+                                                    <%  for (var i = 0; i < data2.length; i++) {  %>
+                                                  <option value="<%= data2[i].device_id %>" > <%= data2[i].name %>  </option>
+                                                  <%  } }%>
+                                                  <%  if(data5){ %>
+                                                    <%  for (var i = 0; i < data5.length; i++) {  %>
+                                                        <option selected="selected" value="<%= data5[i].device_id %>"> <%= data5[i].name %></option>
+                                                        
+                                                        <%  } }%>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="p-3 border-top">
+                                <div class="text-end">
+                                    <button type="submit" class="btn btn-success rounded-pill px-4 waves-effect waves-light">ยันยัน</button>
+                                    <a href="/group/list"> <button type="button" class="btn btn-secondary rounded-pill px-4 waves-effect waves-light">กลับ</button></a>
+                                </div>
+                            </div> -->
+                            <!-- <div class="row">
+                                <div class="col-sm-4">
+                                </div>
+                                <div class="col-sm-2">
+                                    <button type="submit" class="btn btn-success rounded-pill px-4 waves-effect waves-light">ยืนยัน</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <a href="/group/list"> <button type="button" class="btn btn-secondary rounded-pill px-4 waves-effect waves-light">กลับ</button></a>
+                                </div>
+                            </div><br> -->
+                            <hr>
+                            <div class="row ">
+                                <!-- <div class="col-sm-5">
+                                </div> -->
+                                <div class="col-sm-12" style="text-align: center;">
+                                    <button type="submit" class="btn btn-success  waves-effect waves-light">ยืนยัน</button>
+                                <!-- </div> -->
+                                <!-- <div class="col-sm-1"> -->
+                                    <a href="/group/list"> <button type="button" class="btn btn-secondary  waves-effect waves-light">กลับ</button></a>
+                               </div>
+                                 <!-- <div class="col-sm-5"> -->
+                                </div>
+                            </div>
+                            <br>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <script src="/UI/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="/UI/assets/libs/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    <script src="/UI/assets/libs/bootstrap-duallistbox/dist/jquery.bootstrap-duallistbox.min.js"></script>
+    <script src="/UI/dist/js/pages/forms/dual-listbox/dual-listbox.js"></script>
+    <%- include('../_footer') -%>

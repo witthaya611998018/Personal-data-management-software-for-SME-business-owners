@@ -1,0 +1,147 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-6 align-self-center">
+                <h3 class="page-title">ดูข้อมูลอุปกรณ์ต้นทาง</h3> 
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item"><a href="/index2">การจัดการระบบ</a></li>
+                            <li class="breadcrumb-item"><a href="/device/list">อุปกรณ์ต้นทาง</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">ดูข้อมูลอุปกรณ์ต้นทาง</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- ============================================================== --
+        <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- -------------------------------------------------------------- -->
+        <!-- Start Page Content -->
+        <!-- -------------------------------------------------------------- -->
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body border-bottom">
+                    <h4 class="card-title">ดูข้อมูลอุปกรณ์ต้นทาง</h4>
+                </div>
+                <form class="form-horizontal">
+                    <div class="card-body">
+                        <input type="hidden" name="location_bu" value="0">
+                        <input type="hidden" name="backup" value="0">
+                        <input type="hidden" value="<%=data[0].input_id%>" name="input_id">
+                        <input type="hidden" value="<%=data[0].image%>" name="image">
+                        <div class="mb-3 row">
+                            <label for="firstname" class="col-sm-3 text-end control-label col-form-label text-secondary"></label>
+                            <div class="col-sm-6">
+                                <center class="mt-4"> <img src="/UI/image/<%=data[0].image%>" class="rounded-circle" width="250" height="250" />
+                                </center><br>
+                            </div>
+                        </div><br>
+                        <hr><br>
+                        <div class="mb-3 row">
+                            <label class="col-sm-5 text-end control-label col-form-label text-secondary">สถานะอุปกรณ์</label>
+                            <div class="col-sm-6">
+                                <label class="control-label col-form-label "><%=data[0].status%></label>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-sm-5 text-end control-label col-form-label text-secondary">ประเภทอุปกรณ์</label>
+                            <div class="col-sm-6">
+                                <label class="control-label col-form-label "><%=data[0].data_type%></label>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-sm-5 text-end control-label col-form-label text-secondary">ประเภทข้อมูล</label>
+                            <div class="col-sm-6">
+                                <label class="control-label col-form-label "><%=data[0].data_type%></label>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-sm-5 text-end control-label col-form-label text-secondary" for="sender">ประเภทการจัดส่งข้อมูลมาจัดเก็บ</label>
+                            <div class="col-sm-6">
+                                <label class="control-label col-form-label "><%=data[0].sender%></label>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="de_ip" class="col-sm-5 text-end control-label col-form-label text-secondary">IP ที่ใช้ติดต่อกับ Server</label>
+                            <div class="col-sm-6">
+                                <label class="control-label col-form-label "><%=data[0].de_ip%></label>
+                            </div>
+
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="port" class="col-sm-5 text-end control-label col-form-label text-secondary">Port ที่ใช้ติดต่อกับ Server</label>
+                            <div class="col-sm-6">
+                                <label class="control-label col-form-label ">514</label>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="cono1" class="col-sm-5 text-end control-label col-form-label text-secondary">ระบบตรวจสอบความถูกต้องของข้อมูล</label>
+                            <div class="col-sm-6">
+                                <%if(data[0].hash == "0"){%>
+                                    <label class="control-label col-form-label">ไม่ทราบ</label>
+                                    <%}else if(data[0].hash == "1"){%>
+                                        <label class="control-label col-form-label">มี จัดเก็บข้อมูล</label>
+                                        <%}else{%>
+                                            <label class="control-label col-form-label">ไม่มี</label>
+
+                                            <%}%>
+                                                <label class="control-label col-form-label"><%=data[0].keep%> วัน</label>
+                            </div>
+
+                        </div>
+                        <hr>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="mb-3 row">
+                            <label for="com2" class="col-sm-5 text-end control-label col-form-label text-secondary">ชื่ออุปกรณ์</label>
+                            <div class="col-sm-6">
+                                <label class="control-label col-form-label "><%=data[0].hostname%></label>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-sm-5 text-end control-label col-form-label text-secondary" for="com3">ชื่อที่ใช้ในระบบ</label>
+                            <div class="col-sm-6">
+                                <label class="control-label col-form-label "><%=data[0].name%></label>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+
+                    <br>
+                 
+
+                    <div class="row">
+                        <div class="col-sm-5">
+                        </div>
+                        <div class="col-sm-2">
+                            <a href="/device/edit/<%=data[0].device_id%>"> 
+                            <button type="button" class="btn btn-success waves-effect waves-light ">ยืนยัน</button></a>
+
+                            <a href="/device/list"> <button type="button" class="btn btn-secondary waves-effect waves-light">กลับ</button></a>
+
+                        </div>
+                        <div class="col-sm-1">
+                        </div>
+                        <div class="col-sm-5">
+                        </div>
+                    </div>
+                    <br>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Row -->
+
+
+    <!-- -------------------------------------------------------------- -->
+    <!-- End PAge Content -->
+    <!-- -------------------------------------------------------------- -->
+    <!--start overlay-->
+    <%- include('../_footer') -%>

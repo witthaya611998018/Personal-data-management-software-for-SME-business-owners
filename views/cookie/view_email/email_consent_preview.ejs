@@ -1,0 +1,120 @@
+<%- include ("../../_header") %>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">ดูข้อมูล E-mail Consent</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/management/cookies">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item"><a href="/management/email_consent">E-mail Consent</a></li>
+                            <li class="breadcrumb-item">ดูข้อมูล E-mail Consent</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-7 justify-content-end align-self-center d-none d-md-flex">
+                <div class="d-flex">
+                    <div class="dropdown me-2">
+                        <a href="/management/email_consent" class="btn btn-secondary">ย้อนกลับ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="justify-content-center d-flex">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="border-bottom title-part-padding">
+                        <h4 class="card-title mb-0">ดูข้อมูล E-mail Consent</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 text-md-end py-1">
+                                <label class="control-label font-weight-medium">อีเมล</label>
+                            </div>
+                            <div class="col-md-6 py-1">
+                                <%=select_pdpa_email[0].email_to%>
+                            </div>
+                            <div class="col-md-6 text-md-end py-1">
+                                <label class="control-label font-weight-medium">หัวเรื่องอีเมล</label>
+                            </div>
+                            <div class="col-md-6 py-1">
+                                <%=select_pdpa_email[0].email_subject%>
+                            </div>
+                            <div class="col-md-6 text-md-end py-1">
+                                <label class="control-label font-weight-medium">ชื่อ-นามสกุล ผู้รับ</label>
+                            </div>
+                            <div class="col-md-6 py-1">
+                                <%=select_pdpa_email[0].email_firstname%>
+                                    <%=select_pdpa_email[0].email_lastname%>
+                            </div>
+                            <div class="col-md-6 text-md-end py-1">
+                                <label class="control-label font-weight-medium">ชื่อเอกสาร</label>
+                            </div>
+                            <div class="col-md-6 py-1">
+                                <% if (select_pdpa_email[0].doc_name !=null) {%>
+                                    <%=select_pdpa_email[0].doc_name%>
+                                        <%}else{%>
+                                            -
+                                            <%}%>
+                            </div>
+                            <div class="col-md-6 text-md-end py-1">
+                                <label class="control-label font-weight-medium">วันที่จัดส่ง</label>
+                            </div>
+                            <div class="col-md-6 py-1">
+                                <%=select_pdpa_email[0].email_date_send%>
+                            </div>
+                            <div class="col-md-6 text-md-end py-1">
+                                <label class="control-label font-weight-medium">วันที่ตอบกลับ</label>
+                            </div>
+                            <div class="col-md-6 py-1">
+                                <% if (select_pdpa_email[0].email_date_consent) {%>
+                                    <%=select_pdpa_email[0].email_date_consent%>
+                                        <%}else {%>
+                                            -
+                                            <%}%>
+                            </div>
+
+                            <div class="col-md-6 text-md-end py-1">
+                                <label class="control-label font-weight-medium">ไฟล์แนบ</label>
+                            </div>
+                            <div class="col-md-6 py-1">
+                                <%if(file !="0" ){%>
+                                    <% for (var i=0;i<file.length;i++) {%>
+                                        <%=file[i]%>
+                                            <%}%>
+                                                <%}else {%>
+                                                    -
+                                                    <%}%>
+
+                            </div>
+                            <div class="col-md-6 text-md-end py-1">
+                                <label class="control-label font-weight-medium">สถานะ</label>
+                            </div>
+                            <div class="col-md-6 py-1">
+                                <%if (select_pdpa_email[0].email_status=="0" ) {%>
+                                    <label class="control-label font-weight-medium text-warning">รอตอบกลับ</label>
+                                    <%}else if (select_pdpa_email[0].email_status=="2" ) {%>
+                                        <label class="control-label font-weight-medium text-danger">ไม่ยินยอม</label>
+                                        <%}else{%>
+                                            <label class="control-label font-weight-medium text-success">ยินยอม</label>
+                                            <%}%>
+                            </div>
+                            <div class="col-md-6 text-md-end py-1">
+                                <label class="control-label font-weight-medium">ข้อความ</label>
+                            </div>
+                            <div class="col-md-12 py-1">
+                                <div class="card-body">
+                                    <%-select_pdpa_email[0].email_content%>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include ("../../_footer") %>

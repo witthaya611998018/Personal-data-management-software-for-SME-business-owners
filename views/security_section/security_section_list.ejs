@@ -1,0 +1,472 @@
+<%- include ("../_header") %>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">มาตรการรักษาความปลอดภัย</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/<%=process.env.SUBFOLDER%>index2">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item">มาตรการรักษาความปลอดภัย</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="d-flex border-bottom title-part-padding align-items-center">
+                <h4 class="card-title mb-0">มาตรการรักษาความปลอดภัย</h4>
+            </div>
+            <div class="card-body">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link  <% if(tap=='General-Measures') {%>active<%}%>" data-bs-toggle="tab"
+                            href="#home" onclick="nav_link('home')"> </i>
+                            มาตรการรักษาความมั่นคงปลอดภัยโดยทั่วไป (General Measures)
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <% if(tap=='Risk-based-Approach') {%>active<%}%>" data-bs-toggle="tab"
+                            href="#menu1" onclick="nav_link('menu1')">
+                            มาตรการระบุความเสี่ยงสำคัญ (Risk-based Approach)
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  <% if(tap=='Specific-Measures') {%>active<%}%>" data-bs-toggle="tab"
+                            href="#menu2" onclick="nav_link('menu2')">
+                            มาตรการรักษาความปลอดภัยขั้นต่ำที่PDPA กำหนด (PDPA Specific Measures)
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="mt-4">
+                    <%if (tap=='General-Measures' ) { %>
+                        <a class="btn btn-success" id="button-add-measure"
+                            href="/<%=process.env.SUBFOLDER%>security/section/General-Measures/add"><i class="fas fa-plus"></i>
+                            เพิ่มมาตรการรักษาความปลอดภัย
+                        </a>
+                        <%}else if (tap=='Risk-based-Approach' ) {%>
+                            <a class="btn btn-success" id="button-add-measure"
+                                href="/<%=process.env.SUBFOLDER%>security/section/Risk-based-Approach/add"><i class="fas fa-plus"></i>
+                                เพิ่มมาตรการรักษาความปลอดภัย
+                            </a>
+                            <%}else if (tap=='Specific-Measures' ) {%>
+                                <a class="btn btn-success" id="button-add-measure"
+                                    href="/<%=process.env.SUBFOLDER%>security/section/Specific-Measures/add"><i class="fas fa-plus"></i>
+                                    เพิ่มมาตรการรักษาความปลอดภัย
+                                </a>
+                                <%}%>
+                </div>
+                <div class="tab-content mt-4">
+                    <div class="tab-pane <% if(tap=='General-Measures') {%>active<%}%>" id="home" role="tabpanel">
+                        <div class="mb-3">
+                            มาตรการรักษาความมั่นคงปลอดภัยโดยทั่วไป (General Measures)
+                        </div>
+                        <div style="min-height: 470px;" class="table-responsive">
+                            <table class="tablesaw table table-striped   no-wrap table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            ลำดับ
+                                        </th>
+                                        <th>
+                                            มาตรการรักษาความมั่นคงปลอดภัยโดยทั่วไป
+                                        </th>
+                                        <th>
+                                            ชื่อมาตราการ
+                                        </th>
+                                        <th>
+                                            เอกสาร PDPA
+                                        </th>
+                                        <th>
+                                            คำอธิบาย /รายละเอียด
+                                        </th>
+                                        <th>
+                                            ดูรายละเอียด
+                                        </th>
+                                        <th>
+                                            แก้ไข
+                                        </th>
+                                        <th>
+                                            ลบ
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-General-Measures">
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6 text-secondary ">
+                                <div class="row">
+                                    <span>แสดงผล <a id="show-General-Measures"></a> ถึง <a
+                                            id="to-show-General-Measures"></a>
+                                        ทั้งหมด <a id="show-all-General-Measures"></a>
+                                        รายการ</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                                <nav aria-label="Page navigation example" class="mt-2">
+                                    <ul class="pagination-General-Measures">
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane <% if(tap=='Risk-based-Approach') {%>active<%}%>" id="menu1" role="tabpanel">
+                        <div class="mb-3">
+                            <div class="mb-3">
+                                มาตรการรักษาความมั่นคงปลอดภัยเกี่ยวกับทรัพย์สินสารสนเทศ (Information assets)
+                            </div>
+                            <div style="min-height: 470px;" class="table-responsive">
+                                <table class="tablesaw table table-striped   no-wrap table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                ลำดับ
+                                            </th>
+                                            <th>
+                                                ชื่อมาตราการ
+                                            </th>
+                                            <th>
+                                                ชื่อทรัพย์สิน
+                                            </th>
+                                            <th>
+                                                เอกสาร PDPA
+                                            </th>
+                                            <th>
+                                                confidentiality
+                                            </th>
+                                            <th>
+                                                Integrity
+                                            </th>
+                                            <th>
+                                                availability
+                                            </th>
+                                            <th>
+                                                ดูรายละเอียด
+                                            </th>
+                                            <th>
+                                                แก้ไข
+                                            </th>
+                                            <th>
+                                                ลบ
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbody-Risk-based-Approach-Information">
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="row mt-3">
+                                <div class="col-md-6 text-secondary ">
+                                    <div class="row">
+                                        <span>แสดงผล <a id="show-Risk-based-Approach"></a> ถึง <a
+                                                id="to-show-Risk-based-Approach"></a>
+                                            ทั้งหมด <a id="show-all-Risk-based-Approach"></a>
+                                            รายการ</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                                    <nav aria-label="Page navigation example" class="mt-2">
+                                        <ul class="pagination-Risk-based-Approach">
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="mb-3">
+                                มาตรการรักษาความมั่นคงปลอดภัยส่วนประกอบต่าง ๆ (Network and Equipment)
+                            </div>
+                            <div style="min-height: 470px;" class="table-responsive">
+                                <table class="tablesaw table table-striped   no-wrap table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                ลำดับ
+                                            </th>
+                                            <th>
+                                                ชื่อมาตราการ
+                                            </th>
+                                            <th>
+                                                ชื่อทรัพย์สิน
+                                            </th>
+                                            <th>
+                                                เอกสาร PDPA
+                                            </th>
+                                            <th>
+                                                Defense in depth
+                                            </th>
+                                            <th>
+                                                Multiple layers of security controls
+                                            </th>
+                                            <th>
+                                                ดูรายละเอียด
+                                            </th>
+                                            <th>
+                                                แก้ไข
+                                            </th>
+                                            <th>
+                                                ลบ
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbody-Risk-based-Approach-Network">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-6 text-secondary ">
+                                    <div class="row">
+                                        <span>แสดงผล <a id="show-Risk-based-Approach-Network"></a> ถึง <a
+                                                id="to-show-Risk-based-Approach-Network"></a>
+                                            ทั้งหมด <a id="show-all-Risk-based-Approach-Network"></a>
+                                            รายการ</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                                    <nav aria-label="Page navigation example" class="mt-2">
+                                        <ul class="pagination-Risk-based-Approach-Network">
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane <% if(tap=='Specific-Measures') {%>active<%}%>" id="menu2" role="tabpanel">
+                        <div class="mb-3">
+                            มาตรการรักษาความปลอดภัยขั้นต่ำที่PDPA กำหนด (PDPA Specific Measures)
+                        </div>
+                        <div style="min-height: 470px;" class="table-responsive">
+                            <table class="tablesaw table table-striped   no-wrap table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            ลำดับ
+                                        </th>
+                                        <th>
+                                            ชื่อกิจกรรมประมวลผล
+                                        </th>
+                                        <th>
+                                            ชื่อมาตราการ
+                                        </th>
+                                        <th>
+                                            เอกสาร PDPA
+                                        </th>
+                                        <th>
+                                            Access Control
+                                        </th>
+                                        <th>
+                                            User Access Management
+                                        </th>
+                                        <th>
+                                            User Responsibilitites
+                                        </th>
+                                        <th>
+                                            Audit Trails
+                                        </th>
+                                        <th>
+                                            Privacy
+                                            and security
+                                            Awareness
+                                        </th>
+                                        <th>
+                                            Where incident occurs
+                                        </th>
+                                        <th>
+                                            ดูรายละเอียด
+                                        </th>
+                                        <th>
+                                            แก้ไข
+                                        </th>
+                                        <th>
+                                            ลบ
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-Risk-based-Specific-Measures">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6 text-secondary ">
+                                <div class="row">
+                                    <span>แสดงผล <a id="show-Specific-Measures"></a> ถึง <a
+                                            id="to-show-Specific-Measures"></a>
+                                        ทั้งหมด <a id="show-all-Specific-Measures"></a>
+                                        รายการ</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                                <nav aria-label="Page navigation example" class="mt-2">
+                                    <ul class="pagination-Specific-Measures">
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="Delete-Measures" class="modal fade show" tabindex="-1" aria-labelledby="info-header-modalLabel"
+        aria-modal="true" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h4 class="modal-title ">
+                        ลบมาตรการรักษาความมั่นคงปลอดภัยโดยทั่วไป (General Measures)
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/<%=process.env.SUBFOLDER%>measures/delete_Measures" method="POST">
+                    <div class="modal-body">
+                        <div class="row mb-2">
+                            <div class="col-md-4" style="text-align: right;">
+                                ชื่อมาตราการ :
+                            </div>
+                            <div class="col-md-8 d-flex justify-content-start">
+                                <label for="message"></label>
+                                <input type="hidden" name="data_id" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-danger font-weight-medium">ยืนยัน</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="Delete-approach_Information" class="modal fade show" tabindex="-1" aria-labelledby="info-header-modalLabel"
+        aria-modal="true" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h4 class="modal-title ">
+                        ลบมาตรการรักษาความมั่นคงปลอดภัยเกี่ยวกับทรัพย์สินสารสนเทศ (Information assets)
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/<%=process.env.SUBFOLDER%>measures/delete_approach" method="POST">
+                    <div class="modal-body">
+                        <div class="row mb-2">
+                            <div class="col-md-4" style="text-align: right;">
+                                ชื่อมาตราการ :
+                            </div>
+                            <div class="col-md-8 d-flex justify-content-start">
+                                <label for="message"></label>
+                                <input type="hidden" name="data_id" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-danger font-weight-medium">ยืนยัน</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="Delete-approach_Network" class="modal fade show" tabindex="-1" aria-labelledby="info-header-modalLabel"
+        aria-modal="true" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h4 class="modal-title ">
+                        ลบมาตรการรักษาความมั่นคงปลอดภัยส่วนประกอบต่าง ๆ (Network and Equipment)
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/<%=process.env.SUBFOLDER%>measures/delete_approach" method="POST">
+                    <div class="modal-body">
+                        <div class="row mb-2">
+                            <div class="col-md-4" style="text-align: right;">
+                                ชื่อมาตราการ :
+                            </div>
+                            <div class="col-md-8 d-flex justify-content-start">
+                                <label for="message"></label>
+                                <input type="hidden" name="data_id" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-danger font-weight-medium">ยืนยัน</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="Delete-specific" class="modal fade show" tabindex="-1" aria-labelledby="info-header-modalLabel"
+        aria-modal="true" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h4 class="modal-title ">
+                        ลบมาตรการรักษาความปลอดภัยขั้นต่ำที่PDPA กำหนด (PDPA Specific Measures)
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/<%=process.env.SUBFOLDER%>measures/delete_specific" method="POST">
+                    <div class="modal-body">
+                        <div class="row mb-2">
+                            <div class="col-md-4" style="text-align: right;">
+                                ชื่อมาตราการ :
+                            </div>
+                            <div class="col-md-8 d-flex justify-content-start">
+                                <label for="message"></label>
+                                <input type="hidden" name="data_id" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-danger font-weight-medium">ยืนยัน</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <style>
+        .pagination-General-Measures {
+            display: flex;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .pagination-Risk-based-Approach {
+            display: flex;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .pagination-Risk-based-Approach-Network {
+            display: flex;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .pagination-Specific-Measures {
+            display: flex;
+            padding-left: 0;
+            list-style: none;
+        }
+    </style>
+    <script src="/UI/dist/js/views_js/scurity_section/scurity_section.js"></script>
+    <%- include ("../_footer") %>

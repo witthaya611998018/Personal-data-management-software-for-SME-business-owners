@@ -1,0 +1,360 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">Monitor</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/monitor">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">กราฟ</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="border-bottom title-part-padding">
+                   
+                            <h4 class="card-title mb-0">ตรวจสอบกิจกรรมของผู้ใช้</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-sm-4">
+                                <div style="width: 100%">
+                                    <div class="dropdown me-2">
+                                        <form action="/user_activity_data_view" id="post" enctype="multipart/form-data"
+                                            method="post">
+                                            <%if(data3){%>
+                                                <label for="">เลือกผู้ใช้งาน</label>
+                                                <div class="input-group mb-3" style="width: 100%">
+                                                    <select class="form-control" multiple="" name="data_post" required
+                                                        id="select2-with-tags"
+                                                        style="width: 100%;height: 36px;border-color: #009efb!important;">
+                                                           
+                                                                <% for (var i=0; i < data3.length; i++) { %>
+                                                                    <% var c=0%>
+                                                                    <% for (var jj=0; jj < data2.length; jj++) { %>
+                                                                        
+                                                                        <%if(data3[i].acc_id==data2[jj].acc_id){%>
+                                                                            <% var c=1%>
+                                                                                <option value="<%= data3[i].acc_id %>"selected><%= data3[i].name %></option>
+                                                                                <% }%>
+                                                                                    <% }%>
+                                                                                    <%if(c == 0){%>
+                                                                                        <% var c=0%>
+                                                                                        <option value="<%= data3[i].acc_id %>"><%= data3[i].name %></option>
+
+                                                                                        <% }%>
+                                                                                    
+                                                                                        <% }%>
+                                                    </select>
+                                                </div>
+                                                <%}%>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-3">
+                                <div style="width: 100%">
+                                    <div class="dropdown me-2">
+                                        <%if(data2){%>
+                                            <label for="">ตั้งเเต่วันที่</label>
+                                            <div class="input-group mb-3" style="width: 100%">
+                                                <input type="datetime-local" value="2022-11-05T00:01"
+                                                    placeholder="dd/mm/yyyy" class="form-control" name="create_date">
+                                            </div>
+                                            <%}%>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-3">
+                                <div style="width: 100%">
+                                    <div class="dropdown me-2">
+                                        <%if(data2){%>
+                                            <label for="">ถึง</label>
+                                            <div class="input-group mb-3" style="width: 100%">
+                                                <input type="datetime-local" value="2022-11-05T23:59"
+                                                    placeholder="dd/mm/yyyy" class="form-control" name="create_date">
+                                            </div>
+                                            <%}%>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div style="width: 100%">
+                                    <div class="dropdown me-2">
+                                        <label for=""></label>
+                                        <div class="input-group mb-3" style="width: 100%">
+                                            <button class="btn btn-outline-warning" type="submit"><i
+                                                    class="fas fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% if (data2) { %>
+                <% for (var i=0; i< data2.length; i++) { %>
+                    <div class="col-lg-12" id="chart5">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="d-flex align-items-start">
+                                            <div>
+                                                <h4 class="card-title">จำนวนการใช้งานของผู้ใช้ <%= data2[i].name %>
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 revenue">
+                                        <div id="revenue-statistics-3-<%= data2[i].acc_id %>" style="height: 350px;">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <%}%>
+                        <%}%>
+                            <div class="modal fade" id="samedata-modal" tabindex="-1"
+                                aria-labelledby="exampleModalLabel1">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header d-flex align-items-center">
+
+                                            <div class="border-bottom title-part-padding">
+                                                <h4 class="card-title mb-0">ค้นหากิจกรรมของผู้ใช้
+                                                    <span class="text-secondary"></span>
+                                                </h4>
+                                            </div>
+
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="card">
+                                                        <div>
+                                                            <select class="form-control" multiple=""
+                                                                id="select2-with-tags"
+                                                                style="width: 100%;height: 36px;">
+                                                                <option>orange</option>
+                                                                <option>white</option>
+                                                                <option>purple</option>
+                                                                <option value="red">red</option>
+                                                                <option value="blue" selected>blue</option>
+                                                                <option value="green" selected>green</option>
+                                                            </select>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        </div>
+    </div>
+
+    <!-- Row -->
+
+    <!-- Row -->
+
+
+
+    <!-- END MODAL -->
+    <%- include('../_footer') -%>
+
+        <!--This page JavaScript -->
+        <script src="/UI/assets/libs/chartist/dist/chartist.min.js"></script>
+        <script src="/UI/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+        <script src="/UI/assets/libs/echarts/dist/echarts-en.min.js"></script>
+        <script src="/UI/assets/libs/flot/excanvas.min.js"></script>
+        <script src="/UI/assets/libs/flot/jquery.flot.js"></script>
+        <script src="/UI/assets/libs/jquery.flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+        <script src="/UI/assets/libs/d3/dist/d3.min.js"></script>
+        <script src="/UI/assets/libs/c3/c3.min.js"></script>
+        <script src="/UI/assets/libs/gaugeJS/dist/gauge.min.js"></script> -->
+        <script src="/UI/dist/js/pages/widget/widget-charts.js"></script>
+        <script src="/UI/assets/libs/apexcharts/dist/apexcharts.js"></script>
+        <script src="/UI/dist/js/pages/widget/card-custom.js"></script>
+
+        <!-- This Page table bootstrap-->
+        <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+        <script src="/UI/assets/libs/bootstrap-table/dist/bootstrap-table.min.js"></script>
+        <script src="/UI/assets/libs/bootstrap-table/dist/bootstrap-table-locale-all.min.js"></script>
+        <script src="/UI/assets/libs/bootstrap-table/dist/extensions/export/bootstrap-table-export.min.js"></script>
+        <script src="/UI/dist/js/pages/tables/bootstrap-table.init.js"></script>
+
+
+
+
+        <!-- Custom fullcalendar -->
+
+        <script src="/UI/assets/extra-libs/taskboard/js/jquery.ui.touch-punch-improved.js"></script>
+        <script src="/UI/assets/extra-libs/taskboard/js/jquery-ui.min.js"></script>
+
+        <script src="/UI/assets/libs/moment/min/moment.min.js"></script>
+        <script src="/UI/assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
+
+
+
+
+        <script src="/UI/dist/js/pages/echarts/line/line-charts.js"></script>
+
+        <script src="/UI/dist/js/pages/chartsLog/ative_icon.js"></script>
+        <script>
+            $(function () {
+                $.get("/user_activity_data", function (data) {
+
+                    data1 = data[0]
+                    data2 = data[1]
+                    data3 = data[2]
+
+
+
+
+                    for (let index = 0; index < data2.length; index++) {
+                        data_v = []
+                        data_v2 = []
+                        data_t = []
+
+                        for (let i = 0; i < data1.length; i++) {
+                            if (data1[i].acc_id == data2[index].acc_id) {
+                                checkif = 0;
+                                data_v.push(data1[i].c)
+                                data_t.push(data1[i].datetime)
+
+
+                                for (let j = 0; j < data3.length; j++) {
+                                    if (data3[j].datetime == data1[i].datetime && data3[j].acc_id == data2[index].acc_id) {
+                                        data_v2.push(data3[j].c)
+                                        checkif = 1
+                                        console.log('เข้า', data1[i].datetime, data3[j].acc_id);
+                                    }
+                                }
+                                if (checkif == 0) {
+                                    data_v2.push(0)
+                                }
+                            }
+
+
+                        }
+
+
+                        var Revenue_Statistics = {
+                            series: [
+                                {
+                                    name: "จำนวนการใช้งาน ",
+                                    data: data_v,
+                                },
+                                {
+                                    name: "ข้อมูลส่งออก ",
+                                    data: data_v2,
+                                },
+                            ],
+                            chart: {
+                                fontFamily: 'Rubik,sans-serif',
+                                height: 500,
+                                type: "area",
+                                toolbar: {
+                                    show: false,
+                                },
+                            },
+                            fill: {
+                                type: 'solid',
+                                opacity: 0.2,
+                                colors: ["#009efb", "#A4303F"],
+                            },
+                            grid: {
+                                show: true,
+                                borderColor: "rgba(0,0,0,0.1)",
+                                strokeDashArray: 3,
+                                xaxis: {
+                                    lines: {
+                                        show: true
+                                    }
+                                },
+                            },
+                            colors: ["#39c449", "#A4303F"],
+                            dataLabels: {
+                                enabled: false,
+                            },
+                            stroke: {
+                                curve: "smooth",
+                                width: 1,
+                                colors: ["#009efb", "#A4303F"],
+                            },
+                            markers: {
+                                size: 3,
+                                colors: ["#009efb", "#A4303F"],
+                                strokeColors: "transparent",
+                            },
+                            xaxis: {
+                                axisBorder: {
+                                    show: true,
+                                },
+                                axisTicks: {
+                                    show: true,
+                                },
+                                categories: data_t,
+                                labels: {
+                                    style: {
+                                        colors: "#a1aab2",
+                                    },
+                                },
+                            },
+                            yaxis: {
+                                tickAmount: 5,
+                                labels: {
+                                    style: {
+                                        colors: "#a1aab2",
+                                    },
+                                },
+                            },
+                            tooltip: {
+                                x: {
+                                    format: "dd/MM/yy HH:mm",
+                                },
+                                theme: "dark",
+                            },
+                            legend: {
+                                show: false,
+                            },
+                        };
+                        var chart_area_spline = new ApexCharts(document.querySelector(`#revenue-statistics-3-${data2[index].acc_id}`), Revenue_Statistics);
+                        chart_area_spline.render();
+
+                    }
+                });
+            });
+        </script>
+
+        <script src="/UI/assets/libs/select2/dist/js/select2.full.min.js"></script>
+        <script src="/UI/assets/libs/select2/dist/js/select2.min.js"></script>
+        <script src="/UI/dist/js/pages/forms/select2/select2.init.js"></script>

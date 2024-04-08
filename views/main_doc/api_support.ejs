@@ -1,0 +1,107 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">วิธีการใช้งาน API</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index">หน้าหลัก</a></li>
+                            <%if(page[0].type==3){%>
+                                <li class="breadcrumb-item"><a href="/paper_consent_show">Paper Consent</a></li>
+                                <%}else if (page[0].doc_type_id==217){%>
+                                    <li class="breadcrumb-item"><a
+                                            href="/announce-policy">ประกาศนโยบายทางอิเล็คทรอนิค</a></li>
+                                    <%}else if(page[0].doc_type_id==216){%>
+                                        <li class="breadcrumb-item"><a
+                                                href="/warn-policy">การแจ้งเตือนทางอิเล็คทรอนิค</a></li>
+                                        <%} else {%>
+                                            <li class="breadcrumb-item"><a href="/index">เอกสารนโยบาย</a> </li>
+                                            <%}%>
+                                                <li class="breadcrumb-item">วิธีการใช้งาน API</a> </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-7 align-self-center justify-content-end d-flex">
+                <%if(page[0].type==3){%>
+                    <a href="/paper_consent_show" class="btn btn-secondary">ย้อนกลับ</a>
+                    <%}else if (page[0].doc_type_id==217){%>
+                        <a href="/announce-policy" class="btn btn-secondary">ย้อนกลับ</a>
+                        <%}else if(page[0].doc_type_id==216){%>
+                            <a href="/warn-policy" class="btn btn-secondary">ย้อนกลับ</a>
+                            <%} else {%>
+                                <a href="/index" class="btn btn-secondary">ย้อนกลับ</a>
+                                <%}%>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="border-bottom title-part-padding">
+                        <h4 class="card-title mb-0">วิธีการใช้งาน API<span class="text-secondary"></span></h4>
+                    </div>
+                    <div class="card-body">
+                        <%if(page[0].type==3){%>
+                            <br>
+                            <h4>Link Form ตอบกลับ consent</h4>
+                            Link : <input type="text" value="<%=host%>/api_paperconsent/<%=data%>" id="copy_api_form"
+                                class="form-control"
+                                style="width:30%;border:0px;background-color: rgb(218, 218, 218);display: inline;text-align: center;"
+                                readonly>
+                            <button style="border:0px;" onclick="copy_api_form()">Copy</button><br>
+                            <br>
+                            <h4>Link API</h4>
+                            Link : <input type="text" value="<%=host%>/api_paper/<%=data%>" id="copy_api_link"
+                                class="form-control"
+                                style="width:30%;border:0px;background-color: rgb(218, 218, 218);display: inline;text-align: center;"
+                                readonly>
+                            <button style="border:0px;" onclick="copy_api_link()">Copy</button><br>
+                            <%}else{%>
+                                <br>
+                                <h4>Link API</h4>
+                                Link : <input type="text" value="<%=host%>/api_paper/<%=data%>" id="copy_api_link"
+                                    class="form-control"
+                                    style="width:22%;border:0px;background-color: rgb(218, 218, 218);display: inline;text-align: center;"
+                                    readonly>
+                                <button style="border:0px;" onclick="copy_api_link()">Copy</button><br>
+                                <%}%>
+                                    <br>
+                                    <h4>Method</h4>
+                                    Method : <input type="text" value="GET" id="copy_medthod" class="form-control"
+                                        style="width:5%;border:0px;background-color: rgb(218, 218, 218);display: inline;text-align: center;"
+                                        readonly>
+                                    <button style="border:0px;" onclick="copy_method()">Copy</button><br>
+                                    <br>
+                                    <h4>ตัวอย่างการทดสอบยิง API</h4>
+                                    <img src="/UI/assets/images/api_support/1.png" alt=""><br>
+                                    <br>
+                                    <h4> ตัวอย่างผลลัพธ์ที่ได้ </h4>
+                                    <img src="/UI/assets/images/api_support/2.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function copy_api_form() {
+            var copyText = document.getElementById("copy_api_form");
+            copyText.select();
+            document.execCommand("Copy");
+        }
+        function copy_api_link() {
+            var copyText = document.getElementById("copy_api_link");
+            copyText.select();
+            document.execCommand("Copy");
+        }
+        function copy_method() {
+            var copyText = document.getElementById("copy_method");
+            copyText.select();
+            document.execCommand("Copy");
+        }
+    </script>
+
+    <%- include('../_footer') -%>

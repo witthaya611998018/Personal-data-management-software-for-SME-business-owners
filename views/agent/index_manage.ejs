@@ -1,0 +1,153 @@
+<%- include('../_header') -%>
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-md-5 align-self-center">
+            <h3 class="page-title">สร้างการใช้งาน Agent</h3>
+            <div class="d-flex align-items-center" style="margin-top: 1%;">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+                        <li class="breadcrumb-item">สร้างการใช้งาน Agent</a>
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid" id="a_index">
+    <!-- Row -->
+    <div class="row">
+        <!-- Column -->
+        <div class="col-12">
+            <div class="card">
+                <div class="border-bottom title-part-padding">
+                    <h4 class="card-title mb-0">สร้างการใช้งาน Agent<span class="text-secondary"></span></h4>
+                </div>
+                <div class="card-body">
+                    <form action="javascript:void(0);" method="post">
+                        <!-- Header table -->
+                        <div class="row">
+                            <div class="col-md-8">
+                                <a href="/new_agent_manage" class="btn btn-success">
+                                    <i class="fas fa-plus"></i> สร้างการใช้งาน Agent</a>
+                            </div>
+                            <div class="col-md-4 justify-content-end align-self-center d-block d-md-flex">
+                                <div class="input-group mb-2">
+                                    <a href="javascript:void(0);" id="refresh-cw" class="btn btn-outline-warning"><i data-feather="refresh-cw"></i></a>
+                                    <input list="browers" type="text" class="form-control" placeholder="ค้นหา.." name="search">
+                                    <datalist id="browers">
+                                    </datalist>
+                                    <button type="button" id="btn-search" class="btn btn-outline-warning"> Search </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Header table -->
+                        <!-- Body table -->
+                        <div style="min-height: 600px;">
+                            <br/>
+                            <table id="myTable" class="tablesaw table-striped table-bordered table-hover table" data-tablesaw-mode="stack" data-tablesaw-sortable>
+                                <thead>
+                                    <tr class="">
+                                        <th data-tablesaw-priority="persist" class="border no">ลำดับ</th>
+                                         <th scope="col" data-tablesaw-priority="1" class="border">
+                                            ชื่อกำกับการใช้งาน</th>
+                                         <th scope="col" data-tablesaw-priority="2" class="border" style="width: 9%;">
+                                            รหัสของ Agent</th>
+                                         <th scope="col" data-tablesaw-priority="3" class="border">
+                                            ชื่อของ Agent</th>
+                                         <th scope="col" data-tablesaw-priority="4" class="border"> 
+                                            วันที่สร้าง</th>
+                                        <th scope="col" data-tablesaw-priority="5" class="border">
+                                            ผู้สร้าง</th>
+                                        <th scope="col" data-tablesaw-priority="6" class="border">
+                                            สถานะ</th>
+                                        <th scope="col" data-tablesaw-priority="7" class="border" style="width: 2%;"></th>
+                                        <th scope="col" data-tablesaw-priority="8" class="border"> ดูข้อมูล</th>
+                                        <th scope="col" data-tablesaw-priority="9" class="border"> แก้ไขข้อมูล</th>
+                                        <th scope="col" data-tablesaw-priority="10" class="border">ลบช้อมูล</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-body">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 text-secondary" style="margin-left: 1%;">
+                                <span>แสดงผล <span id="start"></span> ถึง <span id="end"></span> ทั้งหมด <span id="total-agent"></span> รายการ</span>
+                            </div>
+                            <div class="col-md justify-content-end align-self-center d-block d-md-flex">
+                                <nav aria-label="Page navigation example" style="margin-right: 2%;">
+                                    <ul class="pagination" id="pagination-wapper">
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <!-- Body table -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="delete_agent" tabindex="-1" aria-labelledby="delete_agent" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header d-flex align-items-center">
+                    <h4 class="modal-title" id="myLargeModalLabel">ยืนยันการลบข้อมูล</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="form_delete_agent" action method="POST">
+                    <div class="modal-body">
+                        <table class="table table-boardless">
+                            <tr>
+                                <th width="32%" style="text-align: left;">รหัสของ Agent</th>
+                                <td style="text-align: left;"><span id="agent_manage_name"></span></td>
+                            </tr>
+                            <tr>
+                                <th width="32%" style="text-align: left;">รหัสของ Agent</th>
+                                <td style="text-align: left;"><span id="code_agent"></span></td>
+                            </tr>
+                            <tr>
+                                <th width="32%" style="text-align: left;">ชื่อของ Agent</th>
+                                <td style="text-align: left;"><span id="name_agent"></span></td>
+                            </tr>
+                            <tr>
+                                <th width="32%" style="text-align: left;">วันที่สร้าง</th>
+                                <td style="text-align: left;"><span id="some_createdate"></span></td>
+                            </tr>
+                            <tr>
+                                <th width="32%" style="text-align: left;">ผู้สร้าง</th>
+                                <td style="text-align: left;"><span id="some_creator"></span></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br/>
+                    <div class="text-center">
+                        <button id="button_delete_agent" type="button" class="btn btn-warning">ยืนยัน</button>
+                        <button type="button" class="btn btn-danger font-weight-medium waves-effect text-start" data-bs-dismiss="modal">ปิด</button>
+                    </div><br/>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- Modal loading -->
+    <div id="alert-loading" class="swal2-container swal2-center swal2-fade swal2-shown" style="overflow-y: auto; display: none;">
+        <div aria-labelledby="swal2-title" aria-describedby="swal2-content" class="swal2-popup swal2-modal swal2-show" tabindex="-1" role="dialog" aria-live="assertive" aria-modal="true" style="display: flex;">
+            <div class="swal2-header">
+                <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+            <div class="swal2-content text-center">
+                <br/>
+                กำลังโหลดข้อมูลโปรดรอสักครู่
+            </div>
+            <div class="swal2-footer" style="display: none;">
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/UI/assets/libs/jquery/dist/jquery.min.js"></script>
+<%- include('../_footer') -%>

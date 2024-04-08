@@ -1,0 +1,2720 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-7 align-self-center">
+                <h3 class="page-title"><i class="fas fa-id-card"></i> แก้ไขรูปแบบการประมวลผลข้อมูล</h3>
+                <div class="d-flex align-items-center" style="margin-top: 1%;">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index">หน้าแรก</a></li>
+                            <!-- <li class="breadcrumb-item active">การป้องกันข้อมูลสู่ภายนอก (Export)</li> -->
+                            <li class="breadcrumb-item active"><a href="/classification">รูปแบบการประมวลผลข้อมูล</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">แก้ไขรูปแบบการประมวลผลข้อมูล</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-5 d-flex justify-content-end align-items-center">
+                <a href="/classification" class="btn btn-secondary">ย้อนกลับ</a>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid" id="c_edit" data-mark="<%= classify[0].classify_id%>">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="border-bottom title-part-padding">
+                        <h4 class="card-title mb-0">แก้ไขรูปแบบการประมวลผลข้อมูลที่จะนำไปใช้ตามกิจกรรมการประมวลผล <span
+                                class="text-secondary"></span></h4>
+                    </div>
+                    <div class="card-body">
+                        <form id="form_edit_classify" action="/classification/update<%=classify[0].classify_id%>"
+                            method="POST">
+                            <!-- <input type="hidden" class="form-control" id="data-measures" name="measures">
+                            <input type="hidden" class="form-control" id="data-assets" name="assets">
+                            <input type="hidden" class="form-control" id="data-network" name="network">
+                            <input type="hidden" class="form-control" id="data-specific" name="specific"> -->
+                            <input type="hidden" class="form-control" id="specificEite" name="specificEite">
+                            <input type="hidden" class="form-control" id="chooseSpecific" name="chooseSpecific">
+
+                            <div class="row col-12">
+                                <div class="row col-12 mb-2">
+                                    <div class="col-2">
+                                        <h5 style="font-weight: bold; display: inline;">
+                                            ประเภทของข้อมูลที่กำหนดไว้แล้ว (เลือกข้อมูลที่กำหนด Pattern ไว้แล้ว)
+                                        </h5>
+                                    </div>
+                                    <div class="col-10">
+                                        <a href="#select-pattern" data-bs-toggle="modal" class="option-pattern"
+                                            style="margin-left: 5%; display: inline;">
+                                            เลือกข้อมูลที่กำหนด Pattern ไว้แล้ว
+                                        </a>
+                                        <textarea name="example_pattern" class="form-control"
+                                            style="height: 240px; resize: none; margin-top: 0.5%;" readonly>
+                                    </textarea>
+                                        <input type="hidden" name="pattern_id" value="<%=classify[0].pattern_id%>"
+                                            readonly />
+                                        <% let classify_name=classify[0].classify_name.split(/[`()`]/)%>
+                                            <input type="text" name="classify_name_part1"
+                                                value="<%= classify_name[0] %>" readonly hidden />
+                                    </div>
+                                </div>
+
+                                <hr>
+                                <div class="row col-12s">
+                                    <div class="col-2">
+                                        <h5 style="font-weight: bold; display: inline;">
+                                            ข้อมูลส่วนบุคคล
+                                        </h5>
+                                    </div>
+                                    <div class="col-10">
+                                        <input id="doc_id_person_data_pattern" type="text"
+                                            value="<%=classify[0].doc_id_person_data_pattern%>" readonly hidden />
+                                        <table class="table customize-table table-striped mb-0 v-middle">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        ลำดับที่
+                                                    </th>
+                                                    <th>
+                                                        ชื่อ
+                                                    </th>
+                                                    <th>
+                                                        ระยะเวลา
+                                                    </th>
+                                                    <th>
+                                                        ความเสี่ยง
+                                                    </th>
+                                                    <th>
+                                                        ประเภทข้อมูล
+                                                    </th>
+                                                    <th>
+                                                        เลือกใช้ข้อมูล
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbody_table_pattern_data">
+
+                                                <%if(data_out){for (var i=0; i < data_out[0].datatag_id.length; i++) {%>
+                                                    <tr>
+
+                                                        <td>
+                                                            <%=i+1%>
+                                                        </td>
+                                                        <td>
+                                                            <%=data_out[0].datatag_name[i]%> <br> (
+                                                                <%=data_out[0].datatag_code[i]%> )
+                                                        </td>
+                                                        <td>
+                                                            <%=data_out[0].datatag[i].day_start%> ถึง
+                                                                <%=data_out[0].datatag[i].day_end%>
+                                                        </td>
+                                                        <td>
+                                                            <%=data_out[0].datatag[i].level_name%>
+                                                        </td>
+                                                        <td>
+                                                            <%=data_out[0].datatag[i].data_type_name%>
+                                                        </td>
+                                                        <td>
+                                                            เลือก <input type="checkbox" class="form-check-input"
+                                                                name="doc_id_person_data_pattern"
+                                                                value="<%=data_out[0].datatag_id[i]%>" <%for(var j=0; j
+                                                                <
+                                                                classify[0].doc_id_person_data_pattern.split(',').length;
+                                                                j++){if(classify[0].doc_id_person_data_pattern.split(',')[j]==data_out[0].datatag_id[i]){%>
+                                                            checked <%}}%> >
+                                                        </td>
+                                                    </tr>
+                                                    <%}}%>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <br>
+                                <hr>
+                                <div class="row col-12">
+                                    <div class="col-2">
+                                        <h5 style="font-weight: bold;">
+                                            ชื่อกิจกรรมการประมวลผล:
+                                        </h5>
+                                    </div>
+                                    <div class="col-10">
+
+                                        <div class="input-group">
+                                            <input type="hidden" name="event_process_id"
+                                                value="<%= classify[0].event_process_id %>" readonly />
+                                            <input type="text" name="classify_name_part2"
+                                                value="<%= classify_name[1] %>" placeholder="กรุณาเลือกกิจกรรม..."
+                                                class="form-control" style="width: 50%; display: inline;" readonly />
+                                            <span class="input-group-text">
+                                                <a href="#select-event-process" data-bs-toggle="modal"
+                                                    style="display: inline;" class="h5 font-bold">
+                                                    ดูข้อมูล
+                                                    <i class="fas fa-file-alt fa-2x text-info"
+                                                        style="vertical-align: -5px;">
+                                                    </i>
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <br>
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
+                                <hr>
+                                <div class="row mb-2">
+                                    <div class="col-2">
+                                        <h5 style="font-weight: bold;">
+                                            มาตราการรักษาความปลอดภัยขั้นต่ำที่PDPAกำหนด (PDPA Specific Measures)
+                                        </h5>
+                                    </div>
+                                    <div class="col-10">
+                                        <div style="min-height: 270px;" class="table-responsive mt-2 mb-2">
+                                            <table
+                                                class="tablesaw table table-striped   no-wrap table-bordered table-hover">
+                                                <thead>
+                                                    <th>
+                                                        แก้ไข
+                                                    </th>
+                                                    <th>
+                                                        ลำดับ
+                                                    </th>
+                                                    <th>
+                                                        ชื่อกิจกรรมประมวลผล
+                                                    </th>
+                                                    <th>
+                                                        ชื่อมาตราการ
+                                                    </th>
+
+                                                    <th>
+                                                        Access Control
+                                                    </th>
+                                                    <th>
+                                                        User Access Management
+                                                    </th>
+                                                    <th>
+                                                        User Responsibilitites
+                                                    </th>
+                                                    <th>
+                                                        Audit Trails
+                                                    </th>
+                                                    <th>
+                                                        Privacy
+                                                        and security
+                                                        Awareness
+                                                    </th>
+                                                    <th>
+                                                        Where incident occurs
+                                                    </th>
+                                                    <th>
+                                                        เอกสาร PDPA
+                                                    </th>
+                                                    <th>
+                                                        ดูรายละเอียด
+                                                    </th>
+
+                                                </thead>
+                                                <tbody id="tbody-specific">
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="justify-content-center d-flex">
+                                            <a class="btn btn-success" data-bs-toggle='modal'
+                                                onclick="modalSpecificEdit()"
+                                                href="#select-measures">เลือกมาตราการรักษาความปลอดภัย
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row col-12">
+                                    <div class="col-2">
+                                        <h5 style="font-weight: bold;">
+                                            อธิบายความจำเป็นที่จะต้องนำข้อมูลส่วนบุคคลไปใช้ในกิจกรรมนี้ (ประมวลผล)
+                                        </h5>
+                                    </div>
+                                    <div class="col-10">
+                                        <input type="text" name="classify_explain_process"
+                                            placeholder="กรุณาป้อนคำอธิบาย..."
+                                            value="<%= classify[0].classify_explain_process %>" class="form-control"
+                                            style="width: 100%; display: inline;" />
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
+                                <hr>
+
+                                <!-- <div class="row col-12">
+                                    <div class="col-2">
+                                        <h5 style="font-weight: bold;">ผู้ใช้งาน/ผู้เข้าถึงข้อมูล<br /></h5>
+                                        <span class="h5" style="font-weight: bold; margin-top: 1%;">ประมวลผลนี้</span>
+                                    </div>
+                                    <div class="col-10">
+                                        <input type="checkbox" class="form-check-input"
+                                            name="classify_user_access_info_process_inside" id="customCheck1"
+                                            style="vertical-align: -5px;" <%
+                                            if(classify[0].classify_user_access_info_process_inside==1 ){%>checked
+                                        <%}%>
+                                            />
+                                            <label for="customCheck1" class="font-bold" style="display: inline;">
+                                                ภายใน
+                                            </label>&emsp;
+                                            <input type="text"
+                                                name="classify_user_access_info_process_inside_from_pattern_not_use"
+                                                placeholder="ข้อมูลจากPattern..." class="form-control"
+                                                style="width: 30%; display: inline;" readonly hidden />
+                                            <input type="text"
+                                                name="classify_user_access_info_process_inside_from_pattern"
+                                                value="<%= classify[0].classify_user_access_info_process_inside %>"
+                                                readonly hidden />
+                                            <span id="user_access_information_process_inside"></span>
+                                            <span></span>
+                                            <br />
+                                            <input type="checkbox" class="form-check-input"
+                                                name="classify_user_access_info_process_outside" id="customCheck2"
+                                                style="margin-top: 1%;" <%
+                                                if(classify[0].classify_user_access_info_process_outside==1 ){%>checked
+                                            <%}%>/>
+                                                <label for="customCheck2" style="margin-top: 1%;" class="font-bold">
+                                                    ภายนอก
+                                                </label>&nbsp;
+                                                <input type="text"
+                                                    name="classify_user_access_info_process_outside_from_pattern_not_use"
+                                                    placeholder="ข้อมูลจากPattern..." class="form-control"
+                                                    style="width: 30%; display: inline;" readonly hidden />
+                                                <input type="text"
+                                                    name="classify_user_access_info_process_outside_from_pattern"
+                                                    value="<%= classify[0].classify_user_access_info_process_outside %>"
+                                                    readonly hidden />
+                                                <span id="user_access_information_process_outside"></span>
+                                    </div>
+                                </div> -->
+
+                                <div class="row col-12">
+                                    <div class="col-2">
+                                        <h5 style="font-weight: bold;">ผู้ใช้งาน/ผู้เข้าถึงข้อมูล<br /></h5>
+                                        <span class="h5" style="font-weight: bold; margin-top: 1%;">ประมวลผลนี้</span>
+                                    </div>
+                                    <div class="col-10">
+                                        <input type="checkbox" id="customCheck1"
+                                            name="classify_user_access_info_process_inside" class="form-check-input"
+                                            value="1"
+                                            onclick="if($(this).prop('checked')){$('#classify_user_access_info_process_inside').show()}else{$('#classify_user_access_info_process_inside').hide()}"
+                                            <% if(classify[0].classify_user_access_info_process_inside==1 ){%>checked
+                                        <%}%> >
+                                            <label for="customeCheck1">ภายใน <span id="processor_inside_total">(
+                                                    <%=classify[0].classify_user_access_info_process_inside_from_new_total%>
+                                                        คน)
+                                                </span></label>
+                                            <br><br>
+                                            <div id="classify_user_access_info_process_inside" class="row col-12">
+
+                                                <select id="classify_user_access_info_process_inside_from_new_id"
+                                                    class="select2 form-control" multiple="multiple"
+                                                    name="classify_user_access_info_process_inside_from_new_id"
+                                                    style="height: 36px;width: 100%;"
+                                                    onchange="processor_inside_total($(this).val().length)">
+                                                    <script>
+                                                        function processor_inside_total(params) {
+                                                            $('#classify_user_access_info_process_inside_from_new_total').val(params);
+                                                            if (params > 0) {
+                                                                $('#processor_inside_total').html(" ( " + params + " คน )");
+                                                            } else {
+                                                                $('#processor_inside_total').html("");
+                                                            }
+                                                        }
+                                                    </script>
+                                                    <%if(account){for (var i=0; i < account.length; i++) {%>
+                                                        <%if(classify[0].classify_user_access_info_process_inside_from_new_id.indexOf(account[i].acc_id)>
+                                                            -1){ %>
+                                                            <option value="<%=account[i].acc_id%>" selected>
+                                                                <%=account[i].firstname%>
+                                                                    <%=account[i].lastname%>
+                                                            </option>
+                                                            <%}else{%>
+                                                                <option value="<%=account[i].acc_id%>">
+                                                                    <%=account[i].firstname%>
+                                                                        <%=account[i].lastname%>
+                                                                </option>
+                                                                <%}%>
+                                                                    <%}}%>
+                                                </select>
+
+                                                <input id="classify_user_access_info_process_inside_from_new_total"
+                                                    type="text"
+                                                    name="classify_user_access_info_process_inside_from_new_total"
+                                                    value="<%=classify[0].classify_user_access_info_process_inside_from_new_total%>"
+                                                    readonly hidden>
+                                            </div>
+                                            <br>
+                                    </div>
+                                </div>
+                                <div class="row col-12">
+                                    <div class="col-2">
+                                    </div>
+                                    <div class="col-10">
+                                        <input type="checkbox" id="customCheck1"
+                                            name="classify_user_access_info_process_outside" class="form-check-input"
+                                            value="1"
+                                            onclick="if($(this).prop('checked')){$('#classify_user_access_info_process_outside').show()}else{$('#classify_user_access_info_process_outside').hide()}"
+                                            <% if(classify[0].classify_user_access_info_process_outside==1 ){%>checked
+                                        <%}%> >
+                                            <label for="customeCheck1">ภายนอก <span id="processor_outside_total">(
+                                                    <%=classify[0].classify_user_access_info_process_outside_from_new_total%>
+                                                        คน)
+                                                </span></label>
+                                            <br><br>
+                                            <div id="classify_user_access_info_process_outside" class="row col-12">
+                                                <select id="classify_user_access_info_process_outside_from_new_id"
+                                                    class="select2 form-control" multiple="multiple"
+                                                    name="classify_user_access_info_process_outside_from_new_id"
+                                                    style="height: 36px;width: 100%;"
+                                                    onchange="processor_outside_total($(this).val().length)">
+                                                    <script>
+                                                        function processor_outside_total(params) {
+                                                            $('#classify_user_access_info_process_outside_from_new_total').val(params);
+                                                            if (params > 0) {
+                                                                $('#processor_outside_total').html(" ( " + params + " คน )");
+                                                            } else {
+                                                                $('#processor_outside_total').html("");
+                                                            }
+                                                        }
+                                                    </script>
+                                                    <%if(account){for (var i=0; i < account.length; i++) {%>
+
+                                                        <%if(classify[0].classify_user_access_info_process_outside_from_new_id.indexOf(account[i].acc_id)>
+                                                            -1){ %>
+                                                            <option value="<%=account[i].acc_id%>" selected>
+                                                                <%=account[i].firstname%>
+                                                                    <%=account[i].lastname%>
+                                                            </option>
+                                                            <%}else{%>
+                                                                <option value="<%=account[i].acc_id%>">
+                                                                    <%=account[i].firstname%>
+                                                                        <%=account[i].lastname%>
+                                                                </option>
+                                                                <%}%>
+                                                                    <%}}%>
+                                                </select>
+
+                                                <input id="classify_user_access_info_process_outside_from_new_total"
+                                                    type="text"
+                                                    name="classify_user_access_info_process_outside_from_new_total"
+                                                    value="<%=classify[0].classify_user_access_info_process_outside_from_new_total%>"
+                                                    readonly hidden>
+                                            </div>
+                                            <br>
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
+                                <hr>
+                                <div class="row col-12">
+                                    <div class="col-2">
+                                        <h5 style="font-weight: bold;">
+                                            ระยะเวลาการประมวลผล
+                                        </h5>
+                                    </div>
+                                    <div class="col-10">
+                                        <div class="input-group mb-3">
+                                            <input type="number" name="classify_period_process"
+                                                placeholder="กรุณาป้อนจำนวนระยะเวลา..."
+                                                value="<%= classify[0].classify_period_process %>" class="form-control"
+                                                style="width: 95%; display: inline;" />
+                                            <span class="input-group-text">วัน</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row col-12">
+                                    <div class="col-2">
+                                    </div>
+                                    <div class="col-10">
+                                        <input type="checkbox" id="customCheck3"
+                                            name="classify_period_proccess_follow_policy" class="form-check-input"
+                                            style="vertical-align: -5px;" <%
+                                            if(classify[0].classify_period_proccess_follow_policy==1 ){%>checked
+                                        <%}%>/>
+                                            <label for="customCheck3" style="display: inline;">ตามระยะเวลาจัดเก็บ
+                                                (Policy)</label>
+                                            <br><br>
+                                            <div class="input-group mb-3">
+                                                <input type="number" class="form-control"
+                                                    name="classify_period_proccess_follow_policy_total"
+                                                    value="<%=classify[0].classify_period_proccess_follow_policy_total%>"
+                                                    readonly>
+                                                <span class="input-group-text">วัน</span>
+                                            </div>
+                                            <br>
+                                            <!-- <span id="period_process_follow_policy"></span> -->
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
+                                <hr>
+                                <div class="row col-12">
+                                    <div class="col-2">
+                                        <h5 style="font-weight: bold;">
+                                            ระยะเวลาสิ้นสุด
+                                        </h5>
+                                    </div>
+                                    <div class="col-10">
+
+                                        <div class="input-group mb-3">
+                                            <input type="number" name="classify_period_end"
+                                                placeholder="กรุณาป้อนจำนวนระยะเวลา..."
+                                                value="<%= classify[0].classify_period_end%>" class="form-control"
+                                                style="width: 95%; display: inline;" />
+                                            <span class="input-group-text">วัน</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row col-12">
+                                    <div class="col-2">
+
+                                    </div>
+                                    <div class="col-10">
+                                        <input type="checkbox" id="customCheck4"
+                                            name="classify_period_end_follow_pattern" class="form-check-input"
+                                            style="vertical-align: -5px" <%
+                                            if(classify[0].classify_period_end_follow_pattern==1 ){%>checked
+                                        <%}%>
+                                            />
+                                            <label for="customCheck4" style="display: inline;">
+                                                ภายหลังจากหมดระยะเวลาจัดเก็บ (Pattern)
+                                            </label>
+                                            <br><br>
+                                            <div class="input-group mb-3">
+                                                <input type="text" name="classify_period_end_follow_pattern_total"
+                                                    class="form-control" placeholder="กรุณเลือกPattern..." ่
+                                                    value="<%= classify[0].classify_period_end_follow_pattern_total%>"
+                                                    style="display: inline; width: 35.5%" hidden readonly />
+                                                <span id="day_end_pattern" class="font-bold" hidden>
+                                                    <span class="input-group-text">วัน</span>
+                                                    <span>
+                                            </div>
+                                            <br>
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
+                                <hr>
+                                <div class="row col-12">
+                                    <div class="col-2">
+                                        <h5 style="font-weight: bold;">
+                                            ประเภทข้อมูลที่ใช้ในกิจกรรม
+                                        </h5>
+                                    </div>
+                                    <div class="col-10">
+                                        <p>
+                                            <input type="checkbox" id="customeCheck4"
+                                                name="classify_type_data_in_event_personal" class="form-check-input"
+                                                style="vertical-align: -5px;" <%
+                                                if(classify[0].classify_type_data_in_event_personal==1){%>checked
+                                            <%}%>/>
+                                                <label for="customeCheck4">ข้อมูลส่วนบุคคล</label>
+                                                <a href="#set-datamark" data-bs-toggle="modal" class="btn btn-success"
+                                                    style="margin-left: 10%"><i
+                                                        class="mdi mdi-pen"></i>&nbsp;&nbsp;สร้างเครื่องหมายให้ข้อมูล</a>
+                                                <span id="text_show_datamark"></span>
+                                        </p>
+                                        <p style="margin-top: 1%;">
+                                            <input type="checkbox" id="customeCheck5"
+                                                name="classify_type_data_in_event_special_personal_sensitive"
+                                                class="form-check-input" <%
+                                                if(classify[0].classify_type_data_in_event_special_personal_sensitive==1){%>checked
+                                            <%}%> />
+                                                <label for="customeCheck5">
+                                                    ข้อมูลส่วนบุคคล (อ่อนไหว)
+                                                </label>
+                                        </p>
+                                        <br>
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
+                                <hr>
+                                <div id="select_processing_base">
+                                    <div class="row col-12">
+                                        <div class="col-2">
+                                            <h5 style="font-weight: bold;">ฐานการประมวลผล</h5>
+
+                                        </div>
+                                        <div class="col-10">
+                                            <div class="input-group">
+                                                <select class="form-control" name="pattern_processing_base_id" id=""
+                                                    style="width: 53%; display: inline;">
+                                                    <option value="" disabled selected>กรุณาเลือก</option>
+                                                    <% for(var i=0;i<process.length;i++) {%>
+                                                        <%
+                                                            if(classify[0].pattern_processing_base_id==process[i].pattern_processing_base_id){%>
+                                                            <option value="<%= process[i].pattern_processing_base_id %>"
+                                                                selected>
+                                                                <%= process[i].pattern_processing_base_name%>
+                                                            </option>
+                                                            <%}else{%>
+                                                                <option
+                                                                    value="<%= process[i].pattern_processing_base_id %>">
+                                                                    <%= process[i].pattern_processing_base_name%>
+                                                                </option>
+                                                                <%}%>
+                                                                    <%}%>
+                                                </select>
+                                                <span class="input-group-text">
+                                                    <a id="btn_add_processing_base" href="#add-processing-base"
+                                                        data-bs-toggle="modal"
+                                                        class="option-pattern">เพิ่มฐานการประมวล</a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <br>
+                                <br>
+                                <hr>
+                                <div class="row col-12">
+                                    <div class="col-2">
+                                        <h5 style="font-weight: bold;">
+                                            อธิบายเพิ่มเติม
+                                        </h5>
+                                    </div>
+                                    <div class="col-10">
+                                        <input type="text" name="classify_processing_base_explain"
+                                            value="<%= classify[0].classify_processing_base_explain%>"
+                                            placeholder="กรุณาป้อนคำอธิบาย..." class="form-control" />
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
+                                <hr>
+                                <div id="select_special_conditions">
+                                    <div class="row col-12">
+                                        <div class="col-2">
+                                            <h5 style="font-weight: bold;">เงื่อนไขพิเศษเพิ่มเติม</h5>
+
+                                        </div>
+                                        <div class="col-10">
+                                            <div class="input-group">
+                                                <select class="form-control" name="classification_special_conditions_id"
+                                                    id="" style="width: 53%; display: inline;" />
+                                                <option value="" disabled selected>กรุณาเลือก</option>
+                                                <% for( i in special ) {%>
+                                                    <%
+                                                        if(classify[0].classification_special_conditions_id==special[i].classification_special_conditions_id){%>
+                                                        <option
+                                                            value="<%= special[i].classification_special_conditions_id %>"
+                                                            selected>
+                                                            <%= special[i].classification_special_conditions_name %>
+                                                        </option>
+                                                        <%}else{%>
+                                                            <option
+                                                                value="<%= special[i].classification_special_conditions_id %>">
+                                                                <%= special[i].classification_special_conditions_name %>
+                                                            </option>
+                                                            <%}%>
+                                                                <%}%>
+                                                                    </select>
+                                                                    <span class="input-group-text">
+                                                                        <a id="btn_add_special_conditions"
+                                                                            href="#add_special_conditions"
+                                                                            data-bs-toggle="modal"
+                                                                            class="option-pattern">เพิ่มเงื่อนไขพิเศษ</a>
+                                                                    </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
+                                <hr>
+                                <div class="row col-12">
+                                    <div class="col-2">
+                                        <h5 style="font-weight: bold;">
+                                            อธิบายเพิ่มเติม
+                                        </h5>
+                                    </div>
+                                    <div class="col-10">
+                                        <input type="text" name="classify_special_conditiion_explain"
+                                            value="<%= classify[0].classify_special_conditiion_explain %>"
+                                            placeholder="กรุณาป้อนคำอธิบาย..." class="form-control" />
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
+                                <hr>
+                                <div style="background-color: #83c7f3;">
+                                    <br>
+                                    <div class="row col-12" style="background-color: #83c7f3;">
+                                        <div class="col-2">
+                                            <h5 style="font-weight: bold;">การป้องกันข้อมูล</h5>
+                                        </div>
+                                        <div class="col-10">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row col-12" style="background-color: #83c7f3;">
+                                        <br>
+                                        <div class="col-2">
+                                            <p class="font-bold" style="display: inline;">
+                                                จำกัดปริมาณข้อมูลที่ใช้ประมวลผลไม่เกิน
+                                            </p>
+                                        </div>
+                                        <div class="col-10">
+                                            <div class="input-group">
+                                                <input type="number" name="classify_protect_data_limit_process" disabled
+                                                    value="<%= classify[0].classify_protect_data_limit_process%>"
+                                                    placeholder="กรุณาป้อนปริมาณ..." class="form-control"
+                                                    style="width: 50%; display: inline;" />
+                                                <span class="input-group-text font-bold">
+                                                    ชุดข้อมูล (Row)
+                                                </span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div class="row col-12">
+                                        <div class="col-2">
+                                            <p class="font-bold" style="display: inline;">
+                                                กำหนดเวลาเข้าถึงข้อมูลเฉพาะ
+                                            </p>
+                                        </div>
+                                        <div class="col-10">
+                                            <input type="checkbox" name="classify_protect_data_limit_follow_datetime"
+                                                disabled id="customCheck6" class="form-check-input1" <%
+                                                if(classify[0].classify_protect_data_limit_follow_datetime==1){%>checked
+                                            <%}%>/>
+                                                <label for="customCheck6" style="margin-left: 1%;">
+                                                    จันทร์ - ศุกร์ เวลา 08.00 น. - 17.00 น.
+                                                </label>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div class="row col-12">
+                                        <div class="col-2">
+                                            <p class="font-bold" style="display: inline;">
+                                                กำหนดการเข้าถึงข้อมูลภายใน Alltra ใช้ 2 Factor ในการเข้าถึง
+                                            </p>
+                                        </div>
+                                        <div class="col-10">
+                                            <input type="checkbox" disabled
+                                                name="classify_approach_protect_used_two_factor_from_google_authen"
+                                                id="customeCheck7" class="form-check-input1" <%
+                                                if(classify[0].classify_approach_protect_used_two_factor_from_google_authen==1){%>checked
+                                            <%}%>/>
+                                                <label for="customeCheck7" style="margin-left: 1%;">
+                                                    Google Authen
+                                                </label>
+                                                <input type="checkbox"
+                                                    name="classify_approach_protect_used_two_factor_from_email"
+                                                    id="customeCheck8" class="form-check-input1" <%
+                                                    if(classify[0].classify_approach_protect_used_two_factor_from_email==1){%>checked
+                                                <%}%>/>
+                                                    <label for="customeCheck8" style="margin-left: 1%;">
+                                                        E-mail
+                                                    </label>
+                                                    <input type="checkbox"
+                                                        name="classify_approach_protect_used_two_factor_from_sms"
+                                                        id="customeCheck9" class="form-check-input1" <%
+                                                        if(classify[0].classify_approach_protect_used_two_factor_from_sms==1){%>checked
+                                                    <%}%>/>
+                                                        <label for="customeCheck9" style="margin-left: 1%;">
+                                                            SMS (Option)
+                                                        </label>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                                <!-- <br>
+                                <br>
+                                <hr>
+                                <div class="row col-12">
+                                    <div class="col-2">
+                                        <h5 style="font-weight: bold;">
+                                            กำหนดข้อมูลยกเว้น หรือ ไม่จำเป็น (Filter)
+                                        </h5>
+                                    </div>
+                                    <div class="col-10">
+
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="row col-12">
+                                    <div class="col-2">
+                                        <p class="font-bold" style="display: inline;">
+                                            ชื่อรูปแบบข้อมูล
+                                        </p>
+                                    </div>
+                                    <div class="col-10">
+                                        <input type="text" name="classify_data_exception_or_unnecessary_filter_name"
+                                            value="<%= classify[0].classify_data_exception_or_unnecessary_filter_name %>"
+                                            placeholder="ถ้าระบุได้..." class="form-control" />
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="row col-12">
+                                    <div class="col-2">
+                                        <p class="font-bold" style="display: inline;">Tag</p>
+                                    </div>
+                                    <div class="col-10">
+                                        <input type="text" name="classify_data_exception_or_unnecessary_filter_tag"
+                                            value="<%= classify[0].classify_data_exception_or_unnecessary_filter_tag %>"
+                                            placeholder="ถ้าระบุได้..." class="form-control" />
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="row col-12">
+                                    <div class="col-2">
+                                        <p class="font-bold" style="display: inline;">Label</p>
+                                    </div>
+                                    <div class="col-10">
+                                        <input type="text" name="classify_data_exception_or_unnecessary_filter_label"
+                                            value="<%= classify[0].classify_data_exception_or_unnecessary_filter_label %>"
+                                            placeholder="ถ้าระบุได้..." class="form-control" />
+                                    </div>
+                                </div>
+                                <br> -->
+                                <br>
+                                <%if(session.admin=='3' ){%>
+
+                                    <div style="background-color: #f0e4ca;">
+                                        <br>
+                                        <div class="row col-12">
+                                            <div class="col-2">
+                                                <h5 style="font-weight: bold; color: red;">
+                                                    ประเมินความเสี่ยงของข้อมูล (เฉพาะ DPO)
+                                                </h5>
+                                            </div>
+                                            <div class="col-10">
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row col-12">
+                                            <div class="col-2">
+                                                <p class="font-bold">
+                                                    ข้อมูลส่วนบุคคล สามารถระบุตัวบุคคลได้
+                                                </p>
+                                            </div>
+                                            <div class="row col-10">
+                                                <div class="col-2">
+                                                    <input type="radio" id="customRadio1"
+                                                        name="classify_risk_assess_only_dpo_data_personal_can_specify"
+                                                        class="form-check-input" value="1" <%
+                                                        if(classify[0].classify_risk_assess_only_dpo_data_personal_can_specify==1){%>checked
+                                                    <%}%>/>
+                                                        <label for="customeRadio1"
+                                                            style="margin-left: 1%">ได้โดยตรง</label>
+                                                </div>
+                                                <div class="col-2">
+                                                    <input type="radio" id="customRadio2"
+                                                        name="classify_risk_assess_only_dpo_data_personal_can_specify"
+                                                        class="form-check-input" value="2" <%
+                                                        if(classify[0].classify_risk_assess_only_dpo_data_personal_can_specify==2){%>checked
+                                                    <%}%>/>
+                                                        <label for="customRadio2"
+                                                            style="margin-left: 1%">เป็นข้อมูลไม่ระบุได้โดยตรง</label>
+                                                </div>
+                                                <div class="col-2">
+                                                    <input type="radio" id="customRadio3"
+                                                        name="classify_risk_assess_only_dpo_data_personal_can_specify"
+                                                        class="form-check-input" value="3" <%
+                                                        if(classify[0].classify_risk_assess_only_dpo_data_personal_can_specify==3){%>checked
+                                                    <%}%>/>
+                                                        <label for="customRadio3"
+                                                            style="margin-left: 1%">มีการทำข้อมูลแฝง</label>
+                                                </div>
+
+
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row col-12">
+                                            <div class="col-2">
+                                                <p class="font-bold">
+                                                    ปริมาณข้อมูลทั้งหมดที่ใช้ประมวลผล
+                                                </p>
+                                            </div>
+                                            <div class="row col-10">
+                                                <div class="col-2">
+                                                    <input type="radio" id="customRadio4"
+                                                        name="classify_risk_assess_only_dpo_data_number_all_used_process_many"
+                                                        class="form-check-input" value="1" <%
+                                                        if(classify[0].classify_risk_assess_only_dpo_data_number_all_used_process_many==1){%>checked
+                                                    <%}%> />
+                                                        <label for="customRadio4" style="margin-left: 1%">มาก</label>
+                                                </div>
+                                                <div class="col-2">
+                                                    <input type="radio" id="customRadio5"
+                                                        name="classify_risk_assess_only_dpo_data_number_all_used_process_many"
+                                                        class="form-check-input" value="0" <%
+                                                        if(classify[0].classify_risk_assess_only_dpo_data_number_all_used_process_many==0){%>checked
+                                                    <%}%>/>
+                                                        <label for="customRadio5" style="margin-left: 1%">น้อย</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <!-- <span id="risk_assess_only_dpo_data_number_all_used_process_total"></span> -->
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row col-12">
+                                            <div class="col-2">
+                                                <p class="font-bold">
+                                                    การควบคุมการเข้าถึงข้อมูลใน Alltra
+
+                                                </p>
+                                            </div>
+                                            <div class="row col-10">
+                                                <div class="col-2">
+                                                    <input type="radio" id="customRadio6"
+                                                        name="classify_risk_assess_only_dpo_access_control_inside"
+                                                        class="form-check-input" value="1" <%
+                                                        if(classify[0].classify_risk_assess_only_dpo_access_control_inside==1
+                                                        ){%>checked
+                                                    <%}%>
+                                                        />
+                                                        <label for="customRadio6" style="margin-left: 1%">มี</label>
+                                                </div>
+                                                <div class="col-2">
+                                                    <input type="radio" id="customRadio7"
+                                                        name="classify_risk_assess_only_dpo_access_control_inside"
+                                                        class="form-check-input" value="0" <%
+                                                        if(classify[0].classify_risk_assess_only_dpo_access_control_inside==0
+                                                        ){%>checked
+                                                    <%}%>/>
+                                                        <label for="customRadio7" style="margin-left: 1%">ไม่มี</label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row col-12">
+                                            <div class="col-2">
+                                                <p class="font-bold">
+                                                    การควบคุมการเข้าถึงข้อมูลระบบนอก Alltra
+                                                </p>
+                                            </div>
+                                            <div class="row col-10">
+                                                <div class="col-2">
+                                                    <input type="radio" id="customRadio8"
+                                                        name="classify_risk_assess_only_dpo_access_control_outside"
+                                                        class="form-check-input" value="1" <%
+                                                        if(classify[0].classify_risk_assess_only_dpo_access_control_outside==1
+                                                        ){%>checked
+                                                    <%}%>/>
+                                                        <label for="customRadio8" style="margin-left: 1%">มี</label>
+                                                </div>
+                                                <div class="col-2">
+                                                    <input type="radio" id="customRadio9"
+                                                        name="classify_risk_assess_only_dpo_access_control_outside"
+                                                        class="form-check-input" value="0" <%
+                                                        if(classify[0].classify_risk_assess_only_dpo_access_control_outside==0
+                                                        ){%>checked
+                                                    <%}%>/>
+                                                        <label for="customRadio9" style="margin-left: 1%">ไม่มี</label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row col-12">
+                                            <div class="col-2">
+                                                <p class="font-bold">
+                                                    การป้องกันข้อมูลจากระบบ Alltra
+
+                                                </p>
+                                            </div>
+                                            <div class="row col-10">
+                                                <div class="col-2">
+                                                    <input type="radio" id="customRadio10"
+                                                        name="classify_risk_assess_only_dpo_protect_data_inside"
+                                                        class="form-check-input" value="1" <%
+                                                        if(classify[0].classify_risk_assess_only_dpo_protect_data_inside==1
+                                                        ){%>checked
+                                                    <%}%>/>
+                                                        <label for="customRadio10" style="margin-left: 1%">มี</label>
+                                                </div>
+                                                <div class="col-2">
+                                                    <input type="radio" id="customRadio11"
+                                                        name="classify_risk_assess_only_dpo_protect_data_inside"
+                                                        class="form-check-input" value="0" <%
+                                                        if(classify[0].classify_risk_assess_only_dpo_protect_data_inside==0
+                                                        ){%>checked
+                                                    <%}%>/>
+                                                        <label for="customRadio11" style="margin-left: 1%">ไม่มี</label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row col-12">
+                                            <div class="col-2">
+                                                <p class="font-bold">
+                                                    การป้องกันข้อมูลจากระบบนอก Alltra
+
+                                                </p>
+                                            </div>
+                                            <div class="row col-10">
+                                                <div class="col-2">
+                                                    <input type="radio" id="customRadio12"
+                                                        name="classify_risk_assess_only_dpo_protect_data_outside"
+                                                        class="form-check-input" value="1" <%
+                                                        if(classify[0].classify_risk_assess_only_dpo_protect_data_outside==1
+                                                        ){%>checked
+                                                    <%}%>/>
+                                                        <label for="customRadio12" style="margin-left: 1%">มี</label>
+                                                </div>
+                                                <div class="col-2">
+                                                    <input type="radio" id="customRadio13"
+                                                        name="classify_risk_assess_only_dpo_protect_data_outside"
+                                                        class="form-check-input" value="0" <%
+                                                        if(classify[0].classify_risk_assess_only_dpo_protect_data_outside==0
+                                                        ){%>checked
+                                                    <%}%>/>
+                                                        <label for="customRadio13" style="margin-left: 1%">ไม่มี</label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row col-12">
+                                            <div class="col-2">
+                                                <p class="font-bold">
+                                                    ประเมินผลกระทบต่อเจ้าของข้อมูล
+                                                </p>
+                                            </div>
+                                            <div class="row col-10">
+                                                <div class="col-2">
+                                                    <input type="radio" id="customRadio14"
+                                                        name="classify_risk_assess_only_dpo_assess_the_impact_of_data"
+                                                        class="form-check-input" value="1" <%
+                                                        if(classify[0].classify_risk_assess_only_dpo_assess_the_impact_of_data==1
+                                                        ){%>checked
+                                                    <%}%>
+                                                        />
+                                                        <label for="customRadio14" style="margin-left: 1%">มีสูง</label>
+                                                </div>
+                                                <div class="col-2">
+                                                    <input type="radio" id="customRadio15"
+                                                        name="classify_risk_assess_only_dpo_assess_the_impact_of_data"
+                                                        class="form-check-input" value="2" <%
+                                                        if(classify[0].classify_risk_assess_only_dpo_assess_the_impact_of_data==2
+                                                        ){%>checked
+                                                    <%}%>/>
+                                                        <label for="customRadio15"
+                                                            style="margin-left: 1%">มีปานกลาง</label>
+                                                </div>
+                                                <div class="col-2">
+                                                    <input type="radio" id="customRadio16"
+                                                        name="classify_risk_assess_only_dpo_assess_the_impact_of_data"
+                                                        class="form-check-input" value="3" <%
+                                                        if(classify[0].classify_risk_assess_only_dpo_assess_the_impact_of_data==3
+                                                        ){%>checked
+                                                    <%}%>/>
+                                                        <label for="customRadio16" style="margin-left: 1%">มีต่ำ</label>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row col-12">
+                                            <div class="col-2">
+                                                <p class="font-bold">
+                                                    วิธีแก้ไขเมื่อเกิดข้อมูลรั่วไหลหรือผลกระทบต่อเจ้าของข้อมูล
+                                                </p>
+                                            </div>
+                                            <div class="col-10">
+                                                <input type="text"
+                                                    name="classify_risk_assess_only_dpo_fix_a_leak_of_data"
+                                                    value="<%= classify[0].classify_risk_assess_only_dpo_fix_a_leak_of_data %>"
+                                                    placeholder="กรุณาป้อนวิธีแก้ไข..." class="form-control"
+                                                    style="width: 100%;" />
+                                            </div>
+                                        </div>
+
+                                        <div class="row col-12">
+                                            <div class="col-2">
+                                                <p class="font-bold">ประเมินผลกระทบต่อองค์กร</p>
+                                            </div>
+                                            <div class="row col-10">
+                                                <div class="col-2">
+                                                    <input type="radio" id="customRadio17"
+                                                        name="classify_risk_assess_only_dpo_assess_the_impact_of_organization"
+                                                        class="form-check-input" value="1" <%
+                                                        if(classify[0].classify_risk_assess_only_dpo_assess_the_impact_of_organization==1
+                                                        ){%>checked
+                                                    <%}%>
+                                                        />
+                                                        <label for="customRadio17" style="margin-left: 1%">มีสูง</label>
+                                                </div>
+                                                <div class="col-2">
+                                                    <input type="radio" id="customRadio18"
+                                                        name="classify_risk_assess_only_dpo_assess_the_impact_of_organization"
+                                                        class="form-check-input" value="2" <%
+                                                        if(classify[0].classify_risk_assess_only_dpo_assess_the_impact_of_organization==2
+                                                        ){%>checked
+                                                    <%}%>/>
+                                                        <label for="customRadio18"
+                                                            style="margin-left: 1%">มีปานกลาง</label>
+                                                </div>
+                                                <div class="col-2">
+                                                    <input type="radio" id="customRadio19"
+                                                        name="classify_risk_assess_only_dpo_assess_the_impact_of_organization"
+                                                        class="form-check-input" value="3" <%
+                                                        if(classify[0].classify_risk_assess_only_dpo_assess_the_impact_of_organization==3
+                                                        ){%>checked
+                                                    <%}%>/>
+                                                        <label for="customRadio16" style="margin-left: 1%">มีต่ำ</label>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row col-12">
+                                            <div class="col-2">
+                                                <p class="font-bold">
+                                                    วิธีแก้ไขเมื่อเกิดข้อมูลรั่วไหลหรือผลกระทบต่อเจ้าของข้อมูล
+                                                </p>
+                                            </div>
+                                            <div class="col-10">
+                                                <input type="text"
+                                                    name="classify_risk_assess_only_dpo_fix_a_leak_of_organization"
+                                                    value="<%= classify[0].classify_risk_assess_only_dpo_fix_a_leak_of_organization%>"
+                                                    placeholder="กรุณาป้อนวิธีแก้ไข..." class="form-control"
+                                                    style="width: 100%;" />
+                                            </div>
+                                        </div>
+                                        <br>
+                                    </div>
+                                    <%}%>
+                            </div>
+                            <br>
+                            <div class="text-center">
+                                <input type="text" name="acc_id" value="<%= session.userid %>" readonly hidden />
+                                <!-- <button type="submit" class="btn btn-warning">บันทึกข้อมูล</button> -->
+                                <button type="button" class="btn btn-success"
+                                    onclick="form_add_classify_submit('edit')">บันทึกข้อมูล</button>
+                                <a href="javascript:history.back();" class="btn btn-secondary">ยกเลิก</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Modals Add Datamark -->
+    <div id="set-datamark" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel"
+        aria-hidden="true" style="display: none; margin-top: 5%">
+        <div class="modal-dialog modal-lm">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                    <h4 class="modal-title" style="color: black; font-weight: bold;">
+                        สร้างเครื่องหมายให้ข้อมูล
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <span>
+                            <table class="">
+                                <tr>
+                                    <td style="width: 35%; text-align: left;">
+                                        <input type="radio" id="customRadio20"
+                                            name="classify_type_data_in_event_personal_datamark_check" value="0"
+                                            class="form-check-input" checked
+                                            onclick="if($(this).prop('checked')){$('span#event_personal_datamark').hide()} event_personal_datamark()"
+                                            <%if(classify[0].classify_type_data_in_event_personal_datamark_check==0
+                                            ){%>checked
+                                        <%}%>/>
+                                            <label for="customRadio20" class="font-bold">
+                                                ไม่ต้องการ
+                                                <br>
+                                            </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 35%; text-align: left;">
+                                        <input type="radio" id="customRadio21"
+                                            name="classify_type_data_in_event_personal_datamark_check" value="1"
+                                            class="form-check-input"
+                                            onclick="if($(this).prop('checked')){$('span#event_personal_datamark').show()} event_personal_datamark()"
+                                            <% if(classify[0].classify_type_data_in_event_personal_datamark_check==1
+                                            ){%>checked
+                                        <%}%> />
+                                            <label for="customRadio21" class="font-bold">
+                                                ต้องการ
+                                                <br>
+                                            </label>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </span>
+                        <hr>
+                        <span id="event_personal_datamark">
+                            <table class=" ">
+                                <tr>
+                                    <td style="width: 35%; text-align: left;">
+                                        <input type="radio" id="not_use"
+                                            name="classify_type_data_in_event_personal_datamark1"
+                                            class="form-check-input" value="3"
+                                            onclick="if($(this).prop('checked')){$('span#pseudonymized').hide() , $('span#total-pseudonymized').hide()} event_personal_datamark()"
+                                            style="margin-left: 10%;"
+                                            <%if(classify[0].classify_type_data_in_event_personal_datamark=='3' ){ %>
+                                        checked <%}%>/>
+                                            <label for="not_use" class="font-bold">
+                                                Anonymized Data (ไม่ระบุข้อมูล)
+                                                <br>
+                                            </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 35%; text-align: left;">
+                                        <input type="radio" id="not_use1"
+                                            name="classify_type_data_in_event_personal_datamark1"
+                                            class="form-check-input"
+                                            onclick="if($(this).prop('checked')){$('span#pseudonymized').show(), $('span#total-pseudonymized').show()} event_personal_datamark()"
+                                            checked style="margin-left: 10%;"
+                                            <%if(classify[0].classify_type_data_in_event_personal_datamark !='-1' ){ %>
+                                        checked <%}%>/>
+                                            <label for="not_used1" class="font-bold">
+                                                Pseudonymized Data
+                                                (ข้อมูลที่มีการแฝง)
+                                                <br>
+                                            </label>
+                                    </td>
+                                </tr>
+
+                            </table>
+                            <hr>
+                            <span id="pseudonymized">
+                                <table class=" " id="pseudonymized">
+                                    <tr>
+                                        <td style="width: 35%; text-align: left;">
+                                            <input type="radio" name="classify_type_data_in_event_personal_datamark"
+                                                id="datamark1" value="0" class="form-check-input"
+                                                onclick="if($(this).prop('checked')){$('span.example-datamark').hide(), $('span#example-datamark1').show()} event_personal_datamark()"
+                                                checked style="margin-left: 20%;" <%
+                                                if(classify[0].classify_type_data_in_event_personal_datamark==0 ){%>
+                                            checked <%}%> />
+                                                <label for="datamark1" class="font-bold">
+                                                    หัวข้อมูลอย่างเดียว </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 35%; text-align: left;">
+                                            <input type="radio" name="classify_type_data_in_event_personal_datamark"
+                                                id="datamark2" value="1" class="form-check-input"
+                                                onclick="if($(this).prop('checked')){$('span.example-datamark').hide(), $('span#example-datamark2').show()} event_personal_datamark()"
+                                                style="margin-left: 20%;" <%
+                                                if(classify[0].classify_type_data_in_event_personal_datamark==1 ){%>
+                                            checked <%}%> />
+                                                <label for="datamark2" class="font-bold">
+                                                    หัวและท้ายข้อมูล </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 35%; text-align: left;">
+                                            <input type="radio" name="classify_type_data_in_event_personal_datamark"
+                                                id="datamark3" value="2" class="form-check-input"
+                                                onclick="if($(this).prop('checked')){$('span.example-datamark').hide(), $('span#example-datamark3').show()} event_personal_datamark()"
+                                                style="margin-left: 20%;" <%
+                                                if(classify[0].classify_type_data_in_event_personal_datamark==2 ){%>
+                                            checked <%}%>/>
+                                                <label for="datamark3" class="font-bold">
+                                                    ท้ายข้อมูลอย่างเดียว </label>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </span>
+                            <span id="total-pseudonymized">
+                                <table class="table table-boardless" id="total-pseudonymized">
+                                    <td style="width: 35%; text-align: right;">
+                                        <label for="total-digit" class="font-bold">
+                                            จำนวนตัวอักษรที่แสดง: </label>
+                                    </td>
+                                    <td>
+                                        <input type="number" min="1"
+                                            value="<%=classify[0].classify_type_data_in_event_personal_datamark_total%>"
+                                            name="classify_type_data_in_event_personal_datamark_total"
+                                            placeholder="กรุณาป้อนจำนวน..." class="form-control"
+                                            onchange="event_personal_datamark()" />
+                                    </td>
+                                </table>
+                                <span id="example-datamark1" class="example-datamark">
+                                    <table class="table table-boardless">
+                                        <td>
+                                            สมมุติจำนวนแสดงตัวอักษร = <span style="color: red;">4</span>
+                                            <br /> ["ตัวอย่าง"] <span style="color: red;">
+                                                ทำเครื่องหมาย
+                                            </span> ["****ย่าง"]
+                                        </td>
+                                    </table>
+                                </span>
+                                <span id="example-datamark2" class="example-datamark">
+                                    <table class="table table-boardless">
+                                        <td>
+                                            สมมุติจำนวนแสดงตัวอักษร = <span style="color: red;">3</span>
+                                            <br /> ["ตัวอย่าง"] <span style="color: red;">
+                                                ทำเครื่องหมาย
+                                            </span> ["***ย***"]
+                                        </td>
+                                    </table>
+                                </span>
+                                <span id="example-datamark3" class="example-datamark">
+                                    <table class="table table-boardless">
+                                        <td>
+                                            สมมุติจำนวนแสดงตัวอักษร = <span style="color: red;">4</span>
+                                            <br /> ["ตัวอย่าง"] <span style="color: red;">
+                                                ทำเครื่องหมาย
+                                            </span> ["ตัวอ****"]
+                                        </td>
+                                    </table>
+                                </span>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="" style="margin-right: 45%;">
+                        <button type="button" class="btn btn-success font-weight-large" data-bs-dismiss="modal">
+                            ยืนยัน
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modals edit measures -->
+    <!-- <div id="edit-measures" class="modal fade " tabindex="-2" aria-labelledby="success-header-modalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                    <h4 class="modal-title" style="color: black; font-weight: bold;">
+                        ปรับปรุงมาตรการรักษาความมั่นคงปลอดภัยโดยทั่วไป (General Measures)
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-2">
+                        <div class="d-flex col-md-5 justify-content-end">
+                            <label for="">มาตรการรักษาความมั่นคงปลอดภัยโดยทั่วไป</label>
+                        </div>
+                        <div class="d-flex col-md-7">
+                            <select name="measures_type_id" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row  mb-2">
+                        <div class="col-md-5 d-flex justify-content-end">
+                            ชื่อมาตราการ
+                        </div>
+                        <div class="col-md-7 d-flex align-items-center">
+                            <input type="text" name="measures_section_name" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="row  mb-2">
+                        <div class="col-md-5 d-flex justify-content-end">
+                            คำอธิบาย/ รายละเอียด
+                        </div>
+                        <div class="col-md-7 d-flex align-items-center">
+                            <textarea name="measures_detail" id="" cols="65" rows="2" class="form-control"
+                                required></textarea>
+                        </div>
+                    </div>
+                    <div class="row  mb-2">
+                        <div class="col-md-5 d-flex justify-content-end">
+                            เอกสารPDPA
+                        </div>
+                        <div class="col-md-7 d-flex align-items-center">
+                            <select name="doc_id" class="select2 form-control" multiple="multiple"
+                                style="height: 36px;width: 100%;">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row  mb-2">
+                        <div class="col-md-5 d-flex justify-content-end">
+                            ระยะเวลาทบทวนมาตราการ
+                        </div>
+                        <div class="col-md-7 d-flex align-items-center">
+                            <div class="input-group">
+                                <input type="date" name="measures_date" class="form-control" required>
+                                <input type="number" name="measures_date_count" class="form-control" required
+                                    placeholder="กรุณาป้อนจำนวนระยะเวลา...">
+                                <span class="input-group-text">วัน</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row  mb-2">
+                        <div class="col-md-5 d-flex" style="text-align: right;">
+                            <label for="">ผู้ดูแลข้อมูลหรือผู้ดูแลระบบหรือผู้ควบคุมมาตราการ</label>
+                        </div>
+                        <div class="col-md-7 d-flex align-items-center">
+                            <input type="text" name="measures_supervisor" class="form-control" required>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="justify-content: center;">
+                        <div class="col-md-3 d-flex justify-content-end">
+                            <button type="submit" class="btn btn-success me-2" data-bs-dismiss="modal"
+                                id="submit-measures" onclick="submit_measures()">บันทึก</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- Modals edit Information assets -->
+    <!-- <div id="edit-Information-assets" class="modal fade " tabindex="-2" aria-labelledby="success-header-modalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                    <h4 class="modal-title" style="color: black; font-weight: bold;">
+                        ปรับปรุงมาตราการรักษาความมั่นคงปลอดภัยเกี่ยวกับทรัพย์สินสารสนเทศ (Information assets)
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-2">
+                        <div class="d-flex col-md-5 justify-content-end">
+                            <label for="">ชื่อทรัพย์สิน</label>
+                        </div>
+                        <div class="d-flex col-md-7">
+                            <select name="doc_id_assets" class="form-control" style="height: 36px;width: 100%;">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="d-flex col-md-5 justify-content-end">
+                            <label for="">ชื่อมาตราการ</label>
+                        </div>
+                        <div class="d-flex col-md-7">
+                            <input name="measures_type_id" class="form-control">
+                            </input>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="d-flex col-md-5 justify-content-end">
+                            <label for="">คำอธิบาย/รายละเอียด</label>
+                        </div>
+                        <div class="d-flex col-md-7">
+                            <textarea name="measures_type_id" class="form-control">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="row  mb-2">
+                        <div class="col-md-5 d-flex justify-content-end">
+                            เอกสารPDPA
+                        </div>
+                        <div class="col-md-7 d-flex align-items-center">
+                            <select name="doc_id_assets" class="select2 form-control" multiple="multiple"
+                                style="height: 36px;width: 100%;">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-4 d-flex justify-content-end align-items-start">
+                            <label style="font-size: 13px;text-align: right;">
+                                <font class="font-16">
+                                    ความลับ (confidentiality)
+                                </font>
+                                <br>
+                                การควบคุมการเข้าถึงข้อมูลเฉพาะผู้ที่ได้รับอนุญาติ เครื่องมือสำคัญได้แก่ นโยบายกำ
+                                หนดชั้นข้อมูล
+                                (classification policy)เพื่อกำ หนดประเภทของข้อมูลและประเภทของบุคคลที่จะเข้าถึง
+                            </label>
+                        </div>
+                        <div class="col-md-3 d-flex align-items-start justify-content-between">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input success check-outline outline-success" type="radio"
+                                    name="approach_confidentiality" id="warning-outline-radio" value="1" checked="">
+                                <label class="form-check-label" for="warning-outline-radio">มี</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                    name="approach_confidentiality" id="warning2-outline-radio" value="0">
+                                <label class="form-check-label" for="warning2-outline-radio">ไม่มี</label>
+                            </div>
+                            <label>
+                                อธิบาย
+                            </label>
+                        </div>
+                        <div class="col-md-5 d-flex justify-content-end align-items-start">
+                            <textarea name="approach_confidentiality_explain" id="" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-2">
+                        <div class="col-md-4 d-flex justify-content-end align-items-start">
+                            <label style="font-size: 13px;text-align: right;">
+                                <font class="font-16">
+                                    ความถูกต้องครบถ้วน (integrity)
+                                </font>
+                                <br>
+                                การควบคุมการแก้ไขข้อมูล โดยเครื่องมือสำ คัญ ได้แก่ นโยบายแบ่งแยกหน้าที่(separation
+                                of duty)
+                                ให้มีผู้ปฏิบัติงานถ่วงดุลตรวจสอบกัน
+                            </label>
+                        </div>
+                        <div class="col-md-3 d-flex align-items-start justify-content-between">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input success check-outline outline-success" type="radio"
+                                    id="success-outline-radio-5" name="approach_integrity" value="1" checked="">
+                                <label class="form-check-label" for="success-outline-radio-5">มี</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                    id="danger2-outline-radio" name="approach_integrity" value="0">
+                                <label class="form-check-label" for="danger2-outline-radio">ไม่มี</label>
+                            </div>
+                            <label>
+                                อธิบาย
+                            </label>
+                        </div>
+                        <div class="col-md-5 d-flex justify-content-center align-items-start ">
+                            <textarea name="approach_integrity_explain" id="" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-4 d-flex justify-content-end align-items-start">
+                            <label style="font-size: 13px;text-align: right;">
+                                <font class="font-16">
+                                    สภาพพร้อมใช้งาน (availability)
+                                </font>
+                                <br>
+                                การควบคุมการหยุดชะงักของระบบ ให้ใช้งานได้อย่างต่อเนื่อง โดยเครื่องมือสำ คัญ ได้แก่
+                                แผนฉุกเฉิน
+                                (contingencyplanning)
+
+                            </label>
+                        </div>
+                        <div class="col-md-3 d-flex align-items-start justify-content-between">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input success check-outline outline-success" type="radio"
+                                    name="approach_availability" id="primary-outline-radio" value="1" checked="">
+                                <label class="form-check-label" for="primary-outline-radio">มี</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                    name="approach_availability" id="primary2-outline-radio" value="0">
+                                <label class="form-check-label" for="primary2-outline-radio">ไม่มี</label>
+                            </div>
+                            <label>
+                                อธิบาย
+                            </label>
+                        </div>
+                        <div class="col-md-5 d-flex justify-content-center align-items-start ">
+                            <textarea name="approach_availability_explain" id="" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="row  mb-2">
+                        <div class="col-md-5 d-flex justify-content-end">
+                            ระยะเวลาทบทวนมาตราการ
+                        </div>
+                        <div class="col-md-7 d-flex align-items-center">
+                            <div class="input-group">
+                                <input type="date" name="measures_date" class="form-control" required>
+                                <input type="number" name="measures_date_count" class="form-control" required
+                                    placeholder="กรุณาป้อนจำนวนระยะเวลา...">
+                                <span class="input-group-text">วัน</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row  mb-2">
+                        <div class="col-md-5 d-flex" style="text-align: right;">
+                            <label for="">ผู้ดูแลข้อมูลหรือผู้ดูแลระบบหรือผู้ควบคุมมาตราการ</label>
+                        </div>
+                        <div class="col-md-7 d-flex align-items-center">
+                            <input type="text" name="measures_supervisor" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="justify-content: center;">
+                        <div class="col-md-3 d-flex justify-content-end">
+                            <button type="submit" class="btn btn-success me-2" data-bs-dismiss="modal"
+                                id="submit-assets" onclick="submit_assets()">บันทึก</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- Modals edit Information network -->
+    <!-- <div id="edit-Information-network" class="modal fade " tabindex="-2" aria-labelledby="success-header-modalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                    <h4 class="modal-title" style="color: black; font-weight: bold;">
+                        ปรับปรุงมาตราการรักษาความมั่นคงปลอดภัยส่วนประกอบต่างๆ (Network and Equipment)
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-2">
+                        <div class="d-flex col-md-5 justify-content-end">
+                            <label for="">ชื่อทรัพย์สิน</label>
+                        </div>
+                        <div class="d-flex col-md-7">
+                            <select name="doc_id_assets" class="form-control" style="height: 36px;width: 100%;">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="d-flex col-md-5 justify-content-end">
+                            <label for="">ชื่อมาตราการ</label>
+                        </div>
+                        <div class="d-flex col-md-7">
+                            <input name="measures_type_id" class="form-control">
+                            </input>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="d-flex col-md-5 justify-content-end">
+                            <label for="">คำอธิบาย/รายละเอียด</label>
+                        </div>
+                        <div class="d-flex col-md-7">
+                            <textarea name="measures_type_id" class="form-control">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="row  mb-2">
+                        <div class="col-md-5 d-flex justify-content-end">
+                            เอกสารPDPA
+                        </div>
+                        <div class="col-md-7 d-flex align-items-center">
+                            <select name="doc_id_assets" class="select2 form-control" multiple="multiple"
+                                style="height: 36px;width: 100%;">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-5 align-items-center" style="text-align: right;">
+                            <label>
+                                หลักการป้องกันเชิงลึก (defense in depth)
+                            </label>
+                        </div>
+                        <div class="col-md-3 d-flex align-items-center justify-content-between">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input success check-outline outline-success" type="radio"
+                                    name="approach_confidentiality" id="warning-outline-radio" value="1" checked="">
+                                <label class="form-check-label" for="warning-outline-radio">มี</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                    name="approach_confidentiality" id="warning2-outline-radio" value="0">
+                                <label class="form-check-label" for="warning2-outline-radio">ไม่มี</label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row  mb-2">
+                        <div class="col-md-5 d-flex justify-content-end">
+                            หลักการป้องกันเชิงลึก
+                        </div>
+                        <div class="col-md-7 d-flex align-items-center">
+                            <select name="doc_id_assets" class="select2 form-control" multiple="multiple"
+                                style="height: 36px;width: 100%;">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row  mb-2">
+                        <div class="col-md-5 d-flex justify-content-end">
+                            อธิบาย
+                        </div>
+                        <div class="col-md-7 d-flex align-items-center">
+                            <textarea name="approach_confidentiality_explain" id="" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-5" style="text-align: right;">
+                            <label>
+                                มาตรการป้องกันหลายชั้น
+                            </label>
+                        </div>
+                        <div class="col-md-3 d-flex align-items-start justify-content-between">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input success check-outline outline-success" type="radio"
+                                    id="success-outline-radio-5" name="approach_integrity" value="1" checked="">
+                                <label class="form-check-label" for="success-outline-radio-5">มี</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                    id="danger2-outline-radio" name="approach_integrity" value="0">
+                                <label class="form-check-label" for="danger2-outline-radio">ไม่มี</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row  mb-2">
+                        <div class="col-md-5 d-flex justify-content-end">
+                            เลือกมาตราการป้องกันเชิงลึก
+                        </div>
+                        <div class="col-md-7 d-flex align-items-center">
+                            <select name="doc_id_assets" class="select2 form-control" multiple="multiple"
+                                style="height: 36px;width: 100%;">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row  mb-2">
+                        <div class="col-md-5 d-flex justify-content-end">
+                            อธิบาย
+                        </div>
+                        <div class="col-md-7 d-flex align-items-center">
+                            <textarea name="approach_confidentiality_explain" id="" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row  mb-2">
+                        <div class="col-md-5 d-flex justify-content-end">
+                            ระยะเวลาทบทวนมาตราการ
+                        </div>
+                        <div class="col-md-7 d-flex align-items-center">
+                            <div class="input-group">
+                                <input type="date" name="measures_date" class="form-control" required>
+                                <input type="number" name="measures_date_count" class="form-control" required
+                                    placeholder="กรุณาป้อนจำนวนระยะเวลา...">
+                                <span class="input-group-text">วัน</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row  mb-2">
+                        <div class="col-md-5 d-flex" style="text-align: right;">
+                            <label for="">ผู้ดูแลข้อมูลหรือผู้ดูแลระบบหรือผู้ควบคุมมาตราการ</label>
+                        </div>
+                        <div class="col-md-7 d-flex align-items-center">
+                            <input type="text" name="measures_supervisor" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="justify-content: center;">
+                        <div class="col-md-3 d-flex justify-content-end">
+                            <button type="submit" class="btn btn-success me-2" data-bs-dismiss="modal"
+                                id="submit-network" onclick="submit_network()">บันทึก</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- Modals edit specific -->
+    <!-- <div id="edit-specific" class="modal fade " tabindex="-2" aria-labelledby="success-header-modalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                    <h4 class="modal-title" style="color: black; font-weight: bold;">
+                        ปรับปรุงมาตราการรักษาความปลอดภัยขั้นต่ำที่PDPAกำหนด (PDPA Specific Measures)
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-2">
+                        <div class="d-flex col-md-5 justify-content-end">
+                            <label for="">กิจกรรมการประมวลผล</label>
+                        </div>
+                        <div class="d-flex col-md-7">
+                            <select name="doc_id_assets" class="form-control" style="height: 36px;width: 100%;">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="d-flex col-md-5 justify-content-end">
+                            <label for="">ชื่อมาตราการ</label>
+                        </div>
+                        <div class="d-flex col-md-7">
+                            <input name="measures_type_id" class="form-control">
+                            </input>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="d-flex col-md-5 justify-content-end">
+                            <label for="">คำอธิบาย/รายละเอียด</label>
+                        </div>
+                        <div class="d-flex col-md-7">
+                            <textarea name="measures_type_id" class="form-control">
+                        </textarea>
+                        </div>
+                    </div>
+                    <div class="row  mb-2">
+                        <div class="col-md-5 d-flex justify-content-end">
+                            เอกสารPDPA
+                        </div>
+                        <div class="col-md-7 d-flex align-items-center">
+                            <select name="doc_id_assets" class="select2 form-control" multiple="multiple"
+                                style="height: 36px;width: 100%;">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-4 d-flex  align-items-center">
+                            <label style="text-align: right;">
+                                การควบคุมการเข้าถึงข้อมูลส่วนบุคคล (Access Control)
+                            </label>
+                        </div>
+                        <div class="col-md-3 d-flex align-items-center justify-content-between">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input success check-outline outline-success" type="radio"
+                                    name="specific_access_control" id="warning-outline-radio" value="1" checked="">
+                                <label class="form-check-label" for="warning-outline-radio">มี</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                    name="specific_access_control" id="warning2-outline-radio" value="2">
+                                <label class="form-check-label" for="warning2-outline-radio">ไม่มี</label>
+                            </div>
+                            <label>
+                                อธิบาย
+                            </label>
+                        </div>
+                        <div class="col-md-5 d-flex justify-content-center align-items-center ">
+                            <textarea name="specific_access_control_explain" id="" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-4 d-flex justify-content-end align-items-center">
+                            <label style="text-align: right;">
+                                การบริหารจัดการการเข้าถึงของผู้ใช้งาน (user Access Management)
+                            </label>
+                        </div>
+                        <div class="col-md-3 d-flex align-items-center justify-content-between">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input success check-outline outline-success" type="radio"
+                                    id="success-outline-radio-5" name="specific_user_access_management" value="1"
+                                    checked="">
+                                <label class="form-check-label" for="success-outline-radio-5">มี</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                    id="danger2-outline-radio" name="specific_user_access_management" value="2">
+                                <label class="form-check-label" for="danger2-outline-radio">ไม่มี</label>
+                            </div>
+                            <label>
+                                อธิบาย
+                            </label>
+                        </div>
+                        <div class="col-md-5 d-flex justify-content-center align-items-center ">
+                            <textarea name="specific_user_access_management_explain" id=""
+                                class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-4 d-flex justify-content-end align-items-center">
+                            <label style="text-align: right;">
+                                การกำ หนดหน้าที่ความรับผิดชอบของผู้ใช้งาน (User Responsibilitites)
+                            </label>
+                        </div>
+                        <div class="col-md-3 d-flex align-items-center justify-content-between">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input success check-outline outline-success" type="radio"
+                                    name="specific_user_responsibilitites" id="primary-outline-radio" value="1"
+                                    checked="">
+                                <label class="form-check-label" for="primary-outline-radio">มี</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                    name="specific_user_responsibilitites" id="primary2-outline-radio" value="2">
+                                <label class="form-check-label" for="primary2-outline-radio">ไม่มี</label>
+                            </div>
+                            <label>
+                                อธิบาย
+                            </label>
+                        </div>
+                        <div class="col-md-5 d-flex justify-content-center align-items-center ">
+                            <textarea name="specific_user_responsibilitites_explain" id=""
+                                class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-4 d-flex justify-content-end align-items-center">
+                            <label style="text-align: right;">
+                                การจัดให้มีวิธีการเพื่อให้สามารถตรวจสอบย้อนหลังเกี่ยวกับการเข้าถึงเปลียนแปลงแก้ไขหรือลบ
+                                (Audit Trails)
+                            </label>
+                        </div>
+                        <div class="col-md-3 d-flex align-items-center justify-content-between">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input success check-outline outline-success" type="radio"
+                                    name="specific_audit_trails" id="secondary-radio" value="1" checked="">
+                                <label class="form-check-label" for="secondary-radio">มี</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                    name="specific_audit_trails" id="secondary2-radio" value="2">
+                                <label class="form-check-label" for="secondary2-radio">ไม่มี</label>
+                            </div>
+                            <label>
+                                อธิบาย
+                            </label>
+                        </div>
+                        <div class="col-md-5 d-flex justify-content-center align-items-center ">
+                            <textarea name="specific_audit_trails_explain" id="" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-2">
+                        <div class="col-md-4 d-flex justify-content-end align-items-center">
+                            <label style="text-align: right;">
+                                การสร้างเสริมความตระหนัก รู้ ด้านความสำ
+                                คัญของการคุ้มครองข้อมูลส่วนบุคคลและการรักษาความมั่นคงปลอดภัย
+                                (privacy and security Awareness)
+                            </label>
+                        </div>
+                        <div class="col-md-3 d-flex align-items-center justify-content-between">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input success check-outline outline-success" type="radio"
+                                    name="specific_privacy_security_awareness" id="warning-radio" value="1" checked="">
+                                <label class="form-check-label" for="warning-radio">มี</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                    name="specific_privacy_security_awareness" id="warning2-radio" value="2">
+                                <label class="form-check-label" for="warning2-radio">ไม่มี</label>
+                            </div>
+                            <label>
+                                อธิบาย
+                            </label>
+                        </div>
+                        <div class="col-md-5 d-flex justify-content-center align-items-center ">
+                            <textarea name="specific_privacy_security_awareness_explain"
+                                class="form-control"></textarea>
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-2">
+                        <div class="col-md-4 d-flex justify-content-end align-items-center">
+                            <label style="text-align: right;">
+                                การแจ้งนโยบายการแจ้งเตือนแนวปฏิบัติReview and Revision (Where incident occurs)
+                            </label>
+                        </div>
+                        <div class="col-md-3 d-flex align-items-center justify-content-between">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input success check-outline outline-success" type="radio"
+                                    name="specific_where_incident_occurs" id="primary-radio" value="1" checked="">
+                                <label class="form-check-label" for="primary-radio">มี</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                    name="specific_where_incident_occurs" id="primary2-radio" value="2">
+                                <label class="form-check-label" for="primary2-radio">ไม่มี</label>
+                            </div>
+                            <label>
+                                อธิบาย
+                            </label>
+                        </div>
+                        <div class="col-md-5 d-flex justify-content-center align-items-center ">
+                            <textarea name="specific_where_incident_occurs_explain" id=""
+                                class="form-control"></textarea>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row  mb-2">
+                        <div class="col-md-5 d-flex justify-content-end">
+                            ระยะเวลาทบทวนมาตราการ
+                        </div>
+                        <div class="col-md-7 d-flex align-items-center">
+                            <div class="input-group">
+                                <input type="date" name="measures_date" class="form-control" required>
+                                <input type="number" name="measures_date_count" class="form-control" required
+                                    placeholder="กรุณาป้อนจำนวนระยะเวลา...">
+                                <span class="input-group-text">วัน</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row  mb-2">
+                        <div class="col-md-5 d-flex" style="text-align: right;">
+                            <label for="">ผู้ดูแลข้อมูลหรือผู้ดูแลระบบหรือผู้ควบคุมมาตราการ</label>
+                        </div>
+                        <div class="col-md-7 d-flex align-items-center">
+                            <input type="text" name="measures_supervisor" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="justify-content: center;">
+                        <div class="col-md-3 d-flex justify-content-end">
+                            <button type="button" class="btn btn-success me-2" data-bs-dismiss="modal"
+                                id="submit-specific" onclick="submit_specific()">บันทึก</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+
+    <!-- Modals Add Pattern -->
+    <div id="select-pattern" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel"
+        aria-hidden="true" style="display: none; margin-top: 5%">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                    <h4 class="modal-title" style="color: black; font-weight: bold;">
+                        รูปแบบข้อมูล
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="h5" style="font-weight: bold;">
+                        เลือกรูปแบบข้อมูล
+                    </div>
+                    <div>
+                        <table class="table table-boardless">
+                            <tbody id="table-body-pattern-add">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 justify-content-center align-self-center d-block d-md-flex">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination" id="pagination-wapper-pattern-add">
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-12 text-secondary">
+                            <span>แสดงผล <span id="start-pattern-add"></span> ถึง <span id="end-pattern-add"></span>
+                                ทั้งหมด <span id="total-pattern-add"></span> รายการ </span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div style="margin-right: 42%;">
+                            <button type="button" class="btn btn-danger font-weight-large"
+                                data-bs-dismiss="modal">ยกเลิก</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+    <!-- Modals Add Event Process -->
+    <div id="select-event-process" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel"
+        aria-hidden="true" style="display: none; margin-top: 5%">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                    <h4 class="modal-title" style="color: black; font-weight: bold;">
+                        กิจกรรมการประมวลผล
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="h5" style="font-weight: bold;">
+                        เลือกกิจกรรมการประมวลผลที่ต้องการใช้งาน
+                    </div>
+                    <div>
+                        <table class="table table-boardless">
+                            <tbody id="table-body-event-add">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 justify-content-center align-self-center d-block d-md-flex">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination" id="pagination-wapper-event-add">
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-12 text-secondary">
+                            <span>แสดงผล <span id="start-event-add"></span> ถึง <span id="end-event-add"></span> ทั้งหมด
+                                <span id="total-event-add"></span> รายการ </span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div style="margin-right: 42%;">
+                            <button type="button" class="btn btn-danger font-weight-large" data-bs-dismiss="modal">
+                                ยกเลิก </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+    <!-- Modals Add Users (Inside) -->
+    <div id="select-users-inside" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel"
+        aria-hidden="true" style="display: none; margin-top: 5%">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                    <h4 class="modal-title" style="color: black; font-weight: bold;">
+                        สมาชิกในระบบ Alltra
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="h5" style="font-weight: bold;">
+                        เลิือกสมาชิกในระบบ Alltra ที่ต้องการใช้งาน
+                    </div>
+                    <div>
+                        <table class="table table-boardless">
+                            <tbody id="table-body-user-inside-add">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 justify-content-center align-self-center d-block d-md-flex">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination" id="pagination-wapper-user-inside-add">
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-12 text-secondary">
+                            <span> แสดงผล <span id="start-user-inside-add"></span> ถึง <span
+                                    id="end-user-inside-add"></span> ทั้งหมด <span id="total-user-inside-add"></span>
+                                รายการ </span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div style="margin-right: 42%;">
+                            <button type="button" class="btn btn-danger font-weight-large" data-bs-dismiss="modal">
+                                ยกเลิก </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+    <!-- Modals Add Users (Outside) -->
+    <div id="select-users-outside" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel"
+        aria-hidden="true" style="display: none; margin-top: 5%">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                    <h4 class="modal-title" style="color: black; font-weight: bold;">
+                        สมาชิกในระบบ Alltra
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="h5" style="font-weight: bold;">
+                        เลือกสมาชิกในระบบ Alltra ที่ต้องการใช้งาน
+                    </div>
+                    <div>
+                        <table class="table table-boardless">
+                            <tbody id="table-body-users-outside-add">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 justify-content-center align-self-center d-block d-md-flex">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination" id="pagination-wapper-users-outside-add">
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-12 text-secondary">
+                            <span> แสดงผล <span id="start-users-outside-add"></span> ถึง <span
+                                    id="end-users-outside-add"></span> ทั้งหมด <span
+                                    id="total-users-outside-add"></span> รายการ </span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div style="margin-right: 42%;">
+                            <button type="button" class="btn btn-danger font-weight-large" data-bs-dismiss="modal">
+                                ยกเลิก </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+    <!-- Modals Add Processing_base -->
+    <div id="add-processing-base" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel"
+        aria-hidden="true" style="display: none; margin-top: 5%">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                    <h4 class="modal-title" style="color: black; font-weight: bold;">
+                        สร้างฐานการประมวลผล
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="h5" style="font-weight: bold;">
+                        สร้างฐานการประมวลผลที่ต้องการใช้งาน
+                    </div>
+                    <div>
+                        <table class="table table-boardless">
+                            <tbody id="">
+                                <th class="th-pattern1"> ฐานการประมวลผล : </th>
+                                <td class="td-option-pattern"><input type="text" name="pattern_processing_base_name"
+                                        placeholder="กรุณป้อนฐานการประมวลผล..." class='form-control' />
+                                </td>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="button-center-success">
+                            <a id="add_processing_base" type="button" class="btn btn-success font-weight-large"> ยืนยัน
+                            </a>
+                        </div>
+                        <div class="button-center-danger1">
+                            <button type="button" class="btn btn-danger font-weight-large" data-bs-dismiss="modal">
+                                ยกเลิก </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+    <!-- Modals Add Speical Conditions -->
+    <div id="add_special_conditions" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel"
+        aria-hidden="true" style="display: none; margin-top: 5%">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                    <h4 class="modal-title" style="color: black; font-weight: bold;">
+                        สร้างเงื่อนไขพิเศษเพิ่มเติม
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="h5" style="font-weight: bold;">
+                        สร้างเงื่อนไขพิเศษเพิ่มเติมที่ต้องการใช้งาน
+                    </div>
+                    <div>
+                        <table class="table table-boardless">
+                            <tbody id="">
+                                <th class="th-pattern2"> เงื่อนไขพิเศษเพิ่มเติม : </th>
+                                <td class="td-option-pattern"><input type="text"
+                                        name="classification_special_conditions_name"
+                                        placeholder="กรุณาป้อนเงื่อนไขพิเศษ..." class='form-control' />
+                                </td>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="button-center-success">
+                            <a id="add-special-conditions" type="button" class="btn btn-success font-weight-large">
+                                ยืนยัน </a>
+                        </div>
+                        <div class="button-center-danger1">
+                            <button type="button" class="btn btn-danger font-weight-large" data-bs-dismiss="modal">
+                                ยกเลิก </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modals Edit measures chooses -->
+    <div id="edit-measures-chooses" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                    <h4 class="modal-title" style="color: black; font-weight: bold;">
+                        เเก้ไขมาตราการรักษาความปลอดภัยขั้นต่ำที่PDPA กำหนด (PDPA Specific Measures)
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-2">
+                        <div class="col-md-4  justify-content-end align-items-center d-flex ">
+                            กิจกรรมการประมวลผล
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <select name="event_process_id" class="form-control" id="process" disabled>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-4 d-flex justify-content-end">
+                            ชื่อมาตราการ
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <input type="text" name="measures_section_name" class="form-control" disabled value="">
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-4 d-flex justify-content-end">
+                            คำอธิบาย/ รายละเอียด
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <textarea name="measures_detail" cols="65" rows="8" class="form-control"
+                                disabled></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-4 d-flex justify-content-end align-content-center">
+                            เอกสารPDPA
+                        </div>
+                        <div class="col-md-8 d-flex align-content-center">
+                            <div class="input-group">
+                                <select name="doc_id" class="select2 form-control select2-dropdown" multiple="multiple"
+                                    disabled style="height: 36px;width: 100%;" id="selecte_type_policy">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-4 d-flex  align-items-center">
+                            <label style="text-align: right;">
+                                การควบคุมการเข้าถึงข้อมูลส่วนบุคคล (Access Control)
+                            </label>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-between">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input success check-outline outline-success" type="radio"
+                                    name="specific_access_control" id="warning-outline-radio" value="1">
+                                <label class="form-check-label" for="warning-outline-radio">มี</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                    name="specific_access_control" id="warning2-outline-radio" value="2">
+                                <label class="form-check-label" for="warning2-outline-radio">ไม่มี</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-center align-items-center ">
+                            <label class="me-2"> อธิบาย </label>
+                            <textarea name="specific_access_control_explain" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-4 d-flex justify-content-end align-items-center">
+                            <label style="text-align: right;">
+                                การบริหารจัดการการเข้าถึงของผู้ใช้งาน (user Access Management)
+                            </label>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-between">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input success check-outline outline-success" type="radio"
+                                    id="success-outline-radio-5" name="specific_user_access_management" value="1"
+                                    checked="">
+                                <label class="form-check-label" for="success-outline-radio-5">มี</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                    id="danger2-outline-radio" name="specific_user_access_management" value="2">
+                                <label class="form-check-label" for="danger2-outline-radio">ไม่มี</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-center align-items-center ">
+                            <label class="me-2"> อธิบาย </label>
+                            <textarea name="specific_user_access_management_explain" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-4 d-flex justify-content-end align-items-center">
+                            <label style="text-align: right;">
+                                การกำหนดหน้าที่ความรับผิดชอบของผู้ใช้งาน (User Responsibilitites)
+                            </label>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-between">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input success check-outline outline-success" type="radio"
+                                    name="specific_user_responsibilitites" id="primary-outline-radio" value="1"
+                                    checked="">
+                                <label class="form-check-label" for="primary-outline-radio">มี</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                    name="specific_user_responsibilitites" id="primary2-outline-radio" value="2">
+                                <label class="form-check-label" for="primary2-outline-radio">ไม่มี</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-center align-items-center ">
+                            <label class="me-2"> อธิบาย </label>
+                            <textarea name="specific_user_responsibilitites_explain" id=""
+                                class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-4 d-flex justify-content-end align-items-center">
+                            <label style="text-align: right;">
+                                การจัดให้มีวิธีการเพื่อให้สามารถตรวจสอบย้อนหลังเกี่ยวกับการเข้าถึงเปลียนแปลงแก้ไขหรือลบ
+                                (Audit Trails)
+                            </label>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-between">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input success check-outline outline-success" type="radio"
+                                    name="specific_audit_trails" id="secondary-radio" value="1" checked="">
+                                <label class="form-check-label" for="secondary-radio">มี</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                    name="specific_audit_trails" id="secondary2-radio" value="2">
+                                <label class="form-check-label" for="secondary2-radio">ไม่มี</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-center align-items-center ">
+                            <label class="me-2"> อธิบาย </label>
+                            <textarea name="specific_audit_trails_explain" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-4 d-flex justify-content-end align-items-center">
+                            <label style="text-align: right;">
+                                การสร้างเสริมความตระหนักรู้ด้านความสำ
+                                คัญของการคุ้มครองข้อมูลส่วนบุคคลและการรักษาความมั่นคงปลอดภัย
+                                (privacy and security Awareness)
+                            </label>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-between">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input success check-outline outline-success" type="radio"
+                                    name="specific_privacy_security_awareness" id="warning-radio" value="1" checked="">
+                                <label class="form-check-label" for="warning-radio">มี</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                    name="specific_privacy_security_awareness" id="warning2-radio" value="2">
+                                <label class="form-check-label" for="warning2-radio">ไม่มี</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-center align-items-center ">
+                            <label class="me-2"> อธิบาย </label>
+                            <textarea name="specific_privacy_security_awareness_explain"
+                                class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-4 d-flex justify-content-end align-items-center">
+                            <label style="text-align: right;">
+                                การแจ้งนโยบายการแจ้งเตือนแนวปฏิบัติReviewandRevision (Where incident occurs)
+                            </label>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-between">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input success check-outline outline-success" type="radio"
+                                    name="specific_where_incident_occurs" id="primary-radio" value="1" checked="">
+                                <label class="form-check-label" for="primary-radio">มี</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                    name="specific_where_incident_occurs" id="primary2-radio" value="2">
+                                <label class="form-check-label" for="primary2-radio">ไม่มี</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-center align-items-center ">
+                            <label class="me-2"> อธิบาย </label>
+                            <textarea name="specific_where_incident_occurs_explain" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-4 d-flex justify-content-end">
+                            ระยะเวลาทบทวนมาตราการ
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <div class="input-group">
+                                <input type="date" name="measures_date" class="form-control" value="" required>
+                                <input type="number" name="measures_date_count" class="form-control" required value=""
+                                    placeholder="กรุณาป้อนจำนวนระยะเวลา...">
+                                <span class="input-group-text">วัน</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-4" style="text-align: right;">
+                            ผู้ดูแลข้อมูลหรือผู้ดูแลระบบหรือผู้ควบคุมมาตราการ
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <!-- <input type="text" name="measures_supervisor" class="form-control" value="" required> -->
+                            <select name="measures_supervisor" class="select2 form-control" multiple="multiple"
+                                style="height: 36px;width: 100%;">
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-success font-weight-large" onclick="submit_edite(this)"
+                            id="submit" data-bs-dismiss="modal">บันทึกข้อมูล</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- selecte measures -->
+    <div id="select-measures" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel"
+        aria-hidden="true" style="display: none; margin-top: 5%">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                    <h4 class="modal-title" style="color: black; font-weight: bold;">
+                        เลือกมาตราการรักษาความปลอดภัยขั้นต่ำที่PDPA กำหนด (PDPA Specific Measures)
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="h5" style="font-weight: bold;">
+                        มาตราการรักษาความปลอดภัยขั้นต่ำที่PDPA กำหนด (PDPA Specific Measures)
+                    </div>
+                    <div class="table-responsive">
+                        <table class="tablesaw table table-striped  no-wrap table-bordered table-hover">
+                            <thead>
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10%;">
+                                            เลือก
+                                        </th>
+                                        <th style="width: 10%;">
+                                            ลำดับที่
+                                        </th>
+                                        <th style="width: 10%;">
+                                            ชื่อกิจกรรมประมวลผล
+                                        </th>
+                                        <th style="width: 20%;">
+                                            ชื่อมาตราการ
+                                        </th>
+                                        <th style="width: 20%;">
+                                            เอกสาร Policy
+                                        </th>
+                                        <!--   <th style="width: 20%;">
+                                            User Access Management
+                                        </th>
+                                        <th style="width: 20%;">
+                                            User Responsibilitites
+                                        </th>
+                                        <th style="width: 10%;">
+                                            Audit Trails
+                                        </th>
+                                        <th style="width: 10%;">
+                                            Privacy and security Awareness
+                                        </th>
+                                        <th style="width: 10%;">
+                                            Where incident occurs
+                                        </th> -->
+                                        <th style="width: 10%;">
+                                            ดูรายละเอียด
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                            </thead>
+                            <tbody id="table-select-measures">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 text-secondary ">
+                            <div class="row">
+                                <span>แสดงผล <a id="show-Specific-Measures-choose"></a> ถึง <a
+                                        id="to-show-Specific-Measures-choose"></a>
+                                    ทั้งหมด <a id="show-all-Specific-Measures-choose"></a>
+                                    รายการ</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 justify-content-end align-self-center  d-md-flex">
+                            <nav aria-label="Page navigation example" class="mt-2">
+                                <ul class="pagination-choose">
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-secondary font-weight-large"
+                            data-bs-dismiss="modal">ปิด</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <style>
+        .pagination-Risk-based-Approach-Assets {
+            display: flex;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .pagination-Risk-based-Approach-Network {
+            display: flex;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .pagination-Specific {
+            display: flex;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .select2-dropdown {
+            z-index: 9999;
+        }
+
+        .pagination-choose {
+            display: flex;
+            padding-left: 0;
+            list-style: none;
+        }
+    </style>
+    <script src="/UI/assets/libs/jquery/dist/jquery.min.js"></script>
+    <!-- <script src="../../dist/js/views_js/classcification_pattern/test_export.js"></script> -->
+
+    <script>
+        function check_doc_id_pattern() {
+            if ($('input[name="pattern_id"]').val() != "" && typeof $('input[name="pattern_id"]').val() != 'undefined') {
+                // $('#textarea_doc_id').val($('input[name="doc_id"]').val());
+                $.ajax({
+                    type: 'POST',
+                    url: '/classification/get/doc_id_pattern_detail',
+                    data: { pattern_id: $('input[name="pattern_id"]').val() },
+                    success: function (result) {
+                        $.each(result, function (i, xxx) {
+                            if (xxx.datatag.length != 0) {
+                                var text_div_text2 = ``;
+                                var text_div_text1 = ``;
+                                var tbody_table_pattern_data = ``;
+
+                                text_div_text2 += `<br><br><br>`;
+                                text_div_text1 += `ข้อมูลส่วนบุคคล: มี ` + (xxx.datatag.length) + ` ข้อมูล<br>`;
+                                text_div_text1 += `---------------------------------------------------------------------------<br>`;
+                                for (let i = 0; i < xxx.datatag.length; i++) {
+                                    tbody_table_pattern_data += `<tr>`
+                                    tbody_table_pattern_data += `   <td>`
+                                    tbody_table_pattern_data += `       ` + (i + 1);
+                                    tbody_table_pattern_data += `   </td>`
+                                    tbody_table_pattern_data += `   <td>`
+                                    tbody_table_pattern_data += `       ` + xxx.datatag_name[i] + ` ( ` + xxx.datatag_code[i] + ` )`;
+                                    tbody_table_pattern_data += `   </td>`
+                                    tbody_table_pattern_data += `   <td>`
+                                    tbody_table_pattern_data += `       ` + xxx.datatag[i].day_start + ` ถึง ` + xxx.datatag[i].day_end;
+                                    tbody_table_pattern_data += `   </td>`
+                                    tbody_table_pattern_data += `   <td>`
+                                    tbody_table_pattern_data += `       ` + xxx.datatag[i].level_name;
+                                    tbody_table_pattern_data += `   </td>`
+                                    tbody_table_pattern_data += `   <td>`
+                                    tbody_table_pattern_data += `       ` + xxx.datatag[i].data_type_name;
+                                    tbody_table_pattern_data += `   </td>`
+                                    tbody_table_pattern_data += `   <td>`
+                                    tbody_table_pattern_data += `       เลือก <input type="checkbox" class="form-check-input" name="doc_id_person_data_pattern" value="` + xxx.datatag_id[i] + `" checked> `;
+                                    tbody_table_pattern_data += `   </td>`
+                                    tbody_table_pattern_data += `</tr>`
+                                    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                                    text_div_text2 += `<br><br>เลือก <input type="checkbox" class="form-check-input" name="doc_id_person_data_pattern" value="` + xxx.datatag_id[i] + `" checked> <br><br><br><br>`;
+                                    text_div_text1 += `ลำดับที่ ` + (i + 1) + `<br>`;
+                                    text_div_text1 += `      ` + xxx.datatag_name[i] + ` ( ` + xxx.datatag_code[i] + ` )<br>`;
+                                    text_div_text1 += `      -ระยะเวลา: ` + xxx.datatag[i].day_start + ` ถึง ` + xxx.datatag[i].day_end + `<br>`;
+                                    text_div_text1 += `      -ความเสี่ยง: ` + xxx.datatag[i].level_name + `<br>`;
+                                    text_div_text1 += `      -ประเภทข้อมูล: ` + xxx.datatag[i].data_type_name + `<br>`;
+                                    text_div_text1 += `---------------------------------------------------------------------------<br>`;
+                                }
+                                $('#div_text1').html(text_div_text1);
+                                $('#div_text2').html(text_div_text2);
+                                $('#tbody_table_pattern_data').html(tbody_table_pattern_data);
+                            } else {
+                                $('#div_text1').html('ข้อมูลส่วนบุคคล: ไม่มี ข้อมูล');
+                                $('#div_text2').html('');
+                                $('#tbody_table_pattern_data').html('');
+                            }
+
+                        });
+                    },
+                    error: function (e) {
+                    }
+                });
+            } else {
+                $('#textarea_doc_id').val("");
+                $('#tbody_table_pattern_data').html('');
+            }
+        }
+        $(document).ready(function () {
+            $('span.example-datamark').hide();
+            $('span#example-datamark1').show();
+            event_personal_datamark()
+        });
+
+        function event_personal_datamark() {
+            text_show_datamark = ''
+            if ($('#customRadio20').prop('checked')) {
+                text_show_datamark += 'ไม่ต้องการสร้างเครื่องหมาย'
+            } else {
+                text_show_datamark += 'ต้องการสร้างเครื่องหมาย'
+                if ($('#not_use').prop('checked')) {
+                    text_show_datamark += ' (ไม่ระบุข้อมูล) '
+                } else {
+                    text_show_datamark += ' (ข้อมูลที่มีการแฝง) '
+                    if ($('#datamark1').prop('checked')) {
+                        text_show_datamark += 'หัวข้อมูลอย่างเดียว จำนวน ' + $('input[name="classify_type_data_in_event_personal_datamark_total"]').val() + ' ตัว'
+                    } else if ($('#datamark2').prop('checked')) {
+                        text_show_datamark += 'หัวและท้ายข้อมูล จำนวน ' + $('input[name="classify_type_data_in_event_personal_datamark_total"]').val() + ' ตัว'
+                    } else {
+                        text_show_datamark += 'ท้ายข้อมูลอย่างเดียว จำนวน ' + $('input[name="classify_type_data_in_event_personal_datamark_total"]').val() + ' ตัว'
+                    }
+                }
+            }
+
+            $('#text_show_datamark').html(text_show_datamark);
+
+        }
+
+    </script>
+    <script src="/UI/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="/UI/dist/js/feather.min.js"></script>
+    <script src="/UI/dist/js/custom.min.js"></script>
+    <script src="/UI/assets/libs/select2/dist/js/select2.full.min.js"></script>
+    <script src="/UI/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="/UI/dist/js/pages/forms/select2/select2.init.js"></script>
+    <script src="/dist/js/views_js/classcification_pattern/all_function_classification.js"></script>
+
+
+    <%- include('../_footer') -%>

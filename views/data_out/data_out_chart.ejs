@@ -1,0 +1,276 @@
+<%- include('../_header') -%>
+    <div class="container-fluid">
+      <!-- Row -->
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="border-bottom title-part-padding">
+              <h4 class="card-title mb-0">
+                <i class="me-2 mdi mdi-monitor"></i>จำนวนข้อมูลที่ถูกส่งออกไปภายนอก<span class="text-secondary"></span>
+              </h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-8" >
+
+                    </div>
+                    <div class="col-sm-4" >
+                        <form action="/dataoutselectmonth" method="post">
+                        <div style="width: 100%">
+                            <div class="dropdown me-2">
+                                    <div class="input-group mb-3" style="width: 100%">
+                                        <select name="start" class="form-control rounded">
+                                                
+                                            <% if(monthselect){ %>       
+                                            <% if(monthselect.length > 0){ %>
+                                                <% for (var i=0; i < monthselect.length; i++) { %>
+                                                    <option value="<%=monthselect[i].monthselect%>">
+                                                        <%= monthselect[i].monthselect %>
+                                                    </option>
+                                                    <% } } }%>
+                                                        
+                                            </select>
+                                           <span class="mt-2 p_st h3-mg-8px"> &nbsp;ถึง&nbsp;</span>
+                                        <select name="end" class="form-control rounded">
+                                                
+                                            <% if(monthselect){ %>           
+                                            <% if(monthselect.length > 0){ %>
+                                                <% for (var i=0; i < monthselect.length; i++) { %>
+                                                    <option value="<%=monthselect[i].monthselect%>">
+                                                        <%= monthselect[i].monthselect %>
+                                                    </option>
+                                                    <% } } }%>
+                                            
+                                </select>
+                                <button class="btn btn-outline-warning" type="submit"><i class="fas fa-search"></i></button>
+                                    </div>
+                               
+                                    
+                                    
+                            </div>
+                            
+                        </div> 
+                    </form>
+    
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-12">
+                        <div class="card">
+                            <div class="d-flex flex-wrap">
+                                <div>
+                                    <p class="p_st h3-mg-8px">จำนวนข้อมูล</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div id="chart1"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="card">
+                            <div class="d-flex flex-wrap">
+                                <div>
+                                    <p class="p_st h3-mg-8px">ปริมาณที่ DPO อนุมัติ</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div id="chart2"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="card">
+                            <div class="d-flex flex-wrap">
+                                <div>
+                                    <p class="p_st h3-mg-8px">ปริมาณที่ DPO Review</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div id="chart3"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-12">
+                        <div class="card">
+                            <div class="d-flex flex-wrap">
+                                <div>
+                                    <p class="p_st h3-mg-8px">ส่งโดย E-mail</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div id="chart4"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="card">
+                            <div class="d-flex flex-wrap">
+                                <div>
+                                    <p class="p_st h3-mg-8px">ส่งโดย API</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div id="chart5"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                </div>
+            </div>
+            <div >
+                <center>
+                    <a href="/dataoutlist"> <button type="button" class="btn btn-secondary waves-effect waves-light btn-lg">ย้อนกลับ</button></a>
+                  </center>
+                  </div>
+                  <br>
+          </div>
+        </div>
+        <!-- Row -->
+      </div>
+      </div>
+    
+      <!-- -------------------------------------------------------------- -->
+      <!-- End PAge Content -->
+      <!-- -------------------------------------------------------------- -->
+      <!--start overlay-->
+      <%- include('../_footer') -%>
+      <script src="/UI/assets/libs/datatables/media/js/jquery.dataTables.min.js"></script>
+      <script src="/UI/dist/js/pages/datatable/custom-datatable.js"></script>
+      <script src="/UI/dist/js/pages/datatable/datatable-basic.init.js"></script>
+      <script src="/UI/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+
+      <script>
+          function addarray(data,count,date) {
+            for (x in data){
+            count.push(data[x].countdate)
+            date.push(data[x].datecreate)
+          }
+          }
+          var datacount = <%-JSON.stringify(data)%>;
+          var datadpo= <%-JSON.stringify(datadpo)%>;
+          var datadpocon= <%-JSON.stringify(datadpocon)%>;
+          var dataapi= <%-JSON.stringify(dataapi)%>;
+          var dataemail= <%-JSON.stringify(dataemail)%>;
+          var countcount = [];
+          var datecount = [];
+          var countdpo = [];
+          var datedpo = [];
+          var countdpocon = [];
+          var datedpocon = [];
+          var countapi = [];
+          var dateapi = [];
+          var countemail = [];
+          var dateemail = [];
+          addarray(datacount,countcount,datecount);
+          addarray(datadpo,countdpo,datedpo);
+          addarray(dataapi,countapi,dateapi);
+          addarray(dataemail,countemail,dateemail);
+          addarray(datadpocon,countdpocon,datedpocon);
+         
+          function chartnew(idchart,count,date){
+            $(function (){
+            var test_Statistics = {
+        series: [
+            {
+                name: "count",
+                data: count,
+            },
+        ],
+        chart: {
+            fontFamily: 'Rubik,sans-serif',
+            height: 350,
+            type: "area",
+            toolbar: {
+                show: false,
+            },
+        },
+        fill: {
+            type: 'solid',
+            opacity: 0.2,
+            colors: ["#009efb", "#39c449"],
+        },
+        grid: {
+            show: true,
+            borderColor: "rgba(0,0,0,0.1)",
+            strokeDashArray: 3,
+            xaxis: {
+                lines: {
+                    show: true
+                }
+            },  
+        },
+        colors: ["#39c449", "#009efb"],
+        dataLabels: {
+            enabled: false,
+        },
+        stroke: {
+            curve: "smooth",
+            width: 1,
+            colors: ["#009efb", "#39c449"],
+        },
+        markers: {
+            size: 3,
+            colors: ["#009efb", "#39c449"],
+            strokeColors: "transparent",
+        },
+        xaxis: {
+            axisBorder: {
+                show: true,
+            },
+            axisTicks: {
+                show: true,
+            },
+            categories: date,
+            labels: {
+                style: {
+                    colors: "#a1aab2",
+                },
+            },
+        },
+        yaxis: {
+            min:0,
+            labels: {
+                style: {
+                    colors: "#a1aab2",
+                },
+            //     formatter: function (val) {
+            //     return val.toFixed()
+            // }
+            },
+        },
+        tooltip: {
+            x: {
+                format: "dd/MM/yy HH:mm",
+            },
+            theme: "dark",
+        },
+        legend: {
+            show: false,
+        },
+    };
+
+    var chart_area_spline = new ApexCharts(document.querySelector(idchart), test_Statistics);
+    chart_area_spline.render();
+})
+          }
+          chartnew("#chart1",countcount,datecount);
+          chartnew("#chart2",countdpo,datedpo);
+          chartnew("#chart3",countdpocon,datedpocon);
+          chartnew("#chart4",countemail,dateemail);
+          chartnew("#chart5",countapi,dateapi);
+          
+      </script>
+

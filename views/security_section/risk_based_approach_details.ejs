@@ -1,0 +1,348 @@
+<%- include ("../_header") %>
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-10 align-self-center">
+                <h3 class="page-title">ดูรายละเอียดมาตรการรักษาความปลอดภัย</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/<%=process.env.SUBFOLDER%>index2">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item">
+                                <a href="/<%=process.env.SUBFOLDER%>security/section/Risk-based-Approach">
+                                    มาตรการที่ต้องสามารถระบุความเสี่ยงที่สำคัญที่อาจจะเกิด (Risk-based Approach)
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">ดูรายละเอียดมาตรการรักษาความปลอดภัย </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-2 d-flex justify-content-end align-items-center">
+                <a href="/<%=process.env.SUBFOLDER%>security/section/Risk-based-Approach" class="btn btn-secondary">ย้อนกลับ</a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="d-flex border-bottom title-part-padding align-items-center">
+                <h4 class="card-title mb-0">
+                    <% if (approach[0].approach_heading_risk_based==1) {%>
+                        มาตรการรักษาความมั่นคงปลอดภัยเกี่ยวกับทรัพย์สินสารสนเทศ (Information assets)
+                        <%}else {%>
+                            มาตรการรักษาความมั่นคงปลอดภัยส่วนประกอบต่าง ๆ (Network and Equipment )
+                            <%}%>
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="row mb-2">
+                    <div class="col-md-5  justify-content-end align-items-center d-flex ">
+                        ชื่อทรัพย์สินสารสนเทศ :
+                    </div>
+                    <div class="col-md-5 d-flex align-items-center justify-content-start">
+                        <%=approach[0].assets_name%>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-5 justify-content-end  align-items-center d-flex text-right">
+                        มาตรการที่ต้องสามารถระบุความเสี่ยงที่
+                        <br>
+                        สำคัญที่อาจจะเกิด(Risk-based Approach) :
+                    </div>
+                    <div class="col-md-5 d-flex align-items-center justify-content-start">
+                        <% if (approach[0].approach_heading_risk_based==1) {%>
+                            มาตรการรักษาความมั่นคงปลอดภัยเกี่ยวกับทรัพย์สินสารสนเทศ (Information assets)
+                            <%}else {%>
+                                มาตรการรักษาความมั่นคงปลอดภัยส่วนประกอบต่าง ๆ (Network and Equipment )
+                                <%}%>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-5  justify-content-end align-items-center d-flex ">
+                        คำอธิบาย / รายละเอียด :
+                    </div>
+                    <div class="col-md-5 d-flex align-items-center justify-content-start">
+                        <%=approach[0].measures_detail%>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-5  justify-content-end align-items-center d-flex ">
+                        เอกสารPDPA :
+                    </div>
+                    <div class="col-md-7 d-flex align-items-center justify-content-start">
+                        <%if (approach[0].doc_id==null) {%>
+                            -
+                            <%}else {%>
+                                <%for (let i=0;i<arr_doc.length;i++){%>
+                                    <%for (let j=0;j<doc.length;j++) {%>
+                                        <%if (arr_doc[i]==doc[j].doc_id) {%>
+                                            <p>
+                                                <%=doc[j].doc_name%>
+                                                    <a class="text-info ms-2" target="_blank"
+                                                        href="/<%=process.env.SUBFOLDER%>paper/<%=doc[j].doc_id%>"><i
+                                                            class=" fas fa-file-alt fa-2x"></i>
+                                                    </a>
+                                            </p>
+                                            <%}%>
+                                                <%}%>
+                                                    <%}%>
+                                                        <%}%>
+                    </div>
+                </div>
+
+
+                <% if (approach[0].approach_heading_risk_based==1) {%>
+                    <!-- มาตรการรักษาความมั่นคงปลอดภัยเกี่ยวกับทรัพย์สินสารสนเทศ (Information assets) -->
+
+                    <div class="row mb-2">
+                        <div class="col-md-5 d-flex justify-content-end align-items-center">
+                            <label style="font-size: 13px;text-align: right;">
+                                <font class="font-16">
+                                    ความลับ (confidentiality)
+                                </font>
+                                <br>
+                                การควบคุมการเข้าถึงข้อมูลเฉพาะผู้ที่ได้รับอนุญาติเครื่องมือสำคัญ ได้แก่ นโยบายกำหนดชั้นข้อมูล
+                                (classification policy) เพื่อกำหนดประเภทของข้อมูลและประเภทของบุคคลที่จะเข้าถึง
+                            </label>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-between">
+                            <%if (approach[0].approach_confidentiality==1) {%>
+                                <font class="text-success">มี</font>
+                                <%} else {%>
+                                    <font class="text-danger">ไม่มี</font>
+                                    <%}%>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-5 d-flex justify-content-end align-items-center">
+                            อธิบาย :
+                        </div>
+                        <div class="col-md-5 d-flex justify-content-start align-items-center ">
+                            <% if (approach[0].approach_confidentiality_explain=="" ) {%>
+                                -
+                                <%} else {%>
+                                    <%=approach[0].approach_confidentiality_explain%>
+
+                                        <% }%>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-5 d-flex justify-content-end align-items-center">
+                            <label style="font-size: 13px;text-align: right;">
+                                <font class="font-16">
+                                    ความถูกต้องครบถ้วน (integrity)
+                                </font>
+                                <br>
+                                 โดยเครื่องมือสำคัญ ได้แก่ นโยบายแบ่งแยกหน้าที่(separation
+                                of duty)
+                                ให้มีผู้ปฏิบัติงานถ่วงดุลตรวจสอบกัน
+                            </label>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-between">
+                            <%if (approach[0].approach_integrity==1) {%>
+                                <font class="text-success">มี</font>
+                                <%} else {%>
+                                    <font class="text-danger">ไม่มี</font>
+                                    <%}%>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-5 d-flex justify-content-end align-items-center">
+                            อธิบาย :
+                        </div>
+                        <div class="col-md-5 d-flex justify-content-start align-items-center ">
+                            <% if (approach[0].approach_integrity_explain=="" ) {%>
+                                -
+                                <%} else {%>
+                                    <%=approach[0].approach_integrity_explain%>
+                                        <% }%>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-5 d-flex justify-content-end align-items-center">
+                            <label style="font-size: 13px;text-align: right;">
+                                <font class="font-16">
+                                    สภาพพร้อมใช้งาน (availability)
+                                </font>
+                                <br>
+                                การควบคุมการหยุดชะงักของระบบให้ใช้งานได้อย่างต่อเนื่องโดยเครื่องมือสำคัญ
+                                ได้แก่
+                                แผนฉุกเฉิน
+                                (contingencyplanning)
+
+                            </label>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-between">
+                            <%if (approach[0].approach_availability==1) {%>
+                                <font class="text-success">มี</font>
+                                <%} else {%>
+                                    <font class="text-danger">ไม่มี</font>
+                                    <%}%>
+
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-5 d-flex justify-content-end align-items-center">
+                            อธิบาย :
+                        </div>
+                        <div class="col-md-5 d-flex justify-content-start align-items-center ">
+                            <% if (approach[0].approach_integrity_explain=="" ) {%>
+                                -
+                                <%} else {%>
+                                    <%=approach[0].approach_integrity_explain%>
+                                        <% }%>
+                        </div>
+                    </div>
+
+                    <%}else { %>
+                        <!--  มาตรการรักษาความมั่นคงปลอดภัยส่วนประกอบต่าง ๆ (Network and Equipment )  -->
+                        <div class="row mb-2">
+                            <div class="col-md-5 d-flex justify-content-end align-items-center">
+                                <label style="text-align: right;">
+                                    หลักการป้องกันเชิงลึก (defense in depth)
+                                </label>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center justify-content-between">
+                                <%if (approach[0].approach_defense_principles==1) {%>
+                                    <font class="text-success">มี</font>
+                                    <%} else {%>
+                                        <font class="text-danger">ไม่มี</font>
+                                        <%}%>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-5 d-flex justify-content-end align-items-center">
+                                <label style="text-align: right;">
+                                    หลักการป้องกันเชิงลึก
+                                </label>
+                            </div>
+                            <div class="col-md-5 d-flex align-items-center justify-content-start">
+                                <%if (arr_new.length>0) {%>
+                                    <%for (let i=0;i<arr_new.length;i++) {%>
+                                        <%for (let j=0; j < depth.length; j++) { %>
+                                            <%if (arr_new[i]==depth[j].depth_id && depth[j].depth_type==1){%>
+                                                <%if (arr_new.length>1) {%>
+                                                    <%=depth[j].depth_name%>,
+                                                        <%}else {%>
+                                                            <%=depth[j].depth_name%>
+                                                                <%}%>
+                                                                    <%}%>
+                                                                        <%}%>
+                                                                            <%}%>
+                                                                                <%}%>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-5 d-flex justify-content-end align-items-center">
+                                อธิบาย :
+                            </div>
+                            <div class="col-md-5 d-flex justify-content-start align-items-center ">
+                                <% if (approach[0].approach_defense_principles_explain=="" ) {%>
+                                    -
+                                    <%} else {%>
+                                        <%=approach[0].approach_defense_principles_explain%>
+                                            <% }%>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-5 d-flex justify-content-end align-items-center">
+                                <label style="text-align: right;">
+                                    มาตรการ ป้องกันหลายชั้น
+                                </label>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center justify-content-between">
+                                <%if (approach[0].approach_defense_protection==1) {%>
+                                    <font class="text-success">มี</font>
+                                    <%} else {%>
+                                        <font class="text-danger">ไม่มี</font>
+                                        <%}%>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-5 d-flex justify-content-end align-items-center">
+                                <label style="text-align: right;">
+                                    มาตรการป้องกันเชิงลึก
+                                </label>
+                            </div>
+                            <div class="col-md-5 d-flex align-items-center justify-content-start">
+
+                                <%if (arr_new.length>0) {%>
+                                    <%for (let i=0;i<arr_new.length;i++) {%>
+                                        <%for (let j=0; j < depth.length; j++) { %>
+                                            <%if (arr_new[i]==depth[j].depth_id && depth[j].depth_type==2){%>
+                                                <%if (arr_new.length>1) {%>
+                                                    <%=depth[j].depth_name%>,
+                                                        <%}else {%>
+                                                            <%=depth[j].depth_name%>
+                                                                <%}%>
+                                                                    <%}%>
+                                                                        <%}%>
+                                                                            <%}%>
+                                                                                <%}%>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-5 d-flex justify-content-end align-items-center">
+                                อธิบาย :
+                            </div>
+                            <div class="col-md-5 d-flex justify-content-start align-items-center ">
+                                <% if (approach[0].approach_defense_protection_explain=="" ) {%>
+                                    -
+                                    <%} else {%>
+                                        <%=approach[0].approach_defense_protection_explain%>
+                                            <% }%>
+                            </div>
+                        </div>
+
+                        <%}%>
+                            <div class="row mb-2">
+                                <div class="col-md-5  justify-content-end align-items-center d-flex ">
+                                    ระยะเวลาทบทวนมาตรการ :
+                                </div>
+                                <div class="col-md-5 d-flex align-items-center justify-content-start">
+                                    <%=approach[0].day_measures%> - <%=day_last%>
+                                            จำนวน
+                                            <font class="text-success p-1">
+                                                <%= approach[0].measures_date_count%>
+                                            </font> วัน
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-5  justify-content-end align-items-center d-flex ">
+                                    ร่างบันทึกขอความคิดเห็นจากที่ปรึกษา :
+                                </div>
+                                <div class="col-md-5 d-flex align-items-center justify-content-start">
+                                    <%if (approach[0].measures_consult==1) {%>
+                                        <font class="text-success">มี</font>
+                                        <%} else {%>
+                                            <font class="text-danger">ไม่มี</font>
+                                            <%}%>
+                                </div>
+                            </div>
+
+                            <div class="row mb-2">
+                                <div class="col-md-5 d-flex justify-content-end align-items-center">
+                                    ผู้ดูแลข้อมูลหรือผู้ดูแลระบบหรือผู้ควบคุมมาตรการ :
+                                </div>
+                                <div class="col-md-6 d-flex align-items-center">
+                                    <% text_sum = '' %>
+                                    <% text_sum_2 = '' %>
+                                    <%if(account){for (var i=0; i < account.length; i++) { %>
+                                        <%if(approach[0].measures_supervisor.indexOf(account[i].acc_id)>-1){ %>
+                                                <% text_sum = text_sum + account[i].firstname + ' ' +  account[i].lastname + ','%>
+                                            <%}}}%>
+                                            
+                                            <%if(text_sum[text_sum.length - 1] == ','){%>
+                                            <% text_sum_2 = text_sum.substring(0, text_sum.length - 1)%>
+                                            <%=text_sum_2%>
+                                                <%}%>
+                                            
+                                </div>
+                            </div>
+                            <div class="modal-footer" style="justify-content: center;">
+                                <a href="/<%=process.env.SUBFOLDER%>security/section/Risk-based-Approach" class="btn btn-secondary">ย้อนกลับ</a>
+                            </div>
+            </div>
+        </div>
+    </div>
+    <%- include ("../_footer") %>

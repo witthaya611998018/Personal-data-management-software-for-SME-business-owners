@@ -1,0 +1,153 @@
+<!--  <link href="/UI/assets/libs/tablesaw/dist/tablesaw.css" rel="stylesheet"> -->
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">ข้อมูลล็อก</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+                            <!-- <li class="breadcrumb-item"><a href="javascript:void(0)">การนำออกข้อมูลล็อก</a></li> -->
+                            <li class="breadcrumb-item active" aria-current="page">ไมโครบล็อคเชน</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" id="micro_block">
+        <!-- Row -->
+        <div class="row">
+            <!-- Column -->
+            <div class="col-md-6 col-lg-3 col-xlg-3">
+                <div class="card">
+                    <div class="box p-2 rounded bg-info text-center">
+                        <h1 class="fw-light text-white">
+                            <%= log_length %>
+                        </h1>
+                        <h6 class="text-white">ข้อมูลทั้งหมด</h6>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+            <div class="col-md-6 col-lg-3 col-xlg-3">
+                <div class="card">
+                    <div class="box p-2 rounded bg-primary text-center">
+                        <h1 class="fw-light text-white">
+                            <%= block_length %>
+                        </h1>
+                        <h6 class="text-white">บล็อคทั้งหมด</h6>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+            <div class="col-md-6 col-lg-3 col-xlg-3">
+                <div class="card">
+                    <div class="box p-2 rounded bg-warning text-center">
+                        <h1 class="fw-light text-white">
+                            <%= total_run_chain %>
+                        </h1>
+                        <h6 class="text-white">จำนวนเชนที่มี</h6>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+            <div class="col-md-6 col-lg-3 col-xlg-3">
+                <div class="card">
+                    <% var check=0 %>
+                        <% for (i in status_chain){ if (status_chain[i].status=="True" ){ check=1; }else{ check=0;
+                            break; }} %>
+                            <% if (check==1 ){ %>
+                                <div class="box p-2 rounded bg-success text-center">
+                                    <h1 class="fw-light text-white">Normal</h1>
+                                    <h6 class="text-white">สถานะของเชนปัจจุบัน</h6>
+                                </div>
+                                <%}else{%>
+                                    <div class="box p-2 rounded bg-danger text-center">
+                                        <h1 class="fw-light text-white">Abnormal</h1>
+                                        <h6 class="text-white">สถานะของเชนปัจจุบัน</h6>
+                                    </div>
+                                    <%}%>
+                </div>
+            </div>
+        </div>
+        <!-- Row -->
+        <div class="row">
+            <!-- Column -->
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="d-flex flex-wrap">
+                                    <div>
+                                        <h3>จำนวน Block ทั้งหมดของแต่ละ Chain</h3>
+                                        <h6 class="card-subtitle">ขณะ
+                                            <%= (new Date().getDate())+"/"+((new
+                                            Date().getMonth())+1)+"/"+(new Date().getFullYear())%>
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div id="revenue"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Row -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="border-bottom title-part-padding">
+                        <h4 class="card-title mb-0">รายการผลการสร้าง Micro BlockChain</h4>
+                    </div>
+                    <div class="card-body">
+                        <table class="tablesaw no-wrap table-striped table-bordered table-hover table tablesaw-stack tablesaw-sortable table-striped" data-tablesaw-mode="stack" data-tablesaw-sortable="" id="tablesaw-2159">
+                            <div clas="form-group">
+                                <p><label for="blocks">เลือกอุปกรณ์ที่ต้องการ</label>
+                                    <select class="form-control" style="width: 10%; height:36px; margin-right:1%; display:inline-block;" id="blocks">
+                                        <option selected disabled value="">กรุณาเลือก</option>
+                                        <% for (i in blocks) {%>
+                                            <option value="<%= blocks[i].name %>">
+                                            <%= blocks[i].name %>
+                                            </option>
+                                        <%}%>
+                                    </select>
+                                </p>
+                            </div>
+                            <thead>
+                                <tr>
+                                    <th scope="col" data-tablesaw-priority="persist" class="border" style="width: 5%; text-align: center;">ลำดับ</th>
+                                    <th scope="col" data-tablesaw-priority="1" class="border" style="text-align: center;">
+                                        ชื่อล็อกไฟล์</th>
+                                    <!-- <th scope="col" data-tablesaw-priority="2" class="border" style="width: 20%; text-align: center;">วันที่/เวลา (เริ่ม)</th> -->
+                                    <th scope="col" data-tablesaw-priority="4" class="border" style="width: 10%; text-align: center;">ความน่าเชื่อถือ</th>
+                                    <th scope="col" data-tablesaw-priority="3" class="border" style="width: 20%; text-align: center;">วันที่/เวลา (ของความน่าเชื่อถือ)</th>
+                                    <th scope="col" data-tablesaw-priority="5" class="border" style="width: 5%; text-align: center;">ตรวจสอบ</th>
+                                </tr>
+                            </thead>
+                            <tbody style="text-align: center;" id='table-body'>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-md-6 text-secondary">
+                                <span>แสดงผล <span id='start'></span> ถึง <span id='end'></span> ทั้งหมด <span id='total'></span> รายการ
+                                </span>
+                            </div>
+                            <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                                <nav aria-label="Page navigation example" class="mt-1">
+                                    <ul class="pagination" id='pagination-wrapper'>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../_footer') -%>

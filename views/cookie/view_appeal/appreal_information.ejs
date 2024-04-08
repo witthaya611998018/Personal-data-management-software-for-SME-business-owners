@@ -1,0 +1,543 @@
+<%- include ("../../_header") %>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">ดูข้อมูลรับเรื่องร้องเรียน</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/management/cookies">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item">ดูข้อมูลรับเรื่องร้องเรียน</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-7 align-self-center justify-content-end d-flex">
+                <a href="/appeal" class="btn btn-secondary">ย้อนกลับ</a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="border-bottom title-part-padding">
+                <h4 class="card-title mb-0">อนุมัติ/ปฏิเสธเรื่องร้องเรียน</h4>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <tr>
+                        <td class="td text_right">
+                            <b>วันที่ร้องเรียน</b>
+                        </td>
+                        <td class="td text_left">
+                            <%=pdpa_appeal[0].appeal_date%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td text_right">
+                            <b>วันที่ตอบกลับ</b>
+                        </td>
+                        <td class="td text_left">
+                            <% if (pdpa_appeal[0].appeal_date_approve) {%>
+                                <%=pdpa_appeal[0].appeal_date_approve%>
+                                    <%}else{ %>
+                                        -
+                                        <%}%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td text_right">
+                            <b>ช่องทางการรับเรื่องร้องเรียน</b>
+                        </td>
+                        <td class="td text_left">
+                            <% if (pdpa_appeal[0].appeal_email) {%>
+                                <%=pdpa_appeal[0].appeal_email%>
+                                    <%}else{ %>
+                                        -
+                                        <%}%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td text_right">
+                            <b>ชื่อผู้ร้อง นามสกุล</b>
+                        </td>
+                        <td class="td text_left">
+                            <%=pdpa_appeal[0].appeal_prefix%>
+                                <%=pdpa_appeal[0].appeal_firstname%>
+                                    <%=pdpa_appeal[0].appeal_lastname%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td text_right">
+                            <b>ที่อยู่</b>
+                        </td>
+                        <td class="td text_left">
+                            <%if (pdpa_appeal[0].appeal_address) {%>
+                                <%=pdpa_appeal[0].appeal_address%>
+                                    <%}else{%>
+                                        -
+                                        <%}%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td text_right">
+                            <b>
+                                ช่องทางติดต่อกลับ
+                            </b>
+                        </td>
+                        <td class="td text_left">
+                            <%if (pdpa_appeal[0].appeal_contact) {%>
+                                <%=pdpa_appeal[0].appeal_contact%>
+                                    <%}else{%>
+                                        -
+                                        <%}%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td text_right">
+                            <b>
+                                กิจกรรมการประมวลผล 
+                            </b>
+                        </td>
+                        <td class="td text_left">
+                            <%if (pdpa_appeal[0].classify_name) {%>
+                                <%=pdpa_appeal[0].classify_name%>
+                                    <%}else{%>
+                                        -
+                                        <%}%>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td class="td text_right">
+                            <b>
+                                รายละเอียดร้องเรียน
+                            </b>
+                        </td>
+                        <td class="td text_left">
+                            <%if (pdpa_appeal[0].appeal_detail) {%>
+                                <%=pdpa_appeal[0].appeal_detail%>
+                                    <%}else{%>
+                                        -
+                                        <%}%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td text_right">
+                            <b>
+                                สรุปการร้องเรียนรายละเอียด
+                            </b>
+                        </td>
+                        <td class="td text_left">
+                            <%if (pdpa_appeal[0].appeal_detail_summary) {%>
+                                <%=pdpa_appeal[0].appeal_detail_summary%>
+                                    <%}else{%>
+                                        -
+                                        <%}%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td text_right">
+                            <b>
+                                สิทธิการร้องเรียนของผู้ร้องเรียน
+                            </b>
+                        </td>
+                        <td class="td text_left">
+                            <%if(pdpa_appeal[0].appeal_revoke==1){%>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="appeal_revoke" disabled
+                                        checked>
+                                    <label class="form-check-label">
+                                        <h5>การเพิกถอนความยินยอม</h5>
+                                    </label>
+                                </div>
+                                <%}%>
+                                    <%if(pdpa_appeal[0].appeal_access==1){%>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input value_view" type="checkbox"
+                                                name="appeal_access" disabled checked>
+                                            <label class="form-check-label" for="flexCheckDefault_2">
+                                                การเข้าถึงข้อมูลส่วนบุคคล
+                                            </label>
+                                        </div>
+                                        <%}%>
+                                            <%if(pdpa_appeal[0].appeal_edit_information==1){%>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input value_view" type="checkbox" disabled
+                                                        name="appeal_edit_information" checked>
+                                                    <label class="form-check-label">
+                                                        การเเก้ไขข้อมูลส่วนบุคคลให้ถูกต้อง
+                                                    </label>
+                                                </div>
+                                                <%}%>
+                                                    <%if(pdpa_appeal[0].appeal_delet_information==1){%>
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input value_view" type="checkbox"
+                                                                disabled name="appeal_delet_information" checked>
+                                                            <label class="form-check-label" for="flexCheckDefault_4">
+                                                                การลบข้อมูลส่วนบุคคล
+                                                            </label>
+                                                        </div>
+                                                        <%}%>
+
+                                                            <%if(pdpa_appeal[0].appeal_suspend==1){%>
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input value_view"
+                                                                        type="checkbox" name="appeal_suspend" disabled
+                                                                        checked>
+                                                                    <label class="form-check-label"
+                                                                        for="flexCheckDefault_5">
+                                                                        การระงับการประมวลผลข้อมูล
+                                                                    </label>
+                                                                </div>
+                                                                <%}%>
+                                                                    <%if(pdpa_appeal[0].appeal_transfer==1){%>
+                                                                        <div class="form-check form-check-inline">
+                                                                            <input class="form-check-input value_view"
+                                                                                type="checkbox" disabled
+                                                                                name="appeal_transfer" checked>
+                                                                            <label class="form-check-label"
+                                                                                for="flexCheckDefault_6">
+                                                                                การให้โอนย้ายข้อมูลส่วนบุคคล
+                                                                            </label>
+                                                                        </div>
+                                                                        <%}%>
+                                                                            <%if(pdpa_appeal[0].appeal_oppose==1){%>
+                                                                                <div
+                                                                                    class="form-check form-check-inline">
+                                                                                    <input
+                                                                                        class="form-check-input value_view"
+                                                                                        type="checkbox"
+                                                                                        name="appeal_oppose" disabled
+                                                                                        checked>
+                                                                                    <label class="form-check-label"
+                                                                                        for="flexCheckDefault_7">
+                                                                                        การคัดค้านการประมวลผลข้อมูล
+                                                                                    </label>
+                                                                                </div>
+                                                                                <%}%>
+                                                                                    <%if(pdpa_appeal[0].appeal_decision==1){%>
+                                                                                        <div
+                                                                                            class="form-check form-check-inline">
+                                                                                            <input
+                                                                                                class="form-check-input value_view"
+                                                                                                type="checkbox" disabled
+                                                                                                name="appeal_decision"
+                                                                                                checked>
+                                                                                            <label
+                                                                                                class="form-check-label"
+                                                                                                for="flexCheckDefault_8">
+                                                                                                การไม่ตกอยู่ภายใต้การสินใจอัตโตโนมัตเพียงอย่างเดียว
+                                                                                            </label>
+                                                                                        </div>
+                                                                                        <%}%>
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="td text_right">
+                            <b>
+                                อนุมิติ/ปฏิเสธเรื่องร้องเรียน
+                            </b>
+                        </td>
+                        <td class="td text_left">
+                            <%if(pdpa_appeal[0].appeal_approved_complaint==0){%>
+                                <b class="text-warning">รออนุมัติ</b>
+                                <%}else if (pdpa_appeal[0].appeal_approved_complaint==1){%>
+                                    <b class="text-success">อนุมัติตามคำร้องเรียน</b>
+                                    <%}else {%>
+                                        <b class="text-danger">ปฏิเสธเรื่องร้องเรียน</b>
+                                        <%}%>
+                        </td>
+                    </tr>
+                </table>
+                <div style="font-size: medium;">
+                    <table class="table table-bordered">
+                        <tr class="table-success">
+                            <td rowspan="2" style="width: 20%;text-align: center;">
+                                <b>
+                                    <h5>สิทธิ</h5>
+                                </b>
+                            </td>
+                            <th colspan="11" scope="colgroup" class="text-center">
+                                <h5>เหตุเเห่งการปฏิเสธการปฏิบัติตามคำร้องของเจ้าของข้อมูล</h5>
+                            </th>
+                        </tr>
+                        <tr class="table-success" style="font-size: small;">
+                            <th>
+                                <h6>คำขอไม่สมเหตุนสมผล</h6>
+                            </th>
+                            <th>
+                                <h6>คำขอไม่สมเหตุผล</h6>
+                            </th>
+                            <th>
+                                <h6>เจ้าของข้อมูลมีข้อมูลอยุ่เเล้ว</h6>
+                            </th>
+                            <th>
+                                <h6>เก็บเพื่อเสรีภาพในการเเสดงความคิดเห็น</h6>
+                            </th>
+                            <th>
+                                <h6>เกี่ยวกับการทำจามสัญญา</h6>
+                            </th>
+                            <th>
+                                <h6>กฏหมายอนุญาต</h6>
+                            </th>
+                            <th>
+                                <h6>เกิดผลด้านลบเเก่บุคคลอื่น</h6>
+                            </th>
+                            <th>
+                                <h6>จำเป็นสำหรับการประมวลผล</h6>
+                            </th>
+                            <th>
+                                <h6>ประโยชน์สาธารณะหรืออำนาจรัฐหรือหน้าที่ตามกฏหมาย</h6>
+                            </th>
+                            <th>
+                                <h6>ก่อตั้งใช้หรือป้องกันสิทธิทางกฏหมาย</h6>
+                            </th>
+                            <th>
+                                <h6>ประโยชน์โดยชอบด้วยกฏหมาย</h6>
+                            </th>
+                        </tr>
+                        <%if(pdpa_appeal[0].appeal_revoke==1){%>
+                            <tr class="text-center">
+                                <th scope="row" class="text-start">1.การเพิกถอนความยินยอม</th>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i></td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i></td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i></td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i></td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i></td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i></td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i></td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i></td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i></td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i></td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i></td>
+                            </tr>
+                            <%}%>
+                                <%if(pdpa_appeal[0].appeal_access==1){%>
+                                    <tr class="text-center">
+                                        <th scope="row" class="text-start">2.การเข้าถึงข้อมูลส่วนบุคคล</th>
+                                        <td><i class="fas fa-check" style="color: green;"></i></td>
+                                        <td><i class="fas fa-check" style="color: green;"></i></td>
+                                        <td style="background-color: #f2be79"><i class="ti-close"></i></td>
+                                        <td style="background-color: #f2be79"><i class="ti-close"></i></td>
+                                        <td style="background-color: #f2be79"><i class="ti-close"></i></td>
+                                        <td><i class="fas fa-check" style="color: green;"></i></td>
+                                        <td><i class="fas fa-check" style="color: green;"></i></td>
+                                        <td style="background-color: #f2be79"><i class="ti-close"></i></td>
+                                        <td style="background-color: #f2be79"><i class="ti-close"></i></td>
+                                        <td style="background-color: #f2be79"><i class="ti-close"></i></td>
+                                        <td style="background-color: #f2be79"><i class="ti-close"></i></td>
+                                    </tr>
+                                    <%}%>
+                                        <%if(pdpa_appeal[0].appeal_edit_information==1){%>
+                                            <tr class="text-center">
+                                                <th scope="row" class="text-start">3.การเเก้ไขข้อมูลส่วนบุคคลให้ถูกต้อง
+                                                </th>
+                                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                                <td style="background-color: #f2be79"><i class="ti-close"></i></td>
+                                                <td style="background-color: #f2be79"><i class="ti-close"></i></td>
+                                                <td style="background-color: #f2be79"><i class="ti-close"></i></td>
+                                                <td style="background-color: #f2be79"><i class="ti-close"></i></td>
+                                                <td style="background-color: #f2be79"><i class="ti-close"></i></td>
+                                                <td style="background-color: #f2be79"><i class="ti-close"></i></td>
+                                                <td style="background-color: #f2be79"><i class="ti-close"></i></td>
+                                                <td style="background-color: #f2be79"><i class="ti-close"></i></td>
+                                                <td style="background-color: #f2be79"><i class="ti-close"></i></td>
+                                            </tr>
+                                            <%}%>
+                                                <%if(pdpa_appeal[0].appeal_suspend==1){%>
+                                                    <tr class="text-center">
+                                                        <th scope="row" class="text-start">4.การลบข้อมูลส่วนบุคคล</th>
+                                                        <td><i class="fas fa-check" style="color: green;"></i></td>
+                                                        <td><i class="fas fa-check" style="color: green;"></i></td>
+                                                        <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                                        </td>
+                                                        <td><i class="fas fa-check" style="color: green;"></i></td>
+                                                        <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                                        </td>
+                                                        <td><i class="fas fa-check" style="color: green;"></i></td>
+                                                        <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                                        </td>
+                                                        <td><i class="fas fa-check" style="color: green;"></i></td>
+                                                        <td><i class="fas fa-check" style="color: green;"></i></td>
+                                                        <td><i class="fas fa-check" style="color: green;"></i></td>
+                                                        <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <%}%>
+                                                        <%if(pdpa_appeal[0].appeal_transfer==1){%>
+                                                            <tr class="text-center">
+                                                                <th scope="row" class="text-start">
+                                                                    5.การระงับการประมวลผลข้อมูล</th>
+                                                                <td><i class="fas fa-check" style="color: green;"></i>
+                                                                </td>
+                                                                <td><i class="fas fa-check" style="color: green;"></i>
+                                                                </td>
+                                                                <td style="background-color: #f2be79"><i
+                                                                        class="ti-close"></i></td>
+                                                                <td style="background-color: #f2be79"><i
+                                                                        class="ti-close"></i></td>
+                                                                <td style="background-color: #f2be79"><i
+                                                                        class="ti-close"></i></td>
+                                                                <td style="background-color: #f2be79"><i
+                                                                        class="ti-close"></i></td>
+                                                                <td><i class="fas fa-check" style="color: green;"></i>
+                                                                </td>
+                                                                <td style="background-color: #f2be79"><i
+                                                                        class="ti-close"></i></td>
+                                                                <td><i class="fas fa-check" style="color: green;"></i>
+                                                                </td>
+                                                                <td><i class="fas fa-check" style="color: green;"></i>
+                                                                </td>
+                                                                <td style="background-color: #f2be79"><i
+                                                                        class="ti-close"></i></td>
+                                                            </tr>
+                                                            <%}%>
+
+                                                                <%if(pdpa_appeal[0].appeal_transfer==1){%>
+                                                                    <tr class="text-center">
+                                                                        <th scope="row" class="text-start">
+                                                                            6.การให้โอนย้ายข้อมูลส่วนบุคคล
+                                                                        </th>
+                                                                        <td><i class="fas fa-check"
+                                                                                style="color: green;"></i></td>
+                                                                        <td><i class="fas fa-check"
+                                                                                style="color: green;"></i></td>
+                                                                        <td style="background-color: #f2be79"><i
+                                                                                class="ti-close"></i></td>
+                                                                        <td style="background-color: #f2be79"><i
+                                                                                class="ti-close"></i></td>
+                                                                        <td style="background-color: #f2be79"><i
+                                                                                class="ti-close"></i></td>
+                                                                        <td style="background-color: #f2be79"><i
+                                                                                class="ti-close"></i></td>
+                                                                        <td><i class="fas fa-check"
+                                                                                style="color: green;"></i></td>
+                                                                        <td style="background-color: #f2be79"><i
+                                                                                class="ti-close"></i></td>
+                                                                        <td><i class="fas fa-check"
+                                                                                style="color: green;"></i></td>
+                                                                        <td style="background-color: #f2be79"><i
+                                                                                class="ti-close"></i></td>
+                                                                        <td style="background-color: #f2be79"><i
+                                                                                class="ti-close"></i></td>
+                                                                    </tr>
+                                                                    <%}%>
+                                                                        <%if(pdpa_appeal[0].appeal_oppose==1){%>
+                                                                            <tr class="text-center">
+                                                                                <th scope="row" class="text-start">
+                                                                                    7.การคัดค้านการประมวลผลข้อมูล
+                                                                                </th>
+                                                                                <td><i class="fas fa-check"
+                                                                                        style="color: green;"></i></td>
+                                                                                <td><i class="fas fa-check"
+                                                                                        style="color: green;"></i></td>
+                                                                                <td style="background-color: #f2be79"><i
+                                                                                        class="ti-close"></i></td>
+                                                                                <td style="background-color: #f2be79"><i
+                                                                                        class="ti-close"></i></td>
+                                                                                <td style="background-color: #f2be79"><i
+                                                                                        class="ti-close"></i></td>
+                                                                                <td style="background-color: #f2be79"><i
+                                                                                        class="ti-close"></i></td>
+                                                                                <td style="background-color: #f2be79"><i
+                                                                                        class="ti-close"></i></td>
+                                                                                <td style="background-color: #f2be79"><i
+                                                                                        class="ti-close"></i></td>
+                                                                                <td><i class="fas fa-check"
+                                                                                        style="color: green;"></i></td>
+                                                                                <td><i class="fas fa-check"
+                                                                                        style="color: green;"></i></td>
+                                                                                <td><i class="fas fa-check"
+                                                                                        style="color: green;"></i></td>
+                                                                            </tr>
+                                                                            <%}%>
+                                                                                <%if(pdpa_appeal[0].appeal_decision==1){%>
+                                                                                    <tr class="text-center">
+                                                                                        <th scope="row"
+                                                                                            class="text-start">
+                                                                                            8.การไม่ตกอยู่ภายใต้การสินใจอัตโตโนมัตเพียงอย่างเดียว
+                                                                                        </th>
+                                                                                        <td>
+                                                                                            <i class="fas fa-check"
+                                                                                                style="color: green;"></i>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <i class="fas fa-check"
+                                                                                                style="color: green;"></i>
+                                                                                        </td>
+                                                                                        <td
+                                                                                            style="background-color: #f2be79">
+                                                                                            <i class="ti-close"></i>
+                                                                                        </td>
+                                                                                        <td
+                                                                                            style="background-color: #f2be79">
+                                                                                            <i class="ti-close"></i>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <i class="fas fa-check"
+                                                                                                style="color: green;"></i>
+                                                                                        </td>
+                                                                                        <td><i class="fas fa-check"
+                                                                                                style="color: green;"></i>
+                                                                                        </td>
+                                                                                        <td
+                                                                                            style="background-color: #f2be79">
+                                                                                            <i class="ti-close"></i>
+                                                                                        </td>
+                                                                                        <td
+                                                                                            style="background-color: #f2be79">
+                                                                                            <i class="ti-close"></i>
+                                                                                        </td>
+                                                                                        <td><i class="fas fa-check"
+                                                                                                style="color: green;"></i>
+                                                                                        </td>
+                                                                                        <td
+                                                                                            style="background-color: #f2be79">
+                                                                                            <i class="ti-close"></i>
+                                                                                        </td>
+                                                                                        <td
+                                                                                            style="background-color: #f2be79">
+                                                                                            <i class="ti-close"></i>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <%}%>
+
+                    </table>
+                </div>
+                <!-- <button type="submit" class="btn btn-success" value="<%=pdpa_appeal[0].id_ap%>"
+                                        onclick="approve('<%=pdpa_appeal[0].id_ap%>')">อนุมัติ</button> -->
+                <div style="justify-content: center;text-align: center;">
+                    <%if(pdpa_appeal[0].appeal_approved_complaint==0){%>
+                        <button type="submit" class="btn btn-success " id="approve"
+                            value="<%=pdpa_appeal[0].id_ap%>">อนุมัติ</button>
+
+                        <button type="button" class="btn btn-danger" id="deny"
+                            value="<%=pdpa_appeal[0].id_ap%>">ปฏิเสธ</button>
+                        <%}%>
+                            <a href="/appeal" class="btn btn-secondary">ย้อนกลับ</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <style>
+        .td {
+            border: none;
+        }
+
+        .text_right {
+            width: 48%;
+            text-align: right;
+        }
+
+        .text_left {
+            text-align: left;
+        }
+    </style>
+    <script src="/dist/js/views_js/appeal/appeal_information.js"></script>
+
+    <%- include ("../../_footer") %>

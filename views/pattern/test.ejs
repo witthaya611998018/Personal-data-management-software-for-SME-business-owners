@@ -1,0 +1,15 @@
+<input type="checkbox" class="material-inputs" <%if (doc_id) { for (var
+    k=0; k < doc_id.length; k++) { if
+    (doc_id[k].doc_id==doc_pdpa_document[i].doc_id) {%> checked <%} }
+    }%> id="checkbox_<%=doc_pdpa_document[i].doc_id%>" value = "1"
+        onchange = "preview_policy(this,'
+        <%=doc_pdpa_document[i].doc_id%>
+            ',' <%=doc_pdpa_document[i].doc_name %> ','
+                <%=doc_pdpa_document[i].doc_type_name %> ','
+                    <%=doc_pdpa_document[i].page %> ')"
+                        >
+                        <label class="form-check-label"
+                            for="checkbox_<%=doc_pdpa_document[i].doc_id%>">
+                            <span class="d-block d-md-none">2</span>
+                            <span class="d-none d-md-block">เลือก</span>
+                        </label>

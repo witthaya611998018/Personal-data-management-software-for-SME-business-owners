@@ -1,0 +1,977 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">กำหนดรูปแบบข้อมูล</h3>
+                <div class="d-flex align-items-center" style="margin-top: 1%;">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index">หน้าแรก</a></li>
+                            <li class="breadcrumb-item"><a href="/pattern">กำหนดรูปแบบข้อมูล</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">รายละเอียดของรูปแบบ <%=
+                                    pattern[0].pattern_name %>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-7 d-flex align-items-center justify-content-end">
+                <a href="/pattern" class="btn btn-secondary">ย้อนกลับ</a>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid" id="detail">
+        <!-- Row -->
+        <div class="row">
+            <!-- Column -->
+            <div class="col-12">
+                <div class="card">
+                    <div class="border-bottom title-part-padding">
+                        <h4 class="card-title mb-0">รายละเอียดของรูปแบบ <%= pattern[0].pattern_name %><span
+                                    class="text-secondary"></span></h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- Method 1 -->
+                                <p class="h5 font-bold">กำหนดค่าข้อมูล</p>
+                                <table class="table table-boardless">
+                                    <td class="font-bold td-head-detail-pattern">
+                                        ชื่อรูปแบบ :
+                                    </td>
+                                    <td style="text-align: left;">
+                                        <%= pattern[0].pattern_name %>
+                                    </td>
+                                </table>
+                                <%if(doc_id.length<1){%>
+
+                                    <table class="table table-boardless">
+                                        <td class="font-bold td-head-detail-pattern">
+                                            ข้อมูลตามเอกสาร Policy :
+                                        </td>
+                                        <td style="text-align: left;">
+                                            <%= doc_id[0].name %>
+                                                <a href="/show_slide/<%=doc_id[0].id%>" target="_blank"
+                                                    rel="noopener noreferrer" class="btn btn-success">Previewer</a>
+                                        </td>
+                                    </table>
+                                    <%} else {%>
+                                        <table class="table table-boardless">
+                                            <td class="font-bold td-head-detail-pattern">
+                                                ข้อมูลตามเอกสาร Policy :
+                                            </td>
+                                            <td style="text-align: left;">
+                                                <%= doc_id[0].name %>
+                                                    <a href="/show_slide/<%=doc_id[0].id%>" target="_blank"
+                                                        rel="noopener noreferrer" class="btn btn-success">Previewer</a>
+                                            </td>
+                                        </table>
+                                        <%for(var i=1; i < doc_id.length; i++){%>
+                                            <table class="table table-boardless">
+                                                <td class="font-bold td-head-detail-pattern">
+                                                    :
+                                                </td>
+                                                <td style="text-align: left;">
+                                                    <%= doc_id[i].name %>
+                                                        <a href="/show_slide/<%=doc_id[i].id%>" target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            class="btn btn-success">Previewer</a>
+                                                </td>
+                                            </table>
+                                            <%}%>
+                                                <%}%>
+                                                    <%if(data_id.length<1){%>
+                                                        <table class="table table-boardless">
+                                                            <td class="font-bold td-head-detail-pattern">
+                                                                ข้อมูลส่วนบุคคล :
+                                                            </td>
+                                                            <td style="text-align: left;">
+                                                                <%= data_id[0] %>
+                                                            </td>
+                                                        </table>
+                                                        <%} else {%>
+                                                            <table class="table table-boardless">
+                                                                <td class="font-bold td-head-detail-pattern">
+                                                                    ข้อมูลส่วนบุคคล :
+                                                                </td>
+                                                                <td style="text-align: left;">
+                                                                    <%= data_id[0] %>
+                                                                </td>
+                                                            </table>
+                                                            <%for(var i=1; i < data_id.length; i++){%>
+                                                                <table class="table table-boardless">
+                                                                    <td class="font-bold td-head-detail-pattern">
+                                                                        :
+                                                                    </td>
+                                                                    <td style="text-align: left;">
+                                                                        <%= data_id[i] %>
+                                                                    </td>
+                                                                </table>
+
+                                                                <%}%>
+
+                                                                    <%}%>
+                                                                        <!-- <table class="table table-boardless">
+                                                                            <td
+                                                                                class="font-bold td-head-detail-pattern">
+                                                                                Tag :
+                                                                            </td>
+                                                                            <td style="text-align: left;">
+                                                                                <%= pattern[0].pattern_tag %>
+                                                                            </td>
+                                                                        </table> -->
+
+
+
+                                                                        <div class="row col-12 mt-4">
+                                                                            <div class="col-2">
+                                                                                <h5 style="font-weight: bold;">
+                                                                                    มาตราการรักษาความปลอดภัยขั้นต่ำที่PDPA
+                                                                                    กำหนด (PDPA Specific Measures)
+                                                                                </h5>
+                                                                            </div>
+                                                                            <div class="col-10 ">
+                                                                                <div class="table-responsive"
+                                                                                    style="min-height: 150px;">
+                                                                                    <table
+                                                                                        class="tablesaw table table-striped  no-wrap table-bordered table-hover">
+                                                                                        <thead>
+                                                                                            <tr>
+                                                                                                <th style="width: 10%;">
+                                                                                                    ลำดับที่
+                                                                                                </th>
+                                                                                                <th style="width: 10%;">
+                                                                                                    ชื่อกิจกรรมประมวลผล
+                                                                                                </th>
+                                                                                                <th style="width: 20%;">
+                                                                                                    ชื่อมาตราการ
+                                                                                                </th>
+                                                                                                <th style="width: 20%;">
+                                                                                                    Access Control
+                                                                                                </th>
+                                                                                                <th style="width: 20%;">
+                                                                                                    User Access
+                                                                                                    Management
+                                                                                                </th>
+                                                                                                <th style="width: 20%;">
+                                                                                                    User
+                                                                                                    Responsibilitites
+                                                                                                </th>
+                                                                                                <th style="width: 10%;">
+                                                                                                    Audit Trails
+                                                                                                </th>
+                                                                                                <th style="width: 10%;">
+                                                                                                    Privacy and security
+                                                                                                    Awareness
+                                                                                                </th>
+                                                                                                <th style="width: 10%;">
+                                                                                                    Where incident
+                                                                                                    occurs
+                                                                                                </th>
+                                                                                                <th style="width: 10%;">
+                                                                                                    เอกสาร
+                                                                                                </th>
+                                                                                                <th style="width: 10%;">
+                                                                                                    คำอธิบาย/ รายละเอียด
+                                                                                                </th>
+                                                                                                <th style="width: 10%;">
+                                                                                                    ระยะเวลาทบทวนมาตราการ
+                                                                                                </th>
+                                                                                                <th style="width: 10%;">
+                                                                                                    ผู้ดูแลข้อมูลหรือผู้ดูแลระบบหรือผู้ควบคุมมาตราการ
+                                                                                                </th>
+                                                                                            </tr>
+                                                                                        </thead>
+                                                                                        <tbody id="tbody-measures">
+                                                                                            <%if
+                                                                                                (selectPatternSpecific.length>
+                                                                                                0) {%>
+                                                                                                <%for (let i=0
+                                                                                                    ;i<selectPatternSpecific.length;i++)
+                                                                                                    {%>
+                                                                                                    <tr>
+                                                                                                        <td>
+                                                                                                            <%=selectPatternSpecific[i].no%>
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <%=selectPatternSpecific[i].event_process_name%>
+                                                                                                        </td>
+
+                                                                                                        <td>
+                                                                                                            <%=selectPatternSpecific[i].pattern_measures_section_name%>
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <%-selectPatternSpecific[i].pattern_specific_access_control%>
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <%-selectPatternSpecific[i].pattern_specific_user_access_management%>
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <%-selectPatternSpecific[i].pattern_specific_user_responsibilitites%>
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <%-selectPatternSpecific[i].pattern_specific_audit_trails
+                                                                                                                %>
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <%-selectPatternSpecific[i].pattern_specific_privacy_security_awareness%>
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <%-selectPatternSpecific[i].pattern_specific_where_incident_occurs
+                                                                                                                %>
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <%-selectPatternSpecific[i].docName%>
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <%=selectPatternSpecific[i].pattern_measures_detail%>
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <%-selectPatternSpecific[i].date%>
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <%-selectPatternSpecific[i].pattern_measures_supervisor%>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <%}%>
+
+                                                                                                        <%}else{%>
+                                                                                                            <tr>
+                                                                                                                <td colspan="20"
+                                                                                                                    class="text-center"
+                                                                                                                    style="border: none;">
+                                                                                                                    <b
+                                                                                                                        class="text-danger">ไม่พบข้อมูล</b>
+                                                                                                                </td>
+                                                                                                            </tr>
+                                                                                                            <%}%>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <hr>
+                                                                        <table class="table table-boardless">
+                                                                            <td
+                                                                                class="font-bold td-head-detail-pattern">
+                                                                                Label :
+                                                                            </td>
+                                                                            <td style="text-align: left;">
+                                                                                <% if(pattern[0].pattern_label !="" ||
+                                                                                    pattern[0].pattern_label !=null){%>
+                                                                                    <%= pattern[0].pattern_label %>
+                                                                                        <%}else{%>
+                                                                                            <span
+                                                                                                class="span-table-boolean-false">ไม่มี</span>
+                                                                                            <%}%>
+                                                                            </td>
+                                                                        </table>
+                                                                        <table class="table table-boardless">
+                                                                            <td
+                                                                                class="font-bold td-head-detail-pattern">
+                                                                                เริ่ม :
+                                                                            </td>
+                                                                            <td class="td-body-date-detail-pattern"
+                                                                                style="text-align: left;">
+                                                                                <span id="start_date"
+                                                                                    data-value="<%= pattern[0].pattern_start_date %>"></span>
+                                                                            </td>
+                                                                            <td class="td-body-detail-pattern font-bold"
+                                                                                style="text-align: left;">
+                                                                                ระยะเวลาการจัดเก็บ
+                                                                            </td>
+                                                                            <td class="td-body-date-detail-pattern2"
+                                                                                style="text-align: left;">
+                                                                                <%= pattern[0].pattern_total_date %>
+                                                                            </td>
+                                                                            <td class="font-bold"
+                                                                                style="text-align: left;">
+                                                                                วัน
+                                                                            </td>
+                                                                        </table>
+                                                                        <!-- Method 2 -->
+                                                                        <p class="h5 font-bold">ชนิดข้อมูล</p>
+                                                                        <table class="table table-boardless">
+                                                                            <td
+                                                                                class="td-head-detail-pattern font-bold">
+                                                                                File MS Excsel / CSV :
+                                                                            </td>
+                                                                            <td style="text-align: left;">
+                                                                                <% if(pattern[0].pattern_type_data_file
+                                                                                    !=0){%>
+                                                                                    <span
+                                                                                        class="span-table-boolean-true">มี</span>
+                                                                                    <% if(pattern[0].pattern_type_data_file_path
+                                                                                        !="" ||
+                                                                                        pattern[0].pattern_type_data_file_path
+                                                                                        !=null){%>
+                                                                                        <span>[<%
+                                                                                                if(pattern[0].pattern_type_data_file_of_path==0)
+                                                                                                {%>
+                                                                                                Linux (<%=
+                                                                                                    pattern[0].pattern_type_data_file_path%>
+                                                                                                    )
+                                                                                                    ]</span>
+                                                                                        <%}else{%>
+                                                                                            Windows (<%=
+                                                                                                pattern[0].pattern_type_data_file_path%>
+                                                                                                )
+                                                                                                ]</span>
+                                                                                                <%}%>
+                                                                                                    <%}else{%>
+                                                                                                        <span
+                                                                                                            class="span-table-boolean-false">(ไม่ได้ระบุ)</span>
+                                                                                                        <%}%>
+                                                                                                            <%}else{%>
+                                                                                                                <span
+                                                                                                                    class="span-table-boolean-false">ไม่มี</span>
+                                                                                                                <%}%>
+                                                                            </td>
+                                                                        </table>
+                                                                        <table class="table table-boardless">
+                                                                            <td
+                                                                                class="td-head-detail-pattern font-bold">
+                                                                                Database :
+                                                                            </td>
+                                                                            <td style="text-align: left;">
+                                                                                <% if(pattern[0].pattern_type_data_database
+                                                                                    !=0){%>
+                                                                                    <span
+                                                                                        class="span-table-boolean-true">มี
+                                                                                        / </span>
+                                                                                    <% if(pattern[0].pattern_type_data_database_name
+                                                                                        !="" ||
+                                                                                        pattern[0].pattern_type_data_database_name
+                                                                                        !=null){%>
+                                                                                        <span>(<%=
+                                                                                                pattern[0].pattern_type_data_database_name
+                                                                                                %>
+                                                                                                )</span>
+                                                                                        <%}else{%>
+                                                                                            <span
+                                                                                                class="span-table-boolean-false">(ไม่ได้ระบุ)</span>
+                                                                                            <%}%>
+                                                                                                <%}else{%>
+                                                                                                    <span
+                                                                                                        class="span-table-boolean-false">ไม่มี</span>
+                                                                                                    <%}%>
+                                                                            </td>
+                                                                        </table>
+                                                                        <!-- Method 3 -->
+                                                                        <p class="h5 font-bold">
+                                                                            วิธีจัดเก็บข้อมูลส่วนบุคคล</p>
+                                                                        <table class="table table-boardless">
+                                                                            <td
+                                                                                class="td-head-detail-pattern font-bold">
+                                                                                ภายใน Alltar :
+                                                                            </td>
+                                                                            <td style="text-align: left;">
+                                                                                <% if(pattern[0].pattern_storage_method_inside
+                                                                                    !=0){%>
+                                                                                    <span
+                                                                                        class="span-table-boolean-true">มี</span>
+                                                                                    <%}else{%>
+                                                                                        <span
+                                                                                            class="span-table-boolean-false">ไม่มี</span>
+                                                                                        <%}%>
+                                                                            </td>
+                                                                        </table>
+                                                                        <table class="table table-boardless">
+                                                                            <td
+                                                                                class="td-head-detail-pattern font-bold">
+                                                                                ภายนอก :
+                                                                            </td>
+                                                                            <td style="text-align: left;">
+                                                                                <% if(pattern[0].pattern_storage_method_outside
+                                                                                    !=0){%>
+                                                                                    <span
+                                                                                        class="span-table-boolean-true">มี&ensp;</span>
+                                                                                    <span class="">[&emsp;(อุปกรณ์ :
+                                                                                    </span>
+                                                                                    <% if(pattern[0].pattern_storage_method_outside_device
+                                                                                        !=0){%>
+                                                                                        <% if(pattern[0].pattern_storage_method_outside_device_name
+                                                                                            !="" ||
+                                                                                            pattern[0].pattern_storage_method_outside_device_name
+                                                                                            !=null){%>
+                                                                                            <span
+                                                                                                class="span-table-boolean-true">มี
+                                                                                                /
+                                                                                            </span>
+                                                                                            <span>
+                                                                                                <%=pattern[0].pattern_storage_method_outside_device_name%>
+                                                                                                    ),&emsp;
+                                                                                            </span>
+                                                                                            <%}else{%>
+                                                                                                <span
+                                                                                                    class="span-table-boolean-false">ไม่ได้ระบุ),&emsp;</span>
+                                                                                                <%}%>
+                                                                                                    <%}else{%>
+                                                                                                        <span
+                                                                                                            class="span-table-boolean-false">ไม่มี),&emsp;</span><br />
+                                                                                                        <%}%>
+                                                                                                            <span
+                                                                                                                class="">(Agent
+                                                                                                                :
+                                                                                                            </span>
+                                                                                                            <% if(pattern[0].pattern_storage_method_outside_agent
+                                                                                                                !=0){%>
+                                                                                                                <% if(pattern[0].pattern_storage_method_outside_agent_name
+                                                                                                                    !=""
+                                                                                                                    ||
+                                                                                                                    pattern[0].pattern_storage_method_outside_agent_name
+                                                                                                                    !=null){%>
+                                                                                                                    <span
+                                                                                                                        class="span-table-boolean-true">มี
+                                                                                                                        /
+                                                                                                                    </span>
+                                                                                                                    <span>
+                                                                                                                        <%=pattern[0].pattern_storage_method_outside_agent_name%>
+                                                                                                                            ),&emsp;
+                                                                                                                    </span>
+                                                                                                                    <%}else{%>
+                                                                                                                        <span
+                                                                                                                            class="span-table-boolean-false">ไม่ได้ระบุ),&emsp;</span>
+                                                                                                                        <%}%>
+                                                                                                                            <%}else{%>
+                                                                                                                                <span
+                                                                                                                                    class="span-table-boolean-false">ไม่มี),&emsp;</span><br />
+                                                                                                                                <%}%>
+                                                                                                                                    <span
+                                                                                                                                        class="">(Database
+                                                                                                                                        ภายนอก
+                                                                                                                                        :
+                                                                                                                                    </span>
+                                                                                                                                    <% if(pattern[0].pattern_storage_method_outside_database_outside
+                                                                                                                                        !=0){%>
+                                                                                                                                        <% if(pattern[0].pattern_storage_method_outside_database_outside_name
+                                                                                                                                            !=""
+                                                                                                                                            ||
+                                                                                                                                            pattern[0].pattern_storage_method_outside_database_outside_name
+                                                                                                                                            !=null){%>
+                                                                                                                                            <span
+                                                                                                                                                class="span-table-boolean-true">มี
+                                                                                                                                                /
+                                                                                                                                            </span>
+                                                                                                                                            <span>
+                                                                                                                                                <%=pattern[0].pattern_storage_method_outside_database_outside_name%>
+                                                                                                                                                    )&emsp;]
+                                                                                                                                            </span>
+                                                                                                                                            <%}else{%>
+                                                                                                                                                <span
+                                                                                                                                                    class="span-table-boolean-false">ไม่ได้ระบุ)&emsp;</span>]
+                                                                                                                                                <%}%>
+                                                                                                                                                    <%}else{%>
+                                                                                                                                                        <span
+                                                                                                                                                            class="span-table-boolean-false">ไม่มี)&emsp;</span><br />]
+                                                                                                                                                        <%}%>
+                                                                                                                                                            <%}else{%>
+                                                                                                                                                                <span
+                                                                                                                                                                    class="span-table-boolean-false">ไม่มี</span>
+                                                                                                                                                                <%}%>
+                                                                            </td>
+                                                                        </table>
+                                                                        <!-- Method 4 -->
+                                                                        <!-- <p class="h5 font-bold">ข้อมูลส่วนบุคคลที่จัดเก็บ (ตัวอย่าง)</p>
+                                                    <table class="table table-boardless">
+                                                        <td class="td-head-detail-pattern font-bold">
+                                                            ตัวอย่าง :
+                                                        </td>
+                                                        <td style="text-align: left;">
+                                                            <a href="/show_slide/<%= pattern[0].doc_id %>"
+                                                                target="_blank" rel="noopener noreferrer"
+                                                                class="btn btn-success">Previewer</a>
+                                                        </td>
+                                                    </table> -->
+                                                                        <!-- Method 5 -->
+                                                                        <p class="h5 font-bold">ฐานการประมวลผล</p>
+                                                                        <table class="table table-boardless">
+                                                                            <td
+                                                                                class="td-head-detail-pattern font-bold">
+                                                                                ที่เลือก :
+                                                                            </td>
+                                                                            <td style="text-align: left;">
+                                                                                <%= pattern[0].pattern_processing_base_name
+                                                                                    %>
+                                                                            </td>
+                                                                        </table>
+                                                                        <!-- Method 6 -->
+                                                                        <p class="h5 font-bold">ผู้ประมวลผล</p>
+                                                                        <table class="table table-boardless">
+                                                                            <td
+                                                                                class="td-head-detail-pattern font-bold">
+                                                                                ภายใน :
+                                                                            </td>
+                                                                            <td style="text-align: left;">
+                                                                                <% if(pattern[0].pattern_processor_inside
+                                                                                    !=0){%>
+                                                                                    <span
+                                                                                        class="span-table-boolean-true">มี
+                                                                                        / </span>
+                                                                                    <% if(pattern[0].pattern_processor_inside_name
+                                                                                        !="" ||
+                                                                                        pattern[0].pattern_processor_inside_name
+                                                                                        !=null){%>
+                                                                                        <span>(<% for(var
+                                                                                                k=0;k<users_inside.length;k++){%>
+                                                                                                <%
+                                                                                                    if(k==users_inside.length-1){%>
+                                                                                                    <%= users_inside[k].firstname
+                                                                                                        %>
+                                                                                                        <%= users_inside[k].lastname
+                                                                                                            %>
+                                                                                                            <%}else{%>
+                                                                                                                <%= users_inside[k].firstname
+                                                                                                                    %>
+                                                                                                                    <%= users_inside[k].lastname
+                                                                                                                        %>
+                                                                                                                        ,
+                                                                                                                        <%}%>
+                                                                                                                            <%}%>
+                                                                                                                                )</span>
+                                                                                        <%}else{%>
+                                                                                            <span
+                                                                                                class="span-table-boolean-false">(ไม่ได้ระบุ)</span>
+                                                                                            <%}%>
+                                                                                                <%}else{%>
+                                                                                                    <span
+                                                                                                        class="span-table-boolean-false">ไม่มี</span>
+                                                                                                    <%}%>
+                                                                            </td>
+                                                                        </table>
+                                                                        <table class="table table-boardless">
+                                                                            <td
+                                                                                class="td-head-detail-pattern font-bold">
+                                                                                ภายนอก :
+                                                                            </td>
+                                                                            <td style="text-align: left;">
+                                                                                <% if(pattern[0].pattern_processor_outside
+                                                                                    !=0){%>
+                                                                                    <span
+                                                                                        class="span-table-boolean-true">มี
+                                                                                        / </span>
+                                                                                    <% if(pattern[0].pattern_processor_outside_name
+                                                                                        !="" ||
+                                                                                        pattern[0].pattern_processor_outside_name
+                                                                                        !=null){%>
+                                                                                        <span>(<% for(var
+                                                                                                k=0;k<users_outside.length;k++){%>
+                                                                                                <%
+                                                                                                    if(k==users_outside.length-1){%>
+                                                                                                    <%= users_outside[k].firstname
+                                                                                                        %>
+                                                                                                        <%= users_outside[k].lastname
+                                                                                                            %>
+                                                                                                            <%}else{%>
+                                                                                                                <%= users_outside[k].firstname
+                                                                                                                    %>
+                                                                                                                    <%= users_outside[k].lastname
+                                                                                                                        %>
+                                                                                                                        ,
+                                                                                                                        <%}%>
+                                                                                                                            <%}%>
+                                                                                                                                )</span>
+                                                                                        <%}else{%>
+                                                                                            <span
+                                                                                                class="span-table-boolean-false">(ไม่ได้ระบุ)</span>
+                                                                                            <%}%>
+                                                                                                <%}else{%>
+                                                                                                    <span
+                                                                                                        class="span-table-boolean-false">ไม่มี</span>
+                                                                                                    <%}%>
+                                                                            </td>
+                                                                        </table>
+                                                                        <!-- Method 7 -->
+                                                                        <p class="h5 font-bold">กำหนดระยะเวลาสิ้นสุด</p>
+                                                                        <table class="table table-boardless">
+                                                                            <td
+                                                                                class="td-head-detail-pattern3 font-bold">
+                                                                                เมื่อหมดระยะเวลาจัดเก็บข้อมูลจะจัดเก็บต่อไปอีกเป็นระยะเวลา
+                                                                            </td>
+                                                                            <td class='td-body-date-detail-pattern3'
+                                                                                style="text-align: left;">
+                                                                                <% if(pattern[0].pattern_set_end_date
+                                                                                    !=0){%>
+                                                                                    <% if(pattern[0].pattern_set_end_date_total
+                                                                                        !="" ||
+                                                                                        pattern[0].pattern_set_end_date_total
+                                                                                        !=null){%>
+                                                                                        <span>
+                                                                                            <%= pattern[0].pattern_set_end_date_total
+                                                                                                %>
+                                                                                        </span>
+                                                                                        <%}else{%>
+                                                                                            <span
+                                                                                                class="span-table-boolean-false">-</span>
+                                                                                            <%}%>
+                                                                                                <%}else{%>
+                                                                                                    <span
+                                                                                                        class="span-table-boolean-false">ไม่มี</span>
+                                                                                                    <%}%>
+                                                                            </td>
+                                                                            <td class="td-head-detail-pattern4 font-bold"
+                                                                                style="text-align: left;">
+                                                                                วัน
+                                                                                (ถือการสิ้นสุดจะเป็นการเตรียมทำลายข้อมูลและไม่มีการใช้ข้อมูลเพิ่อการประมวลผล)
+                                                                            </td>
+                                                                            <td class="td-head-detail-pattern5 font-bold"
+                                                                                style="text-align: left;">
+                                                                            </td>
+                                                                        </table>
+                                                                        <!-- Method 8 -->
+
+                                                                        <div
+                                                                            style="background-color: #f0e4ca;margin-left: 1px;">
+                                                                            <table class="table table-boardless">
+                                                                                <tr>
+                                                                                    <td class="font-bold "
+                                                                                        style="text-align: left;width: 25%;">
+                                                                                        DPO
+                                                                                        ต้องอนุมัติทุกครั้งถึงสามารถประมวลผลได้
+                                                                                        :
+                                                                                    </td>
+                                                                                    <td style="text-align: left;">
+                                                                                        <% if(pattern[0].pattern_dpo_approve_process
+                                                                                            !=0){%>
+                                                                                            <input
+                                                                                                class="pattern_dpo_approve_process check_dpo form-check-input"
+                                                                                                type="checkbox" checked
+                                                                                                disabled>
+                                                                                            <span
+                                                                                                class="span-boolean-true">ต้องอนุมัติ</span>
+                                                                                            <%}else{%>
+                                                                                                <input
+                                                                                                    class="pattern_dpo_approve_process check_dpo form-check-input"
+                                                                                                    type="checkbox"
+                                                                                                    disabled>
+                                                                                                <span
+                                                                                                    class="span-boolean-false">ไม่ต้องอนุมัติ</span>
+                                                                                                <%}%>
+                                                                                    </td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                    <td class="font-bold "
+                                                                                        style="text-align: left;width: 25%;">
+                                                                                        DPO
+                                                                                        ต้องอนุมัติทุกครั้งถึงจะนำข้อมูล
+                                                                                        Raw file ออกได้ :
+                                                                                    </td>
+                                                                                    <td style="text-align: left;">
+                                                                                        <% if(pattern[0].pattern_dpo_approve_raw_file_out
+                                                                                            !=0){%>
+                                                                                            <input
+                                                                                                class="pattern_dpo_approve_raw_file_out check_dpo form-check-input"
+                                                                                                type="checkbox" checked
+                                                                                                disabled>
+                                                                                            <span
+                                                                                                class="span-boolean-true">ต้องอนุมัติ</span>
+                                                                                            <%}else{%>
+                                                                                                <input
+                                                                                                    class="pattern_dpo_approve_raw_file_out check_dpo form-check-input"
+                                                                                                    type="checkbox"
+                                                                                                    disabled>
+                                                                                                <span
+                                                                                                    class="span-boolean-false">ไม่ต้องอนุมัติ</span>
+                                                                                                <%}%>
+                                                                                    </td>
+                                                                                </tr>
+
+                                                                            </table>
+
+
+
+
+
+
+
+
+
+
+                                                                            <form class="needs-validation"
+                                                                                action="/pattern/dpo_edit" method="POST"
+                                                                                novalidate>
+                                                                                <input type="text" name="pattern_id"
+                                                                                    value="<%=pattern[0].pattern_id%>"
+                                                                                    hidden>
+
+                                                                                <table class="table table-boardless">
+                                                                                    <tr>
+                                                                                        <td class="font-bold "
+                                                                                            style="text-align: left;width: 25%;">
+                                                                                            ตรวจสอบโดย DPO :
+                                                                                        </td>
+                                                                                        <td style="text-align: left;">
+                                                                                            <%if( session.admin=='3'
+                                                                                                ){%>
+                                                                                                <%if(
+                                                                                                    pattern[0].pattern_dpo_check==0
+                                                                                                    ){%>
+                                                                                                    <button
+                                                                                                        type="button"
+                                                                                                        class="btn btn-success"
+                                                                                                        onclick="$('#dpo_c').val('1'),$('#dpo_check').show(),$('#submit_dpo_edit').show()">
+                                                                                                        ตรวจสอบ
+                                                                                                    </button>
+                                                                                                    <%}else{%>
+                                                                                                        <button
+                                                                                                            type="button"
+                                                                                                            class="btn btn-secondary"
+                                                                                                            onclick="$('#dpo_check').show(),$('#submit_dpo_edit').show()">
+                                                                                                            ตรวจสอบแล้ว
+                                                                                                        </button>
+                                                                                                        <%}%>
+                                                                                                            <%}else{%>
+                                                                                                                <%if(pattern[0].pattern_dpo_check==0
+                                                                                                                    ){%>
+                                                                                                                    <button
+                                                                                                                        type="button"
+                                                                                                                        class="btn btn-warning"
+                                                                                                                        disabled>
+                                                                                                                        รอ
+                                                                                                                        DPO
+                                                                                                                        ตรวจสอบ
+                                                                                                                    </button>
+                                                                                                                    <%}else{%>
+                                                                                                                        <button
+                                                                                                                            type="button"
+                                                                                                                            class="btn btn-secondary"
+                                                                                                                            onclick="$('#dpo_check').show(),$('#submit_dpo_edit').show()">
+                                                                                                                            ตรวจสอบแล้ว
+                                                                                                                        </button>
+                                                                                                                        <%}%>
+                                                                                                                            <%}%>
+
+                                                                                                                                <input
+                                                                                                                                    id="dpo_c"
+                                                                                                                                    type="text"
+                                                                                                                                    name="dpo_c"
+                                                                                                                                    value="0"
+                                                                                                                                    hidden>
+                                                                                                                                <input
+                                                                                                                                    id="dpo_date"
+                                                                                                                                    type="text"
+                                                                                                                                    name="dpo_date"
+                                                                                                                                    value=""
+                                                                                                                                    hidden>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                                <div id="dpo_check">
+                                                                                    <table
+                                                                                        class="table table-boardless">
+                                                                                        <tr>
+                                                                                            <td class="font-bold "
+                                                                                                style="text-align: left;width: 25%;">
+                                                                                                DPO
+                                                                                                ต้องอนุมัติทุกครั้งถึงสามารถประมวลผลได้
+                                                                                                :
+                                                                                            </td>
+                                                                                            <td
+                                                                                                style="text-align: left;">
+                                                                                                <div class="row col-12"
+                                                                                                    style="margin-top: 1%;">
+                                                                                                    <div class="col-2">
+                                                                                                        <input
+                                                                                                            type="radio"
+                                                                                                            class="btn-check"
+                                                                                                            name="dpo_pattern_dpo_approve_process"
+                                                                                                            id="option1"
+                                                                                                            autocomplete="off"
+                                                                                                            value="1" <%
+                                                                                                            if(pattern[0].pattern_dpo_check==1
+                                                                                                            ){ %>
+                                                                                                        disabled <% }%>
+                                                                                                            <% if(pattern[0].pattern_dpo_check==0){
+                                                                                                                %>
+                                                                                                                checked
+                                                                                                                <% }%>
+                                                                                                                    <% if(pattern[0].dpo_pattern_dpo_approve_process==1){
+                                                                                                                        %>
+                                                                                                                        checked
+                                                                                                                        <%
+                                                                                                                            }%>
+                                                                                                                            >
+                                                                                                                            <label
+                                                                                                                                class="btn btn-outline-success  rounded-pill font-weight-medium me-2 mb-2"
+                                                                                                                                for="option1">
+                                                                                                                                อนุมัติ
+                                                                                                                            </label>
+                                                                                                    </div>
+                                                                                                    <div class="col-10">
+                                                                                                        <input
+                                                                                                            type="radio"
+                                                                                                            class="btn-check"
+                                                                                                            name="dpo_pattern_dpo_approve_process"
+                                                                                                            id="option2"
+                                                                                                            autocomplete="off"
+                                                                                                            value="0" <%
+                                                                                                            if(pattern[0].pattern_dpo_check==1
+                                                                                                            ){ %>
+                                                                                                        disabled <% }%>
+                                                                                                            <% if(pattern[0].dpo_pattern_dpo_approve_process==0){
+                                                                                                                %>
+                                                                                                                checked
+                                                                                                                <% } %>
+                                                                                                                    >
+                                                                                                                    <label
+                                                                                                                        class="btn btn-outline-danger  rounded-pill font-weight-medium me-2 mb-2"
+                                                                                                                        for="option2">
+                                                                                                                        ปฏิเสธ
+                                                                                                                    </label>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td class="font-bold "
+                                                                                                style="text-align: left;width: 25%;">
+                                                                                                DPO
+                                                                                                ต้องอนุมัติทุกครั้งถึงจะนำข้อมูล
+                                                                                                Raw file ออกได้ :
+                                                                                            </td>
+                                                                                            <td
+                                                                                                style="text-align: left;">
+                                                                                                <div class="row col-12 "
+                                                                                                    style="margin-top: 1%;">
+                                                                                                    <div class="col-2">
+                                                                                                        <input
+                                                                                                            type="radio"
+                                                                                                            class="btn-check"
+                                                                                                            name="dpo_pattern_dpo_approve_raw_file_out"
+                                                                                                            id="option3"
+                                                                                                            autocomplete="off"
+                                                                                                            value="1" <%
+                                                                                                            if(pattern[0].pattern_dpo_check==1
+                                                                                                            ){ %>
+                                                                                                        disabled <% }%>
+                                                                                                            <% if(pattern[0].pattern_dpo_check==0){
+                                                                                                                %>
+                                                                                                                checked
+                                                                                                                <% }%>
+                                                                                                                    <% if(pattern[0].dpo_pattern_dpo_approve_raw_file_out==1){
+                                                                                                                        %>
+                                                                                                                        checked
+                                                                                                                        <% }
+                                                                                                                            %>
+                                                                                                                            >
+                                                                                                                            <label
+                                                                                                                                class="btn btn-outline-success  rounded-pill font-weight-medium me-2 mb-2"
+                                                                                                                                for="option3">
+                                                                                                                                อนุมัติ
+                                                                                                                            </label>
+                                                                                                    </div>
+                                                                                                    <div class="col-10">
+                                                                                                        <input
+                                                                                                            type="radio"
+                                                                                                            class="btn-check"
+                                                                                                            name="dpo_pattern_dpo_approve_raw_file_out"
+                                                                                                            id="option4"
+                                                                                                            autocomplete="off"
+                                                                                                            value="0" <%
+                                                                                                            if(pattern[0].pattern_dpo_check==1
+                                                                                                            ){ %>
+                                                                                                        disabled <% }%>
+                                                                                                            <% if(pattern[0].dpo_pattern_dpo_approve_raw_file_out==0){
+                                                                                                                %>
+                                                                                                                checked
+                                                                                                                <% } %>
+                                                                                                                    >
+                                                                                                                    <label
+                                                                                                                        class="btn btn-outline-danger  rounded-pill font-weight-medium me-2 mb-2"
+                                                                                                                        for="option4">
+                                                                                                                        ปฏิเสธ
+                                                                                                                    </label>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </div>
+                                                                                <table class="table table-boardless">
+                                                                                    <tr>
+                                                                                        <td class="font-bold "
+                                                                                            style="text-align: left;width: 25%;">
+                                                                                        </td>
+                                                                                        <td style="text-align: left;">
+                                                                                            <%if(pattern[0].pattern_dpo_check==0
+                                                                                                && session.admin=='3'
+                                                                                                ){%>
+                                                                                                <button type="submit"
+                                                                                                    id="submit_dpo_edit"
+                                                                                                    class="btn btn-success">บันทึกข้อมูล</button>
+                                                                                                <%}%>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </table>
+
+
+                                                                            </form>
+                                                                        </div>
+
+                                                                        <!-- <p class="h5 font-bold "> 
+                                                        DPO ต้องอนุมัติทุกครั้งถึงสามารถประมวลผลได้ :
+                                                        <% if(pattern[0].pattern_dpo_approve_process !=0){%>
+                                                            <input class="form-check-input" type="checkbox" checked  disabled>
+                                                            <span class="span-boolean-true">มี</span>
+                                                            <%}else{%>
+                                                            <input class="form-check-input" type="checkbox"   disabled>
+                                                                <span class="span-boolean-false">ไม่มี</span>
+                                                                <%}%>
+                                                    </p> -->
+                                                                        <!-- <p class="h5 font-bold ">
+                                                        DPO ต้องอนุมัติทุกครั้งถึงจะนำข้อมูล Raw file ออกได้ :
+                                                        <% if(pattern[0].pattern_dpo_approve_raw_file_out !=0){%>
+                                                            <input class="form-check-input" type="checkbox" checked  disabled>
+                                                            <span class="span-boolean-true">มี</span>
+                                                            <%}else{%>
+                                                            <input class="form-check-input" type="checkbox" disabled>
+                                                                <span class="span-boolean-false">ไม่มี</span>
+                                                                <%}%>
+                                                    </p> -->
+                            </div>
+                        </div>
+                        <div class="text-center" style="margin-top: 2%;">
+                            <a href="javascript:void(0);" onclick="history.back()"
+                                class="btn btn-secondary">ย้อนกลับ</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            var date = new Date();
+
+            var day = date.getDate();
+            var month = date.getMonth() + 1;
+            var year = date.getFullYear();
+
+            if (month < 10) month = "0" + month;
+            if (day < 10) day = "0" + day;
+
+            var today = year + "-" + month + "-" + day;
+
+            $("#dpo_date").attr("value", today);
+            $('#dpo_check').hide();
+            $('#submit_dpo_edit').hide();
+        });
+    </script>
+
+    <%if(pattern[0].pattern_dpo_check==1 ){%>
+
+        <script>
+            $(document).ready(function () {
+                $('#dpo_check').show();
+            });
+        </script>
+        <%}%>
+            <!-- <script src="/UI/assets/libs/jquery/dist/jquery.min.js"></script> -->
+            <!-- <script src="/UI/dist/js/all_function_pattern.js"></script> -->
+            <!-- <script src="/UI/dist/js/all_function_classification.js"></script> -->
+            <%- include('../_footer') -%>

@@ -1,0 +1,176 @@
+<div
+  id="add-classicfication"
+  tabindex="-1" class="modal fade modal-scroll">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div
+        class="modal-header modal-colored-header border-bottom title-part-padding"
+      >
+        <h4 class="modal-title" style="color: black; font-weight: bold">
+          ข้อมูลที่ Classicfication
+        </h4>
+      </div>
+      <div class="modal-body">
+        
+        <div class="h5" style="font-weight: bold">
+          เลือกข้อมูลที่ต้องการใช้งาน
+        </div>
+        <div>
+          <table
+            class="tablesaw no-wrap table-striped table-bordered table-hover table"
+            id="myTableclass"
+          >
+            <thead>
+              <tr>
+                <th style="width: 10%">ข้อมูล</th>
+                <th style="width: 90%">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <%if(classi){%> 
+              <%if(classi.length> 0){%> 
+                <%for (i in classi){%>
+              <tr>
+                <td style="vertical-align: center">
+                  <div>ประเภท: <%=classi[i].classify_name%></div>
+                  <div>ข้อมูลที่แยกประเภท: <%=classi[i].pattern_name%></div>
+                  <%if(classi[i].classify_type_data_in_event_personal==1){%>
+                  <div>Data Mark: Yes</div>
+                  <%}else{%>
+                  <div>Data Mark: No</div>
+                  <%}%>
+                </td>
+                <!-- pattern_storage_method_outside_agent_name -->
+                <td style="vertical-align: middle; width: 150px">
+                  <center>
+                    <span
+                      class="btn btn-success"
+                      onclick="checkclassid('<%=classi[i].classify_id%>','<%=classi[i].classify_name%>','<%=classi[i].classify_type_data_in_event_personal%>');"
+                      data-bs-dismiss="modal"
+                      ><i
+                        class="icon-plus"
+                        style="font-size: 25px; vertical-align: middle"
+                      ></i
+                      >&nbsp; &nbsp;เลือก</span
+                    >
+                  </center>
+                </td>
+              </tr>
+              <%}}}%>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <div style="margin-right: 42%">
+            <button
+              type="button"
+              class="btn btn-secondary font-weight-large"
+              data-bs-dismiss="modal"
+            >
+              ยกเลิก
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+</div>
+<script>
+    function checkclassid(valid, name, typemark) {
+      document.getElementById("shownameclass").value = name;
+      document.getElementById("idclassi").value = valid;
+      console.log(document.getElementById("idclassi").value);
+
+      var request2 = () => {
+        let typeid = [];
+        typeid.push({ valid: valid, typemark: typemark });
+        $.ajax({
+          url: "/checkdatamark",
+          type: "post",
+          data: {
+            typeid,
+          },
+          success: function (data) {
+            var result = data.data;
+            console.log(result);
+            if (result.length > 0) {
+              $("#tablecsv").empty();
+              var array = result;
+              fetch = document.getElementById("tablecsv");
+              var thead1 = document.createElement("thead");
+              //thead1.className = "table-dark";
+              fetch.appendChild(thead1);
+              tr = document.getElementById("tablecsv").tHead;
+              for (head in array[0]) {
+                th = document.createElement("th");
+                th.className = "border text-center";
+                th.innerHTML = array[0][head];
+                tr.appendChild(th);
+              }
+              array.shift();
+              $("#showdata").text(
+                "มี " + array.length + " Row " + array[0].length + " Colum"
+              );
+              if(array.length > 5){
+                for (var i = 0; i < 5; i++) {
+                var newRow = fetch.insertRow(fetch.length);
+                for (var j = 0; j < array[i].length; j++) {
+                  var cell = newRow.insertCell(j);
+                  //cell.innerHTML = array[i][j];
+                  cell.className = "text-wrap text-break align-top";
+                  if (array[i][j] != "") {
+                    cell.innerHTML = array[i][j];
+                  } else {
+                    cell.style.color = "red";
+                    cell.style.textAlign = "center";
+                    cell.innerHTML = "-";
+                  }
+  
+                  // $(cell).css("color","black");
+                  //$(cell).css('color','red');
+                }
+              }
+              }else{
+                for (var i = 0; i < array.length; i++) {
+                var newRow = fetch.insertRow(fetch.length);
+                for (var j = 0; j < array[i].length; j++) {
+                  var cell = newRow.insertCell(j);
+                  //cell.innerHTML = array[i][j];
+                  cell.className = "text-wrap text-break align-top";
+                  if (array[i][j] != "") {
+                    cell.innerHTML = array[i][j];
+                  } else {
+                    cell.style.color = "red";
+                    cell.style.textAlign = "center";
+                    cell.innerHTML = "-";
+                  }
+  
+                  // $(cell).css("color","black");
+                  //$(cell).css('color','red');
+                }
+              }
+            }
+              }else{
+                document.getElementById("shownameclass").value = "";
+                $("#tablecsv").empty();
+                Swal.fire({
+        confirmButtonText: "ตกลง",
+        // showCancelButton: true,
+        // cancelButtonText: "ยกเลิก",
+        title: "Classification ที่เลือกไม่มี file ข้อมูลจัดเก็บในระบบ",
+        html:
+          '<br><label class="text-secondary" >กรุณาเลือก Classification ที่มี file ข้อมูลในระบบ</label> <label >'+
+          "</label> <br>",
+      })
+      
+              }
+            
+          },
+        });
+      };
+      request2();
+      
+    }
+  </script>

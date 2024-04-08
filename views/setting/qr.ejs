@@ -1,0 +1,103 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-6 align-self-center">
+                <h2 class="page-title">การยืนยันแบบ 2 ขั้นตอน</h2>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item"><a href="/qr">การยืนยันแบบ 2 ขั้นตอน</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">QR code
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- -------------------------------------------------------------- -->
+        <!-- Start Page Content -->
+        <!-- -------------------------------------------------------------- -->
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="el-card-item pb-3">
+                        <div class="el-card-avatar mb-3 el-overlay-1 w-100 overflow-hidden position-relative text-center">
+                            <a class="image-popup-vertical-fit" href="assets/images/users/2.jpg"> <img <img src="<%=data1[0].image%>" alt="user" class="d-block position-relative w-100" /> </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="card">
+                <div class="card-body border-bottom">
+                    <h2 class="card-title">เพิ่มผู้ใช้งาน</h2>
+                </div>
+                <img src="<%=data1[0].image%>">
+                <form action="/checkqr" method="post">
+                    <input type="hidden" value="<%=data1[0].ascii%>" name="ascii">
+                    <input type="text" name="token">
+                    <button type="submit">check</button>
+                </form>
+            </div> -->
+        </div>
+        <!-- Row -->
+    </div>
+
+    <!-- -------------------------------------------------------------- -->
+    <!-- End PAge Content -->
+    <!-- -------------------------------------------------------------- -->
+    <!--start overlay-->
+    <%- include('../_footer') -%>
+        <script src="/UI/assets/libs/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+        <script src="/UI/assets/libs/magnific-popup/meg.init.js"></script>
+        <script>
+            var userid = <%-JSON.stringify(session.userid)%>;
+            $("#sa-chain3").click(function() {
+
+                Swal.mixin({
+                    input: 'text',
+                    confirmButtonText: 'ยืนยัน',
+                    showCancelButton: true,
+                    cancelButtonText: 'ยกเลิก',
+                    progressSteps: ['1', '2']
+                }).queue([{
+                    title: 'การยืนยันแบบ 2 ขั้นตอน',
+                    text: 'ยันยืนรหัสผ่าน'
+                }, {
+                    title: 'การยืนยันแบบ 2 ขั้นตอน',
+                    text: 'OTP by Google Authenticator'
+                }]).then((result) => {
+
+                    if (result.value) {
+                        var request1 = function() {
+                            console.log(result);
+                            result["userid"] = userid;
+                            $.ajax({
+                                url: "/ajaxcheckuser",
+                                type: "post",
+                                data: result,
+                                success: function(data) {
+                                    var result = data.data;
+                                    if (result.length == 0) {
+                                        alert("ใส่รหัสผ่านผิด")
+                                        setInterval('location.reload()', 200);
+                                    } else {
+                                        $('#Formadd').trigger('submit');
+                                        alert("บันทึกข้อมูลเรียบร้อย");
+                                    }
+
+                                }
+                            });
+                        }
+                        request1();
+                    }
+                })
+            });
+        </script>

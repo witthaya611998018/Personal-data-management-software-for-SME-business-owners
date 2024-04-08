@@ -1,0 +1,589 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title"> หน้ากระดาษ </h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index">หน้าหลัก</a></li>
+                            <%if(data[0].type==3){%>
+                                <li class="breadcrumb-item"><a href="/paper_consent_show">Paper Consent</a></li>
+                                <%}else if (data[0].doc_type_id==217){%><!-- ประกาศนโยบายทางอิเล็คทรอนิค -->
+                                    <li class="breadcrumb-item"><a
+                                            href="/announce-policy">ประกาศนโยบายทางอิเล็คทรอนิค</a></li>
+                                    <%} else if (data[0].doc_type_id==216){%><!-- เเจ้งเตือน -->
+                                        <li class="breadcrumb-item"><a
+                                                href="/warn-policy">การแจ้งเตือนทางอิเล็คทรอนิค</a></li>
+                                        <%} else {%>
+                                            <li class="breadcrumb-item"><a href="/index">เอกสารนโยบาย</a></li>
+                                            <%}%>
+                                                <li class="breadcrumb-item">หน้ากระดาษ</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="col-12">
+            <div class="card">
+                <div class="border-bottom pb-0 title-part-padding">
+                    <div class="row">
+                        <div class="col-md-8 align-self-center">
+                            <h4 class="card-title mb-1">
+                                ดูเอกสาร
+                                <%if(data[0].type==3){%>
+                                    Paper Consent
+                                    <%}else if(data[0].doc_type_id==216 || data[0].doc_type_id==217){%>
+
+                                        <%}else{%>
+                                            เอกสารนโยบาย
+                                            <%}%>
+                                                <%=data1[0].doc_name%>
+                                                    <span class="d-inline-block ms-3 pb-3 "
+                                                        style="color: grey;font-size: medium;">หน้าเอกสาร หน้าที่
+                                                        <%let pagenum=0%>
+                                                            <%for(i in data){%>
+                                                                <% if (data[i].page_action !=1){pagenum +=1%>
+                                                                    <%if(data1[0].page_number==data[i].page_number){%>
+                                                                        <%=pagenum%>
+                                                                            <%}%>
+                                                                                <%}%>
+                                                                                    <%}%>
+                                                    </span>
+                        </div>
+                        <input id="site_name" value="<%=user_site[0].Name1%>" readonly hidden />
+                        <input id='short_name' value="<%=user_site[0].Name1%>" readonly hidden />
+                        <input id='image' value="logo.png" readonly hidden />
+                        <input id="address_company" value="<%=user_site[0].shortDesciption1%>" readonly hidden />
+                        <input id='phone_company' value="<%=user_site[0].phone1%>" readonly hidden />
+                        <input id='email_company' value="<%=user_site[0].emailAddress1%>" readonly hidden />
+                        <input type="hidden" id="pages" value="<%=JSON.stringify(data) %>">
+                        <div class="col-md-4 justify-content-end align-self-center d-none d-md-flex">
+                            <div class="d-flex">
+                                <div class="dropdown me-2">
+                                    <button type="submit" form="edit-paper-doc"
+                                            class="btn btn-success btn-lg px-4 fs-4 font-weight-medium">
+                                            บันทึกเอกสาร </button>
+                                    <a href="/index" style="margin-top: -0.5%;"
+                                        class="btn btn-secondary btn-lg px-4 fs-4 font-weight-medium "
+                                        style="text-align:center;">ย้อนกลับ</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="" style="float: right;text-align: right;">
+                        </div>
+                        </h4>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link d-flex active" data-bs-toggle="tab" href="#home2" role="tab"
+                                    aria-selected="true">
+                                    <span class="d-none d-md-block ms-3"><i class=" ti-file"></i> เนื้อหา</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link d-flex" data-bs-toggle="tab" href="#profile2" role="tab"
+                                    aria-selected="false">
+                                    <span><i class="ti-book"></i>
+                                    </span>
+                                    <span class="d-none d-md-block ms-2">คำใช้บ่อย</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link d-flex" data-bs-toggle="tab" href="#messages2" role="tab"
+                                    aria-selected="false">
+                                    <span><i class="ti-server"></i>
+                                    </span>
+                                    <span class="d-none d-md-block ms-2">ข้อมูลส่วนบุคคล</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <div class="p-0">
+                        <a class="ti-menu ti-close btn btn-success show-left-part d-block d-md-none"
+                            href="javascript:void(0)"></a>
+                        <div class="tab-content p-0">
+                            <div class="tab-pane active" id="home2" role="tabpanel">
+                                <div class="p-3 pb-0">
+                                    <a class="ti-menu ti-close btn btn-success show-left-part d-block d-md-none"
+                                        href="javascript:void(0)"></a>
+                                    <div class=" scrollable ps-container ps-theme-default"
+                                        data-ps-id="6986a19e-a3b6-d79a-3c8b-3dcadaa61df2">
+                                        <div class="overflow-auto">
+                                            <ul class="d-flex justify-content-start mt-2 align-items-center">
+                                                <div style="flex: 0 0 10%;">
+                                                    <a href="/createpaper/<%=doc_number%>"
+                                                        class="li-add-paper btn btn-success">เพิ่มหน้า</a>
+                                                </div>
+                                                <% let count=0 %>
+                                                    <% for (var i=0;i<data.length;i++){%>
+                                                        <% if (data.length !=null){%>
+                                                            <% if (data[i].page_action !=1){%>      
+                                                                <!-- <%- JSON.stringify(data.length) %> -->
+                                                                <% if (count==0){%>
+                                                                    <div style="flex: 0 0 10%;">
+                                                                        <li class="list-group-item border-0 p-2 me-2 font-weight-medium  border-2 border-info d-md-flex"
+                                                                            style=" float:left;text-align:left;align-items: center;">
+                                                                            <%}else{%>
+                                                                                <div style="flex: 0 0 10%;">
+                                                                        <li class="list-group-item border-0 p-2 me-2 font-weight-medium border-start border-1 border d-md-flex"
+                                                                            style=" float:left;text-align:left;align-items: center;border-color: grey;">
+                                                                            <%}%>
+                                                                                <a style="text-align: center;"
+                                                                                    href='/editpaper/<%=data[i].page_id%>'>&nbsp;&nbsp;
+                                                                                    หน้า
+                                                                                    <%= count +=1 %>
+                                                                                </a>&nbsp;
+                                                                                <% if (data.length!=1){%>
+                                                                                    <span style="float:right;text-align:right;"><a
+                                                                                        title="ลบหน้ากระดาษ"
+                                                                                        onclick="confirmdel('<%= count %>','<%= data[i].page_id %>','<%= data[i].doc_id %>')">
+                                                                                        <i class="ti-trash "
+                                                                                            style="color: #f62d51;font-size: large;"></i></a></span>
+                                                                                    <%}%>
+                                                                                
+                                                                        </li>
+                                                                    </div>
+                                                                    <%}%>
+                                                                        <%}%>
+                                                                            <%}%>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input id="words" value="<%=words1%>" readonly hidden />
+                            <input id='swords' value="<%=words2%>" readonly hidden />
+                            <div class="tab-pane p-0" id="profile2" role="tabpanel">
+                                <a class="ti-menu ti-close btn btn-success show-left-part d-block d-md-none"
+                                    href="javascript:void(0)"></a>
+                                <div class="scrollable ps-container ps-theme-default"
+                                    data-ps-id="6986a19e-a3b6-d79a-3c8b-3dcadaa61df2">
+                                    <div class="p-0" align="center">
+                                        <!-- <a id="compose_mail" class="waves-effect waves-light btn btn-danger d-block" href="javascript: void(0)">เพิ่มเอกสารใหม่</a> -->
+                                        <div class="card-body pb-1">
+                                            <div class="row">
+                                                <div class="d-flex  justify-content-start align-items-center">
+                                                    <a class="btn btn-success d-inline-block" data-bs-toggle="modal"
+                                                        data-bs-target="#success-header-modal">เพิ่มคำใช้บ่อย</a>
+                                                    <% if(words){ %>
+                                                        <% for(var w=0;w<words.length;w++){ %>
+                                                            <% if (w==0){%>
+                                                                <div style="flex: 10% 10% 10%;">
+                                                                    <li class="list-group-item border-0 p-3 me-2 font-weight-medium border-2 border-info d-md-flex"
+                                                                        style=" float:left;text-align:left;align-items: center;">
+                                                                        <%}else{%>
+                                                                            <div style="flex: 10% 10% 10%;">
+                                                                    <li class=" list-group-item border-0 p-3 me-2 font-weight-medium border-start border-1 d-md-flex"
+                                                                        style=" float:left;text-align:left;align-items: center;border-color: grey;">
+                                                                        <%}%>
+
+                                                                            <a id="<%=words[w].words_id%>" href="#"
+                                                                                onclick="insertText(this.id)">/
+                                                                                <%=words[w].words_often %>
+                                                                            </a>&nbsp;
+                                                                            <a id="<%=words[w].words_id%>"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#edit-words-modal"
+                                                                                onclick="editwords(this.id)" href="#"><i
+                                                                                    style="color: #ffc348;"
+                                                                                    class="ti-pencil-alt "></i></a>&nbsp;
+                                                                            <a id="<%=words[w].words_id%>"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#deleteword-header-modal"
+                                                                                href="#"
+                                                                                onclick="deletewords(this.id)"><i
+                                                                                    class="ti-trash"
+                                                                                    style="color: #f62d51;"></i></a>
+                                                                    </li>
+                                                                </div>
+                                                                <%}%>
+                                                                    <form action="/updateword/<%=words[0].words_id%>"
+                                                                        method="POST">
+                                                                        <div id="edit-words-modal" class="modal fade"
+                                                                            tabindex="-1"
+                                                                            aria-labelledby="edit-header-modalLabel"
+                                                                            aria-hidden="true" style="display: none;">
+                                                                            <div class="modal-dialog">
+                                                                                <div class="modal-content">
+                                                                                    <div
+                                                                                        class="modal-header modal-colored-header border-bottom title-part-padding">
+                                                                                        <h4 class="modal-title"
+                                                                                            style="color: black;">
+                                                                                            แก้ไขคำใช้บ่อย
+                                                                                        </h4>
+                                                                                        <button type="button"
+                                                                                            class="btn-close"
+                                                                                            data-bs-dismiss="modal"
+                                                                                            aria-label="Close"></button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <table
+                                                                                            class='table table-borderless'>
+                                                                                            <th class="col-md-3">
+                                                                                                คำใช้บ่อย :
+                                                                                            </th>
+                                                                                            <td class="col-md-9"
+                                                                                                id="editwords1">
+
+                                                                                            </td>
+                                                                                        </table>
+
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="submit"
+                                                                                            class="btn btn-warning font-weight-medium">แก้ไขข้อมูล</button>
+                                                                                        <button type="button"
+                                                                                            class="btn btn-secondary"
+                                                                                            data-bs-dismiss="modal">ปิด</button>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <!-- /.modal-content -->
+                                                                            </div>
+                                                                            <!-- /.modal-dialog -->
+                                                                        </div>
+                                                                    </form>
+
+
+
+                                                                    <form action="/deleteword/<%= words[0].words_id %>"
+                                                                        method="POST">
+                                                                        <div id="deleteword-header-modal"
+                                                                            class="modal fade" tabindex="-1"
+                                                                            aria-labelledby="deleteword-header-modalLabel"
+                                                                            aria-hidden="true" style="display: none;">
+                                                                            <div class="modal-dialog">
+                                                                                <div class="modal-content">
+                                                                                    <div
+                                                                                        class="modal-header modal-colored-header border-bottom title-part-padding">
+                                                                                        <h4 class="modal-title"
+                                                                                            style="color: black;">
+                                                                                            ยืนยันการลบคำใช้บ่อย
+                                                                                        </h4>
+                                                                                        <button type="button"
+                                                                                            class="btn-close"
+                                                                                            data-bs-dismiss="modal"
+                                                                                            aria-label="Close"></button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <table
+                                                                                            class='table table-borderless'>
+                                                                                            <th class="col-md-3">
+                                                                                                คำใช้บ่อย :
+                                                                                            </th>
+                                                                                            <td class="col-md-9"
+                                                                                                id="deletewords1">
+
+                                                                                            </td>
+                                                                                        </table>
+
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="submit"
+                                                                                            class="btn btn-danger font-weight-medium">ลบข้อมูล</button>
+                                                                                        <button type="button"
+                                                                                            class="btn btn-secondary"
+                                                                                            data-bs-dismiss="modal">ปิด</button>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <!-- /.modal-content -->
+                                                                            </div>
+                                                                            <!-- /.modal-dialog -->
+                                                                        </div>
+                                                                    </form>
+                                                                    <br>
+                                                                    <%}%>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Model -->
+                                    <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;">
+                                        <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;">
+                                        </div>
+                                    </div>
+                                    <div class="ps-scrollbar-y-rail" style="top: 0px; right: 3px;">
+                                        <div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane p-0" id="messages2" role="tabpanel">
+                                <div class="pb-0">
+                                    <a class="ti-menu ti-close btn btn-success show-left-part d-block d-md-none"
+                                        href="javascript:void(0)"></a>
+                                    <div class=" scrollable ps-container ps-theme-default"
+                                        data-ps-id="6986a19e-a3b6-d79a-3c8b-3dcadaa61df2">
+
+                                        <div align="center">
+                                            <!-- <a id="compose_mail" class="waves-effect waves-light btn btn-danger d-block" href="javascript: void(0)">เพิ่มเอกสารใหม่</a> -->
+                                            <div class="card-body">
+                                                <div class="button-group">
+                                                    <div>
+                                                        <input id="code" value="<%=code%>" readonly hidden />
+                                                        <input id='code1' value="<%=code1%>" readonly hidden />
+                                                        <input id='code_name' value="<%=code_name%>" readonly hidden />
+                                                        <% for(var i=0;i<pd.length;i++){ %>
+                                                            <% if (i==0){%>
+                                                                <div style="flex: 10% 10% 10%;">
+                                                                    <li class="list-group-item border-0 p-3 me-2 font-weight-medium border-2 border-info d-md-flex"
+                                                                        style=" float:left;text-align:left;align-items: center;">
+                                                                        <%}else{%>
+                                                                            <div style="flex: 10% 10% 10%;">
+                                                                    <li class=" list-group-item border-0 p-3 me-2 font-weight-medium border-start border-1 d-md-flex"
+                                                                        style=" float:left;text-align:left;align-items: center;border-color: grey;">
+                                                                        <%}%>
+                                                                            <a id="<%=pd[i].data_id%>" href="#"
+                                                                                onclick="insertCode(this.id)">
+                                                                                <%=pd[i].data_name%>
+                                                                            </a>
+                                                                    </li>
+                                                                </div>
+                                                                <%}%>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <div class="card-body">
+                        <div class="overflow-auto ">
+                            <div class="row mb-5">
+                                <% if (data1 !=0){%>
+                                    <div class="col ">
+                                        <form id="edit-paper-doc" action="/updatepaper/<%=data1[0].page_id%>"
+                                            method="post">
+                                            <div class="row justify-content-center">
+                                                <textarea id="myEditor1" class="summernote" name="page_content"
+                                                style="display: none;width: none;"><%=data1[0].page_content %></textarea>
+                                            <input type='hidden' name='page_number' value="<%= data1[0].page_number %>">
+                                            </div>
+                                          
+                                        </form>
+                                    </div>
+                                    <%if(data[0].type==3 && page_check.length>0){%>
+                                        <div class="col w-auto">
+                                            <div class="row justify-content-center">
+                                                <div style="width: 600px;height: 842px;margin-top: 75px; border: groove; overflow: auto;padding-top: 10px;">
+                                                    <%if(page_check[0].consent_firstname_status==1 &&
+                                                data1[0].page_number==1){%>
+                                                    
+                                                <div class="mb row ">
+                                                    <label for="fname"
+                                                        class="col-sm-3 text-start control-label col-form-label">
+                                                        ชื่อ :</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" name="user_consent_firstname"
+                                                            class="form-control" required style="margin-bottom: 10px;">
+                                                    </div>
+                                                </div>
+                                                <%}%>
+                                                <%if(page_check[0].consent_lastname_status==1 &&
+                                                        data1[0].page_number==1){%>
+                                                        <div class="mb row">
+                                                            <label for="fname"
+                                                                class="col-sm-3 text-start control-label col-form-label">
+                                                                นามสกุล :</label>
+                                                            <div class="col-sm-9">
+                                                                <input type="text" name="user_consent_firstname"
+                                                                    class="form-control" required
+                                                                    style="margin-bottom: 10px;">
+                                                            </div>
+                                                        </div>
+                                                        <%}%>
+                                                            <%if(page_check[0].consent_address_status==1 &&
+                                                                data1[0].page_number==1){%>
+                                                                <div class="mb row">
+                                                                    <label for="fname"
+                                                                        class="col-sm-3 text-start control-label col-form-label">
+                                                                        ที่อยู่ :</label>
+                                                                    <div class="col-sm-9">
+                                                                        <input type="text" name="user_consent_firstname"
+                                                                            class="form-control" required
+                                                                            style="margin-bottom: 10px;">
+                                                                    </div>
+                                                                </div>
+                                                                <%}%>
+                                                                    <%if(page_check[0].consent_phone_status==1 &&
+                                                                        data1[0].page_number==1){%>
+                                                                        <div class="mb row">
+                                                                            <label for="fname"
+                                                                                class="col-sm-3 text-start control-label col-form-label">
+                                                                                เบอร์โทร :</label>
+                                                                            <div class="col-sm-9">
+                                                                                <input type="text"
+                                                                                    name="user_consent_firstname"
+                                                                                    class="form-control" required
+                                                                                    style="margin-bottom: 10px;">
+                                                                            </div>
+                                                                        </div>
+                                                                        <%}%>
+                                                                            <%if(page_check[0].consent_other_status==1
+                                                                                && data1[0].page_number==1){%>
+                                                                                <div class="mb row">
+                                                                                    <label for="fname"
+                                                                                        class="col-sm-3 text-start control-label col-form-label">
+                                                                                        <%=page_check[0].consent_other_name%>
+                                                                                            :
+                                                                                    </label>
+                                                                                    <div class="col-sm-9">
+                                                                                        <input type="text"
+                                                                                            name="user_consent_firstname"
+                                                                                            class="form-control"
+                                                                                            required
+                                                                                            style="margin-bottom: 10px;">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <%}%>
+                                                                                    <%if(data[0].button_consent_position==1
+                                                                                        && data1[0].page_number==1){%>
+                                                                                        <hr>
+                                                                                        <div class="text-center">
+                                                                                            <a title="ตัวอย่าง"
+                                                                                                style="cursor: pointer;"
+                                                                                                class="btn btn-success">ยินยอม
+                                                                                            </a>
+                                                                                            <a title="ตัวอย่าง"
+                                                                                                style="cursor: pointer;"
+                                                                                                class="btn btn-danger">ไม่ยินยอม</a>
+                                                                                        </div>
+                                                                                        <hr>
+                                                                                        <%}%>
+                                                                                        <div class="col">
+                                                                                            <% for (var
+                                                                                                i=0;i<data.length;i++){%>
+                                                                                                <% if (data.length
+                                                                                                    !=null){%>
+                                                                                                    <% if
+                                                                                                        (data[i].page_action
+                                                                                                        !=1){%>
+                                                                                                        <% if
+                                                                                                            (data1[0].page_id==data[i].page_id)
+                                                                                                            {%>
+                                                                                                            <div
+                                                                                                                id="setcode">
+                                                                                                                <%-data[i].page_content%>
+                                                                                                            </div>
+                                                                                                            <%}%>
+                                                                                                                <%}%>
+                                                                                                                    <%}%>
+                                                                                                                        <%}%>
+
+                                                                                        </div>
+                                                                                        <%if(data.length==data1[0].page_number
+                                                                                            &&
+                                                                                            data1[0].button_consent_position==0){%>
+                                                                                                <hr>
+                                                                                                <div class="text-center">
+                                                                                                    <a title="ตัวอย่าง"
+                                                                                                        style="cursor: pointer;"
+                                                                                                        class="btn btn-success">ยินยอม
+                                                                                                    </a>
+                                                                                                    <a title="ตัวอย่าง"
+                                                                                                        style="cursor: pointer;"
+                                                                                                        class="btn btn-danger">ไม่ยินยอม</a>
+                                                                                                </div>
+
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    <%}%>
+                                </div>
+                                            
+                                                    
+
+
+                                                                                           
+                                <%}else{%>
+                                    <!-- <div class="col" style="width: auto;margin-left: 5%;padding: 2%;"> -->
+                                    <div class="col w-auto ms-4">
+                                        <% for (var i=0;i<data.length;i++){%>
+                                            <% if (data.length !=null){%>
+                                                <% if (data[i].page_action !=1){%>
+                                                    <% if (data1[0].page_id==data[i].page_id) {%>
+                                                        <div class="row justify-content-center">
+                                                            <div id="setcode" style="width: 600px;height: 842px;margin-top: 75px; border: groove; overflow: auto;padding-top: 10px;">
+                                                                <%-data[i].page_content%>
+                                                            </div>
+                                                        </div>
+                                                       
+                                                        <%}%>
+                                                            <%}%>
+                                                                <%}%>
+                                                                    <%}%>
+                                    </div>
+                                    <%}%>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%}else{%>
+                <div class="col-12">
+                    <div class="card">
+
+                        <div class="card-body" align="center">
+                            <h2>กรุณาเพิ่มหน้าเพื่อเริ่มต้น</h2>
+                        </div>
+                    </div>
+                </div>
+                <%}%>
+        </div>
+    </div>
+    </div>
+
+    <!-- modal all -->
+    <form action="/new_word" method="POST">
+        <div id="success-header-modal" class="modal fade" tabindex="-1" aria-labelledby="success-header-modalLabel"
+            aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                        <h4 class="modal-title" style="color: black;">
+                            เพิ่มคำใช้บ่อย
+                        </h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class='table table-borderless'>
+                            <th class="col-md-3">
+                                คำใช้บ่อย :
+                            </th>
+                            <td class="col-md-9">
+                                <input type="text" name="words_often" placeholder="กรอกคำใช้บ่อย.."
+                                    class="form-control " required>
+                            </td>
+                        </table>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-success  font-weight-medium">บันทึกข้อมูล</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <style>
+        .note-frame {
+            width: 100px;
+        }
+    </style>
+    <script src="/UI/assets/libs/jquery/dist/jquery.min.js"></script>
+    <%- include('../_footer') -%>
+        <script src="/UI/assets/extra-libs/summernote/summernote-lite.min.js"></script>
+        <script src="/dist/js/views_js/policy/paper.js"></script>

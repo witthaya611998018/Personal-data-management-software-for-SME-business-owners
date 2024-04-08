@@ -1,0 +1,566 @@
+<%- include ("../_header") %>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">เพิ่มเรื่องร้องเรียนการละเมิด</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item"><a href="/appeal/infraction/list">รับเรื่องร้องเรียน
+                                    การละเมิด</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">เพิ่มเรื่องร้องเรียนการละเมิด</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-7 justify-content-end align-self-center d-none d-md-flex">
+                <div class="d-flex">
+                    <div class="dropdown me-2">
+                        <a href="/appeal/infraction/list" class="btn btn-secondary">ย้อนกลับ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid">
+        <div class="card">
+            <div class="border-bottom title-part-padding">
+                <h4 class="card-title mb-0">เพิ่มเรื่องร้องเรียนการละเมิด</h4>
+            </div>
+            <div class="card-body">
+                <form action="/appeal/infraction/add/save" method="post">
+                    <div class="row mb-3 align-items-center d-none d-md-flex ">
+                        <div class="col-md-3" align="left">
+                            <h5 for="recipient-name" class="control-label">วันที่ร้องเรียน</h5>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="date" name="infraction_date" id="date" class="form-control"
+                                style="width: auto;">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3 align-items-center d-none d-md-flex">
+                        <div class="col-md-3" align="left">
+                            <h5 for="message-text" class="control-label">ช่องทางการรับเรื่องร้องเรียน</h5>
+                        </div>
+                        <div class="col-md-7">
+                            <input type="text" name="infraction_email" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <div class="col-md-3 align-items-center d-none d-md-flex justify-content-start">
+                            <h5 class="control-label">ชื่อ-นามสกุล ผู้แจ้งเรื่องการละเมิด</h5>
+                        </div>
+                        <div class="col-md-7 align-items-center d-none d-md-flex   justify-content-between "
+                            style="column-gap: 20px;">
+                            <div class="col-7 d-flex" style="column-gap: 10px;">
+                                <select class="select2 form-control custom-select" style="width: 40%; " required
+                                    name="prefix_name">
+                                    <option>ค้นหา...</option>
+                                    <% for (var i in prefix) {%>
+                                        <option value="<%=prefix[i].prefix_name%>,<%=prefix[i].prefix_id%>">
+                                            <%=prefix[i].prefix_name%>
+                                        </option>
+                                        <%}%>
+                                </select>
+                                <input type="text" class="form-control" aria-label="firstname"
+                                    name="infraction_firstname" required placeholder="ชื่อ">
+                            </div>
+                            <div class="col">
+                                <input type="text" name="infraction_lastname" placeholder="นามสกุล" class="form-control"
+                                    required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 row  align-items-center d-none d-md-flex">
+                        <div class="col-md-3" align="left">
+                            <h5 class="control-label">ที่อยู่/เบอร์โทร ข้อมูลติดต่อกลับ</h5>
+                        </div>
+                        <div class="col-md-7">
+                            <input type="text" name="infraction_address" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="mb-3 row  align-items-center d-none d-md-flex">
+                        <div class="col-md-3" align="left">
+                            <h5>ช่องทางติดต่อกลับ</h5>
+                        </div>
+                        <div class="col-md-7">
+                            <input type="text" name="infraction_contact" class="form-control" required>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="mt-2 row">
+                        <div class="col-md-3" align="left">
+                            <h5>กิจกรรมการประมวลผล <span style="color: red;">*</span></h5>
+                        </div>
+                        <div class="col-md-7 align-items-center d-none d-md-flex   justify-content-between "
+                            style="column-gap: 20px;">
+                            <div class="col d-flex" style="column-gap: 10px;">
+                                <select class="select2 form-control custom-select" style="width: 100%;" required
+                                    name="classify_id">
+                                    <option value="">ค้นหา...</option>
+                                    <% for (var i in classify) {%>
+                                        <option value="<%=classify[i].classify_id%>">
+                                            <%=classify[i].classify_name%>
+                                        </option>
+                                        <%}%>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="mb-3 row  align-items-center d-none d-md-flex">
+                        <div class="col-md-3">
+                            <h5>ข้อมูลที่ลูกค้าแจ้งละเมิด</h5>
+                        </div>
+                        <div class="col-md-7">
+                            <input type="text" name="infraction_infringement_customer" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="mb-3 row  align-items-center d-none d-md-flex">
+                        <div class="col-md-3">
+                            <h5>ประเมินความน่าเชื่อถือของข้อมูล</h5>
+                        </div>
+                        <div class="col-md-4 align-items-center  d-md-flex justify-content-between">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input success check-outline outline-success" type="radio"
+                                    id="secondary-outline-radio" name="infraction_assess_credibility" value="1"
+                                    checked="">
+                                <label class="form-check-label" for="secondary-outline-radio">น่าเชื่อถือ </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                    id="secondary2-outline-radio" name="infraction_assess_credibility" value="2">
+                                <label class="form-check-label" for="secondary2-outline-radio">ไม่น่าเชื่อถือ</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input secondary check-outline outline-secondary" type="radio"
+                                    id="secondary3-outline-radio" name="infraction_assess_credibility" value="0">
+                                <label class="form-check-label" for="secondary3-outline-radio">ไม่แน่ใจ</label>
+                            </div>
+                            <label for="">
+                                อธิบาย
+                            </label>
+                        </div>
+                        <div class="col-md-5 align-items-center  d-md-flex">
+                            <input type="text" name="infraction_assess_credibility_explain" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row  align-items-center d-none d-md-flex">
+                        <div class="col-md-3">
+                            <h5>เป็นการละเมิดหรือไม่</h5>
+                        </div>
+                        <div class="col-md-5 align-items-center  d-md-flex">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input success check-outline outline-success" type="radio"
+                                    onchange="show_infraction(1)" name="infraction_infringement"
+                                    id="primary-outline-radio" value="1" checked>
+                                <label class="form-check-label" for="primary-outline-radio">ใช่</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                    onchange="show_infraction(2)" name="infraction_infringement"
+                                    id="primary2-outline-radio" value="2">
+                                <label class="form-check-label" for="primary2-outline-radio">ไม่ใช่</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="infraction" class="mb-2 row">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <h5>(ถ้าละเมิด) ประเภทของการการละเมิด ประเมินความเสี่ยง</h5>
+                                    <select class="select2 form-control custom-select" style="width: 100%;"
+                                        id="infractiontype_type_violation_id" multiple="multiple" required
+                                        name="infractiontype_type_violation_id">
+                                    </select>
+                                </div>
+                                <div class="col-md-2 justify-content-center align-items-center d-flex">
+                                    <!-- <a href="#Add-infraction" data-bs-toggle="modal"
+                                        onclick="add_infraction('เพิ่มหัวเรื่องการละเมิด')">
+                                        เพิ่มหัวเรื่องการละเมิด
+                                    </a>  -->
+                                    <a href="/appeal/infraction/manage/type1" target="_blank" onclick="get_data()">
+                                        เพิ่มหัวเรื่องการละเมิด
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="mt-2">
+                                <label for="">ชื่อการละเมิด</label>
+                                <input type="text" name="combined_infringement_name" class="form-control">
+                            </div>
+
+                            <hr>
+                            <div class="row mt-2">
+                                <div class="mb-2">
+                                    <label>
+                                        (1) ลักษณะและประเภทของการละเมิดข้อมูลส่วนบุคคล
+                                    </label>
+                                </div>
+                                <div class="col-md-12 d-flex">
+                                    <label class="me-4">อธิบาย</label>
+                                    <textarea name="personal_data_breach_explain" rows="3"
+                                        class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <hr>
+
+                            <div class="row mt-2">
+                                <div class="mb-2">
+                                    <label>
+                                        (2) ลักษณะหรือประเภทของข้อมูลส่วนบุคคลที่เกี่ยวข้องกับการละเมิด
+                                    </label>
+                                </div>
+                                <div class="col-md-10 mb-2">
+                                    <select class="select2 form-control custom-select" multiple="multiple"
+                                        style="width: 100%;" required name="data_type_id" id="data_type_id">
+                                    </select>
+                                </div>
+                                <div class="col-md-2 justify-content-center align-items-center d-flex">
+                                    <!-- <a href="#Add-data-type" data-bs-toggle="modal">
+                                        เพิ่มประเภทข้อมูลส่วนบุคคล
+                                    </a> -->
+                                    <a href="/data_type" target="_blank">
+                                        เพิ่มประเภทข้อมูลส่วนบุคคล
+                                    </a>
+                                </div>
+                                <div class="col-md-12 d-flex">
+                                    <label class="me-4">อธิบาย</label>
+                                    <textarea name="data_type_explain" rows="3" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <hr>
+
+                            <div class="row mt-2">
+                                <div class="mb-2">
+                                    <label>
+                                        (3) ปริมาณของข้อมูลส่วนบุคคลที่เกี่ยวข้องกับการละเมิด/จำนวนรายการ (records)
+                                    </label>
+                                </div>
+                                <div class="d-flex">
+                                    <label class="me-4">อธิบาย</label>
+                                    <textarea name="personal_information_records_explain" rows="3"
+                                        class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <hr>
+
+
+                            <div class="row mt-2">
+                                <div class="mb-2">
+                                    <label>
+                                        (4) ลักษณะประเภทหรือสถานะของเจ้าของข้อมูลส่วนบุคคลที่ได้รับผลกระทบ
+                                    </label>
+                                </div>
+                                <div class="col-md-10 mb-2">
+                                    <select class="select2 form-control custom-select" multiple="multiple"
+                                        style="width: 100%;" required name="infractiontype_effect_id"
+                                        id="infractiontype_effect_id">
+                                    </select>
+                                </div>
+                                <div class="col-md-2 justify-content-center align-items-center d-flex">
+                                    <!-- <a href="#Add-infraction" data-bs-toggle="modal"
+                                        onclick="add_infraction('เพิ่มประเภทหรือสถานะเจ้าข้อมูลส่วนบุคคล')">
+                                        เพิ่มประเภทหรือสถานะเจ้าข้อมูลส่วนบุคคล
+                                    </a> -->
+                                    <a href="/appeal/infraction/manage/type2" target="_blank" onclick="get_data()">
+                                        เพิ่มประเภทหรือสถานะเจ้าข้อมูลส่วนบุคคล
+                                    </a>
+                                </div>
+                                <div class="d-flex mt-2">
+                                    <label class="me-4">อธิบาย</label>
+                                    <textarea name="infractiontype_effect_id_explain" rows="3"
+                                        class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <hr>
+
+                            <div class="row mt-2">
+                                <div class="mb-2">
+                                    <label>
+                                        (5) ความร้ายแรงของผลกระทบและความเสียหายที่เกิดขึ้น
+                                    </label>
+                                </div>
+                                <label>
+                                    (5.1)ผลกระทบและความเสียหายที่เกิดขึ้นหรืออาจเกิดขึ้นกับเจ้าของข้อมูล
+                                </label>
+                                <div class="d-flex mt-1">
+                                    <label class="me-4">อธิบาย</label>
+                                    <textarea name="severity_impact_explain" rows="3" class="form-control"></textarea>
+                                </div>
+                                <label>
+                                    (5.2) กระทบต่อประสิทธิผลของมาตรการที่ผู้ควบคุมข้อมูลส่วนบุคคล
+                                </label>
+                                <div class="col-md-10 d-flex mt-1" onfocus="get_data()">
+                                    <select class="select2 form-control custom-select" style="width: 100%;" required
+                                        multiple="multiple" id="infractiontype_effectiveness_id"
+                                        name="infractiontype_effectiveness_id">
+                                    </select>
+                                </div>
+                                <div class="col-md-2 justify-content-md-start align-items-center d-flex">
+                                    <!-- <a href="#Add-infraction" data-bs-toggle="modal"
+                                        onclick="add_infraction('เพิ่มผลกระทบ')">
+                                        เพิ่มผลกระทบ
+                                    </a> -->
+                                    <a href="/appeal/infraction/manage/type3" target="_blank" onclick="get_data()">
+                                        เพิ่มผลกระทบ
+                                    </a>
+                                </div>
+                                <div class="d-flex mt-2">
+                                    <label class="me-4">อธิบาย</label>
+                                    <textarea name="infractiontype_effectiveness_id_explain" rows="3"
+                                        class="form-control"></textarea>
+                                </div>
+
+                                <div class="mt-2">
+                                    <div class="mb-2">
+                                        <label>
+                                            (5.3) การเยี่ยวยาหรือการบรรเทาผลกระทบที่เกิดขึ้นต่อเจ้าของข้อมูล
+                                        </label>
+                                    </div>
+                                    <div class="d-flex mt-2">
+                                        <label class="me-4">อธิบาย</label>
+                                        <textarea name="infractiontype_healing_explain" rows="3"
+                                            class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+
+                            <div class="row mt-2">
+                                <div class="col-md-12 mb-2">
+                                    <label>
+                                        (6) ผลกระทบในวงกว้างต่อธุรกิจหรือการดำเนินการหรือต่อสาธารณะจากเหตุการละเมิด
+                                    </label>
+                                </div>
+                                <div class="col-md-12 d-flex">
+                                    <label class="me-4">อธิบาย</label>
+                                    <textarea name="violation_action_explain" rows="3" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <hr>
+
+                            <div class="row mt-2">
+                                <div class="col-md-12 mb-2">
+                                    <label>
+                                        (7) ลักษณะของระบบการจัดเก็บข้อมูลส่วนบุคคลที่เกี่ยวข้องกับการละเมิด
+                                        และมาตรการ รักษา
+                                        ความมั่นคงปลอดภัยที่เกี่ยวข้องของผู้ควบคุมข้อมูลส่วนบุคคล
+                                    </label>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="mb-1">
+                                        (7.1) มาตรการรักษาความมั่นคงปลอดภัยโดยทั่วไป (General Measures)
+                                    </label>
+                                    <select class="select2 form-control custom-select" style="width: 100%;"
+                                        name="measures_id" multiple="multiple" id="measures_id">
+                                    </select>
+                                    <label class="mb-1">
+                                        (7.2) มาตราการต้องสามารถระบุความเสี่ยงที่สำคัญที่อาจจะเกิด (Risk-based Approach)
+                                    </label>
+                                    <select class="select2 form-control custom-select" style="width: 100%;"
+                                        name="approach_id" multiple="multiple" id="approach_id">
+                                    </select>
+                                    <label class="mb-1">
+                                        (7.3) มาตราการรักษาความปลอดภัยขั้นต่ำที่PDPAกำหนด (PDPA Specific Measures)
+                                    </label>
+                                    <select class="select2 form-control custom-select" style="width: 100%;"
+                                        name="specific_id" multiple="multiple" id="specific_id">
+                                    </select>
+                                </div>
+                            </div>
+                            <hr>
+
+                            <div class="row mt-2">
+                                <div class="col-md-12 mb-2">
+                                    <label>
+                                        (8) สถานะทางกฎหมายของผู้ควบคุมข้อมูลส่วนบุคคล
+                                    </label>
+                                </div>
+                                <div class="col-md-10 mb-2" onfocus="get_data()">
+                                    <select class="select2 form-control custom-select" style="width: 100%;" required
+                                        multiple="multiple" id="infractiontype_legal_status_id"
+                                        name="infractiontype_legal_status_id">
+                                    </select>
+                                </div>
+                                <div class="col-md-2 justify-content-center align-items-center d-flex">
+                                    <!-- <a href="#Add-infraction" data-bs-toggle="modal"
+                                        onclick="add_infraction('เพิ่มสถานะทางกฏหมายของผู้ควบคุมข้อมูลส่วนบุคคล')">
+                                        เพิ่มสถานะทางกฏหมายของผู้ควบคุมข้อมูลส่วนบุคคล
+                                    </a> -->
+                                    <a href="/appeal/infraction/manage/type4" target="_blank" onclick="get_data()">
+                                        เพิ่มสถานะทางกฏหมายของผู้ควบคุมข้อมูลส่วนบุคคล
+                                    </a>
+                                </div>
+                                <div class="col-md-12 d-flex">
+                                    <label class="me-4">อธิบาย</label>
+                                    <textarea name="infractiontype_legal_status_id_explain" rows="3"
+                                        class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <hr>
+
+                        </div>
+
+                        <div class="row mb-2 mt-2">
+                            <div class="col-md-3 d-flex  align-content-center">
+                                <h5>เอกสารPDPA</h5>
+                            </div>
+                            <div class="col-md-6 d-flex align-content-center">
+                                <div class="input-group">
+                                    <select class="select2 form-control custom-select" style="width: 100%;"
+                                        multiple="multiple" id="selecte_type_policy" name="doc_id">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center ">
+                                <a href="/index" target="_blank">เพิ่มเอกสาร PDPA</a>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-3 d-flex ">
+                                <h5>ระยะเวลาทบทวนมาตราการ</h5>
+                            </div>
+                            <div class="col-md-6 d-flex align-items-center">
+                                <div class="input-group">
+                                    <input type="date" name="infraction_measures_date" class="form-control" required>
+                                    <input type="number" name="infraction_measures_date_count" class="form-control"
+                                        required placeholder="กรุณาป้อนจำนวนระยะเวลา...">
+                                    <span class="input-group-text">วัน</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-3 d-flex  align-items-center">
+                                <h5>ผู้ดูแลข้อมูลหรือผู้ดูแลระบบหรือผู้ควบคุมมาตราการ</h5>
+                            </div>
+                            <div class="col-md-6 d-flex align-items-center">
+                                <!-- <input type="text" name="infraction_measures_supervisor" class="form-control" required> -->
+                                <select class="select2 form-control" multiple="multiple"
+                                    name="infraction_measures_supervisor" style="height: 36px;width: 100%;" required>
+                                    <%if(account){for (var i=0; i < account.length; i++) {%>
+                                        <option value="<%=account[i].acc_id%>">
+                                            <%=account[i].firstname%>
+                                                <%=account[i].lastname%>
+                                        </option>
+                                        <%}}%>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-3 d-flex  align-items-center">
+                                <h5>หมายเหต</h5>
+                            </div>
+                            <div class="col-md-6 d-flex align-items-center">
+                                <textarea name="combined_annotation" class="form-control" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 d-flex  align-items-center">
+                                <h5>ประเมินความเสี่ยง</h5>
+                            </div>
+                            <div class="col-md-6 d-flex align-items-center">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                        name="combined_assess_risk" id="primary-radio" value="1" checked="">
+                                    <label class="form-check-label" for="primary-radio">เสี่ยง</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                        name="combined_assess_risk" id="primary2-radio" value="2">
+                                    <label class="form-check-label" for="primary2-radio">เสี่ยงสูง</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="justify-content: center;">
+                        <div class="col-md-4 d-flex justify-content-end">
+                            <button type="submit" class="btn btn-success me-2">บันทึกข้อมูล</button>
+                            <button type="button" class="btn btn-secondary" id="throw_away">ยกเลิก</button>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input success check-outline outline-success" type="checkbox"
+                                id="success-outline-check" name="infraction_measures_consult" value="1">
+                            <label class="form-check-label" for="success-outline-check">ร่างบันทึก
+                                ขอความคิดเห็นจากที่ปรึกษา</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="Add-infraction" class="modal fade" tabindex="-1" aria-labelledby="info-header-modalLabel" aria-modal="true"
+        role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h4 class="modal-title"> </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/appeal/infraction/add/type/save" method="post">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4 d-flex justify-content-end align-items-center">
+                                <h5> </h5>
+                            </div>
+                            <div class="col-md-8 d-flex justify-content-strat">
+                                <input type="text" name="infractiontype_name_add" class="form-control">
+                                <input type="hidden" name="infractiontype_type" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-success font-weight-medium">ยืนยัน</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="Add-data-type" class="modal fade" tabindex="-1" aria-labelledby="info-header-modalLabel" aria-modal="true"
+        role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h4 class="modal-title">
+                        เพิ่มประเภทข้อมูลส่วนบุคคล
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/save_data_type" method="POST">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4 d-flex justify-content-end align-items-center">
+                                <h5>
+                                    ประเภทข้อมูลส่วนบุคคล
+                                </h5>
+                            </div>
+                            <div class="col-md-8 d-flex justify-content-strat">
+                                <input type="text" name="data_type_name_add" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-success font-weight-medium">ยืนยัน</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="/UI/assets/libs/select2/dist/js/select2.full.min.js"></script>
+    <script src="/UI/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="/dist/js/pages/forms/select2/select2.init.js"></script>
+    <script src="/dist/js/views_js/appeal/appeal_infraction_add.js"></script>
+    <%- include ("../_footer") %>

@@ -1,0 +1,263 @@
+<%- include ("../../_header") %>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">Consent Management</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/management/cookies">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item">Consent Management</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-7 justify-content-end align-self-center d-none d-md-flex">
+                <div class="d-flex">
+                    <div class="input-group mb-3">
+                        <input class="form-control" type="date" value="" id="firstDay">
+                        <span class="input-group-text" id="basic-addon1">ถึง</span>
+                        <input class="form-control" type="date" value="" id="lastDay">
+                        <button class="btn btn-outline-warning" type="button" id="Search_Date"><i
+                                class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="card card-body">
+                    <div class="row pt-2 pb-2">
+                        <div class="col-8  pr-0">
+                            <h1 class="fw-light text-center" id="Cookie-consent">-</h1>
+                            <h6 class="text-muted">จำนวนการตอบกลับ Cookie Consent</h6>
+                            <h6 style="color: red;">กำหนดสูงสุดได้ตาม Package เช่น 1 Domain</h6>
+                        </div>
+                        <div class="col text-end align-self-center">
+                            <div data-label="10%" class="css-bar mb-0 css-bar-warning css-bar-0"
+                                id="Cookie-consent-icon">
+                                <i class="mdi mdi-cookie"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card card-body">
+                    <div class="row pt-2 pb-2">
+                        <div class="col-8 pr-0">
+                            <h1 class="fw-light text-center" id="Paper-Consent">-</h1>
+                            <h6 class="text-muted" style="display: inline;">จำนวนการตอบกลับ Paper Consent</h6>
+                            <h6 style="color: red;">กำหนดสูงสุดได้ตาม Package เช่น 10 กิจกรรม(เอกสาร)</h6>
+                        </div>
+                        <div class="col text-end align-self-center">
+                            <div data-label="40%" class="css-bar mb-0 css-bar-success css-bar-0"
+                                id="Paper-Consent-icon">
+                                <i class="me-2 mdi mdi-file-check"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card card-body">
+                    <div class="row pt-2 pb-2">
+                        <div class="col pr-0">
+                            <h1 class="fw-light text-center" id="email-month">-</h1>
+                            <h6 class="text-muted">จำนวนการส่ง E-mail Consent</h6>
+                            <h6 style="color: red;">กำหนดสูงสุดได้ตาม Package เช่น 30 ฉบับ/เดือน</h6>
+                        </div>
+                        <div class="col-4 text-end align-self-center">
+                            <div data-label="40%" class="css-bar mb-0 css-bar-danger css-bar-0" id="email-month-icon">
+                                <i class="mdi mdi-email"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="d-flex border-bottom title-part-padding align-items-center">
+                <h4 class="card-title mb-0">Consent Management</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-8">
+                        <ul class="nav nav-tabs" role="tablist" id="tab-consent">
+                            <% if(tap=="cookie" ) {%>
+                                <li class="nav-item">
+                                    <a class="nav-link d-flex active" data-bs-toggle="tab" href="#cookie" role="tab">
+                                        <span>
+                                            <i class="mdi mdi-cookie"></i>
+                                        </span>
+                                        <span class="d-none d-md-block ms-2">Cookie Consent</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link d-flex" data-bs-toggle="tab" href="#paper" role="tab">
+                                        <span><i class="ti-file"></i> </span>
+                                        <span class="d-none d-md-block ms-2">Paper Consent</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link d-flex" data-bs-toggle="tab" href="#email" role="tab">
+                                        <span><i class="ti-email"></i>
+                                        </span>
+                                        <span class="d-none d-md-block ms-2">E-mail Consent</span>
+                                    </a>
+                                </li>
+                                <% }else if (tap=="paper" ) {%>
+                                    <li class="nav-item">
+                                        <a class="nav-link d-flex" data-bs-toggle="tab" href="#cookie" role="tab">
+                                            <span>
+                                                <i class="mdi mdi-cookie"></i>
+                                            </span>
+                                            <span class="d-none d-md-block ms-2">Cookie Consent</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link d-flex active" data-bs-toggle="tab" href="#paper" role="tab">
+                                            <span><i class="ti-file"></i> </span>
+                                            <span class="d-none d-md-block ms-2">Paper Consent</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link d-flex" data-bs-toggle="tab" href="#email" role="tab">
+                                            <span><i class="ti-email"></i>
+                                            </span>
+                                            <span class="d-none d-md-block ms-2">E-mail Consent</span>
+                                        </a>
+                                    </li>
+                                    <% } else {%>
+                                        <li class="nav-item">
+                                            <a class="nav-link d-flex" data-bs-toggle="tab" href="#cookie" role="tab">
+                                                <span>
+                                                    <i class="mdi mdi-cookie"></i>
+                                                </span>
+                                                <span class="d-none d-md-block ms-2">Cookie
+                                                    Consent</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link d-flex" data-bs-toggle="tab" href="#paper" role="tab">
+                                                <span><i class="ti-file"></i> </span>
+                                                <span class="d-none d-md-block ms-2">Paper
+                                                    Consent</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link d-flex active" data-bs-toggle="tab" href="#email"
+                                                role="tab">
+                                                <span><i class="ti-email"></i>
+                                                </span>
+                                                <span class="d-none d-md-block ms-2">E-mail
+                                                    Consent</span>
+                                            </a>
+                                        </li>
+                                        <% }%>
+                        </ul>
+                    </div>
+                    <div class="col justify-content-end align-self-center d-none d-md-flex">
+                        <div class="input-group">
+                            <a id="reface" class="btn btn-outline-warning"><i data-feather="refresh-cw"></i></a>
+                            <input type="text" class="form-control" placeholder="ค้นหา.." required
+                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="ค้นหา(อีเมล,หัวข้ออีเมล,ชื่อ-นามสกุล ผู้รับ)" aria-label="" value=""
+                                id="Input_text" aria-describedby="button_Srearch_cookie">
+                            <button class="btn btn-outline-warning" type="button" id="Search_text"><i
+                                    class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane <% if(tap=='cookie') {%>active<%}%>  p-3" id="cookie" role="tabpanel">
+                        <div style="min-height: 470px;" class="table-responsive">
+                            <div id="cookie_consent">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6 text-secondary ">
+                                <div class="row">
+                                    <span>แสดงผล <a id="show-cookie"></a> ถึง <a id="to_show-cookie"></a>
+                                        ทั้งหมด <a id="show_all-cookie"></a>
+                                        รายการ</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                                <nav aria-label="Page navigation example" class="mt-2">
+                                    <ul class="pagination-cookie">
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane  p-3 <% if(tap=='paper') {%>active<%}%>" id="paper" role="tabpanel">
+                        <div style="min-height: 470px;" class="table-responsive">
+                            <div id="paper_consents">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6 text-secondary ">
+                                <div class="row">
+                                    <span>แสดงผล <a id="show-paper"></a> ถึง <a id="to_show-paper"></a>
+                                        ทั้งหมด <a id="show_all-paper"></a>
+                                        รายการ</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                                <nav aria-label="Page navigation example" class="mt-2">
+                                    <ul class="pagination-paper">
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane p-3 <% if(tap=='email') {%>active<%}%>" id="email" role="tabpanel">
+                        <div style="min-height: 470px;" class="table-responsive">
+                            <div id="Email_consent"></div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6 text-secondary ">
+                                <div class="row">
+                                    <span>แสดงผล <a id="show-email"></a> ถึง <a id="to_show-email"></a>
+                                        ทั้งหมด
+                                        <a id="show_all-email"></a>
+                                        รายการ</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                                <nav aria-label="Page navigation example" class="mt-2">
+                                    <ul class="pagination-email">
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .pagination-cookie {
+            display: flex;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .pagination-paper {
+            display: flex;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .pagination-email {
+            display: flex;
+            padding-left: 0;
+            list-style: none;
+        }
+    </style>
+    <script src="/dist/js/views_js/consent_management/consent_management.js"></script>
+
+    <%- include ("../../_footer") %>

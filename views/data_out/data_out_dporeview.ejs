@@ -1,0 +1,184 @@
+<%- include('../_header') -%>
+<!-- <%-JSON.stringify(data)%> -->
+<%
+        function contains(target){
+            var pattern = ['.gif','.png', '.jpg','.jpeg','.webp'];
+            var value = 0;
+            pattern.forEach(function(word){
+              value = value + target.includes(word);
+            });
+            return (value === 1)
+        }
+        %>
+        <style>
+          table.table-bordered.dataTable tbody th, table.table-bordered.dataTable tbody td {
+          border-bottom-width: 0;
+          text-align: center !important;
+      }
+      </style>
+<div class="page-breadcrumb">
+  <div class="row">
+    <div class="col-md-5 align-self-center">
+      <h3 class="page-title">กำหนดการใช้ข้อมูลส่งออกไปภายนอก</h3>
+      <div class="d-flex align-items-center">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="/index2">หน้าแรก</a>
+            </li>
+            <li class="breadcrumb-item" >
+              <a href="/dataoutlist">กำหนดการใช้ข้อมูล</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+              DPO ที่อนุญาตการส่งออกข้อมูลสู่ภายนอกแล้ว
+            </li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <!-- Row -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="border-bottom title-part-padding">
+          <h4 class="card-title mb-0">
+            <%if(data){%>
+            <%if(data.length>0){%>
+              ดู DPO ที่อนุญาตการส่งออกข้อมูลสู่ภายนอกแล้ว
+              <%}else{%>
+                <i class="me-2 mdi mdi-alert-circle" style="color: red;"></i>  เช็ค path file ที่หน้ากำหนดรูปแบบข้อมูลให้ตรงกับในเครื่อง 
+                <%}}%>
+
+          </h4>
+        </div>
+        <div class="card-body">
+          <!-- <input name="btnShow" type="button" value="Show" class="btn btn-success" onClick="toggleText()"> -->
+          <%if(data){%>
+          <%if(data.length>0){%>
+          <%if(typefilter==1){%>
+            <div class="table-responsive">
+                <table id="myTabletest" class="table-hover table">
+                    <thead>
+                        <tr>
+                            <th class="border" style="text-align: center">
+                                ลำดับ
+                            </th>
+                            <% for (x in data[0]){%>
+                                <th class="border" style="text-align: center">
+                                    <%= data[0][x]%>
+                                </th>
+                                <%}%>
+                        </tr>
+                    </thead>
+                    <% for (let i=1; i < data.length; i++){%>
+                        <tr style="background: black;background-color: black;color: black;">
+                            <td class="title align-top">
+                                <%= i%>
+                            </td>
+                            <% for (let p=0; p < data[i].length; p++){%>
+                                <td class="title align-top">
+                                    <% var result = data[i][p].toLowerCase() %>
+                                    <% var checktrue = contains(result) %>
+
+                                    <% if(checktrue == true){ %>
+                                        <img src="<%=data[i][p]%>" alt="img" width="50px" style="filter: blur(1px);">
+                                   <% }else{ %>
+                                    <%= data[i][p]%>
+                                    <%}%>
+                                </td>
+                                <%}%>
+                        </tr>
+                        <%}%>
+                      </table>
+            </div>
+            <%}else{%>
+                <div class="table-responsive">
+                    <table id="myTabletest"
+                        class="tablesaw table-striped table-bordered table-hover table">
+                        <thead>
+                            <tr>
+                                <th class="border" style="text-align: center">
+                                    ลำดับ
+                                </th>
+                                <% for (x in data[0]){%>
+                                    <th class="border" style="text-align: center">
+                                        <%= data[0][x]%>
+                                    </th>
+                                    <%}%>
+                            </tr>
+                        </thead>
+                        <% for (let i=1; i < data.length; i++){%>
+                            <tr >
+                                <td class="title align-top" style="text-align: center">
+                                    <%= i%>
+                                </td>
+                                <% for (let p=0; p < data[i].length; p++){%>
+                                    <td class="title align-top" style="text-align: center">
+                                      <% var result = data[i][p].toLowerCase() %>
+                                      <% var checktrue = contains(result) %>
+
+                                      <% if(checktrue == true){ %>
+                                          <img src="<%=data[i][p]%>" alt="img" width="50px" style="filter: blur(1px);">
+                                     <% }else{ %>
+                                      <%= data[i][p]%>
+                                      <%}%>
+                                    </td>
+                                    <%}%>
+                            </tr>
+                            <%}%>
+                          </table>
+                </div>
+                <%}%>
+                  <%}}%>
+          <br />
+          <div>
+            <center>
+              <a href="/dataoutlist">
+                <button
+                  type="button"
+                  class="btn btn-secondary waves-effect waves-light btn-lg"
+                >
+                  ย้อนกลับ
+                </button></a
+              >
+            </center>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Row -->
+  </div>
+  </div>
+
+  <!-- -------------------------------------------------------------- -->
+  <!-- End PAge Content -->
+  <!-- -------------------------------------------------------------- -->
+  <!--start overlay-->
+  <%- include('../_footer') -%>
+  <script src="/UI/assets/libs/datatables/media/js/jquery.dataTables.min.js"></script>
+  <script src="/UI/dist/js/pages/datatable/custom-datatable.js"></script>
+  <script src="/UI/dist/js/pages/datatable/datatable-basic.init.js"></script>
+  <script src="/UI/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+
+<script>
+  $("#myTabletest").DataTable({
+  // "ordering": false,
+  lengthMenu: [
+          [1000, 500, 100 , 10],
+          [1000, 500, 100 , 10],
+  ],
+  autoWidth: false,
+  // bLengthChange: false, // this gives option for changing the number of records shown in the UI table
+  columnDefs: [
+    {
+      className: "dt-center",
+      targets: "_all",
+    }, //columnDefs for align text to center
+  ],
+  dom: "lrtip",
+  oSearch: { bSmart: false, bRegex: true }, //to hide default searchbox but search feature is not disabled hence customised searchbox can be made.
+});
+</script>

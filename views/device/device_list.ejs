@@ -1,0 +1,328 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-6 align-self-center">
+                <h3 class="page-title">อุปกรณ์ต้นทาง</h3> 
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item"><a href="/index2">การจัดการระบบ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">อุปกรณ์ต้นทาง</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="row">
+                        <div class="card-body">
+                            <div class="border-bottom title-part-padding">
+                                <h4 class="card-title mb-0">อุปกรณ์ต้นทาง</h4>
+                            </div>
+                            <div class="card-body" style="min-height: 650px;">
+                                <table class="tablesaw table-striped table-bordered table-hover table" id="myTable7">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-sortable-default-col data-tablesaw-priority="3" class="border">ลำดับ</th>
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist" class="border">รูป</th>
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist" class="border">ชื่อในระบบ</th>
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2" class="border">ไอพีแอดเดรส</th>
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1" class="border">สถานะ</th>
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist" class="border">ประเภทอุปกรณ์</th>
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist" class="border">ประเภทการจัดส่งข้อมูล</th>
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist" class="border">ประเภทข้อมูลที่จัดส่ง</th>
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2" class="border">แก้ไขข้อมูล</th>
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2" class="border">ลบอุปกรณ์</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% if (data){ for (var i = 0; i < data.length; i++) { %>
+                                            <tr>
+                                                <td class="title align-top">
+                                                    <%= (i+1) %>
+                                                </td>
+
+                                                <td class="align-top">
+                                                    <img src="/UI/image/<%=data[i].image%>" class="rounded-circle w-20" height="60" width="60">
+                                                </td>
+                                                <td class=" align-top ">
+                                                    <%=data[i].name%>
+                                                </td>
+                                                <td class="align-top ">
+                                                    <%=data[i].de_ip%>
+                                                </td>
+                                                <td class="align-top ">
+                                                    <%=data[i].status%>
+                                                </td>
+                                                <td class="align-top ">
+                                                    <%=data[i].de_type%>
+                                                </td>
+                                                <td class="align-top ">
+                                                    <%=data[i].sender%>
+                                                </td>
+                                                <td class="text-wrap text-break align-top ">
+                                                    <%=data[i].data_type%>
+                                                </td>
+
+                                                <td class="center "style="text-align: center;">
+                                                    <a href="/device/view/<%=data[i].device_id%>">
+                                                            <i class="fas fa-pencil-alt fa-2x" style="color: #ffbc34;" >
+                                                            </i>
+                                                    </a>
+                                                </td>
+                                                <td class="center" style="text-align: center;">
+                                                    <a>
+                                                        <i class="fas fa-trash-alt fa-2x" data-bs-toggle="modal" data-bs-target="#samedata2-modal<%=i%>" data-bs-whatever="@mdo" style="color: red;" ></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <%  }} %>
+                                                <% if (data.length == 0){%>
+                                                    <tr>
+                                                        <td class="title align-top" style="text-align: center; color: rgb(228, 20, 20);" colspan="10">
+                                                            ไม่พบข้อมูล
+                                                        </td>
+                                                    </tr>
+                                                    <%}%>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <% if (data){ for (var i = 0; i < data.length; i++) { %>
+            <div class="modal fade" id="samedata2-modal<%=i%>" tabindex="-1" aria-labelledby="exampleModalLabel1">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+
+                        <div class="modal-header d-flex align-items-center">
+
+                            <h4 class="card-title">ลบอุปกรณ์
+                                <%=data[i].name%>
+                            </h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label text-secondary">ชื่ออุปกรณ์ :</label>
+                                <div class="col-sm-8">
+                                    <label class="control-label col-form-label"><%=data[i].hostname%></label>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label text-secondary">ชื่อที่ใช้ในระบบ :</label>
+                                <div class="col-sm-8">
+                                    <label class=" control-label col-form-label"><%=data[i].name%></label>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label text-secondary">สถานะอุปกรณ์ :</label>
+                                <div class="col-sm-8">
+                                    <label class="control-label col-form-label"><%=data[i].status%></label>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label text-secondary">ประเภทอุปกรณ์ :</label>
+                                <div class="col-sm-8">
+                                    <label class="control-label col-form-label"><%=data[i].de_type%></label>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label text-secondary">ประเภทข้อมูล :</label>
+                                <div class="col-sm-8">
+                                    <label class="control-label col-form-label"><%=data[i].data_type%></label>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label text-secondary">การจัดส่งข้อมูลมาจัดเก็บ :</label>
+                                <div class="col-sm-8">
+                                    <label class="control-label col-form-label"><%=data[i].sender%></label>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="de_ip" class="col-sm-3 text-end control-label col-form-label text-secondary">IP ที่ใช้ติดต่อกับ Server</label>
+                                <div class="col-sm-8">
+                                    <label class="control-label col-form-label"><%=data[i].de_ip%></label>
+                                </div>
+
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="port" class="col-sm-3 text-end control-label col-form-label text-secondary">จำนวนวันที่จัดเก็บข้อมูล</label>
+                                <div class="col-sm-2">
+                                    <label class="control-label col-form-label"><%=data[i].keep %>  วัน</label>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-5">
+                                </div>
+                                <div class="col-sm-1">
+                                    <%if(session.otp_system == "1"){%>
+                                        <button type="button" data-bs-toggle="modal" data-bs-target="#tests<%=i%>" data-bs-whatever="@mdo" class="btn btn-success btn waves-effect waves-light">ยืนยัน</button>
+                                        <%}else{%>
+                                            <button type="button" id="sa-del-device2" class="btn btn-success waves-effect waves-light">ยืนยัน</button>
+                                            <%}%>
+                                                <!-- <a href="/device/del/<%=data[i].device_id%>">
+                                                <button type="button" id="sa-del-device2" class="btn btn-success waves-effect waves-light">ยืนยัน</button></a> -->
+                                </div>
+                                <div class="col-sm-1">
+                                    <button type="button" class="btn btn-secondary waves-effect waves-light" data-bs-dismiss="modal">ยกเลิก</button>
+                                </div>
+                                <div class="col-sm-5">
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%  }} %>
+                <% if (data){ for (var i = 0; i < data.length; i++) { %>
+                    <div class="modal fade" id="tests<%=i%>" tabindex="-1" aria-labelledby="exampleModalLabel1">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header d-flex align-items-center"></div>
+                                <div class="modal-body">
+                                    <div class="mb-3 row">
+                                        <h4 class="text-center">OTP by Google Authenticator</h4><br>
+                                        <hr><br>
+                                        <div class="col-sm-3"></div>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control border border-info" placeholder="รหัสจาก Google Authenticator" id="authen">
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <button type="button" onclick="check('<%=data[i].device_id %>')" class="btn btn-success btn waves-effect waves-light">ยืนยัน</button>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <button type="button" class="btn btn-secondary waves-effect waves-light" data-bs-dismiss="modal">ยกเลิก</button>
+                                        </div>
+                                        <div class="col-sm-5">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    </div>
+    <%  }} %>
+        <button type="button" onclick="check2()" class="btn btn-success waves-effect waves-light">ยืนยัน</button>
+
+        <%- include('../_footer') -%>
+            <script src="/UI/assets/libs/datatables/media/js/jquery.dataTables.min.js"></script>
+            <script src="/UI/dist/js/pages/datatable/custom-datatable.js"></script>
+            <script src="/UI/dist/js/pages/datatable/datatable-basic.init.js"></script>
+            <script src="/UI/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+            <script src="/UI/dist/js/pages/dashboards/dashboard1.js"></script>
+
+            <script>
+                $(document).ready(function() {
+                    $('#myTable7').DataTable();
+                });
+            </script>
+            <script>
+                var userid = <%-JSON.stringify(session.userid)%>;
+
+                function check(id) {
+                    var result = []
+                        // console.log(id);
+                    result.value = document.getElementById("authen").value;
+                    if (result.value) {
+                        var request2 = function() {
+                            result["userid"] = userid;
+                            // console.log(result);
+                            $.ajax({
+                                url: "http://119.81.44.155:8081/ajaxcheckuser",
+                                type: "post",
+                                data: {
+                                    value: result.value,
+                                    userid: userid
+                                },
+                                success: function(data) {
+                                    var result = data.data;
+                                    if (result.length == 0) {
+                                        alert("ใส่รหัสผ่านผิด")
+                                        setInterval('location.reload()', 200);
+                                    } else {
+                                        $.ajax({
+                                            url: "http://119.81.44.155:8081/device/confirmdelete/" + id,
+                                            type: "post",
+                                            // success: function(data2) {
+                                            //     console.log(data2);
+                                            //     // if (data2) {
+                                            //     alert("ลบอุปกรณ์ต้นทางเรียบร้อย");
+                                            //     setInterval('location.reload()', 200);
+                                            //     // } else {
+                                            //     //     alert("ข้อมูลผิดพลาด")
+                                            //     //     setInterval('location.reload()', 200);
+                                            //     // }
+
+                                            // }
+                                        });
+                                        alert("ลบอุปกรณ์ต้นทางเรียบร้อย");
+                                        setInterval('location.reload()', 200);
+                                    }
+
+                                }
+                            });
+                        }
+                        request2();
+                    }
+                };
+            </script>
+            <script>
+                var userid = <%-JSON.stringify(session.userid)%>;
+
+                function check2() {
+                    Swal.mixin({
+                        input: 'text',
+                        confirmButtonText: 'ยืนยัน',
+                        showCancelButton: true,
+                        cancelButtonText: 'ยกเลิก',
+                    }).queue([{
+                        title: 'การยืนยัน',
+                        text: 'OTP by Google Authenticator'
+                    }]).then((result) => {
+                        if (result.value) {
+                            var request1 = function() {
+                                result["userid"] = userid;
+                                $.ajax({
+                                    url: "http://119.81.44.155:8081/qr",
+                                    type: "post",
+                                    data: result,
+                                    success: function(data) {
+                                        if (data.data.length == 0) {
+                                            alert("ใส่รหัสผ่านผิด")
+                                            setInterval('location.reload()', 200);
+                                        } else {
+                                            Swal.fire({
+                                                title: 'QR code',
+                                                html: '<br>  <img src="' + data.data[0].image +
+                                                    '" alt="">'
+                                            })
+                                        }
+
+                                    }
+                                });
+                            }
+                            request1();
+                        }
+                    })
+                };
+            </script>

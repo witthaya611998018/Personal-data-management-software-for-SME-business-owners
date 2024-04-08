@@ -1,0 +1,309 @@
+<%- include('../_header') -%>
+  <!-- <%-JSON.stringify(dataout)%> -->
+    <div class="page-breadcrumb">
+      <div class="row">
+        <div class="col-md-8 align-self-center">
+          <h3 class="page-title"><i class="me-2 mdi mdi-file-export"></i>กำหนดการใช้ข้อมูลส่งออกไปภายนอก</h3>
+          <br />
+          <div class="d-flex align-items-center">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                  <a href="/index2">หน้าแรก</a>
+                </li>
+                <li class="breadcrumb-item" >
+                  <a href="/dataoutlist">กำหนดการใช้ข้อมูล</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  เพิ่มข้อมูลกำหนดการใช้ข้อมูลสำหรับส่งออก
+                </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <!-- Row -->
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="border-bottom title-part-padding">
+              <h4 class="card-title mb-0">
+                เพิ่มข้อมูลกำหนดการใช้ข้อมูลสำหรับส่งออก<span class="text-secondary"></span>
+              </h4>
+            </div>
+            <div class="card-body">
+              <form action="/dataoutadd" method="POST">
+              <div class="h5" >
+                ข้อมูลที่จัดประเภทไว้แล้ว (Classicfications) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="javascript:void(0);"  class="option-pattern" data-bs-toggle="modal"
+                    data-bs-target="#add-classicfication">เลือกข้อมูลที่
+                    Classicfication ไว้แล้ว</a>
+                    <!-- <a id="btn-add-policy" href="#add-policy" class="option-pattern" data-bs-toggle="modal">เลือกข้อมูลตามเอกสาร Policy</a> -->
+            </div>
+            
+            <input type="text" value="" class="form-control" id="shownameclass" style="background:#e9ecef;color: black;" required data-readonly>
+            <input type="hidden" name="classify_id" id="idclassi" value="" required>
+            <div class="row mt-2" >
+                <h5 class="col-md-7 col-xl-7" style="font-weight: bold;">
+                    Preview Data Mark&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     ข้อมูลที่จัดประเภทไว้แล้ว (Classicfications)
+                </h5>
+                 <h5 class="col-md-3 col-xl-3" style="color: green;font-weight: bold;" id="showdata">
+                    
+                 </h5>
+            </div>
+            <!-- <input name="btnShow" type="button" value="Show" class="btn btn-success" onClick="toggleText()"> -->
+            <div class="table-responsive">
+            <table id="tablecsv" class="table customize-table table-striped mb-0 v-middle">
+                <!-- <thead>
+                </thead> -->
+            </table>
+            </div>
+            <hr>
+            <table class="table-pattern mt-1">
+                <tbody><tr> <th style="font-weight: bold;"class="col-md-3 col-xl-3">
+                    &nbsp;เลือกระยะเวลาแสดงข้อมูล
+                </th>
+                <td class="col-md-1 col-xl-1" >
+                    <input  type="number" name="long_date" value="0" min="0" class="form-control" required="">
+                </td>
+                <th >
+                    &nbsp; &nbsp; <span>วัน  &nbsp;</span>
+                </th>
+                <td class="col-md-1 col-xl-1">
+                    <input type="number" name="long_hour" value="0" min="0" class="form-control" required="">
+                </td>
+                <th class="col-md-1 col-xl-1">
+                    &nbsp; &nbsp; <span>ชั่วโมง</span>
+                </th>
+                <td class="col-md-5 col-xl-5">
+                    
+                </td>
+            </tr></tbody></table>
+            <hr>
+            <div class="h5" style="font-weight: bold;">
+                เลือกวิธีการจัดส่ง
+            </div>
+            <table class="table-pattern mt-1">
+                <tr><th class="col-md-2 col-xl-2"></th>
+                    <td class="col-md-5 col-xl-5" style="text-align: left;">
+                        <small class="text-muted no-wrap" >Link testserver.cc/alltra/log_server.html</small>
+                    </td>
+                    <th class="col-md-5 col-xl-5" style="text-align: center;" >
+                        <div class="h5" style="font-weight: bold;" id="select11">
+                            &nbsp; &nbsp; เลือกปิดบังข้อมูลป้องกันการถ่ายรูป 
+                        </div>
+                    </th>
+                </tr>
+                <tbody><tr> <th style="font-weight: bold;" class="col-md-2 col-xl-2">
+                    <div class="form-check form-check-inline">
+                        <input onclick="oncheck();" class="form-check-input" type="radio" name="type_res" id="out-radio1" value="0" checked="">
+                        <label class="form-check-label" for="out-radio1">E-mail</label>
+                      </div>
+                </th>
+                <td class="col-md-5 col-xl-5" style="text-align: center;">
+                    <div class="row">
+                        <div class="col-md-9 col-xl-9">
+                            <input type="text" name="linkemail" id="copyelement1" value="" class="form-control size-input-pattern" required >
+                        </div>
+                        <div class="col-md-3 col-xl-3">
+                            <button title="Copy Link" class="btn btn-facebook waves-effect waves-light" style="background-color: grey;" type="button" onclick="copyfunc1();">   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy feather-sm"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                </td>
+                <th class="col-md-5 col-xl-5" id="select12">
+                    &nbsp; &nbsp;
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input secondary" type="radio" name="type_link" id="out-radio11" value="1">
+                        <label class="form-check-label" for="out-radio11">ใส่ Filter</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input secondary" type="radio" name="type_link" id="out-radio12" value="0" checked="">
+                        <label class="form-check-label" for="out-radio12">ไม่ใส่ Filter</label>
+                      </div>
+                </th>
+            </tr></tbody></table>
+            <table class="table-pattern mt-1">
+                <tr><th class="col-md-2 col-xl-2"></th>
+                    <td class="col-md-5 col-xl-5" style="text-align: left;">
+                        <small class="text-muted no-wrap" id="linkapi">Link testserver.cc/jsonsendapi/ </small>
+                    </td>
+                    <th class="col-md-5 col-xl-5" style="text-align: center;"> 
+                        <div class="h5" style="font-weight: bold;" id="select21">
+                            &nbsp; &nbsp; เลือก Format การใช้ข้อมูล
+                        </div>
+                    </th>
+                </tr>
+                <tbody><tr> <th style="font-weight: bold;" class="col-md-2 col-xl-2">
+                    <div class="form-check form-check-inline">
+                        <input onclick="oncheck();" class="form-check-input" type="radio" name="type_res" id="out-radio2" value="1" >
+                        <label class="form-check-label" for="out-radio2" >API Link</label>
+                      </div>
+                </th>
+                <td class="col-md-5 col-xl-5" >
+                    <div class="row">
+                        <div class="col-md-9 col-xl-9">
+                            <input type="text" name="linkToken" id="copyelement2" value="<%=keygen%>" class="form-control size-input-pattern" readonly>
+                        </div>
+                        <div class="col-md-3 col-xl-3">
+                            <button title="Copy Token" class="btn btn-facebook waves-effect wavesso-light" style="background-color: grey;" type="button" onclick="copyfunc2();">   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy feather-sm"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                </td>
+                <th class="col-md-5 col-xl-5" id="select22" style="text-align: center;">
+                    &nbsp; &nbsp;
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input secondary" type="radio" name="type_link" id="out-radio21" value="3">
+                        <label class="form-check-label" for="out-radio21">CSV</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input secondary" type="radio" name="type_link" id="out-radio22" value="4" >
+                        <label class="form-check-label" for="out-radio22">JSON</label>
+                      </div>
+                </th>
+            </tr></tbody></table>
+            <hr>
+            <div class="h5" style="font-weight: bold;">
+                การอนุมัติ
+            </div>
+            <table class="table-pattern mt-1">
+                <tbody><tr> 
+                <th style="width: auto;">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="dpo_confirm" id="dpo_radio1" value="1" checked>
+                        <label class="form-check-label" for="dpo_radio1">DPO รับทราบ</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="dpo_confirm" id="dpo_radio2" value="0" >
+                        <label class="form-check-label" for="dpo_radio2">DPO อนุมัติก่อนส่ง</label>
+                      </div>
+                </th>
+            </tr></tbody></table>
+            <hr>
+            <%- include('data_out_addclass') -%>
+            <br>
+          <div >
+            <center>
+                <button type="submit" class="btn btn-success">บันทึกข้อมูล</button>
+                <a href="/dataoutlist"> <button type="button" class="btn btn-secondary">ยกเลิก</button></a>
+              </center>
+              </div>
+            </form>
+            </div>
+          </div>
+        </div>
+        <!-- Row -->
+      </div>
+    </div>
+    
+      <!-- -------------------------------------------------------------- -->
+      <!-- End PAge Content -->
+      <!-- -------------------------------------------------------------- -->
+      <!--start overlay-->
+      <%- include('../_footer') -%>
+      <script src="/UI/assets/libs/datatables/media/js/jquery.dataTables.min.js"></script>
+      <script src="/UI/dist/js/pages/datatable/custom-datatable.js"></script>
+      <script src="/UI/dist/js/pages/datatable/datatable-basic.init.js"></script>
+      <script src="/UI/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+      <script>
+        var copylink = document.getElementById("copyelement2");
+        var host1 =  <%-JSON.stringify(host)%>;
+        var insert = host1+"apisend/"+copylink.value
+        $("#linkapi").text(insert);
+        function copyfunc1() {
+          /* Get the text field */
+          var copyText = document.getElementById("copyelement1");
+        
+          /* Select the text field */
+          copyText.select();
+          copyText.setSelectionRange(0, 99999); /* For mobile devices */
+        
+          /* Copy the text inside the text field */
+          navigator.clipboard.writeText(copyText.value);
+                                    Swal.fire({
+                                        position: 'top',
+                                        type: 'success',
+                                      title: 'Copy email เรียบร้อย',
+                                      showConfirmButton: false,
+                                      timer: 800
+                                      })
+        }
+        function copyfunc2() {
+          /* Get the text field */
+          var copyText = document.getElementById("copyelement2");
+        
+          /* Select the text field */
+          copyText.select();
+          copyText.setSelectionRange(0, 99999); /* For mobile devices */
+          var host =  <%-JSON.stringify(host)%>;
+          var insert = host+"apisend/"+copyText.value
+          /* Copy the text inside the text field */
+          navigator.clipboard.writeText(insert);
+          Swal.fire({
+                                        position: 'top',
+                                        type: 'success',
+                                      title: 'Copy API Link เรียบร้อย',
+                                      showConfirmButton: false,
+                                      timer: 800
+                                      })
+        }
+        //document.getElementById("select11").style.display = "none";
+        //document.getElementById("select12").style.display = "none";
+        document.getElementById("select21").style.display = "none";
+        document.getElementById("select22").style.display = "none";
+        $('#copyelement2').attr('readonly',true);
+        function oncheck(){
+              if (document.getElementById('out-radio1').checked) {
+                document.getElementById("select11").style.display = "";
+                document.getElementById("select12").style.display = "";
+                document.getElementById("select21").style.display = "none";
+                document.getElementById("select22").style.display = "none";
+                $("input[name=type_link][value=" + 0 + "]").prop('checked', true);
+                $('#copyelement1').attr('readonly',false).prop('required',true);
+                //$('#copyelement2').val("");
+                //$('#copyelement2').attr('readonly',true);
+              } else if(document.getElementById('out-radio2').checked){
+                document.getElementById("select21").style.display = "";
+                document.getElementById("select22").style.display = "";
+                document.getElementById("select11").style.display = "none";
+                document.getElementById("select12").style.display = "none";
+                $("input[name=type_link][value=" + 4 + "]").prop('checked', true);
+                //$('#copyelement2').attr('readonly',false).prop('required',true);
+                $('#copyelement1').val("");
+                $('#copyelement1').attr('readonly',true);
+              }
+        }
+            // function toggleText() {
+            //   var x = document.getElementById("tablecsv");
+            //   if (x.style.display === "none") {
+            //     x.style.display = "";
+            //   } else {
+            //     x.style.display = "none";
+            //   }
+            // }
+        </script>
+      <script>
+        $(document).ready(function() {
+
+            $('#myTabletest').DataTable({
+              // bAutoWidth: false, 
+            });
+            $('#myTableclass').DataTable({
+              // bAutoWidth: false,
+              "lengthMenu": [[ 5, 10,25, -1], [ 5, 10,25, "All"]] 
+            });
+            // $('#tablecsv').DataTable({
+
+            // });
+        });
+    </script>
+
+
+  
+    
+
+          

@@ -1,0 +1,604 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">เปรียบเทียบการเข้าใช้งาน</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">เปรียบเทียบการเข้าใช้งาน</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-7 justify-content-end align-self-center d-none d-md-flex">
+                <div class="d-flex">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid note-has-grid" id="ajex_access_history">
+        <div class="card">
+            <!-- <div class="border-bottom title-part-padding">
+                <div class="row">
+                    <div class="col-md-8 justify-content-start align-self-center d-none d-md-flex">
+                        <h4 class="card-title mb-0">ประวัติการเข้าใช้งาน</h4>
+                    </div>
+                    <div class="col-md-4 justify-content-end align-self-center d-none d-md-flex space">
+                        <div class="not_allowed">
+                            <a class="btn btn-info" id="csv">CSV</a>
+                            <a class="btn btn-success" id="excel">Excel</a>
+                            <a class="btn btn-warning" id="pdf"> PDF</a>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+
+            <div class="card-body">
+                <div class="row pb-2 justify-content-end">
+                    <div class="col-md-8 justify-content-start align-self-center d-none d-md-flex">
+                        <div class="d-flex">
+                            <!-- <form action="/access_history/search" method="post"> -->
+                            <div class="input-group" style="margin-left: 92px;">
+                                <input class="form-control" type="datetime-local" name="date1" id="date1-0">
+                                <span class="input-group-text" id="basic-addon1">ถึง</span>
+                                <input class="form-control" type="datetime-local" name="date2" id="date2-0">
+                                <input type="text" class="form-control" placeholder="ค้นหา.." id="search-0"
+                                    name="search" aria-label="" aria-describedby="button-addon2">
+                                <!-- <button class="btn btn-outline-warning" type="submit"><i class="fas fa-search"></i></button> -->
+                                <button type="button" class="btn btn-outline-warning" id="button-search"
+                                    onclick="tabledata(0,'table-body-0')"> Search </button>
+                            </div>
+                            <!-- </form> -->
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-4 justify-content-end align-self-center d-block d-md-flex">
+                        <div class="input-group mb-2" style="margin-right: 30px;">
+                            <input type="text" class="form-control" placeholder="ค้นหา.." id="search"name="search" aria-label="" aria-describedby="button-addon2">
+                            <button type="button" class="btn btn-outline-warning" id="button-search" onclick="tabledata(1)"> Search </button>
+                        </div>
+                    </div> -->
+                </div>
+                <div style="min-height: 470px; margin-left: 0.5%; margin-right: 1%;overflow-y: scroll;">
+                    <table id="myTable" class="tablesaw no-wrap table-striped table-bordered table-hover table"
+                        data-tablesaw-mode="stack" data-tablesaw-sortable>
+                        <thead>
+                            <tr>
+                                <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col
+                                    data-tablesaw-priority="3" class="border text-center" style="width: 5%;">ลำดับ</th>
+                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2"
+                                    class="border text-center">วันที่ เวลา</th>
+                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="3"
+                                    class="border text-center">ชื่อผู้ใช้งาน</th>
+                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1"
+                                    class="border text-center">ประเภท</th>
+                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="3"
+                                    class="border text-center">ข้อความ</th>
+                                <!-- <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="3" class="border text-center">สถานะ</th>
+                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="3" class="border text-center">หมายเหตุ</th> -->
+                            </tr>
+                        </thead>
+                        <tbody id="table-body-0">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 text-secondary">
+                        <span>แสดงผล <span id="start"></span> ถึง <span id="end"></span> ทั้งหมด <span
+                                id="total-db"></span> รายการ</span>
+                    </div>
+                    <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                        <nav aria-label="Page navigation example" class="mt-2">
+                            <ul class="pagination" id="pagination-wapper">
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid note-has-grid" id="compare">
+
+    </div>
+
+
+
+    <!-- -------------------------------------------------------------- -->
+    <!-- End PAge Content -->
+    <!-- -------------------------------------------------------------- -->
+    <!--start overlay-->
+    <%- include('../_footer') -%>
+        <script src="/UI/assets/libs/apexcharts/dist/apexcharts.min.js "></script>
+        <script src="/UI/assets/libs/apexcharts/dist/apexcharts.min.js "></script>
+        <script src="/UI/assets/libs/chartist/dist/chartist.min.js "></script>
+        <script src="/UI/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js "></script>
+        <script src="/UI/assets/libs/flot/jquery.flot.js "></script>
+        <script src="/UI/dist/js/pages/widget/widget-charts.js "></script>
+        <script src="/UI/dist/js/app.min.js "></script>
+        <!-- <script src="/UI/assets/libs/datatables/media/js/jquery.dataTables.min.js"></script>
+        <script src="/UI/dist/js/pages/datatable/custom-datatable.js"></script>
+        <script src="/UI/dist/js/pages/datatable/datatable-basic.init.js"></script> -->
+
+
+        <script>
+            var accessFileData = <% -JSON.stringify(data) %>;
+            var type = <% -JSON.stringify(type) %>;
+            var system = <% -JSON.stringify(data2) %>;
+        </script>
+        <script>
+            $('#compare').hide()
+            function tabledata(number, cha) {
+                 console.log(number, cha);
+                $('#compare').show()
+                document.getElementById("button-search").setAttribute("onClick", "tabledata(1,'table-body-1');");
+                if (number == 0) {
+                    searchdo(number, cha)
+                    var table = `
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row pb-2 justify-content-end">
+                                    <div class="col-md-8 justify-content-start align-self-center d-none d-md-flex">
+                                        <div class="d-flex">
+                                            <div class="input-group" style="margin-left: 92px;">
+                                            <input class="form-control" type="datetime-local" name="date1" id="date1-1">
+                                            <span class="input-group-text" id="basic-addon1">ถึง</span>
+                                            <input class="form-control" type="datetime-local" name="date2" id="date2-1">
+                                            <input type="text" class="form-control" placeholder="ค้นหา.." id="search-1"name="search" aria-label="" aria-describedby="button-addon2">
+                                            <button type="button" class="btn btn-outline-warning" id="button-search-1" onclick="testdo(0,1,'table-body1')"> Search </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="min-height: 470px; margin-left: 0.5%; margin-right: 1%;overflow-y: scroll;">
+                                <table id="myTable" class="tablesaw no-wrap table-striped table-bordered table-hover table"data-tablesaw-mode="stack" data-tablesaw-sortable>
+                                    <thead>
+                                        <tr>
+                                            <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col data-tablesaw-priority="3" class="border text-center" style="width: 5%;">ลำดับ</th>
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2" class="border text-center" >วันที่ เวลา</th>
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="3" class="border text-center">ชื่อผู้ใช้งาน</th>
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1" class="border text-center">ประเภท</th>
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="3" class="border text-center">ข้อความ</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="table-body-1">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 text-secondary">
+                                    <span>แสดงผล <span id="start"></span> ถึง <span id="end"></span> ทั้งหมด <span id="total-db"></span> รายการ</span>
+                                </div>
+                                <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                                    <nav aria-label="Page navigation example" class="mt-2">
+                                        <ul class="pagination" id="pagination-wapper">
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>`
+
+                    let div = document.createElement('div');
+                    var fied = document.getElementById("compare");
+                    div.innerHTML = table;
+                    fied.append(div)
+                } else {
+                    searchdo(number - 1, 'table-body-'+0)
+                }
+
+            }
+
+
+
+            function testdo(id, id1, str) {
+                 console.log(id, id1, str);
+                if (id == 0) {
+                    document.getElementById("button-search-" + id1).setAttribute("onClick", `testdo(1,${id1},'table-body-${id1}');`);
+                    searchdo(id1, 'table-body-' + id1)
+                    var table = `
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row pb-2 justify-content-end">
+                                    <div class="col-md-8 justify-content-start align-self-center d-none d-md-flex">
+                                        <div class="d-flex">
+                                        <!-- <form action="/access_history/search" method="post"> -->
+                                            <div class="input-group" style="margin-left: 92px;">
+                                    <input class="form-control" type="datetime-local" name="date1" id="date1-${id1 + 1}">
+                                    <span class="input-group-text" id="basic-addon1">ถึง</span>
+                                    <input class="form-control" type="datetime-local" name="date2" id="date2-${id1 + 1}">
+                                    <input type="text" class="form-control" placeholder="ค้นหา.." id="search-${id1 + 1}"name="search" aria-label="" aria-describedby="button-addon2">
+                                    <!-- <button class="btn btn-outline-warning" type="submit"><i class="fas fa-search"></i></button> -->
+                                    <button type="button" class="btn btn-outline-warning" id="button-search-${id1 + 1}" onclick="testdo(0,${id1 + 1},'table-body-${id1 + 1}')"> Search </button>
+                                </div>
+                            <!-- </form> -->
+                        </div>
+                    </div>
+                    </div>
+                <div style="min-height: 470px; margin-left: 0.5%; margin-right: 1%;overflow-y: scroll;">
+                    <table id="myTable" 
+                        class="tablesaw no-wrap table-striped table-bordered table-hover table"
+                        data-tablesaw-mode="stack" data-tablesaw-sortable>
+                        <thead>
+                            <tr>
+                                <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col data-tablesaw-priority="3" class="border text-center" style="width: 5%;">ลำดับ</th>
+                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2" class="border text-center" >วันที่ เวลา</th>
+                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="3" class="border text-center">ชื่อผู้ใช้งาน</th>
+                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1" class="border text-center">ประเภท</th>
+                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="3" class="border text-center">ข้อความ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body-${id1 + 1}">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 text-secondary">
+                        <span>แสดงผล <span id="start"></span> ถึง <span id="end"></span> ทั้งหมด <span
+                                id="total-db"></span> รายการ</span>
+                    </div>
+                    <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                        <nav aria-label="Page navigation example" class="mt-2">
+                            <ul class="pagination" id="pagination-wapper">
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>`
+                    let div = document.createElement('div');
+                    var fied = document.getElementById("compare");
+                    div.innerHTML = table;
+                    fied.append(div)
+                } else {
+                    searchdo(id1 - 1, str)
+                }
+            }
+
+
+
+
+
+
+            function searchdo(vt1, vt2) {
+                 console.log(vt1, vt2);
+                var data = { "date1": $('#date1-' + vt1).val(), "date2": $('#date2-' + vt1).val(), "search": $('#search-' + vt1).val() };
+                console.log(data);
+                $.ajax({                                    //Srearch get api date
+                    type: "post",
+                    contentType: "application/json",
+                    url: '/api/compare/search',
+                    data: JSON.stringify(data),
+                    dataType: 'json',
+                    success: async function (result) {
+                        if (result.history.length > 1) {
+                            $(`#${vt2}`).empty()
+                            // ============================== Create Prepare ============================
+                            var end_count = 0 // จำนวนทั้งหมดในแต่ละหน้า
+                            var total = 0 // จำนวนทั้งหมดของข้อมูล
+                            var state = {
+                                'querySet': result.history,
+                                'page': 1,
+                                'rows': 30,
+                                'window': 5,
+                            }
+                            buildTable()
+                            function pagination(querySet, page, rows) {
+
+                                var trimStart = (page - 1) * rows
+                                var trimEnd = trimStart + rows
+
+                                var trimmedData = querySet.slice(trimStart, trimEnd)
+
+                                var pages = Math.ceil(querySet.length / rows);
+
+                                var start_count = 1
+                                document.getElementById('start').innerHTML = start_count
+
+                                return {
+                                    'querySet': trimmedData,
+                                    'pages': pages,
+
+                                }
+                            }
+                            // ============================== Create Pagination ============================
+                            function pageButtons(pages) {
+                                var wrapper = document.getElementById('pagination-wapper')
+                                wrapper.innerHTML = ``
+                                // console.log('Pages:', pages)
+
+                                var maxLeft = (state.page - Math.floor(state.window / 2))
+                                var maxRight = (state.page + Math.floor(state.window / 2))
+
+                                if (maxLeft < 1) {
+                                    maxLeft = 1
+                                    maxRight = state.window
+                                }
+
+                                if (maxRight > pages) {
+                                    maxLeft = pages - (state.window - 1)
+
+                                    if (maxLeft < 1) {
+                                        maxLeft = 1
+                                    }
+                                    maxRight = pages
+                                }
+                                for (var page = maxLeft; page <= maxRight; page++) {
+                                    wrapper.innerHTML += `<li class="page-item"><button class="page page-link" value=${page}>${page}</button></li>`
+                                }
+
+                                if (state.page == 1) {
+                                    wrapper.innerHTML = `<li class="page-item disabled"><button value=${1} class="page page-link" >&#171; ย้อนกลับ</button></li>` + wrapper.innerHTML
+                                } else {
+                                    wrapper.innerHTML = `<li class="page-item"><button value=${1} class="page page-link">&#171; ย้อนกลับ</button></li>` + wrapper.innerHTML
+                                }
+
+                                if (state.page != pages) {
+                                    wrapper.innerHTML += `<li class="page-item"></i><button value=${pages} class="page page-link" >ถัดไป &#187;</button>`
+                                } else {
+                                    wrapper.innerHTML += `<li class="page-item disabled"></i><button value=${pages} class="page page-link" >ถัดไป &#187;</button>`
+                                }
+
+                                $('.page').on('click', function () {
+                                    $(`#${vt2}`).empty()
+                                    state.page = Number($(this).val())
+                                    buildTable()
+                                })
+
+                            }
+                            // ============================== Create Table ============================
+                            function buildTable() {
+                                if (result.system[0].view_hash_access_history == 'sha256') {
+                                    var access_type = 'SHA-256'
+                                } else if (result.system[0].view_hash_access_history == 'sha1') {
+                                    var access_type = 'SHA-1'
+                                } else if (result.system[0].view_hash_access_history == 'md5') {
+                                    var access_type = 'MD5'
+                                }
+                                var table = $(`#${vt2}`)
+                                var data = pagination(state.querySet, state.page, state.rows)
+                                var myList = data.querySet
+                                for (y in myList) {
+                                    if (state.page == 1) {
+                                        if (myList[y].id != "") {
+                                            //Keep in mind we are using "Template Litterals to create rows"
+                                            var row = '<tr>' +
+                                                '<td class="title align-top">' + myList[y].no + '</span></td>' +
+                                                '<td class="align-top">' + myList[y].date + '</span></td>' +
+                                                '<td class="align-top">' + myList[y].name + '</span></td>' +
+                                                '<td class="align-top">' + myList[y].type + '</span></td>' +
+                                                '<td class="align-top">' + myList[y].msg + '</span></td>' +
+                                                '</tr><tr><td colspan="5" style="text-align: center;" >' + access_type + ': ' + myList[y].hash + '</td></tr>'
+                                            table.append(row)
+                                            end_count = myList[y].id
+                                        } else {
+                                            var row = '<tr class="odd"><td valign="top" colspan="5" class="dataTables_empty text-center" style="color: red;">ไม่ข้อมูล</td></tr>'
+                                            table.append(row)
+                                        }
+                                    } else {
+                                        if (myList[y].id != "") {
+                                            //Keep in mind we are using "Template Litterals to create rows"
+                                            var row = '<tr>' +
+                                                '<td class="title align-top">' + myList[y].no + '</span></td>' +
+                                                '<td class="align-top">' + myList[y].date + '</span></td>' +
+                                                '<td class="align-top">' + myList[y].name + '</span></td>' +
+                                                '<td class="align-top">' + myList[y].type + '</span></td>' +
+                                                '<td class="align-top">' + myList[y].msg + '</span></td>' +
+                                                '</tr><tr><td colspan="5" style="text-align: center;" >' + access_type + ': ' + myList[y].hash + '</td></tr>'
+                                            table.append(row)
+                                            end_count = myList[y].id
+                                        } else {
+                                            var row = '<tr class="odd"><td valign="top" colspan="5" class="dataTables_empty text-center" style="color: red;">ไม่ข้อมูล</td></tr>'
+                                            table.append(row)
+                                        }
+                                    }
+
+                                }
+                                $('#end').html(end_count)
+                                if (myList.length > 0) {
+                                    if (myList[0].id != "") {
+                                        $('#start').html(myList[0].id)
+                                    } else {
+                                        $('#start').html(0)
+                                    }
+                                }
+                                $('#total-db').html(result.history.length);
+                                pageButtons(data.pages)
+                                // end_count = table.find('tr').length
+                                $('button#button_delete_db').on('click', function () {
+                                    document.getElementById('form_delete_db').action = "/database_ag/delete" + $(this).attr('data-value')
+                                    document.getElementById('form_delete_db').submit();
+                                })
+                            }
+                        } else {
+                            var table = $(`#${vt2}`)
+                            var row = '<tr>' +
+                                '<td class="text-center" colspan="5" style="color: red;"><span class="text-center">ไม่พบข้อมูล</span></td>' +
+                                '</tr>'
+                            table.append(row)
+                            end_count = 0
+                            $('#end').html(end_count)
+                            $('#start').html(0)
+                            pageButtons(data.pages)
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+            }
+
+    //         document.getElementById('button-search').addEventListener('click', () => {
+    //         var data = ({ "text": document.getElementById('search').value.trim() });
+    //         if (document.getElementById('search').value == "") {
+
+    //         } else {
+    //         $.ajax({ // Srearch get api date
+    //             type: "post",
+    //             contentType: "application/json",
+    //             url: '/api/compare/search',
+    //             data: JSON.stringify(data),
+    //             dataType: 'json',
+    //             success: async function (result) {
+    //                 if (result.history.length > 1) {
+    //                     $('#table-body').empty()
+    //                 // ============================== Create Prepare ============================
+    //                 var end_count = 0 // จำนวนทั้งหมดในแต่ละหน้า
+    //                 var total = 0 // จำนวนทั้งหมดของข้อมูล
+    //                 var state = {
+    //                     'querySet': result.history,
+    //                     'page': 1,
+    //                     'rows': 30,
+    //                     'window': 5,
+    //                 }
+    //                 buildTable()
+    //                 function pagination(querySet, page, rows) {
+
+    //                     var trimStart = (page - 1) * rows
+    //                     var trimEnd = trimStart + rows
+
+    //                     var trimmedData = querySet.slice(trimStart, trimEnd)
+
+    //                     var pages = Math.ceil(querySet.length / rows);
+
+    //                     var start_count = 1
+    //                     document.getElementById('start').innerHTML = start_count
+
+    //                     return {
+    //                         'querySet': trimmedData,
+    //                         'pages': pages,
+
+    //                     }
+    //                 }
+    //                 // ============================== Create Pagination ============================
+    //                 function pageButtons(pages) {
+    //                     var wrapper = document.getElementById('pagination-wapper')
+    //                     wrapper.innerHTML = ``
+    //                     // console.log('Pages:', pages)
+
+    //                     var maxLeft = (state.page - Math.floor(state.window / 2))
+    //                     var maxRight = (state.page + Math.floor(state.window / 2))
+
+    //                     if (maxLeft < 1) {
+    //                         maxLeft = 1
+    //                         maxRight = state.window
+    //                     }
+
+    //                     if (maxRight > pages) {
+    //                         maxLeft = pages - (state.window - 1)
+
+    //                         if (maxLeft < 1) {
+    //                             maxLeft = 1
+    //                         }
+    //                         maxRight = pages
+    //                     }
+    //                     for (var page = maxLeft; page <= maxRight; page++) {
+    //                         wrapper.innerHTML += `<li class="page-item"><button class="page page-link" value=${page}>${page}</button></li>`
+    //                     }
+
+    //                     if (state.page == 1) {
+    //                         wrapper.innerHTML = `<li class="page-item disabled"><button value=${1} class="page page-link" >&#171; ย้อนกลับ</button></li>` + wrapper.innerHTML
+    //                     } else {
+    //                         wrapper.innerHTML = `<li class="page-item"><button value=${1} class="page page-link">&#171; ย้อนกลับ</button></li>` + wrapper.innerHTML
+    //                     }
+
+    //                     if (state.page != pages) {
+    //                         wrapper.innerHTML += `<li class="page-item"></i><button value=${pages} class="page page-link" >ถัดไป &#187;</button>`
+    //                     } else {
+    //                         wrapper.innerHTML += `<li class="page-item disabled"></i><button value=${pages} class="page page-link" >ถัดไป &#187;</button>`
+    //                     }
+
+    //                     $('.page').on('click', function () {
+    //                         $('#table-body').empty()
+
+    //                         state.page = Number($(this).val())
+
+    //                         buildTable()
+    //                     })
+
+    //                 }
+    //                 // ============================== Create Table ============================
+    //                 function buildTable() {
+    //                     if(result.system[0].view_hash_access_history == 'sha256'){
+    //                         var access_type = 'SHA-256'
+    //                     }else if(result.system[0].view_hash_access_history == 'sha1'){
+    //                         var access_type = 'SHA-1'
+    //                     }else if(result.system[0].view_hash_access_history == 'md5'){
+    //                         var access_type = 'MD5'
+    //                     }
+    //                     var table = $('#table-body')
+    //                     var data = pagination(state.querySet, state.page, state.rows)
+    //                     var myList = data.querySet
+    //                     for (y in myList) {
+    //                         if (state.page == 1) {
+    //                             if (myList[y].id != "") {
+    //                                 //Keep in mind we are using "Template Litterals to create rows"
+    //                                 var row = '<tr>' +
+    //                                     '<td class="title align-top">' + myList[y].no + '</span></td>' +
+    //                                     '<td class="align-top">' + myList[y].date + '</span></td>' +
+    //                                     '<td class="align-top">' + myList[y].name + '</span></td>' +
+    //                                     '<td class="align-top">' + myList[y].type + '</span></td>' +
+    //                                     '<td class="align-top">' + myList[y].msg + '</span></td>' +
+    //                                     '</tr><tr><td colspan="5" style="text-align: center;" >' + access_type + ': ' + myList[y].hash + '</td></tr>'
+    //                                 table.append(row)
+    //                                 end_count = myList[y].id
+    //                             } else {
+    //                                 var row = '<tr class="odd"><td valign="top" colspan="5" class="dataTables_empty text-center" style="color: red;">ไม่ข้อมูล</td></tr>'
+    //                                 table.append(row)
+    //                             }
+    //                         } else {
+    //                             if (myList[y].id != "") {
+    //                                 //Keep in mind we are using "Template Litterals to create rows"
+    //                                 var row = '<tr>' +
+    //                                     '<td class="title align-top">' + myList[y].no + '</span></td>' +
+    //                                     '<td class="align-top">' + myList[y].date + '</span></td>' +
+    //                                     '<td class="align-top">' + myList[y].name + '</span></td>' +
+    //                                     '<td class="align-top">' + myList[y].type + '</span></td>' +
+    //                                     '<td class="align-top">' + myList[y].msg + '</span></td>' +
+    //                                     '</tr><tr><td colspan="5" style="text-align: center;" >' + access_type + ': ' + myList[y].hash + '</td></tr>'
+    //                                 table.append(row)
+    //                                 end_count = myList[y].id
+    //                             } else {
+    //                                 var row = '<tr class="odd"><td valign="top" colspan="5" class="dataTables_empty text-center" style="color: red;">ไม่ข้อมูล</td></tr>'
+    //                                 table.append(row)
+    //                             }
+    //                         }
+
+    //                     }
+    //                     $('#end').html(end_count)
+    //                     if (myList.length > 0) {
+    //                         if (myList[0].id != "") {
+    //                             $('#start').html(myList[0].id)
+    //                         } else {
+    //                             $('#start').html(0)
+    //                         }
+    //                     }
+    //                     $('#total-db').html(result.history.length);
+    //                     pageButtons(data.pages)
+    //                     // end_count = table.find('tr').length
+    //                     $('button#button_delete_db').on('click', function () {
+    //                         document.getElementById('form_delete_db').action = "/database_ag/delete" + $(this).attr('data-value')
+    //                         document.getElementById('form_delete_db').submit();
+    //                     })
+    //                 }
+    //             } else {
+    //                 var table = $('#table-body')
+    //                 var row = '<tr>' +
+    //                     '<td class="text-center" colspan="5" style="color: red;"><span class="text-center">ไม่พบข้อมูล</span></td>' +
+    //                     '</tr>'
+    //                 table.append(row)
+    //                 end_count = 0
+    //                 $('#end').html(end_count)
+    //                 $('#start').html(0)
+    //                 pageButtons(data.pages)
+    //             }
+    //             },
+    //             error: function (e) {
+    //             console.log(e);
+    //             }
+    //         });
+    // }
+    //     })
+        </script>

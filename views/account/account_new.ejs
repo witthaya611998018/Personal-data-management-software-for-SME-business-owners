@@ -1,0 +1,443 @@
+<%- include('../_header') -%>
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" /> -->
+
+  <div class="page-breadcrumb">
+    <div class="col-md-5 align-self-center">
+      <h3 class="page-title">เพิ่มผู้ข้อมูลผู้ใช้งาน</h3>
+      <div class="d-flex align-items-center">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+            <li class="breadcrumb-item">
+              <a href="/index2">การจัดการผู้ใช้</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="/account/list">ข้อมูลผู้ใช้</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+              เพิ่มผู้ข้อมูลผู้ใช้งาน
+            </li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body border-bottom">
+            <h4 class="card-title">เพิ่มผู้ใช้งาน</h4>
+          </div>
+          <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+              <div class="row">
+                <form action="/account/adduser" id="post" enctype="multipart/form-data" method="post">
+                  <div class="p-lg-5">
+                    <div style="margin-bottom:1px;">
+                      <h3 style="text-align: center;">รูปภาพ</h3>
+                    </div>
+                    <div class="avatar-upload" style="margin-top: 10px;">
+                      <div class="avatar-edit">
+                        <input type='file' id="imageUpload" onchange="readURL(this)" accept='image/jpeg, image/png'
+                          name="img" />
+                        <label for="imageUpload"><i class="me-2 mdi mdi-account-edit icon_v1"></i></label>
+                        <input type="hidden" name="image" value="user_pic.png" />
+                      </div>
+                      <div class="avatar-preview">
+                        <div id="imagePreview" style="background-image: url(/UI/image/user_pic.png);">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="validationDefault01" name="firstname"
+                          placeholder=" " required>
+                        <label for="firstname">ชื่อ</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="lastname" name="lastname" placeholder=" " required>
+                        <label for="lastname">นามสกุล</label>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="name" name="name" placeholder=" " required>
+                        <label for="name">ชื่อในระบบ</label>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-floating">
+                        <input type="email" class="form-control" id="email" placeholder=" " name="email" required>
+                        <label for="email">อีเมล</label>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="position" placeholder=" " name="position" required>
+                        <label for="position">ตำแหน่ง</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="phone" placeholder=" " name="phone">
+                        <label for="phone">เบอร์โทรศัพท์มือถือ</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="contact" placeholder=" " name="contact">
+                        <label for="contact">เบอร์โทรศัพท์</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-floating">
+                        <input class="form-control" id="ext" name="ext" placeholder=" ">
+                        <label for="site_phone">ต่อ</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-floating">
+                        <input class="form-control" id="line" name="line" placeholder=" ">
+                        <label for="line">ไลน์</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-floating">
+                        <input type="date" class="form-control border border-info" id="bd" name="bd" required />
+                        <label for="bd">วันเดือนปีเกิด</label>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12">
+                      <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a message here" id="descrip" name="descrip"
+                          style="height: 100px"></textarea>
+                        <label for="descrip">รายละเอียด</label>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="col-md-11">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" name="username" id="username" placeholder="Your Name"
+                          required>
+                        <label for="username">ชื่อผู้ใช้</label>
+                      </div>
+                    </div>
+                    <div class="col-md-1" style="margin-top: 28px;">
+                      <i title="Username ทีใช้ในการเข้าสู่ระบบ" style="font-size: 20px;"
+                        class="me-2 mdi mdi-alert-circle"></i>
+                    </div>
+                    <div class="col-md-11">
+                      <div class="form-floating">
+                        <input type="password" class="form-control" name="password" id="password"
+                          placeholder="Your Name" required>
+                        <label for="username">รหัสผ่าน</label>
+                      </div>
+                    </div>
+                    <div class="col-md-1" style="margin-top: 25px;">
+                      <i class="bi bi-eye-slash" id="togglePassword" style="font-size: 20px;"></i>
+                    </div>
+
+                    <div class="col-md-11">
+                      <div class="form-floating">
+                        <input type="password" class="form-control" id="confirmpassword" placeholder="Your Name">
+                        <label for="username">ยืนยันรหัสผ่าน</label>
+                      </div>
+                    </div>
+                    <div class="col-md-1" style="margin-top: 25px;">
+                      <i class="bi bi-eye-slash" id="togglePassword2" style="font-size: 20px;"></i>
+                    </div>
+                    <hr>
+                    <div class="col-md-12">
+                      <label for="admin">ประเภทของผู้ใช้งาน</label>
+                      <select id="select_control" class="form-control" name="admin" style="background-color: white; 
+                      height: 60px;">
+                        <%if (session.limit.user!="เต็ม" ) {%>
+                          <option value="0">กรุณาเลือก</option>
+                          <option value="5">ผู้ควบคุมข้อมูล</option>
+                          <%}else {%>
+                            <option selected>จำนวนผู้ควบคุมข้อมูลครบตามกำหนด</option>
+                            <%}%>
+                      </select>
+                    </div>
+                    <div id="site" hidden>
+                      <hr>
+                      <label class="mb-2"><b> กรอกข้อมูล บริษัท</b></label>
+                      <div class="form-floating mb-3">
+                        <input type="text" class="form-control" name="site_name"
+                          placeholder="ชื่อหน่วยงาน/องค์กร/บริษัท" required>
+                        <label>
+                          ชื่อหน่วยงาน/องค์กร/บริษัท
+                        </label>
+                      </div>
+                      <div class="form-floating mb-3">
+                        <input type="text" class="form-control" name="short_name" placeholder=" ชื่อย่อ/องค์กร/บริษัท"
+                          required>
+                        <label>
+                          ชื่อย่อ/องค์กร/บริษัท
+                        </label>
+                      </div>
+
+                      <div class="form-floating mb-3">
+                        <input type="text" class="form-control" name="site_number" placeholder="เลขทะเบียนบริษัท"
+                          required>
+                        <label>
+                          เลขทะเบียนบริษัท
+                        </label>
+                      </div>
+                      <div class="form-floating mb-3">
+                        <textarea class="form-control" name="site_address" required
+                          placeholder=" ที่อยู่เลขที่ตามที่จดทะเบียน (สำนักงานใหญ่)"></textarea>
+                        <label>
+                          ที่อยู่เลขที่ตามที่จดทะเบียน (สำนักงานใหญ่)
+                        </label>
+                      </div>
+
+                      <hr>
+                      <label class="mb-2">
+                        <b>กรอกข้อมูล เจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคล (Data Protection Officer :
+                          DPO)(ถ้ามี)</b>
+                      </label>
+                      <div class="row mb-3">
+                        <div class="col-md-6">
+                          <div class="form-floating">
+                            <input type="text" class="form-control" name="firstname_dpo" placeholder="ชื่อ">
+                            <label for="firstname">ชื่อ</label>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-floating">
+                            <input type="text" class="form-control" name="lastname_dpo" placeholder="นามสกุล">
+                            <label for="lastname">นามสกุล</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-floating mb-3">
+                        <textarea class="form-control" name="contact_dpo" placeholder="ที่อยู่"></textarea>
+                        <label for="firstname">ที่อยู่</label>
+                      </div>
+                      <div class="form-floating mb-3">
+                        <input type="email" class="form-control" name="email_dpo" placeholder="อีเมล">
+                        <label for="firstname">อีเมล</label>
+                      </div>
+                      <div class="form-floating mb-3">
+                        <input type="text" class="form-control" name="phone_dpo" placeholder="เบอร์โทรศัพท์">
+                        <label for="firstname">เบอร์โทรศัพท์</label>
+                      </div>
+
+                    </div>
+
+
+
+
+                    <!-- <hr>
+                    <div class="row" style="background-color: #83c7f3;">
+                      <div class="col-md-12">
+                        <label class="col-sm-12 control-label col-form-label ">การยืนยันตัวตน 2
+                          ขั้นตอน</label>
+                        <div class="form-check col-sm-12">
+                          <input type="checkbox" class="form-check-input" id="otp_email" name="otp_email" disabled />
+                          <label class="form-check-label" for="otp_email">OTP By E-mail</label>
+                        </div>
+                        <div class="form-check col-sm-12">
+                          <input type="checkbox" class="form-check-input" id="otp_sms" name="otp_sms" disabled />
+                          <label class="form-check-label" for="otp_sms">OTP By SMS</label>
+                        </div>
+                        <div class="form-check col-sm-9" style="display: inline-block;">
+                          <input type="checkbox" class="form-check-input" id="otp_2fa" name="otp_2fa" disabled />
+                          <label class="form-check-label" for="otp_2fa">OTP By Google Authenticator</label>
+                        </div>
+                        <label for=""><i style="font-size: 20px;" onclick="google()"
+                            class="me-2 mdi mdi-alert-circle"></i></label>
+                      </div>
+                      <div class="col-md-12">
+                        <label class="col-sm-12 control-label col-form-label ">การยืนยันตัวตน 2 ขั้นตอน</label>
+                        <div class="col-md-12">
+                        </div>
+                        <div class="form-check col-md-12">
+                          <input type="checkbox" class="form-check-input" id="otp_login" name="otp_login" disabled />
+                          <label class="form-check-label" for="otp_login">Only Login</label>
+                        </div>
+                        <div class="form-check col-md-12">
+                          <input type="checkbox" class="form-check-input" id="otp_system" name="otp_system" disabled />
+                          <label class="form-check-label" for="otp_system">Setting System</label>
+                        </div>
+                      </div>
+                    </div> -->
+                  </div>
+                  <div class="row mb-3">
+                    <div class="modal-footer" style="justify-content: center;">
+                      <%if (session.limit.user!="เต็ม" ) {%>
+                        <button type="submit" class="btn btn-success waves-effect waves-light">
+                          บันทึกข้อมูล
+                        </button>
+                        <%}else {%>
+                          <button type="submit" class="btn btn-success waves-effect waves-light" disabled>
+                            บันทึกข้อมูล
+                          </button>
+                          <%}%>
+                            <a href="/account/list" class="btn btn-secondary" data-bs-dismiss="modal">ย้อนกลับ</a>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <link rel="stylesheet" href="css/style.css" /> -->
+  <script src="/UI/assets/libs/sweetalert2/dist/sweetalert2.all.min.js"></script>
+  <script src="/UI/assets/libs/bootstrap-switch/dist/js/bootstrap-switch.min.js"></script>
+  <script>
+    const togglePassword = document.querySelector("#togglePassword");
+    const password = document.querySelector("#password");
+    const togglePassword2 = document.querySelector("#togglePassword2");
+    const password2 = document.querySelector("#confirmpassword");
+    togglePassword.addEventListener("click", function () {
+      // toggle the type attribute
+      const type = password.getAttribute("type") === "password" ? "text" : "password";
+      password.setAttribute("type", type);
+      // toggle the icon
+      this.classList.toggle("bi-eye");
+    });
+    togglePassword2.addEventListener("click", function () {
+      // toggle the type attribute
+      const type = password2.getAttribute("type") === "password" ? "text" : "password";
+      password2.setAttribute("type", type);
+      // toggle the icon
+      this.classList.toggle("bi-eye");
+    });
+    // prevent form submit
+  </script>
+  <script>
+    function validateForm() {
+      var username;
+      username = document.getElementById("username").innerText;
+      console.log(username);
+    }
+    $("#password").keyup(function () {
+      var data = $(this).val();
+      var check = checkfunc(data);
+      console.log(check);
+      if (check == true) {
+        console.log("yesssss");
+        $("#showalert").css("display", "none");
+      } else {
+        $("#showalert").css("display", "block");
+      }
+    });
+    $("#confirmpassword").keyup(function () {
+      var data = $(this).val();
+      var datapass = $("#password").val()
+      console.log(datapass, data);
+      if (datapass == data) {
+        $("#showalertcheck").css("display", "none");
+      } else {
+        $("#showalertcheck").css("display", "block");
+      }
+    });
+
+    function checkfunc(val) {
+      var paswd = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*]{8,30}$/;
+      if (val.match(paswd)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  </script>
+  <script>
+    $(
+      ".bt-switch input[type='checkbox'], .bt-switch input[type='radio']"
+    ).bootstrapSwitch();
+    var radioswitch = (function () {
+      var bt = function () {
+        $(".radio-switch").on("switch-change", function () {
+          $(".radio-switch").bootstrapSwitch("toggleRadioState");
+        }),
+          $(".radio-switch").on("switch-change", function () {
+            $(".radio-switch").bootstrapSwitch("toggleRadioStateAllowUncheck");
+          }),
+          $(".radio-switch").on("switch-change", function () {
+            $(".radio-switch").bootstrapSwitch(
+              "toggleRadioStateAllowUncheck",
+              !1
+            );
+          });
+      };
+      return {
+        init: function () {
+          bt();
+        },
+      };
+    })();
+    $(document).ready(function () {
+      radioswitch.init();
+    });
+  </script>
+  <script>
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
+          $('#imagePreview').hide();
+          $('#imagePreview').fadeIn(650);
+        }
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+  </script>
+  <!-- <script>
+    function google(id) {
+      let timerInterval;
+      Swal.fire({
+        title: "Google Authenticator Guide",
+        html:
+          '<div class="card-body">' +
+          '<img src="/UI/assets/images/unnamed.png" width="80" height="80">' +
+          '<div class="card-body">' +
+          '<div class="row">' +
+          '<label class="text-secondary" > 1.ติดตั้ง Google Authenticator สำหรับ</label>' +
+          '< div class= "col-sm-3" ></div> ' +
+          '< div class= "col-sm-3" > ' +
+          '< a href = "https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2" target = "_blank" > <img src="/UI/assets/images/google_play.png" width="50" height="50"></a>' +
+          "</div > " +
+          '< div class= "col-sm-3" > ' +
+          '< a href = "https://apps.apple.com/th/app/google-authenticator/id388497605?l=th" target = "_blank" > <img src="/UI/assets/images/App-Store-Logo.png" width="70" height="50"></a>' +
+          "</div > " +
+          '< div class= "col-sm-3" ></div > ' +
+          "</div > " +
+          '<label class= "text-secondary" > 2.คลิกที่ < code > + </code > (Android) หรือ < code > BEGIN SETUP</code > (iOS) </label > <br>' +
+          '<label class="text-secondary">3.จำกนั้นเลือก <code>Scan a barcode</code> แล้วทำการแสกน QR Code ที่แสดงอยู่</label><br>' +
+          '<label class="text-secondary">4.ระบบจะแสดงรหัส ตัวเลข 6 หลัก บนแอปพลิเคชัน Google Authenticator ของท่ำน</label><br>' +
+          '<label class="text-secondary">4.ระบบจะแสดงรหัส ตัวเลข 6 หลัก บนแอปพลิเคชัน Google Authenticator ของท่ำน</label>' +
+          "</div>",
+      }).then((result) => { });
+    }
+  </script> -->
+
+
+  <script>
+
+    $('#select_control').on('change', function () {
+      var id = $(this).val().trim()
+      console.log(id);
+      if (id == 5) {
+        $("#site").attr("hidden", false);
+      } else {
+        $("#site").attr("hidden", true);
+      }
+    })
+
+
+  </script>
+  <%- include('../_footer') -%>

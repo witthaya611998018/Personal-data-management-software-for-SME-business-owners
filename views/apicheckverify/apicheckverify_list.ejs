@@ -1,0 +1,382 @@
+<%- include('../_header') -%>
+<!-- <%-JSON.stringify(data)%> -->
+<!-- <style>
+  .tablesaw th, .tablesaw td {
+    padding: .5em .7em;
+    text-align: left !important;
+    vertical-align: middle;
+}
+</style> -->
+  <div class="page-breadcrumb">
+    <div class="row">
+      <div class="col-md-5 align-self-center">
+        <h3 class="page-title">ข้อมูลกลุ่มผู้ใช้ตาม PDPA</h3>
+        <div class="d-flex align-items-center">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+              <li class="breadcrumb-item"><a href="#">การจัดการผู้ใช้</a></li>
+              <li class="breadcrumb-item active" aria-current="page">
+                ข้อมูลกลุ่มผู้ใช้ตาม PDPA
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+      <div class="col-md-7 justify-content-end align-self-center d-none d-md-flex">
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="row">
+            <div class="card-body">
+              <div class="border-bottom title-part-padding">
+                <h4 class="card-title">
+                  แบ่งตามการทำกิจกรรมภายนอกและภายใน ของผู้ใช้งาน
+                </h4>
+              </div>
+              <div class="card-body" style="min-height: 650px">
+                <div class="row pb-3">
+                  <div class="col-md-12 justify-content-end align-self-center d-none d-md-flex space" >
+                      <a class="btn btn-warning" href="/apicheckverify/guideadmin"><i class="fas fa-user"></i>
+                          คู่มือการใช้ข้อมูลกิจกรรมจากภายนอก</a>
+                  </div>
+              </div>
+                <table class="tablesaw table-striped table-bordered table-hover table" id="myTable">
+                  <thead>
+                    <tr>
+                      <th class="border" style="width: 5%;">
+                        ลำดับ
+                      </th>
+                      <th class="border">
+                        ชื่อในระบบ
+                      </th>
+                      <th class="border">
+                        สถานะ
+                      </th>
+                      <th class="border">
+                        ชื่อผู้ใช้งาน
+                      </th>
+                      <th class="border">
+                        รายละเอียด
+                      </th>
+                      <th class="border">
+                        ตำแหน่ง
+                      </th>
+                      <th class="border">
+                        สร้าง API LINK
+                      </th>
+                      <th class="border" >
+                        กำหนดการเข้าถึงของผู้ใช้งาน
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% if (data){ for (var i=0; i < data.length; i++) { %>
+                      <tr>
+                        <td class="title ">
+                          <%= (i+1) %>
+                        </td>
+                        <td class="align-top">
+                          <div class="d-flex align-items-center">
+                            <img src="/UI/image/<%= data[i].image%>" width="50" height="50" />
+                            <span class="ms-3 fw-normal">
+                              <%= data[i].name%>
+                            </span>
+                          </div>
+                        </td>
+                        <td >
+                          <%if(data[i].admin==1){%><span class="badge bg-light-info text-info fw-normal"
+                              style="font-size: medium">ผู้ดูแลระบบ</span>
+                            <%}else if(data[i].admin==0) {%><span class="badge bg-light-success text-success fw-normal"
+                                style="font-size: medium">ผู้ดูแลข้อมูล</span>
+                              <%}else if(data[i].admin==2) {%><span
+                                  class="badge bg-light-secondary text-secondary fw-normal"
+                                  style="font-size: medium">ผู้ใช้งานทั่วไป</span>
+                                <%}else if(data[i].admin==3) {%><span
+                                    class="badge bg-light-primary text-primary fw-normal"
+                                    style="font-size: medium">เจ้าหน้าที่คุ้มครองข้อมูล</span>
+                                  <%}else if(data[i].admin==4) {%><span
+                                      class="badge bg-light-warning text-warning fw-normal"
+                                      style="font-size: medium">ผูัประมวลผลข้อมูล</span>
+                                    <%}%>
+                        </td>
+                        <td >
+                          <%= data[i].username%>
+                        </td>
+                        <td >
+                          <%= data[i].descrip%>
+                        </td>
+                        <td >
+                          <%= data[i].position%>
+                        </td>
+
+                        <td >
+                          <!-- <a href="/account/edit/<%= data[i].acc_id %>"> -->
+                          <%if(data[i].genkey==null){%>
+                            <a onclick="genkey('<%= data[i].acc_id%>','<%= data[i].name%>','<%= data[i].admin%>')" title="สร้าง API LINK" class="text-success">
+                        <i class="fas fa-code fa-2x"></i>
+                      </a>
+                            <%}else{%>
+                              <a onclick="reqkey('<%= data[i].acc_id%>','<%= data[i].name%>','<%= data[i].admin%>')" title="เปลี่ยน API LINK" class="text-warning">
+                                <i class="fas fa-edit fa-2x"></i>
+                              </a>
+                              <%}%>
+
+                                <!-- </a> -->
+                        </td>
+                        <td >
+                          <%if(data[i].genkey==null){%>
+                          <a class="text-secondary">
+                            <i class="fas fa-comment-slash fa-2x"></i>
+                          </a>
+                          <%}else if(data[i].confirm==0){%>
+                          <a onclick="blockuser('<%= data[i].acc_id%>','<%= data[i].name%>','<%= data[i].admin%>','<%= data[i].confirm%>')" title="ระงับผู้ใช้งานในการเข้าถึงกิจกรรม" class="text-success">
+                            <i class="fas fa-comment-slash fa-2x"></i>
+                          </a>
+                            <%}else{%>
+                            <a onclick="blockuser('<%= data[i].acc_id%>','<%= data[i].name%>','<%= data[i].admin%>','<%= data[i].confirm%>')" title="ยกเลิกการระงับผู้ใช้งานในการเข้าถึงกิจกรรม" class="text-danger">
+                              <i class="fas fa-comment-slash fa-2x"></i>
+                            </a>
+                              <%}%>
+                          <!-- </a> -->
+                        </td>
+                      </tr>
+                      <% }} %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--start overlay-->
+  <%- include('../_footer') -%>
+    <script src="/UI/assets/libs/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="/UI/dist/js/pages/datatable/custom-datatable.js"></script>
+    <script src="/UI/dist/js/pages/datatable/datatable-basic.init.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#myTable").DataTable();
+      });
+      function genkey(id, name, typeuser) {
+        var nametype = "";
+        if (typeuser == 0) {
+          nametype = 'ผู้ดูแลข้อมูล'
+        } else if (typeuser == 2) {
+          nametype = 'ผู้ใช้งานทั่วไป'
+        } else if (typeuser == 3) {
+          nametype = 'เจ้าหน้าที่คุ้มครองข้อมูล'
+        } else {
+          nametype = 'ผูัประมวลผลข้อมูล'
+        }
+        console.log(nametype);
+        var key = makekeygen(16);
+        if (checkfunc(key) == true) {
+          console.log("yes");
+        } else {
+          console.log("no");
+          key = makekeygen(16);
+        }
+
+        console.log(key, id, name);
+        Swal.fire({
+          confirmButtonText: "ยืนยัน",
+          showCancelButton: true,
+          cancelButtonText: "ยกเลิก",
+          confirmButtonColor: '#39c449',
+          title: "สร้าง token สำหรับใช้ข้อมูลกิจกรรม",
+          html:
+            '<br><label class="text-secondary" > key token </label> <label style="color:#39c449">' +
+            key +
+            "</label> <br>" +
+            '<label class="text-secondary" "> ชื่อผู้ใช้งาน </label> <label >' +
+            name +
+            "</label> <br>"
+            +
+            '<label class="text-secondary" "> สถานะ </label> <label >' +
+            nametype +
+            "</label> <br>",
+        }).then((result) => {
+          if (result.value) {
+            var request1 = function () {
+              $.ajax({
+                url: "/apicheckverify/add/",
+                type: "post",
+                data: {
+                  genkey: key, acc_id: id
+                },
+                success: function (data) {
+                  location.reload();
+                },
+              });
+            };
+            request1();
+          }
+        });
+      }
+     
+      function reqkey(id, name, typeuser) {
+        var nametype = "";
+        if (typeuser == 0) {
+          nametype = 'ผู้ดูแลข้อมูล'
+        } else if (typeuser == 2) {
+          nametype = 'ผู้ใช้งานทั่วไป'
+        } else if (typeuser == 3) {
+          nametype = 'เจ้าหน้าที่คุ้มครองข้อมูล'
+        } else {
+          nametype = 'ผูัประมวลผลข้อมูล'
+        }
+        console.log(nametype);
+        var datacheck = <%-JSON.stringify(data)%>;
+        var keytoken = "";
+        for(x in datacheck){
+          if(id == datacheck[x].acc_id){
+            console.log(datacheck[x].genkey);
+            keytoken = datacheck[x].genkey
+          }
+        }
+        var key = makekeygen(16);
+        if (checkfunc(key) == true) {
+          console.log("yes");
+        } else {
+          console.log("no");
+          key = makekeygen(16);
+        }
+        Swal.fire({
+          confirmButtonText: "ยืนยัน",
+          showCancelButton: true,
+          cancelButtonText: "ยกเลิก",
+          confirmButtonColor: '#ffbc34',
+          title: "เปลี่ยน token ใหม่",
+          html:
+            '<br><label class="text-secondary"> key token เดิม</label> <label style="color:#39c449">' +
+              keytoken +
+            "</label> <br>" +
+            '<label class="text-secondary"> key token ใหม่</label> <label style="color:#ffbc34">' +
+            key +
+            "</label> <br>"
+            +
+            '<label class="text-secondary"> ชื่อผู้ใช้งาน </label> <label >' +
+            name +
+            "</label> <br>"
+            +
+            '<label class="text-secondary"> สถานะ </label> <label >' +
+            nametype +
+            "</label> <br>",
+        }).then((result) => {
+          if (result.value) {
+            var request1 = function () {
+              $.ajax({
+                url: "/apicheckverify/changekey/",
+                type: "post",
+                data: {
+                  genkey: key, acc_id: id
+                },
+                success: function (data) {
+                  location.reload();
+                },
+              });
+            };
+            request1();
+          }
+        });
+      }
+     
+      function blockuser(id, name, typeuser,con) {
+        var nametype = "";
+        if (typeuser == 0) {
+          nametype = 'ผู้ดูแลข้อมูล'
+        } else if (typeuser == 2) {
+          nametype = 'ผู้ใช้งานทั่วไป'
+        } else if (typeuser == 3) {
+          nametype = 'เจ้าหน้าที่คุ้มครองข้อมูล'
+        } else {
+          nametype = 'ผูัประมวลผลข้อมูล'
+        }
+        var datacheck = <%-JSON.stringify(data)%>;
+        var keytoken = "";
+        var restore = "";
+        var des = [];
+        if(con == 0){
+          restore = 1
+          des[0] = "ระงับ";
+          des[1] = "ยกเลิก";
+          des[2] = "ระงับผู้ใช้งานในการเข้าถึงกิจกรรม";
+          des[3] = "#f62d51";
+        }else{
+          restore = 0
+          des[0] = "ยกเลิก";
+          des[1] = "กลับ";
+          des[2] = "ยกเลิกการระงับผู้ใช้งาน";
+          des[3] = "#39c449";
+        }
+        console.log(id);
+        for(x in datacheck){
+          if(id == datacheck[x].acc_id){
+            console.log(datacheck[x].genkey);
+            keytoken = datacheck[x].genkey
+          }
+        }
+        Swal.fire({
+          confirmButtonText: des[0],
+          confirmButtonColor: des[3],
+          showCancelButton: true,
+          cancelButtonText: des[1],
+          title: des[2],
+          html:
+            '<br><label class="text-secondary" > key token </label> <label style="color:red">' +
+              keytoken +
+            "</label> <br>" +
+            '<label class="text-secondary" "> ชื่อผู้ใช้งาน </label> <label >' +
+            name +
+            "</label> <br>"
+            +
+            '<label class="text-secondary" "> สถานะ </label> <label >' +
+            nametype +
+            "</label> <br>",
+        }).then((result) => {
+          if (result.value) {
+            var request1 = function () {
+              $.ajax({
+                url: "/apicheckverify/block/",
+                type: "post",
+                data: {
+                  acc_id: id,
+                  re:restore
+                },
+                success: function (data) {
+                  location.reload();
+                },
+              });
+            };
+            request1();
+          }
+        });
+      }
+
+      function makekeygen(length) {
+        var result = "";
+        var characters =
+          "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        var charactersLength = characters.length;
+        for (var i = 0; i < length; i++) {
+          result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+      }
+      function checkfunc(val) {
+        var paswd = /^(?=.*[0-9])(?=.*[A-Z])[A-Z0-9]{15,30}$/;
+        if (val.match(paswd)) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    </script>

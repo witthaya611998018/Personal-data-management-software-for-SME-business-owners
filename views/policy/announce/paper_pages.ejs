@@ -1,0 +1,235 @@
+<%- include ("../../_header") %>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title"> หน้ากระดาษ </h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item"><a href="/announce-policy">ประกาศนโยบายทางอิเล็คทรอนิค</a></li>
+                            <li class="breadcrumb-item">หน้ากระดาษ</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="col-12">
+            <div class="card">
+                <div class="d-flex  title-part-padding align-items-center">
+                    <div class="col-md-10 align-self-center" id="doc_pages">
+
+                    </div>
+                    <div class="col-md-2 justify-content-end align-self-center d-none d-md-flex">
+                        <button type="submit" form="edit-paper-doc"
+                            class="btn btn-success btn-lg  fs-4 font-weight-medium me-2">
+                            บันทึกเอกสาร </button>
+                        <a href="/announce-policy" class="btn btn-secondary btn-lg fs-4 font-weight-medium "
+                            style="text-align:center;">กลับ</a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link d-flex active" data-bs-toggle="tab" href="#content" role="tab"
+                                        aria-selected="true">
+                                        <span><i class=" ti-file"></i> </span>
+                                        <span class="d-none d-md-block ms-3">เนื้อหา</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link d-flex" data-bs-toggle="tab" href="#words" role="tab"
+                                        aria-selected="false">
+                                        <span><i class="ti-book"></i> </span>
+                                        <span class="d-none d-md-block ms-2">คำใช้บ่อย</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link d-flex" data-bs-toggle="tab" href="#personal-information"
+                                        role="tab" aria-selected="false">
+                                        <span><i class="ti-server"></i> </span>
+                                        <span class="d-none d-md-block ms-2">ข้อมูลส่วนบุคคล</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="content" role="tabpanel">
+                            <div style="min-height: 470px;" class="table-responsive">
+                                <div class="p-3 pb-0">
+                                    <div class="overflow-auto">
+                                        <ul class="d-flex justify-content-start mt-2 " id="pages-content">
+
+                                        </ul>
+                                        <hr>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane  " id="words" role="tabpanel">
+                            <div style="min-height: 470px;" class="table-responsive">
+                                <div class="p-3 pb-0">
+                                    <div class="overflow-auto">
+                                        <ul class="d-flex justify-content-start mt-2 " id="pages-words">
+
+                                        </ul>
+                                        <hr>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane " id="personal-information" role="tabpanel">
+                            <div style="min-height: 470px;" class="table-responsive">
+                                <div id="Email_consent"></div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-6 text-secondary ">
+                                    <div class="row">
+                                        <span>แสดงผล <a id="show-email"></a> ถึง <a id="to_show-email"></a>
+                                            ทั้งหมด
+                                            <a id="show_all-email"></a>
+                                            รายการ</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                                    <nav aria-label="Page navigation example" class="mt-2">
+                                        <ul class="pagination-email">
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $.ajax({
+            type: "GET",
+            url: '/api/policy/paperpages',
+            success: async function (result) {
+                console.log(result);
+                var pages_result = result.pages
+                var words_result = result.words
+
+                var doc_pages = `
+                        <h4 class="card-title mb-0">
+                            ดูเอกสาร ${result.pages[0].doc_name}
+                            <span class="d-inline-block ms-3 pb-3 " style="color: grey;font-size: medium;">
+                                หน้าเอกสาร หน้าที่ ${result.pages[0].page_number}
+                            </span>
+                        </h4>
+                        `
+                var pages = ""
+
+                for (let i = 0; i < pages_result.length; i++) {
+                    if (pages_result[i].page_number == 1) {
+                        pages += `
+                        <a href="/createpaper>" class="li-add-paper btn btn-success">เพิ่มหน้า</a>
+                        <div style="flex: 0 0 10%;">
+                        <li class="list-group-item border-0 p-2 me-2 font-weight-medium border-start border-1 border d-md-flex"
+                            style=" float:left;text-align:left;align-items: center;border-color: grey;">
+                                <a style="text-align: center;"
+                                    href='/editpaper'> หน้า ${pages_result[i].page_number}
+                                </a>
+                                <span  style="float:right;text-align:right;">
+                                    <a title="ลบหน้ากระดาษ"
+                                        onclick="confirmdel">
+                                        <i class="ti-trash " style="color: #f62d51;font-size: large;"></i>
+                                     </a>
+                                </span>
+                        </li>
+                    </div>`
+                    } else {
+                        pages += `
+                        <div style="flex: 0 0 10%;">
+                        <li class="list-group-item border-0 p-2 me-2 font-weight-medium border-start border-1 border d-md-flex"
+                            style=" float:left;text-align:left;align-items: center;border-color: grey;">
+                                <a style="text-align: center;"
+                                    href='/editpaper'> หน้า ${pages_result[i].page_number}
+                                </a>
+                                <span  style="float:right;text-align:right;">
+                                    <a title="ลบหน้ากระดาษ"
+                                        onclick="confirmdel">
+                                        <i class="ti-trash " style="color: #f62d51;font-size: large;"></i>
+                                     </a>
+                                </span>
+                         </li>
+                        </div>`
+                    }
+                }
+                document.getElementById('doc_pages').innerHTML = doc_pages
+                document.getElementById('pages-content').innerHTML = pages
+
+                var words = ""
+                for (let i = 0; i < words_result.length; i++) {
+                    if (i == 0) {
+                        words += `
+                    <a href="/createpaper>" class="li-add-paper btn btn-success">เพิ่มหน้า</a>
+                    <div style="flex: 0 0 10%;">
+                        <li class="list-group-item border-0 p-2 me-2 font-weight-medium border-start border-1 border d-md-flex"
+                            style=" float:left;text-align:left;align-items: center;border-color: grey;">
+                                <a style="text-align: center;"
+                                    href='/editpaper'>/${words_result[i].words_often}
+                                </a>
+                                <span  style="float:right;text-align:right;">
+                                    <a title="ลบหน้ากระดาษ"
+                                        onclick="confirmdel">
+                                        <i class="ti-trash " style="color: #f62d51;font-size: large;"></i>
+                                     </a>
+                                </span>
+                         </li>
+                    </div>`
+                    } else {
+                        words += `
+                    <div style="flex: 0 0 10%;">
+                        <li class="list-group-item border-0 p-2 me-2 font-weight-medium border-start border-1 border d-md-flex"
+                            style=" float:left;text-align:left;align-items: center;border-color: grey;">
+                                <a style="text-align: center;"
+                                    href='/editpaper'>/${words_result[i].words_often}
+                                </a>
+                                <span  style="float:right;text-align:right;">
+                                    <a  data-bs-toggle="modal"
+                                        data-bs-target="#edit-words-modal"
+                                         href="#"><i
+                                            style="color: #ffc348;"
+                                            class="ti-pencil-alt "></i></a>
+                                    <a title="ลบหน้ากระดาษ"
+                                        onclick="confirmdel">
+                                        <i class="ti-trash " style="color: #f62d51;font-size: large;"></i>
+                                     </a>
+                                </span>
+                         </li>
+                    </div>`
+                    }
+                }
+
+                document.getElementById('pages-words').innerHTML = words
+
+
+
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+
+
+
+
+
+
+
+    </script>
+    <%- include ("../../_footer") %>

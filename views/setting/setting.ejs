@@ -1,0 +1,130 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">ตั้งค่าเริ่มต้น</h3>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container-fluid">
+
+        <div class="card">
+            <div class="card-body border-bottom">
+                <h4 class="card-title">ตั้งค่าระบบ</h4>
+            </div>
+            <form class="form-horizontal needs-validation" novalidate action="/setting/add" method="post">
+                <div class="card-body">
+
+                    <div class="mb-3 row">
+                        <label for="num_admin" class="col-sm-3 text-end control-label col-form-label text-secondary">จำนวนผู้ดูแลระบบ</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control border border-info" id="num_admin" placeholder="จำนวนคน" name="num_admin" value="1" readonly>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="num_user" class="col-sm-3 text-end control-label col-form-label text-secondary">จำนวนผู้ดูแลข้อมูล</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control border border-info" id="num_user" placeholder="จำนวนคน" name="num_user" value="1" readonly>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="pw_keep" class="col-sm-3 text-end control-label col-form-label text-secondary">ระยะเวลาในการเปลี่ยนรหัสผ่าน</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control border border-info" id="pw_keep" placeholder="จำนวนวัน" name="pw_keep" required>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="ntp" class="col-sm-3 text-end control-label col-form-label text-secondary" for="sender">เครื่องแม่ข่ายที่ให้บริการปรับเทียบเวลา (NTP)</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control border border-info" id="ntp" placeholder="ชื่อไอพี หรือ ชื่อโฮสติ้ง" name="ntp" required>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="email" class="col-sm-3 text-end control-label col-form-label text-secondary">เขตเวลา</label>
+                        <div class="col-sm-6">
+                            <select class=".select2-with-border border-info form-control" style="width: 100%; height:36px;" name="timezone">
+                                <option value="Asia/Bangkok" >Asia/Bangkok</option>
+                                <%  if(data2){ %>
+                                    <%  for (var i = 0; i < data2.length; i++) {  %>
+                                        
+                                  <option value="<%= data2[i].name %>" > <%= data2[i].name %>  </option>
+                                  <%  } }%>
+                            </select> </div>
+                    </div><br>
+                    <hr>
+                    <div class="mb-3 row">
+                        <label for="ip" class="col-sm-3 text-end control-label col-form-label text-secondary">IP Address</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control border border-info" id="ip" name="ip" placeholder="192.168.1.1" required>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="netmark" class="col-sm-3 text-end control-label col-form-label text-secondary">Netmark</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control border border-info" id="netmark" name="netmark" placeholder="255.255.255.0" required>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="gateway" class="col-sm-3 text-end control-label col-form-label text-secondary">Gateway</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control border border-info" id="gateway" name="gateway" placeholder="192.168.1.1" required>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="dns" class="col-sm-3 text-end control-label col-form-label text-secondary">DNS</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control border border-info" id="dns" name="dns" placeholder="8.8.8.8" required>
+                        </div>
+                    </div>
+                    <br>
+                    <hr>
+                    
+                    <div class="row">
+                        <div class="col-sm-5">
+                        </div>
+                        <div class="col-sm-1">
+                            <button type="submit" class="btn btn-success btn waves-effect waves-light">ยืนยัน</button>
+                        </div>
+                        <div class="col-sm-1">
+                            <!-- <a href="/index2"> <button type="button" class="btn btn btn-lg  btn-secondary waves-effect waves-light">กลับ</button></a> -->
+                        </div>
+                        <div class="col-sm-5">
+                        </div>
+                    </div>
+            </form>
+            </div>
+        </div>
+        <!-- Row -->
+
+
+        <!-- -------------------------------------------------------------- -->
+        <!-- End PAge Content -->
+        <!-- -------------------------------------------------------------- -->
+        <!--start overlay-->
+        <%- include('../_footer') -%>
+            <script src="/UI/assets/libs/select2/dist/js/select2.full.min.js"></script>
+            <script src="/UI/assets/libs/select2/dist/js/select2.min.js"></script>
+            <script src="/UI/dist/js/pages/forms/select2/select2.init.js"></script>
+            <script>
+                function myFunction() {
+                    var popup = document.getElementById("sa-bg23");
+                    popup.classList.toggle("sa-bg23");
+                }
+                $("#sa-bg23").click(function() {
+                    Swal.fire({
+                        title: 'Custom width, padding, background.',
+                        width: 600,
+                        padding: '3em',
+                        background: '#fff url(../assets/images/background/active-bg.png)',
+                        backdrop: `
+                            rgba(0,0,123,0.4)
+                            url("../assets/images/background/nyan-cat.gif")
+                            center left
+                            no-repeat
+                        `
+                    })
+                });
+            </script>

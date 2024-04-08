@@ -1,0 +1,773 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-6 align-self-center">
+                <h3 class="page-title">ข้อมูลการติดตั้ง</h3><br>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item"><a href="/index2">การจัดการระบบ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">ข้อมูลการติดตั้ง</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="border-bottom title-part-padding">
+                        <h4 class="card-title mb-0">แบบสอบถาม</h4>
+                    </div>
+                    <div class="card-body wizard-content">
+                        <h6 class="card-subtitle mb-3"></h6>
+                        <form action="/ans" class="tab-wizard vertical wizard-circle mt-5" id="regForm" method="post">
+                            <!-- Step 1 -->
+                            <h6>ข้อมูลทั่วไป</h6>
+                            <section>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="mb-3">
+                                            <label for="Name1">ชื่อหน่วยงาน องค์กร บริษัท :</label>
+                                            <input type="text" class="form-control border border-info" name="Name1" id="Name1" value="<%=data[0].Name1%>" placeholder="ชื่อหน่วยงาน/องค์กร/บริษัท" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <label for="firstName1">ผู้ควบคุมข้อมูล :</label>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="mb-3">
+                                            <input type="text" class="form-control border border-info" name="firstName1" id="firstName1" value="<%=data[0].firstName1%>" placeholder="ชื่อ"> </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="mb-3">
+                                            <input type="text" class="form-control border border-info" name="lastName1" id="lastName1" value="<%=data[0].lastName1%>" placeholder="สกุล"> </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="mb-3">
+                                            <label for="location1">E-mail :</label>
+                                            <input type="email" class="form-control border border-info" name="emailAddress1" id="emailAddress1" value="<%=data[0].emailAddress1%>" placeholder="example@email.com">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="mb-3">
+                                            <label for="phone1">เบอร์โทรศัพท์มือถือ :</label>
+                                            <input type="text" class="form-control border border-info" name="phone1" id="phone1" value="<%=data[0].phone1%>" placeholder="000-0000000"> </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="mb-3">
+                                            <label for="shortDescription1">รายละเอียด :</label>
+                                            <textarea name="shortDescription1" name="shortDescription1" id="shortDescription1" rows="4" value="" class="form-control border border-info"><%=data[0].shortDescription1%></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <!-- Step 2 -->
+                            <h6>ข้อมูลการบริการ</h6>
+                            <section>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <label for="intType1">ประเภทผู้ให้บริการ :</label>
+                                        <div class="col-md-10">
+                                            <%if(data[0].service == '511'){%>
+                                                <input name="service" class="material-inputs " type="radio" id="radio_1" value="511" checked />
+                                                <%} else {%><input name="service" class="material-inputs " type="radio" id="radio_1" value="511" />
+                                                    <%}%>
+                                                        <label for="radio_1">๕(๑) ก ผู้ประกอบกิจการโทรคมนาคมและการกระจายภาพและเสียง</label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <%if(data[0].service == '512'){%>
+                                                <input name="service" class="material-inputs" type="radio" id="radio_2" value="512" checked />
+                                                <%} else {%>
+                                                    <input name="service" class="material-inputs" type="radio" id="radio_2" value="512" />
+                                                    <%}%>
+                                                        <label for="radio_2">๕(๑) ข ผู้ให้บริการการเข้าถึงระบบเครือข่ายคอมพิวเตอร์ </label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <%if(data[0].service == '513'){%>
+                                                <input name="service" type="radio" class="material-inputs" id="radio_3" value="513" checked/>
+                                                <%} else {%>
+                                                    <input name="service" type="radio" class="material-inputs" id="radio_3" value="513" />
+                                                    <%}%>
+                                                        <label for="radio_3">๕(๑) ค ผู้ให้บริการเช่าระบบคอมพิวเตอร์ หรือให้เช่าบริการโปรแกรมประยุกต์ต่าง ๆ</label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <%if(data[0].service == '514'){%>
+                                                <input name="service" type="radio" id="radio_4" class="material-inputs" value="514" checked/>
+                                                <%} else {%>
+                                                    <input name="service" type="radio" id="radio_4" class="material-inputs" value="514" />
+                                                    <%}%> <label for="radio_4">๕(๑) ง ผู้ให้บริการร้านอินเทอร์เน็ต</label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <%if(data[0].service == '52'){%>
+                                                <input name="service" class="material-inputs" type="radio" id="radio_5" value="52" checked/>
+                                                <%} else {%>
+                                                    <input name="service" class="material-inputs" type="radio" id="radio_5" value="52" />
+                                                    <%}%> <label for="radio_5">๕(๒) ผู้ให้บริการเก็บรักษาข้อมูลคอมพิวเตอร์เพื่อประโยชน์แก่บุคคลอื่น เช่น Web Hosting, Application Hosting</label>
+                                        </div>
+                                        <div class="col-md-10"><label for="jobTitle1"> </label></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <label for="jobTitle1">ลักษณะการจัดเก็บข้อมูลจราจรทางคอมพิวเตอร์ :</label>
+                                        <div class="col-md-10">
+                                            <%if(data[0].md_checkbox_21 == '1'){%>
+                                                <input type="checkbox" name="md_checkbox_21" id="md_checkbox_21" class="material-inputs filled-in chk-col-blue" checked/>
+                                                <%} else {%>
+                                                    <input type="checkbox" name="md_checkbox_21" id="md_checkbox_21" class="material-inputs filled-in chk-col-blue" />
+                                                    <%}%> <label for="md_checkbox_21">แบบดักจับข้อมูลจากเครือข่าย</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="col-md-10">
+                                            <%if(data[0].md_checkbox_22 == '1'){%>
+                                                <input type="checkbox" name="md_checkbox_22" id="md_checkbox_22" class="material-inputs filled-in chk-col-blue" checked/>
+                                                <%} else {%>
+                                                    <input type="checkbox" name="md_checkbox_22" id="md_checkbox_22" class="material-inputs filled-in chk-col-blue" />
+                                                    <%}%> <label for="md_checkbox_22">แบบทำหน้าที่เป็นเกตเวย์ (gateway)</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="col-md-10">
+                                            <%if(data[0].md_checkbox_23 == '1'){%>
+                                                <input type="checkbox" name="md_checkbox_23" id="md_checkbox_23" class="material-inputs filled-in chk-col-blue" checked/>
+                                                <%} else {%>
+                                                    <input type="checkbox" name="md_checkbox_23" id="md_checkbox_23" class="material-inputs filled-in chk-col-blue" />
+                                                    <%}%> <label for="md_checkbox_23">แบบใช้โปรแกรมติดตั้งที่ตัวเครื่องให้บริการ</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="col-md-10">
+                                            <%if(data[0].md_checkbox_24 == '1'){%>
+                                                <input type="checkbox" name="md_checkbox_24" id="md_checkbox_24" class="material-inputs filled-in chk-col-blue" checked/>
+                                                <%} else {%>
+                                                    <input type="checkbox" name="md_checkbox_24" id="md_checkbox_24" class="material-inputs filled-in chk-col-blue" />
+                                                    <%}%> <label for="md_checkbox_24">แบบรองรับการส่งข้อมูลการเกณฑ์วิธีการสื่อสาร syslog</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-10"><label> </label></div>
+
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="mb-3">
+                                            <label for="store">ประเมินพื้นที่ที่ต้องจัดเก็บ :</label>
+                                            <input type="text" class="form-control border border-info" name="store" id="store" value="<%=data[0].store%>" placeholder="100G." required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-10"><label for="jobTitle1"> </label></div>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="mb-3">
+                                            <label for="shortDescription2">รายการอุปกรณ์ที่จัดเก็บข้อมูลจราจรทางคอมพิวเตอร์ :</label>
+                                            <textarea name="shortDescription2" name="shortDescription2" id="shortDescription2" value="" rows="4" class="form-control border border-info"><%=data[0].shortDescription2%></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <!-- Step 3 -->
+                            <h6>ตรวจสอบข้อมูล</h6>
+                            <section>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="mb-3">
+                                            <label for="Name12">ชื่อหน่วยงาน องค์กร บริษัท :</label>
+                                            <input type="text" class="form-control border border-info" id="Name12" placeholder="ชื่อหน่วยงาน/องค์กร/บริษัท"> </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <label for="firstName12">ผู้ควบคุมข้อมูล :</label>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="mb-3">
+                                            <input type="text" class="form-control border border-info" id="firstName12" placeholder="ชื่อ"> </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="mb-3">
+                                            <input type="text" class="form-control border border-info" id="lastName12" placeholder="สกุล"> </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="mb-3">
+                                            <label for="emailAddress12">E-mail :</label>
+                                            <input type="email" class="form-control border border-info" id="emailAddress12" placeholder="example@email.com">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="mb-3">
+                                            <label for="phone12">เบอร์โทรศัพท์มือถือ :</label>
+                                            <input type="text" class="form-control border border-info" id="phone12" placeholder="000-0000000"> </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="mb-3">
+                                            <label for="shortDescription12">รายละเอียด :</label>
+                                            <textarea id="shortDescription12" rows="4" class="form-control border border-info"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <label for="intType1">ประเภทผู้ให้บริการ :</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control border border-info" type="text" id="radio_12" readonly />
+                                        </div>
+
+                                        <div class="col-md-10"><label for="jobTitle1"> </label></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <label for="jobTitle1">ลักษณะการจัดเก็บข้อมูลจราจรทางคอมพิวเตอร์ :</label>
+                                        <div class="col-md-10">
+                                            <input type="checkbox" id="md_checkbox_21" class="material-inputs filled-in chk-col-blue" />
+                                            <label for="md_checkbox_21">ข้อมูลจราจรทางคอมพิวเตอร์จากการเชื่อต่อเข้าถึงระบบเครือข่าย (Internet Access)</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="col-md-10">
+                                            <input type="checkbox" id="md_checkbox_22" class="material-inputs filled-in chk-col-blue" />
+                                            <label for="md_checkbox_22">ข้อมูลจราจรทางคอมพิวเตอร์จากเครื่องผู้ให้บริการจดหมายอิเล็กทรอนิกส์ (E-mal)</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="col-md-10">
+                                            <input type="checkbox" id="md_checkbox_23" class="material-inputs filled-in chk-col-blue" />
+                                            <label for="md_checkbox_23">ข้อมูลจราจรทางคอมพิวเตอร์จากการโอนแฟ้มข้อมูลบนเครื่องในบริการโอนแฟ้มข้อมูล (FTP)</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="col-md-10">
+                                            <input type="checkbox" id="md_checkbox_24" class="material-inputs filled-in chk-col-blue" />
+                                            <label for="md_checkbox_24">ข้อมูลจราจรทางคอมพิวเตอร์จากเครื่องผู้ให้บริการเว็บ (Web)</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="col-md-10">
+                                            <input type="checkbox" id="md_checkbox_25" class="material-inputs filled-in chk-col-blue" />
+                                            <label for="md_checkbox_25">ข้อมูลจราจรทางคอมพิวเตอร์จากเครือข่ายคอมพิวเตอร์ขนาดใหญ่ (Usenet)</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="col-md-10">
+                                            <input type="checkbox" id="md_checkbox_26" class="material-inputs filled-in chk-col-blue" />
+                                            <label for="md_checkbox_26">ข้อมูลจราจรทางคอมพิวเตอร์จากการโต้ตอบกันบนเครือข่ายคอมพิวเตอร์ (IRC)</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-10"><label> </label></div>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="mb-3">
+                                            <label for="store2">ประเมินพื้นที่ที่ต้องจัดเก็บ :</label>
+                                            <input type="text" class="form-control border border-info" name="store2" id="store2" placeholder="100G." required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-10"><label for="jobTitle1"> </label></div>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="mb-3">
+                                            <label for="shortDescription22">รายการอุปกรณ์ที่จัดเก็บข้อมูลจราจรทางคอมพิวเตอร์ :</label>
+                                            <textarea id="shortDescription22" rows="4" class="form-control border border-info"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+        <script src="/UI/assets/libs/datatables/media/js/jquery.dataTables.min.js"></script>
+        <script src="/UI/dist/js/pages/datatable/custom-datatable.js"></script>
+        <script src="/UI/dist/js/pages/datatable/datatable-basic.init.js"></script>
+        <script src="/UI/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
+        <script src="/UI/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
+        <script>
+            //old wizard
+            //Basic Example
+            // $("#example-basic").steps({
+            //     headerTag: "h3",
+            //     bodyTag: "section",
+            //     transitionEffect: "slideLeft",
+            //     autoFocus: true
+            // });
+
+            // Basic Example with form
+            // var form = $("#example-form");
+            // form.validate({
+            //     errorPlacement: function errorPlacement(error, element) {
+            //         element.before(error);
+            //     },
+            //     rules: {
+            //         confirm: {
+            //             equalTo: "#password"
+            //         }
+            //     }
+            // });
+            // form.children("div").steps({
+            //     headerTag: "h3",
+            //     bodyTag: "section",
+            //     transitionEffect: "slideLeft",
+            //     onStepChanging: function(event, currentIndex, newIndex) {
+            //         form.validate().settings.ignore = ":disabled,:hidden";
+            //         return form.valid();
+            //     },
+            //     onFinishing: function(event, currentIndex) {
+            //         form.validate().settings.ignore = ":disabled";
+            //         return form.valid();
+            //     },
+            //     onFinished: function(event, currentIndex) {
+            //         alert("Submitted!");
+            //     }
+            // });
+
+            // Advance Example
+
+            //var form = $("#example-advanced-form").show();
+            //
+            // form.steps({
+            //         headerTag: "h3",
+            //         bodyTag: "fieldset",
+            //         transitionEffect: "slideLeft",
+            //         onStepChanging: function(event, currentIndex, newIndex) {
+            //             // Allways allow previous action even if the current form is not valid!
+            //             if (currentIndex > newIndex) {
+            //                 return true;
+            //             }
+            //             // Forbid next action on "Warning" step if the user is to young
+            //             if (newIndex === 3 && Number($("#age-2").val()) < 18) {
+            //                 return false;
+            //             }
+            //             // Needed in some cases if the user went back (clean up)
+            //             if (currentIndex < newIndex) {
+            //                 // To remove error styles
+            //                 form.find(".body:eq(" + newIndex + ") label.error").remove();
+            //                 form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
+            //             }
+            //             form.validate().settings.ignore = ":disabled,:hidden";
+            //             return form.valid();
+            //         },
+            //         onStepChanged: function(event, currentIndex, priorIndex) {
+            //             // Used to skip the "Warning" step if the user is old enough.
+            //             if (currentIndex === 2 && Number($("#age-2").val()) >= 18) {
+            //                 form.steps("next");
+            //             }
+            //             // Used to skip the "Warning" step if the user is old enough and wants to the previous step.
+            //             if (currentIndex === 2 && priorIndex === 3) {
+            //                 form.steps("previous");
+            //             }
+            //         },
+            //         onFinishing: function(event, currentIndex) {
+            //             form.validate().settings.ignore = ":disabled";
+            //             return form.valid();
+            //         },
+            //         onFinished: function(event, currentIndex) {
+            //             alert("Submitted!");
+            //         }
+            //     })
+            //     .validate({
+            //         errorPlacement: function errorPlacement(error, element) {
+            //             element.before(error);
+            //         },
+            //         rules: {
+            //             confirm: {
+            //                 equalTo: "#password-2"
+            //             }
+            //         }
+            //     });
+
+            // Dynamic Manipulation
+            // $("#example-manipulation").steps({
+            //     headerTag: "h3",
+            //     bodyTag: "section",
+            //     enableAllSteps: true,
+            //     enablePagination: false
+            // });
+
+            // //Vertical Steps
+
+            // $("#example-vertical").steps({
+            //     headerTag: "h3",
+            //     bodyTag: "section",
+            //     transitionEffect: "slideLeft",
+            //     stepsOrientation: "vertical"
+            // });
+
+            //Custom design form example
+
+            $(".tab-wizard").steps({
+                headerTag: "h6",
+                bodyTag: "section",
+                transitionEffect: "fade",
+                titleTemplate: '<span class="step">#index#</span> #title#',
+                labels: {
+                    finish: "Submit"
+                },
+
+                // onStepChanging: function(event, currentIndex, newIndex) {
+                //     cb6 = document.getElementById("radio_1").checked;
+                //     cb7 = document.getElementById("radio_2").checked;
+                //     cb8 = document.getElementById("radio_3").checked;
+                //     cb9 = document.getElementById("radio_4").checked;
+                //     cb0 = document.getElementById("radio_5").checked;
+                //     var str = "asdasdasdasd";
+                //     //  console.log(document.getElementById("radio_2").checked);
+                //     if (cb6 == true || cb8 == true || cb9 == true || cb0 == true) {
+                //         cb7 = false;
+                //     }
+
+
+                //     if (newIndex = 3) {
+
+                //         document.getElementById("Name12").value = document.getElementById("Name1").value;
+                //         document.getElementById("firstName12").value = document.getElementById("firstName1").value;
+                //         document.getElementById("lastName12").value = document.getElementById("lastName1").value;
+                //         document.getElementById("emailAddress12").value = document.getElementById("emailAddress1").value;
+                //         document.getElementById("phone12").value = document.getElementById("phone1").value;
+                //         document.getElementById("shortDescription12").value = document.getElementById("shortDescription1").value;
+                //         document.getElementById("shortDescription22").value = document.getElementById("shortDescription2").value;
+                //         document.getElementById("store2").value = document.getElementById("store").value;
+
+                //         cb11 = document.getElementById("md_checkbox_21").checked;
+                //         cb12 = document.getElementById("md_checkbox_22").checked;
+                //         cb13 = document.getElementById("md_checkbox_23").checked;
+                //         cb14 = document.getElementById("md_checkbox_24").checked;
+
+                //         if (cb6 == true) {
+                //             //document.getElementById("radio_12").checked = true;
+                //             document.getElementById("radio_12").value = "๕(๑) ก ผู้ประกอบกิจการโทรคมนาคมและการกระจายภาพและเสียง";
+                //         }
+                //         if (cb7 == true) {
+                //             document.getElementById("radio_12").value = "๕(๑) ข ผู้ให้บริการการเข้าถึงระบบเครือข่ายคอมพิวเตอร์";
+                //         }
+                //         if (cb8 == true) {
+                //             document.getElementById("radio_12").value = "๕(๑) ค ผู้ให้บริการเช่าระบบคอมพิวเตอร์ หรือให้เช่าบริการโปรแกรมประยุกต์ต่าง ๆ";
+                //         }
+                //         if (cb9 == true) {
+                //             document.getElementById("radio_12").value = "๕(๑) ง ผู้ให้บริการร้านอินเทอร์เน็ต";
+                //         }
+                //         if (cb0 == true) {
+                //             document.getElementById("radio_12").value = "๕(๒) ผู้ให้บริการเก็บรักษาข้อมูลคอมพิวเตอร์เพื่อประโยชน์แก่บุคคลอื่น";
+                //         }
+
+                //         if (cb11 == true) {
+                //             document.getElementById("md_checkbox_212").checked = true;
+                //         }
+                //         if (cb12 == true) {
+                //             document.getElementById("md_checkbox_222").checked = true;
+                //         }
+                //         if (cb13 == true) {
+                //             document.getElementById("md_checkbox_232").checked = true;
+                //         }
+                //         if (cb14 == true) {
+                //             document.getElementById("md_checkbox_242").checked = true;
+                //         }
+                //     }
+
+                //     // console.log(document.getElementById("firstname").value);
+                //     var form = $(this);
+                //     form.validate({
+                //             rules: {
+                //                 field: {
+                //                     required: true,
+                //                     extension: "jpeg|jpg"
+                //                 }
+                //             },
+                //             errorPlacement: function(error, element) {}
+                //         })
+                //         .settings.ignore = ":disabled,:hidden";
+                //     // Start validation; Prevent going forward if false
+                //     return form.validate();
+                // },
+                onFinished: function(event, currentIndex) {
+                    console.log("onStepChanging2");
+                    document.getElementById("regForm").submit();
+                    return true;
+                }
+
+                // },
+                // onStepChanging: function(event, currentIndex, newIndex) {
+
+                //         // Allways allow previous action even if the current form is not valid!
+                //         if (currentIndex > newIndex) {
+                //             console.log("onStepChanging");
+                //             return true;
+                //         }
+                //         // Forbid next action on "Warning" step if the user is to young
+                //         // if (newIndex === 3 && Number($("#age-2").val()) < 18) {
+                //         //     return false;
+                //         // }
+                //         // Needed in some cases if the user went back (clean up)
+                //         if (currentIndex < newIndex) {
+                //             console.log("onStepChanging2");
+                //             // To remove error styles
+                //             // form.find(".body:eq(" + newIndex + ") label.error").remove();
+                //             // form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
+                //         }
+                //         // form.validate().settings.ignore = ":disabled,:hidden";
+                //         // return form.valid();
+                //     }
+                // },
+                // onStepChanged: function(event, currentIndex, priorIndex) {
+                //     console.log("onStepChanged");
+                //     // Used to skip the "Warning" step if the user is old enough.
+                //     if (currentIndex === 2 && Number($("#age-2").val()) >= 18) {
+                //         form.steps("next");
+                //     }
+                //     // Used to skip the "Warning" step if the user is old enough and wants to the previous step.
+                //     if (currentIndex === 2 && priorIndex === 3) {
+                //         form.steps("previous");
+                //     }
+                // },
+                // onFinishing: function(event, currentIndex) {
+                //     form.validate().settings.ignore = ":disabled";
+                //     return form.valid();
+                // },
+                // onFinished: function(event, currentIndex) {
+                //     alert("Submitted!");
+                // }
+
+            });
+
+
+            // var form = $(".validation-wizard").show();
+
+            // $(".validation-wizard").steps({
+            //     headerTag: "h6",
+            //     bodyTag: "section",
+            //     transitionEffect: "fade",
+            //     titleTemplate: '<span class="step">#index#</span> #title#',
+            //     labels: {
+            //         finish: "Submit"
+            //     },
+            //     onStepChanging: function(event, currentIndex, newIndex) {
+            //         return currentIndex > newIndex || !(3 === newIndex && Number($("#age-2").val()) < 18) && (currentIndex < newIndex && (form.find(".body:eq(" + newIndex + ") label.error").remove(), form.find(".body:eq(" + newIndex + ") .error").removeClass("error")), form.validate().settings.ignore = ":disabled,:hidden", form.valid())
+            //     },
+            //     onFinishing: function(event, currentIndex) {
+            //         return form.validate().settings.ignore = ":disabled", form.valid()
+            //     },
+            //     onFinished: function(event, currentIndex) {
+            //         swal("Form Submitted!", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem erat eleifend ex semper, lobortis purus sed.");
+            //     }
+            // }), $(".validation-wizard").validate({
+            //     ignore: "input[type=hidden]",
+            //     errorClass: "text-danger",
+            //     successClass: "text-success",
+            //     highlight: function(element, errorClass) {
+            //         $(element).removeClass(errorClass)
+            //     },
+            //     unhighlight: function(element, errorClass) {
+            //         $(element).removeClass(errorClass)
+            //     },
+            //     errorPlacement: function(error, element) {
+            //         error.insertAfter(element)
+            //     },
+            //     rules: {
+            //         email: {
+            //             email: !0
+            //         }
+            //     }
+            // })
+        </script>
+        <!-- <script>
+            // //Basic Example
+            // $("#example-basic").steps({
+            //     headerTag: "h3",
+            //     bodyTag: "section",
+            //     transitionEffect: "slideLeft",
+            //     autoFocus: true
+            // });
+
+            // // Basic Example with form
+            // var form = $("#example-form");
+            // form.validate({
+            //     errorPlacement: function errorPlacement(error, element) {
+            //         element.before(error);
+            //     },
+            //     rules: {
+            //         confirm: {
+            //             equalTo: "#password"
+            //         }
+            //     }
+            // });
+            // form.children("div").steps({
+            //     headerTag: "h3",
+            //     bodyTag: "section",
+            //     transitionEffect: "slideLeft",
+            //     onStepChanging: function(event, currentIndex, newIndex) {
+            //         form.validate().settings.ignore = ":disabled,:hidden";
+            //         return form.valid();
+            //     },
+            //     onFinishing: function(event, currentIndex) {
+            //         form.validate().settings.ignore = ":disabled";
+            //         return form.valid();
+            //     },
+            //     onFinished: function(event, currentIndex) {
+            //         alert("Submitted!");
+            //     }
+            // });
+
+            // // Advance Example
+
+            // var form = $("#example-advanced-form").show();
+
+            // form.steps({
+            //     headerTag: "h3",
+            //     bodyTag: "fieldset",
+            //     transitionEffect: "slideLeft",
+            //     onStepChanging: function(event, currentIndex, newIndex) {
+            //         // Allways allow previous action even if the current form is not valid!
+            //         if (currentIndex > newIndex) {
+            //             return true;
+            //         }
+            //         // Forbid next action on "Warning" step if the user is to young
+            //         if (newIndex === 3 && Number($("#age-2").val()) < 18) {
+            //             return false;
+            //         }
+            //         // Needed in some cases if the user went back (clean up)
+            //         if (currentIndex < newIndex) {
+            //             // To remove error styles
+            //             form.find(".body:eq(" + newIndex + ") label.error").remove();
+            //             form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
+            //         }
+            //         form.validate().settings.ignore = ":disabled,:hidden";
+            //         return form.valid();
+            //     },
+            //     onStepChanged: function(event, currentIndex, priorIndex) {
+            //         // Used to skip the "Warning" step if the user is old enough.
+            //         if (currentIndex === 2 && Number($("#age-2").val()) >= 18) {
+            //             form.steps("next");
+            //         }
+            //         // Used to skip the "Warning" step if the user is old enough and wants to the previous step.
+            //         if (currentIndex === 2 && priorIndex === 3) {
+            //             form.steps("previous");
+            //         }
+            //     },
+            //     onFinishing: function(event, currentIndex) {
+            //         form.validate().settings.ignore = ":disabled";
+            //         return form.valid();
+            //     },
+            //     onFinished: function(event, currentIndex) {
+            //         alert("Submitted!");
+            //     }
+            // }).validate({
+            //     errorPlacement: function errorPlacement(error, element) {
+            //         element.before(error);
+            //     },
+            //     rules: {
+            //         confirm: {
+            //             equalTo: "#password-2"
+            //         }
+            //     }
+            // });
+
+            // // Dynamic Manipulation
+            // $("#example-manipulation").steps({
+            //     headerTag: "h3",
+            //     bodyTag: "section",
+            //     enableAllSteps: true,
+            //     enablePagination: false
+            // });
+
+            //Vertical Steps
+
+            $("#example-vertical").steps({
+                headerTag: "h3",
+                bodyTag: "section",
+                transitionEffect: "slideLeft",
+                stepsOrientation: "vertical",
+
+            });
+
+            //Custom design form example
+            $(".tab-wizard").steps({
+                headerTag: "h6",
+                bodyTag: "section",
+                transitionEffect: "fade",
+                titleTemplate: '<span class="step">#index#</span> #title#',
+                labels: {
+                    finish: "Submit"
+                },
+                onFinished: function(event, currentIndex) {
+
+                    document.getElementById("regForm").submit();
+                    return true;
+                }
+            });
+
+
+            // var form = $(".validation-wizard").show();
+
+            // $(".validation-wizard").steps({
+            //     headerTag: "h6",
+            //     bodyTag: "section",
+            //     transitionEffect: "fade",
+            //     titleTemplate: '<span class="step">#index#</span> #title#',
+            //     labels: {
+            //         finish: "Submit"
+            //     },
+            //     onStepChanging: function(event, currentIndex, newIndex) {
+            //         return currentIndex > newIndex || !(3 === newIndex && Number($("#age-2").val()) < 18) && (currentIndex < newIndex && (form.find(".body:eq(" + newIndex + ") label.error").remove(), form.find(".body:eq(" + newIndex + ") .error").removeClass("error")), form.validate().settings.ignore = ":disabled,:hidden", form.valid())
+            //     },
+            //     onFinishing: function(event, currentIndex) {
+            //         return form.validate().settings.ignore = ":disabled", form.valid()
+            //     },
+            //     onFinished: function(event, currentIndex) {
+            //         swal("Form Submitted!", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem erat eleifend ex semper, lobortis purus sed.");
+            //     }
+            // }), $(".validation-wizard").validate({
+            //     ignore: "input[type=hidden]",
+            //     errorClass: "text-danger",
+            //     successClass: "text-success",
+            //     highlight: function(element, errorClass) {
+            //         $(element).removeClass(errorClass)
+            //     },
+            //     unhighlight: function(element, errorClass) {
+            //         $(element).removeClass(errorClass)
+            //     },
+            //     errorPlacement: function(error, element) {
+            //         error.insertAfter(element)
+            //     },
+            //     rules: {
+            //         email: {
+            //             email: !0
+            //         }
+            //     }
+            // })
+        </script> -->
+
+        <%- include('../_footer') -%>

@@ -1,0 +1,865 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">จอภาพตรวจสอบ</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">เฝ้าระวัง</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <div class="row col-12">
+            <div class="row pb-3">
+                <div class="col-md-8">
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#samedata2-modal"type="button">
+                        <i class="fas fa-plus"></i>
+                        สร้างข้อกำหนดการเฝ้าระวัง
+                    </button>
+                </div>
+            </div>
+            <% if (watchdog){ for (var i=0; i < watchdog.length; i++) {%>
+                <div class="col-md-4">
+                    <div class="card" style="min-height: auto;">
+                        <div class="card-body pd-10px">
+                            <div class="d-flex align-items-start bd-b">
+                                <div>
+                                    <h4 class="card-title mt-5px"><i class="me-2 mdi mdi-bullseye icon-status"></i>ข้อกำหนดการเฝ้าระวัง</h4>
+                                </div>
+                                <!-- <div class="ms-auto p-right">
+                                    <i class="mdi mdi-reorder-horizontal cursor-icon"></i>
+                                    <i class="mdi mdi-fullscreen cursor-icon"></i>
+                                    <i class="mdi mdi-close-octagon cursor-icon"></i>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="card-body pd-10px">
+                            <div class="row" style="margin-bottom: 1px;">
+                                <div class="col-sm-5">
+                                    <div>
+                                        <p style="font-size: x-small;display: inline-block;">ชื่อข้อกำหนดการเฝ้าระวัง</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div>
+                                        <label class="control-label col-form-label" style="font-size: x-small;">
+                                            <%=watchdog[i].wd_name%>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div>
+                                        <p style="font-size: x-small;display: inline-block;">เลือกอุปกรณ์</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div>
+                                        <label class="control-label col-form-label" style="font-size: x-small;">
+                                            <%=watchdog[i].name%>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div>
+                                        <p style="font-size: x-small;">ประเภทข้อมูล</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div>
+                                        <label class="control-label col-form-label" style="font-size: x-small;">
+                                            <%=watchdog[i].data_type%>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <hr>
+                                </div>
+                                <div style="margin-top: 10px;"></div>
+
+                                <div class="col-sm-12">
+                                    <div>
+                                        <p style="font-size: small;font-weight: bold;">ข้อกำหนดการเฝ้าดู</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div>
+                                        <p style="font-size: x-small;display: inline-block;">User ID</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div>
+                                        <label class="control-label col-form-label" style="font-size: x-small;">
+                                            <%if(watchdog[i].user_id == ''){%>
+                                                <t>-</t>
+                                            <%}else{%>
+                                                <%=watchdog[i].user_id%>
+                                            <%}%>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div>
+                                        <p style="font-size: x-small;display: inline-block;">Source IP</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div>
+                                        <label class="control-label col-form-label" style="font-size: x-small;">
+                                            <%if(watchdog[i].source_ip == ''){%>
+                                                <t>-</t>
+                                            <%}else{%>
+                                                <%=watchdog[i].source_ip%>
+                                            <%}%>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div>
+                                        <p style="font-size: x-small;display: inline-block;">Destination IP</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div>
+                                        <label class="control-label col-form-label" style="font-size: x-small;">
+                                            <%if(watchdog[i].destination_ip == ''){%>
+                                                <t>-</t>
+                                            <%}else{%>
+                                                <%=watchdog[i].destination_ip%>
+                                            <%}%>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div>
+                                        <p style="font-size: x-small;display: inline-block;">Port</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div>
+                                        <label class="control-label col-form-label" style="font-size: x-small;">
+                                            <%if(watchdog[i].port == ''){%>
+                                                <t>-</t>
+                                            <%}else{%>
+                                                <%=watchdog[i].port%>
+                                            <%}%>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div>
+                                        <p style="font-size: x-small;display: inline-block;">Date and Time</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div>
+                                        <label class="control-label col-form-label" style="font-size: x-small;">
+                                            <%=watchdog[i].datetime1%>
+                                        </label><b> -</b>
+                                        <label class="control-label col-form-label" style="font-size: x-small;">
+                                            <%=watchdog[i].datetime2%>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div>
+                                        <p style="font-size: x-small;display: inline-block;">Access Log</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div>
+                                        <label class="control-label col-form-label" style="font-size: x-small;">
+                                           <%if(watchdog[i].access_log == ''){%>
+                                                <t>-</t>
+                                            <%}else{%>
+                                                <%=watchdog[i].access_log%>
+                                            <%}%>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div>
+                                        <p style="font-size: x-small;display: inline-block;">Date Alert</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div>
+                                        <label class="control-label col-form-label" style="font-size: x-small;">
+                                            ไม่มีการแจ้งเตือน
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div>
+                                        <p style="font-size: x-small;display: inline-block;">E-Mail Alert</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div>
+                                        <label class="control-label col-form-label" style="font-size: x-small;">
+                                            <%=watchdog[i].email_send%> (จำนวนครั้ง)
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <hr>
+                                </div>
+                                <div class="row">
+                                    <div class="modal-footer" style="justify-content: center;">
+                                        <button class="btn btn-warning" data-bs-toggle="modal"data-bs-target="#samedata7-modal<%=i%>">แก้ไข</button>
+                                        <button class="btn btn-danger" data-bs-toggle="modal"data-bs-target="#samedata6-modal<%=i%>">ลบ</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <%}}%>
+        </div>
+       
+        <!-- Row -->
+        <div class="modal fade" id="samedata2-modal" tabindex="-1" aria-labelledby="exampleModalLabel1">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header d-flex align-items-center">
+                        <h4 class="card-title"><i class="fas fa-upload"></i> &nbsp;ข้อกำหนดการเฝ้าระวัง</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"aria-label="Close"></button>
+                    </div>
+                    <!--#################################################################################################################-->
+                   
+                    <div class="modal-body">
+                        <form action="/watchdog/add" method="post" class="needs-validation" novalidate>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label text-secondary">ชื่อข้อกำหนดการเฝ้าระวัง</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control border border-info" id="validationTooltip01" placeholder="ชื่อข้อกำหนด" name="wd_name" required>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label text-secondary">เลือกอุปกรณ์</label>
+                                <div class="col-sm-6">
+                                    <select class=".select2-with-border border-info form-control" style="width: 100%; height:36px;" name="device_id" required>
+                                        <option value="">กรุณาเลือก</option>
+                                        <% if(device){%>
+                                            <% for (var i=0; i < device.length; i++) {%>
+                                                <option value="<%= device[i].device_id%>">
+                                                    <%= device[i].name%>
+                                                </option>
+                                        <% } }%>
+                                    </select>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label ">ข้อกำหนดการเฝ้าดู</label>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label text-secondary">User ID</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control border border-info user" placeholder="หากไม่ทราบให้เว้นไว้" name="user_id" onchange="adduser_validat()" required>
+                                </div>
+                                <!-- <div class="col-3" style="padding-left: 0;">
+                                </div> -->
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label text-secondary">Source IP</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control border border-info source" placeholder="หากไม่ทราบให้เว้นไว้" name="source_ip" onchange="addsource_validat()" required>
+                                </div>
+                                <!-- <div class="col-3" style="padding-left: 0;">
+                                </div> -->
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label text-secondary">Destination IP</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control border border-info destination" placeholder="หากไม่ทราบให้เว้นไว้" name="destination_ip" onchange="adddestination_validat()" required>
+                                </div>
+                                <!-- <div class="col-3" style="padding-left: 0;">
+                                </div> -->
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label text-secondary">Port</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control border border-info port" placeholder="หากไม่ทราบให้เว้นไว้" name="port" onchange="addport_validat()" required>
+                                </div>
+                                <!-- <div class="col-3" style="padding-left: 0;">
+                                </div> -->
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label text-secondary">Date and time</label>
+                                <div class="col-sm-3">
+                                    <input type="datetime-local" class="form-control border border-info" name="datetime1" required> 
+                                </div>-
+                                <div class="col-sm-3">
+                                    <input type="datetime-local" class="form-control border border-info" name="datetime2" required>
+                                </div>
+                                <!-- <div class="col-3" style="padding-left: 0;">
+                                </div> -->
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label text-secondary">Access Log</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control border border-info accesslog" placeholder="หากไม่ทราบให้เว้นไว้" name="access_log" onchange="addaccesslog_validat()" required>
+                                </div>
+                                <!-- <div class="col-3" style="padding-left: 0;">
+                                </div> -->
+                            </div>
+                            <hr>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label ">การเตือน</label>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label text-secondary">E-mail</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control border border-info" placeholder="" name="email_send" value="<%=account[0].email%>" required>
+                                </div>
+                                <!-- <div class="col-3" style="padding-left: 0;">
+                                </div> -->
+                            </div>
+                            <div class="mb-3 row">
+                                <!-- <label class="col-sm-2 text-end control-label col-form-label text-secondary"></label> -->
+                                <label class="col-sm-3 text-end control-label col-form-label text-secondary">ความถี่ในการเตือน</label>
+                                <!-- <div id="disk" class="col-sm-2" style="padding-top: 10px; padding-left: 17px;">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input  check-outline outline-success" type="checkbox" name="frequency_email" value='1' checked>
+                                        <label class="form-check-label">1ครั้งต่อ</label>
+                                    </div>
+                                </div> -->
+                                <div class="col-sm-2" style="padding-left: 13px;">
+                                    <input type="text" class="form-control border border-info" placeholder="" name="frequency" value="1">
+                                </div>
+                                <div class="col-sm-3" style="padding-top: 10px; padding-left: 0px;">
+                                    <label class="form-check-label">ครั้งในเวลา 24 ชม.</label>
+                                </div>
+                                <!-- เมื่อพบข้อมูล == 0 -->
+                                <!-- <div id="disk" class="col-sm-4" style="padding-top: 10px;">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input success check-outline outline-success"
+                                            type="checkbox" name="frequency_email" value='0'>
+                                        <label class="form-check-label">เมื่อพบข้อมูล</label>
+                                    </div>
+                                </div> -->
+                                <!-- <div class="col-sm-3"> -->
+                                    <!-- <input class="form-check-input secondary check-outline outline-secondary"
+                                        onclick="disabled_alltra(this)" type="radio" id="secondary-outline-radio"
+                                        name="sender" value="1"> -->
+                                    <!-- <i class="mdi mdi-bell-plus"></i> <i class="me-2 mdi mdi-email"></i>  -->
+                                    <!-- <label class="form-check-label" for="secondary-outline-radio">E-mail</label> -->
+                                <!-- </div> -->
+                                <!-- <div class="col-4">
+                                    <input type="text" class="form-control border border-info" placeholder="ส่งให้ตนเองว่างไว้" name="email_send">
+                                </div> -->
+                                <!-- <div class="col-3"></div> -->
+                                <!-- <div class="row">
+                                    <label class="col-sm-4 text-end control-label col-form-label text-secondary">ความถี่ในการเตือน</label>
+                                    <div id="disk" class="col-sm-2" style="padding-top: 10px; padding-left: 0px;">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input success check-outline outline-success"
+                                                type="checkbox" name="frequency_email" value='1'>
+                                            <label class="form-check-label">1 ครั้งต่อ</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1" style="padding-left: 0px;">
+                                        <input type="text" class="form-control border border-info" placeholder="24"
+                                            name="frequency1">
+                                    </div>
+                                    <div class="col-sm-1" style="padding-top: 10px; padding-left: 0px;">
+                                        <label class="form-check-label">ชั่วโมง</label>
+                                    </div> -->
+                                    <!-- เมื่อพบข้อมูล == 0 -->
+                                    <!-- <div id="disk" class="col-sm-4" style="padding-top: 10px;">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input success check-outline outline-success"
+                                                type="checkbox" name="frequency_email" value='0'>
+                                            <label class="form-check-label">เมื่อพบข้อมูล</label>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <!-- <div class="mb-3 row"> -->
+                                <!-- <label class="col-sm-2 text-end control-label col-form-label text-secondary"></label>
+                                <div class="col-sm-3">
+                                    <input class="form-check-input secondary check-outline outline-secondary"
+                                        onclick="disabled_alltra(this)" type="radio" id="secondary-outline-radio"
+                                        name="sender" value="2">
+                                    <i class="mdi mdi-bell-plus"></i><i class="me-2 mdi mdi-share-variant"></i>
+                                    
+                                    <label
+                                        class="form-check-label" for="secondary-outline-radio">Share</label>
+                                </div> -->
+                                
+                                <!-- <div class="col-4" id="share-1">
+                                    <input type="text" class="form-control border border-info"
+                                        placeholder="ส่งให้ตนเองว่างไว้" name="acc_id">
+                                </div>
+                                <div class="col-3"></div>
+
+                                <div class="row" style="padding-top: 20px;" id="share-2">
+                                    <label
+                                        class="col-sm-4 text-end control-label col-form-label text-secondary">ความถี่ในการเตือน</label>
+                                    <div id="disk" class="col-sm-2" style="padding-top: 10px; padding-left: 0px;">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input success check-outline outline-success"
+                                                type="checkbox" name="frequency_share" value='1'>
+                                            <label class="form-check-label">1 ครั้งต่อ</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1" style="padding-left: 0px;">
+                                        <input type="text" class="form-control border border-info" placeholder="24"
+                                            name="frequency2">
+                                    </div>
+                                    <div class="col-sm-1" style="padding-top: 10px; padding-left: 0px;">
+                                        <label class="form-check-label">ชั่วโมง</label>
+                                    </div> -->
+                                    <!-- เมื่อพบข้อมูล == 0 -->
+                                    <!-- <div id="disk" class="col-sm-4" style="padding-top: 10px;">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input success check-outline outline-success"
+                                                type="checkbox" name="frequency_share" value='0'>
+                                            <label class="form-check-label">เมื่อพบข้อมูล</label>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            <!-- </div> -->
+                            <hr>
+                            <div class="modal-footer" style="justify-content: center;">
+                                <button type="submit" class="btn btn-success btn waves-effect waves-light">บันทึกข้อมูล</button>
+                                <button type="button" class="btn btn-secondary waves-effect waves-light" data-bs-dismiss="modal">ยกเลิก</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!--#################################################################################################################-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <% if (watchdog){ for (var i=0; i < watchdog.length; i++) { %>
+        <div class="modal fade" id="samedata6-modal<%=i%>" tabindex="-1" aria-labelledby="exampleModalLabel1">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header d-flex align-items-center">
+                        <h4 class="card-title"><i class="fas fa-upload"></i> &nbsp;ลบข้อกำหนดการเฝ้าระวัง</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 control-label col-form-label text-secondary">ชื่อข้อกำหนดการเฝ้าระวัง</label>
+                            <div class="col-sm-6">
+                                <label class="col-sm-3  control-label col-form-label text-secondary"><%=watchdog[i].wd_name%></label>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label
+                                class="col-sm-3  control-label col-form-label text-secondary">เลือกอุปกรณ์</label>
+                            <div class="col-sm-6">
+                                <label class="col-sm-3 control-label col-form-label text-secondary"><%=watchdog[i].name%></label>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label
+                                class="col-sm-3  control-label col-form-label text-secondary">ประเภทข้อมูล</label>
+                            <div class="col-sm-9">
+                                <label class="control-label col-form-label text-secondary"><%=watchdog[i].data_type%></label>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 control-label col-form-label ">ข้อกำหนดการเฝ้าดู</label>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-sm-3  control-label col-form-label text-secondary">User ID</label>
+                            <div class="col-sm-6">
+                                <label class="col-sm-3 control-label col-form-label text-secondary">
+                                    <%if(watchdog[i].user_id == ''){%>
+                                        <t>-</t>
+                                    <%}else{%>
+                                        <%=watchdog[i].user_id%>
+                                    <%}%>
+                                </label>
+                            </div>
+                            <div class="col-3" style="padding-left: 0;">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-sm-3  control-label col-form-label text-secondary">Source IP</label>
+                            <div class="col-sm-6">
+                                <label class="col-sm-3 control-label col-form-label text-secondary">
+                                    <%if(watchdog[i].source_ip == ''){%>
+                                        <t>-</t>
+                                    <%}else{%>
+                                        <%=watchdog[i].source_ip%>
+                                    <%}%>
+                                </label>
+                            </div>
+                            <div class="col-3" style="padding-left: 0;">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 control-label col-form-label text-secondary">Destination IP</label>
+                            <div class="col-sm-6">
+                                <label class="col-sm-3 control-label col-form-label text-secondary">
+                                    <%if(watchdog[i].destination_ip == ''){%>
+                                        <t>-</t>
+                                    <%}else{%>
+                                        <%=watchdog[i].destination_ip%>
+                                    <%}%>
+                                </label>
+                            </div>
+                            <div class="col-3" style="padding-left: 0;">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-sm-3  control-label col-form-label text-secondary">Port</label>
+                            <div class="col-sm-6">
+                                <label class="col-sm-3 control-label col-form-label text-secondary">
+                                    <%if(watchdog[i].port == ''){%>
+                                        <t>-</t>
+                                    <%}else{%>
+                                        <%=watchdog[i].port%>
+                                    <%}%>
+                                </label>
+                            </div>
+                            <div class="col-3" style="padding-left: 0;">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3  control-label col-form-label text-secondary">Date and time</label>
+                            <div class="col-sm-6">
+                                <label class="col-sm-5 control-label col-form-label text-secondary"><%=watchdog[i].datetime1%></label>-
+                                <label class="col-sm-5 control-label col-form-label text-secondary"><%=watchdog[i].datetime2%></label>
+                            </div>
+                            <div class="col-3" style="padding-left: 0;">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 control-label col-form-label text-secondary">Access Log</label>
+                            <div class="col-sm-6">
+                                <label class="col-sm-3 control-label col-form-label text-secondary">
+                                    <%if(watchdog[i].access_log == ''){%>
+                                        <t>-</t>
+                                    <%}else{%>
+                                        <%=watchdog[i].access_log%>
+                                    <%}%>
+                                </label>
+                            </div>
+                            <div class="col-3" style="padding-left: 0;">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 control-label col-form-label text-secondary">Date Alert</label>
+                            <div class="col-sm-6">
+                                <label class="col-sm-3 control-label col-form-label text-secondary">ไม่มีข้อมูล</label>
+                            </div>
+                            <div class="col-3" style="padding-left: 0;">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 control-label col-form-label text-secondary">E-Mail Alert</label>
+                            <div class="col-sm-6">
+                                <label class="control-label col-form-label text-secondary"><%=watchdog[i].email_send%> (จำนวนครั้ง)</label>
+                            </div>
+                            <div class="col-3" style="padding-left: 0;">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="modal-footer" style="justify-content: center;">
+                            <a href="/delwatch/<%=watchdog[i].wd_id%>">
+                                <button type="submit"class="btn btn-danger btn waves-effect waves-light">ยืนยัน</button>
+                            </a>
+                                <button type="button" class="btn btn-secondary waves-effect waves-light"data-bs-dismiss="modal">ยกเลิก</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% }} %>
+
+            <% if (watchdog){ for (var i=0; i < watchdog.length; i++) { %>
+                <div class="modal fade" id="samedata7-modal<%=i%>" tabindex="-1" aria-labelledby="exampleModalLabel1">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <form action="/watchdog/edit" method="post" class="needs-validation" novalidate>
+                                <input type="hidden" value="<%=watchdog[i].wd_id%>" name="wd_id">
+                                <div class="modal-header d-flex align-items-center">
+                                    <h4 class="card-title"><i class="fas fa-upload"></i> &nbsp;แก้ไขข้อกำหนดการเฝ้าระวัง</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3 row">
+                                        <label class="col-sm-3 text-end control-label col-form-label text-secondary">ชื่อข้อกำหนดการเฝ้าระวัง</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control border border-info"placeholder="ชื่อข้อกำหนด" name="wd_name" value="<%=watchdog[i].wd_name%>" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label class="col-sm-3 text-end control-label col-form-label text-secondary">เลือกอุปกรณ์</label>
+                                        <div class="col-sm-6">
+                                            <select class=".select2-with-border border-info form-control"style="width: 100%; height:36px;" name="device_id" required>
+                                            <option value="<%= watchdog[i].device_id%>"> <%= watchdog[i].name%></option>
+                                            <% if(device){for (var j=0; j < device.length; j++) {%>
+                                                <option value="<%= device[i].device_id%>">
+                                                    <%= device[j].name%>
+                                                </option>
+                                            <%}}%>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="mb-3 row">
+                                        <label class="col-sm-3 text-end control-label col-form-label ">ข้อกำหนดการเฝ้าดู</label>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label
+                                            class="col-sm-3 text-end control-label col-form-label text-secondary">User ID</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control border border-info " id="edituser_<%=i%>" placeholder="หากไม่ทราบให้เว้นไว้" name="user_id" value="<%=watchdog[i].user_id%>" required>
+                                        </div>
+                                        <div class="col-3" style="padding-left: 0;">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label class="col-sm-3 text-end control-label col-form-label text-secondary">Source IP</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control border border-info" id="editsource_<%=i%>" placeholder="หากไม่ทราบให้เว้นไว้" name="source_ip" value="<%=watchdog[i].source_ip%>" required>
+                                        </div>
+                                        <div class="col-3" style="padding-left: 0;">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label
+                                            class="col-sm-3 text-end control-label col-form-label text-secondary">Destination IP</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control border border-info" id="editdestination_<%=i%>" placeholder="หากไม่ทราบให้เว้นไว้" name="destination_ip"value="<%=watchdog[i].destination_ip%>" required>
+                                        </div>
+                                        <div class="col-3" style="padding-left: 0;">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label class="col-sm-3 text-end control-label col-form-label text-secondary">Port</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control border border-info" id="editport_<%=i%>" placeholder="หากไม่ทราบให้เว้นไว้" name="port"value="<%=watchdog[i].port%>" required>
+                                        </div>
+                                        <div class="col-3" style="padding-left: 0;">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label
+                                            class="col-sm-3 text-end control-label col-form-label text-secondary">Date and time</label>
+                                        <div class="col-sm-3">
+                                            <input type="datetime-local" class="form-control border border-info" name="datetime1" value="<%=watchdog[i].datetime1%>" required>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input type="datetime-local" class="form-control border border-info" name="datetime2" value="<%=watchdog[i].datetime2%>" required>
+                                        </div>
+                                        <div class="col-3" style="padding-left: 0;">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label
+                                            class="col-sm-3 text-end control-label col-form-label text-secondary">Access Log</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control border border-info" id="editaccesslog_<%=i%>" placeholder="หากไม่ทราบให้เว้นไว้" name="access_log" value="<%=watchdog[i].access_log%>" required>
+                                        </div>
+                                        <div class="col-3" style="padding-left: 0;">
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="mb-3 row">
+                                        <label class="col-sm-3 text-end control-label col-form-label ">การเตือน</label>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label class="col-sm-3 text-end control-label col-form-label text-secondary">E-mail</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control border border-info" placeholder="" name="email_send" value="<%=account[0].email%>" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label class="col-sm-3 text-end control-label col-form-label text-secondary">ความถี่ในการเตือน</label>
+                                        <div class="col-sm-2" style="padding-left: 13px;">
+                                            <input type="text" class="form-control border border-info" placeholder="" name="frequency" value="1">
+                                        </div>
+                                        <div class="col-sm-3" style="padding-top: 10px; padding-left: 0px;">
+                                            <label class="form-check-label">ครั้งในเวลา 24 ชม.</label>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="modal-footer" style="justify-content: center;">
+                                        <button type="button" class="btn btn-warning btn waves-effect waves-light" onclick="senddata('<%=i%>')">บันทึกข้อมูล</button>
+                                        <button type="submit" class="btn btn-warning btn waves-effect waves-light" id="button_<%=i%>" hidden></button>
+                                        <button type="button" class="btn btn-secondary waves-effect waves-light" data-bs-dismiss="modal">ยกเลิก</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <% }} %>
+<%- include('../_footer') -%>
+<script src="/UI/dist/js/pages/widget/widget-charts.js "></script>
+<script src="/UI/dist/js/app.min.js "></script>
+
+<script>
+    
+  //function disabled_alltra(select) {
+  //var selected = $(select).val();                            
+  //if (selected == '1') {                             
+   //document.getElementById('email-1').style.display = "";                               
+   //document.getElementById('email-2').style.display = "";                                  
+   //document.getElementById('share-1').style.display = "none";                                  
+   //document.getElementById('share-2').style.display = "none";                                  
+  //} else {                                  
+   //document.getElementById('share-1').style.display = "";                                
+   //document.getElementById('share-2').style.display = "";                                   
+   //document.getElementById('email-1').style.display = "none";                                
+   //document.getElementById('email-2').style.display = "none";      
+   //}
+//}                         
+// function disabled_alltra2(select) {
+//     var selected = $(select).val();
+//     if (selected == '1') {
+//         document.getElementById('email-12').style.display = "";
+//         document.getElementById('email-22').style.display = "";
+//         document.getElementById('share-12').style.display = "none";
+//         document.getElementById('share-22').style.display = "none";
+//     } else {
+//         document.getElementById('share-12').style.display = "";
+//         document.getElementById('share-22').style.display = "";
+//         document.getElementById('email-12').style.display = "none";
+//         document.getElementById('email-22').style.display = "none";
+//         }
+// }                           
+// function disabled_alltra3(select) {
+//     var selected = $(select).val();
+//     if (selected == '1') {                           
+//         document.getElementById('email-18').style.display = "";
+//         document.getElementById('email-28').style.display = "";
+//         document.getElementById('share-13').style.display = "none";
+//         document.getElementById('share-23').style.display = "none";
+//     } else {
+//         document.getElementById('share-13').style.display = "";
+//         document.getElementById('share-23').style.display = "";
+//         document.getElementById('email-13').style.display = "none";
+//         document.getElementById('email-23').style.display = "none";
+//     }
+// }
+
+    function adduser_validat(){
+        var user = $('.user').val();
+        var user = $('.user').val();
+        if(user){
+            $('.source').prop('required',false);
+            $('.destination').prop('required',false);
+            $('.port').prop('required',false);
+            $('.accesslog').prop('required',false);
+        }else{
+            $('.source').prop('required',true);
+            $('.destination').prop('required',true);
+            $('.port').prop('required',true);
+            $('.accesslog').prop('required',true);
+        }
+    }
+    function addsource_validat(){
+        var source = $('.source').val();
+        if(source){
+            $('.user').prop('required',false);
+            $('.destination').prop('required',false);
+            $('.port').prop('required',false);
+            $('.accesslog').prop('required',false);
+        }else{
+            $('.user').prop('required',true);
+            $('.destination').prop('required',true);
+            $('.port').prop('required',true);
+            $('.accesslog').prop('required',true);
+        }
+    }
+    function adddestination_validat(){
+        var destination = $('.destination').val();
+        if(destination){
+            $('.user').prop('required',false);
+            $('.source').prop('required',false);
+            $('.port').prop('required',false);
+            $('.accesslog').prop('required',false);
+        }else{
+            $('.user').prop('required',true);
+            $('.source').prop('required',true);
+            $('.port').prop('required',true);
+            $('.accesslog').prop('required',true);
+        }
+    }
+    function addport_validat(){
+        var port = $('.port').val();
+        if(port){
+            $('.user').prop('required',false);
+            $('.destination').prop('required',false);
+            $('.source').prop('required',false);
+            $('.accesslog').prop('required',false);
+        }else{
+            $('.user').prop('required',true);
+            $('.destination').prop('required',true);
+            $('.source').prop('required',true);
+            $('.accesslog').prop('required',true);
+        }
+    }
+    function addaccesslog_validat(){
+        var accesslog = $('.accesslog').val();
+        if(accesslog){
+            $('.user').prop('required',false);
+            $('.destination').prop('required',false);
+            $('.port').prop('required',false);
+            $('.source').prop('required',false);
+        }else{
+            $('.user').prop('required',true);
+            $('.destination').prop('required',true);
+            $('.port').prop('required',true);
+            $('.source').prop('required',true);
+        }
+    }
+    function senddata(id){
+       var user =  $('#edituser_'+id).val()
+       var source =  $('#editsource_'+id).val()
+       var destination =  $('#editdestination_'+id).val()
+       var port =  $('#editport_'+id).val()
+       var accesslog =  $('#editaccesslog_'+id).val()
+        if(user || source || destination || port ||  accesslog){
+            $('#edituser_'+id).prop('required',false);
+            $('#editsource_'+id).prop('required',false);
+            $('#editdestination_'+id).prop('required',false);
+            $('#editport_'+id).prop('required',false);
+            $('#editaccesslog_'+id).prop('required',false);
+        }else{
+            $('#edituser_'+id).prop('required',true);
+            $('#editsource_'+id).prop('required',true);
+            $('#editdestination_'+id).prop('required',true);
+            $('#editport_'+id).prop('required',true);
+            $('#editaccesslog_'+id).prop('required',true);
+        }
+        $('#button_'+id).click();
+    }
+    (function() {
+        window.addEventListener('load', function() {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>

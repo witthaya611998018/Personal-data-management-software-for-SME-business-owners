@@ -1,0 +1,394 @@
+<!-- </div> -->
+<!-- -------------------------------------------------------------- -->
+<!-- End Container fluid  -->
+<!-- -------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------- -->
+<!-- footer -->
+<!-- -------------------------------------------------------------- -->
+
+<!-- -------------------------------------------------------------- -->
+<!-- End footer -->
+<!-- -------------------------------------------------------------- -->
+</div>
+<!-- -------------------------------------------------------------- -->
+<!-- End Page wrapper  -->
+<!-- -------------------------------------------------------------- -->
+</div>
+<div class="chat-windows"></div>
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="/UI/assets/libs/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap tether Core JavaScript -->
+<script src="/UI/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!-- apps -->
+<script src="/UI/dist/js/app.min.js"></script>
+<script src="/UI/dist/js/app.init.js"></script>
+<script src="/UI/dist/js/app-style-switcher.js"></script>
+<!-- slimscrollbar scrollbar JavaScript -->
+<script src="/UI/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+<script src="/UI/assets/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
+<!--Wave Effects -->
+<script src="/UI/dist/js/waves.js"></script>
+<!--Menu sidebar -->
+<script src="/UI/dist/js/sidebarmenu.js"></script>
+<!--Custom JavaScript -->
+<script src="/UI/dist/js/feather.min.js"></script>
+<script src="/UI/dist/js/custom.min.js"></script>
+
+<script src="/UI/assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
+<script src="/UI/assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
+<!-- <script src="/UI/assets/libs/bootstrap-switch/dist/js/bootstrap-switch.min.js"></script> -->
+<script>
+    $(function() {
+        "use strict";
+        $("#main-wrapper").AdminSettings({
+            Theme: false, // this can be true or false ( true means dark and false means light ),
+            Layout: 'vertical',
+            LogoBg: 'skin3', // You can change the Value to be skin1/skin2/skin3/skin4/skin5/skin6
+            NavbarBg: 'skin2', // You can change the Value to be skin1/skin2/skin3/skin4/skin5/skin6
+            SidebarType: 'full', // You can change it full / mini-sidebar / iconbar / overlay
+            SidebarColor: 'skin3', // You can change the Value to be skin1/skin2/skin3/skin4/skin5/skin6
+            SidebarPosition: true, // it can be true / false ( true means Fixed and false means absolute )
+            HeaderPosition: true, // it can be true / false ( true means Fixed and false means absolute )
+            BoxedLayout: true, // it can be true / false ( true means Boxed and false means Fluid )
+        });
+    });
+</script>
+
+<script>
+    //old wizard
+
+
+
+
+    //Basic Example
+    // $("#example-basic").steps({
+    //     headerTag: "h3",
+    //     bodyTag: "section",
+    //     transitionEffect: "slideLeft",
+    //     autoFocus: true
+    // });
+
+    // Basic Example with form
+    // var form = $("#example-form");
+    // form.validate({
+    //     errorPlacement: function errorPlacement(error, element) {
+    //         element.before(error);
+    //     },
+    //     rules: {
+    //         confirm: {
+    //             equalTo: "#password"
+    //         }
+    //     }
+    // });
+    // form.children("div").steps({
+    //     headerTag: "h3",
+    //     bodyTag: "section",
+    //     transitionEffect: "slideLeft",
+    //     onStepChanging: function(event, currentIndex, newIndex) {
+    //         form.validate().settings.ignore = ":disabled,:hidden";
+    //         return form.valid();
+    //     },
+    //     onFinishing: function(event, currentIndex) {
+    //         form.validate().settings.ignore = ":disabled";
+    //         return form.valid();
+    //     },
+    //     onFinished: function(event, currentIndex) {
+    //         alert("Submitted!");
+    //     }
+    // });
+
+    // Advance Example
+
+    //var form = $("#example-advanced-form").show();
+    //
+    // form.steps({
+    //         headerTag: "h3",
+    //         bodyTag: "fieldset",
+    //         transitionEffect: "slideLeft",
+    //         onStepChanging: function(event, currentIndex, newIndex) {
+    //             // Allways allow previous action even if the current form is not valid!
+    //             if (currentIndex > newIndex) {
+    //                 return true;
+    //             }
+    //             // Forbid next action on "Warning" step if the user is to young
+    //             if (newIndex === 3 && Number($("#age-2").val()) < 18) {
+    //                 return false;
+    //             }
+    //             // Needed in some cases if the user went back (clean up)
+    //             if (currentIndex < newIndex) {
+    //                 // To remove error styles
+    //                 form.find(".body:eq(" + newIndex + ") label.error").remove();
+    //                 form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
+    //             }
+    //             form.validate().settings.ignore = ":disabled,:hidden";
+    //             return form.valid();
+    //         },
+    //         onStepChanged: function(event, currentIndex, priorIndex) {
+    //             // Used to skip the "Warning" step if the user is old enough.
+    //             if (currentIndex === 2 && Number($("#age-2").val()) >= 18) {
+    //                 form.steps("next");
+    //             }
+    //             // Used to skip the "Warning" step if the user is old enough and wants to the previous step.
+    //             if (currentIndex === 2 && priorIndex === 3) {
+    //                 form.steps("previous");
+    //             }
+    //         },
+    //         onFinishing: function(event, currentIndex) {
+    //             form.validate().settings.ignore = ":disabled";
+    //             return form.valid();
+    //         },
+    //         onFinished: function(event, currentIndex) {
+    //             alert("Submitted!");
+    //         }
+    //     })
+    //     .validate({
+    //         errorPlacement: function errorPlacement(error, element) {
+    //             element.before(error);
+    //         },
+    //         rules: {
+    //             confirm: {
+    //                 equalTo: "#password-2"
+    //             }
+    //         }
+    //     });
+
+    // Dynamic Manipulation
+    // $("#example-manipulation").steps({
+    //     headerTag: "h3",
+    //     bodyTag: "section",
+    //     enableAllSteps: true,
+    //     enablePagination: false
+    // });
+
+    // //Vertical Steps
+
+    // $("#example-vertical").steps({
+    //     headerTag: "h3",
+    //     bodyTag: "section",
+    //     transitionEffect: "slideLeft",
+    //     stepsOrientation: "vertical"
+    // });
+
+    //Custom design form example
+
+    $(".tab-wizard").steps({
+        headerTag: "h6",
+        bodyTag: "section",
+        transitionEffect: "fade",
+        titleTemplate: '<span class="step">#index#</span> #title#',
+        labels: {
+            finish: "Submit"
+        },
+
+        onStepChanging: function(event, currentIndex, newIndex) {
+            cb6 = document.getElementById("radio_1").checked;
+            cb7 = document.getElementById("radio_2").checked;
+            cb8 = document.getElementById("radio_3").checked;
+            cb9 = document.getElementById("radio_4").checked;
+            cb0 = document.getElementById("radio_5").checked;
+            var str = "asdasdasdasd";
+            console.log(document.getElementById("radio_2").checked);
+            if (cb6 == true || cb8 == true || cb9 == true || cb0 == true) {
+                cb7 = false;
+            }
+
+
+            if (newIndex = 3) {
+
+                document.getElementById("firstname2").innerText = document.getElementById("firstname").value;
+                document.getElementById("lastname2").innerText = document.getElementById("lastname").value;
+                document.getElementById("name2").innerText = document.getElementById("name").value;
+                document.getElementById("position2").innerText = document.getElementById("position").value;
+                document.getElementById("descrip2").innerText = document.getElementById("descrip").value;
+                document.getElementById("contact2").innerText = document.getElementById("contact").value;
+                document.getElementById("ext2").innerText = document.getElementById("ext").value;
+                document.getElementById("phone2").innerText = document.getElementById("phone").value;
+                document.getElementById("email2").innerText = document.getElementById("email").value;
+                document.getElementById("line2").innerText = document.getElementById("line").value;
+                document.getElementById("bd2").innerText = document.getElementById("bd").value;
+
+                document.getElementById("Name12").innerText = document.getElementById("Name1").value;
+                document.getElementById("firstName12").innerText = document.getElementById("firstName1").value;
+                document.getElementById("lastName12").innerText = document.getElementById("lastName1").value;
+                document.getElementById("emailAddress12").innerText = document.getElementById("emailAddress1").value;
+                document.getElementById("phone12").innerText = document.getElementById("phone1").value;
+                document.getElementById("phone12").innerText = document.getElementById("phone1").value;
+                document.getElementById("shortDescription22").innerText = document.getElementById("shortDescription2").value;
+                document.getElementById("store2").innerText = document.getElementById("store").value;
+
+
+                //document.getElementById("username2").value = document.getElementById("username").value;
+                cb1 = document.getElementById("otp_email").checked;
+                cb2 = document.getElementById("otp_sms").checked;
+                cb3 = document.getElementById("otp_2fa").checked;
+                cb4 = document.getElementById("otp_login").checked;
+                cb5 = document.getElementById("otp_system").checked;
+
+                cb11 = document.getElementById("md_checkbox_21").checked;
+                cb12 = document.getElementById("md_checkbox_22").checked;
+                cb13 = document.getElementById("md_checkbox_23").checked;
+                cb14 = document.getElementById("md_checkbox_24").checked;
+
+
+                console.log(cb7);
+                if (cb1 == true) {
+                    document.getElementById("otp_email2").checked = true;
+                }
+                if (cb2 == true) {
+                    document.getElementById("otp_sms2").checked = true;
+                }
+                if (cb3 == true) {
+                    document.getElementById("otp_2fa2").checked = true;
+                }
+                if (cb4 == true) {
+                    document.getElementById("otp_login2").checked = true;
+                }
+                if (cb5 == true) {
+                    document.getElementById("otp_system2").checked = true;
+                }
+
+                if (cb5 == true) {
+                    document.getElementById("otp_system2").checked = true;
+                }
+
+                if (cb6 == true) {
+                    //document.getElementById("radio_12").checked = true;
+                    document.getElementById("radio_12").innerText = "๕(๑) ก ผู้ประกอบกิจการโทรคมนาคมและการกระจายภาพและเสียง";
+                }
+                if (cb7 == true) {
+                    document.getElementById("radio_12").innerText = "๕(๑) ข ผู้ให้บริการการเข้าถึงระบบเครือข่ายคอมพิวเตอร์";
+                }
+                if (cb8 == true) {
+                    document.getElementById("radio_12").innerText = "๕(๑) ค ผู้ให้บริการเช่าระบบคอมพิวเตอร์ หรือให้เช่าบริการโปรแกรมประยุกต์ต่าง ๆ";
+                }
+                if (cb9 == true) {
+                    document.getElementById("radio_12").innerText = "๕(๑) ง ผู้ให้บริการร้านอินเทอร์เน็ต";
+                }
+                if (cb0 == true) {
+                    document.getElementById("radio_12").innerText = "๕(๒) ผู้ให้บริการเก็บรักษาข้อมูลคอมพิวเตอร์เพื่อประโยชน์แก่บุคคลอื่น";
+                }
+
+                if (cb11 == true) {
+                    document.getElementById("md_checkbox_212").checked = true;
+                }
+                if (cb12 == true) {
+                    document.getElementById("md_checkbox_222").checked = true;
+                }
+                if (cb13 == true) {
+                    document.getElementById("md_checkbox_232").checked = true;
+                }
+                if (cb14 == true) {
+                    document.getElementById("md_checkbox_242").checked = true;
+                }
+            }
+
+            // console.log(document.getElementById("firstname").value);
+            var form = $(this);
+            form.validate({
+                    rules: {
+                        field: {
+                            required: true,
+                            extension: "jpeg|jpg"
+                        }
+                    },
+                    errorPlacement: function(error, element) {}
+                })
+                .settings.ignore = ":disabled,:hidden";
+            // Start validation; Prevent going forward if false
+            return form.validate();
+        },
+        onFinished: function(event, currentIndex) {
+            console.log("onStepChanging2");
+            document.getElementById("regForm").submit();
+            return true;
+        }
+
+        // },
+        // onStepChanging: function(event, currentIndex, newIndex) {
+
+        //         // Allways allow previous action even if the current form is not valid!
+        //         if (currentIndex > newIndex) {
+        //             console.log("onStepChanging");
+        //             return true;
+        //         }
+        //         // Forbid next action on "Warning" step if the user is to young
+        //         // if (newIndex === 3 && Number($("#age-2").val()) < 18) {
+        //         //     return false;
+        //         // }
+        //         // Needed in some cases if the user went back (clean up)
+        //         if (currentIndex < newIndex) {
+        //             console.log("onStepChanging2");
+        //             // To remove error styles
+        //             // form.find(".body:eq(" + newIndex + ") label.error").remove();
+        //             // form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
+        //         }
+        //         // form.validate().settings.ignore = ":disabled,:hidden";
+        //         // return form.valid();
+        //     }
+        // },
+        // onStepChanged: function(event, currentIndex, priorIndex) {
+        //     console.log("onStepChanged");
+        //     // Used to skip the "Warning" step if the user is old enough.
+        //     if (currentIndex === 2 && Number($("#age-2").val()) >= 18) {
+        //         form.steps("next");
+        //     }
+        //     // Used to skip the "Warning" step if the user is old enough and wants to the previous step.
+        //     if (currentIndex === 2 && priorIndex === 3) {
+        //         form.steps("previous");
+        //     }
+        // },
+        // onFinishing: function(event, currentIndex) {
+        //     form.validate().settings.ignore = ":disabled";
+        //     return form.valid();
+        // },
+        // onFinished: function(event, currentIndex) {
+        //     alert("Submitted!");
+        // }
+
+    });
+
+
+    // var form = $(".validation-wizard").show();
+
+    // $(".validation-wizard").steps({
+    //     headerTag: "h6",
+    //     bodyTag: "section",
+    //     transitionEffect: "fade",
+    //     titleTemplate: '<span class="step">#index#</span> #title#',
+    //     labels: {
+    //         finish: "Submit"
+    //     },
+    //     onStepChanging: function(event, currentIndex, newIndex) {
+    //         return currentIndex > newIndex || !(3 === newIndex && Number($("#age-2").val()) < 18) && (currentIndex < newIndex && (form.find(".body:eq(" + newIndex + ") label.error").remove(), form.find(".body:eq(" + newIndex + ") .error").removeClass("error")), form.validate().settings.ignore = ":disabled,:hidden", form.valid())
+    //     },
+    //     onFinishing: function(event, currentIndex) {
+    //         return form.validate().settings.ignore = ":disabled", form.valid()
+    //     },
+    //     onFinished: function(event, currentIndex) {
+    //         swal("Form Submitted!", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem erat eleifend ex semper, lobortis purus sed.");
+    //     }
+    // }), $(".validation-wizard").validate({
+    //     ignore: "input[type=hidden]",
+    //     errorClass: "text-danger",
+    //     successClass: "text-success",
+    //     highlight: function(element, errorClass) {
+    //         $(element).removeClass(errorClass)
+    //     },
+    //     unhighlight: function(element, errorClass) {
+    //         $(element).removeClass(errorClass)
+    //     },
+    //     errorPlacement: function(error, element) {
+    //         error.insertAfter(element)
+    //     },
+    //     rules: {
+    //         email: {
+    //             email: !0
+    //         }
+    //     }
+    // })
+</script>
+</body>
+
+</html>

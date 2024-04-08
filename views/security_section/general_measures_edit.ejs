@@ -1,0 +1,141 @@
+<%- include ("../_header") %>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-10 align-self-center">
+                <h3 class="page-title">เเก้ไขมาตรการรักษาความปลอดภัย</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/<%=process.env.SUBFOLDER%>index2">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item">
+                                <a href="/<%=process.env.SUBFOLDER%>security/section/General-Measures">มาตรการรักษาความมั่นคงปลอดภัยโดยทั่วไป
+                                    (General Measures)</a>
+                            </li>
+                            <li class="breadcrumb-item">เเก้ไขมาตรการรักษาความปลอดภัย </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-2 d-flex justify-content-end align-items-center">
+                <a href="/<%=process.env.SUBFOLDER%>security/section/General-Measures"
+                    class="btn btn-secondary">ย้อนกลับ</a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="border-bottom title-part-padding">
+                <h4 class="card-title mb-0">เเก้ไขมาตรการรักษาความปลอดภัย</h4>
+            </div>
+            <div class="card-body">
+                <form action="/<%=process.env.SUBFOLDER%>General-Measures/edit/save" method="post">
+                    <input type="hidden" name="measures_id" value="<%=measures[0].measures_id%>">
+                    <div class="row mb-2">
+                        <div class="col-md-3  justify-content-end align-items-center d-flex ">
+                            หัวเรื่อง มาตรการรักษาความมั่นคงปลอดภัยโดยทั่วไป (General Measures)
+                            <!-- ชื่อมาตรการ -->
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <select name="measures_type_id" id="measure_type" class="form-control">
+                                <%for (var i=0;i<measures_type.length;i++){%>
+                                    <%if (measures_type[i].measures_type_id==measures[0].measures_type_id) {%>
+                                        <option selected value="<%=measures_type[i].measures_type_id%>">
+                                            <%=measures_type[i].measures_type%>
+                                        </option>
+                                        <%} else {%>
+                                            <option value="<%=measures_type[i].measures_type_id%>">
+                                                <%=measures_type[i].measures_type%>
+                                            </option>
+                                            <%}%>
+                                                <%}%>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3 d-flex justify-content-end">
+                            ชื่อมาตรการ
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <input type="text" name="measures_section_name" class="form-control" required
+                                value="<%=measures[0].measures_section_name%>">
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3 d-flex justify-content-end">
+                            คำอธิบาย / รายละเอียด
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <textarea name="measures_detail" id="" cols="65" rows="8" class="form-control"
+                                required><%=measures[0].measures_detail%></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3 d-flex justify-content-end align-content-center">
+                            เอกสารPDPA
+                        </div>
+                        <div class="col-md-6 d-flex align-content-center">
+                            <div class="input-group">
+                                <select name="doc_id" class="select2 form-control" multiple="multiple"
+                                    style="height: 36px;width: 100%;" id="selecte_type_policy">
+                                    <%for (var i=0;i<doc.length;i++){%>
+                                        <option value="<%=doc[i].doc_id%>" <option value="<%=doc[i].doc_id%>" <% for
+                                            (let j=0;j<doc_id_name.length;j++){%>
+                                            <%if (doc_id_name[j]==doc[i].doc_id) {%>
+                                                selected <%}%>
+                                                    <%}%> >
+                                                        <%=doc[i].doc_name%>
+                                        </option>
+                                        <%}%>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3 d-flex justify-content-end align-items-center">
+                            ผู้ดูแลข้อมูลหรือผู้ดูแลระบบหรือผู้ควบคุมมาตรการ
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <select class="select2 form-control" multiple="multiple" name="measures_supervisor"
+                                style="height: 36px;width: 100%;" required>
+
+                                <%if(account){for (var i=0; i < account.length; i++) { %>
+                                    <%if(measures[0].measures_supervisor.indexOf(account[i].acc_id)>
+                                        -1){ %>
+                                        <option value="<%=account[i].acc_id%>" selected>
+                                            <%=account[i].firstname%>
+                                                <%=account[i].lastname%>
+                                        </option>
+                                        <%}else{%>
+                                            <option value="<%=account[i].acc_id%>">
+                                                <%=account[i].firstname%>
+                                                    <%=account[i].lastname%>
+                                            </option>
+                                            <%}%>
+                                                <%}}%>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="justify-content: center;">
+                        <div class="">
+                            <button type="submit" class="btn btn-success me-2">บันทึก</button>
+                            <a href="/<%=process.env.SUBFOLDER%>security/section/General-Measures"
+                                class="btn btn-secondary">ยกเลิก</a>
+                        </div>
+                        <%if (measures[0].measures_consult==0) {%>
+                            <input class="form-check-input success check-outline outline-success" type="hidden"
+                                id="success-outline-check" name="measures_consult">
+                            <%}else {%>
+                                <input class="form-check-input success check-outline outline-success" checked
+                                    type="hidden" id="success-outline-check" name="measures_consult">
+                                <% }%>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="/UI/assets/libs/select2/dist/js/select2.full.min.js"></script>
+    <script src="/UI/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="/UI/dist/js/pages/forms/select2/select2.init.js"></script>
+
+    <%- include ("../_footer") %>

@@ -1,0 +1,569 @@
+<%- include ("../_header") %>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">จัดการมาตราการ</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/<%=process.env.SUBFOLDER%>index2">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item">จัดการมาตราการ</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="d-flex border-bottom title-part-padding align-items-center">
+                <h4 class="card-title mb-0">จัดการมาตรการ</h4>
+            </div>
+            <div class="card-body">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link  <% if(tap=='measures_type') {%>active<%}%>" data-bs-toggle="tab"
+                            href="#home" onclick="nav_link('home')"> </i>
+                            หัวเรื่องมาตราการ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <% if(tap=='approach_type') {%>active<%}%>" data-bs-toggle="tab"
+                            href="#menu1" onclick="nav_link('menu1')">
+                            การป้องกันเชิงลึก
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <% if(tap=='assets') {%>active<%}%>" data-bs-toggle="tab" href="#menu2"
+                            onclick="nav_link('menu2')">
+                            ทรัพย์สินสารสนเทศ
+                        </a>
+                    </li>
+                </ul>
+                <div class="mt-4 mb-3">
+                    <% if(tap=='measures_type' ) {%>
+                        <a href="#Add-measures" data-bs-toggle="modal" class="btn btn-success" id="button-add-measure">
+                            <i class="fas fa-plus"></i>
+                            เพิ่มหัวเรื่องมาตรการ
+                        </a>
+                        <%} else if (tap=='approach_type' ) { %>
+                            <a href="#Add-Approach" data-bs-toggle="modal" class="btn btn-success"
+                                id="button-add-measure">
+                                <i class="fas fa-plus"></i>
+                                เพิ่มการป้องกันเชิงลึก
+                            </a>
+                            <%} else if (tap=='assets' ) {%>
+                                <a href="#Add-Assets" data-bs-toggle="modal" class="btn btn-success"
+                                    id="button-add-measure">
+                                    <i class="fas fa-plus"></i>
+                                    เพิ่มทรัพย์สินสารสนเทศ
+                                </a>
+                                <%}%>
+                </div>
+                <div class="tab-content mt-4">
+
+                    <div class="tab-pane <% if(tap=='measures_type') {%>active<%}%>" id="home" role="tabpanel">
+                        <div style="min-height: 470px;" class="table-responsive">
+                            <table class="tablesaw table table-striped   no-wrap table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 6%;">
+                                            ลำดับ
+                                        </th>
+                                        <th>
+                                            ชื่อมาตราการรักษาความมั่นคงปลอดภัยโดยทั่วไป
+                                        </th>
+                                        <th style="width: 7%;">
+                                            แก้ไข
+                                        </th>
+                                        <th style="width: 7%;">
+                                            ลบข้อมูล
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-measure">
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6 text-secondary ">
+                                <div class="row">
+                                    <span>แสดงผล <a id="show-General-Measures"></a> ถึง <a
+                                            id="to-show-General-Measures"></a>
+                                        ทั้งหมด <a id="show-all-General-Measures"></a>
+                                        รายการ</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                                <nav aria-label="Page navigation example" class="mt-2">
+                                    <ul class="pagination-measures-type">
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane <% if(tap=='approach_type') {%>active<%}%>" id="menu1" role="tabpanel">
+                        <div style="min-height: 470px;" class="table-responsive">
+                            <table class="tablesaw table table-striped   no-wrap table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 6%;">
+                                            ลำดับ
+                                        </th>
+                                        <th>
+                                            ชื่อการป้องกันเชิงลึก
+                                        </th>
+                                        <th>
+                                            ประเภทการป้องกัน
+                                        </th>
+                                        <th style="width: 7%;">
+                                            แก้ไข
+                                        </th>
+                                        <th style="width: 7%;">
+                                            ลบข้อมูล
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-depth">
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6 text-secondary ">
+                                <div class="row">
+                                    <span>แสดงผล <a id="show-depth"></a> ถึง <a id="to-show-depth"></a>
+                                        ทั้งหมด <a id="show-all-depth"></a>
+                                        รายการ</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                                <nav aria-label="Page navigation example" class="mt-2">
+                                    <ul class="pagination-depth">
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane <% if(tap=='assets') {%>active<%}%>" id="menu2" role="tabpanel">
+                        <div style="min-height: 470px;" class="table-responsive">
+                            <table class="tablesaw table table-striped   no-wrap table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 6%;">
+                                            ลำดับ
+                                        </th>
+                                        <th>
+                                            ชื่อทรัพย์สินสารสนเทศ
+                                        </th>
+                                        <th>
+                                            ชนิด
+                                        </th>
+                                        <th>
+                                            หมายเหตุ
+                                        </th>
+                                        <th style="width: 7%;">
+                                            แก้ไข
+                                        </th>
+                                        <th style="width: 7%;">
+                                            ลบข้อมูล
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-assets">
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6 text-secondary ">
+                                <div class="row">
+                                    <span>แสดงผล <a id="show-depth_2"></a> ถึง <a id="to-show-depth_2"></a>
+                                        ทั้งหมด <a id="show-all-depth_2"></a>
+                                        รายการ</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                                <nav aria-label="Page navigation example" class="mt-2">
+                                    <ul class="pagination-assets">
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="Add-measures" class="modal fade show" tabindex="-1" aria-labelledby="info-header-modalLabel"
+        aria-modal="true" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h4 class="modal-title ">
+                        เพิ่มหัวเรื่องมาตราการ
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/<%=process.env.SUBFOLDER%>General-Measures/add_title" method="POST">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4" style="text-align: right;">
+                                ชื่อมาตราการรักษาความมั่นคงปลอดภัยโดยทั่วไป
+                            </div>
+                            <div class="col-md-8 d-flex justify-content-center">
+                                <input type="text" name="measure_type_add" class="form-control ">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-success font-weight-medium">ยืนยัน</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="Edit-measures" class="modal fade show" tabindex="-1" aria-labelledby="info-header-modalLabel"
+        aria-modal="true" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h4 class="modal-title ">
+                        เเก้ไขหัวเรื่องมาตราการ
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/<%=process.env.SUBFOLDER%>manage/measures/update" method="POST">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4" style="text-align: right;">
+                                ชื่อมาตราการรักษาความมั่นคงปลอดภัยโดยทั่วไป
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" name="measure_type" class="form-control">
+                                <input type="hidden" name="measures_type_id" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-success font-weight-medium">ยืนยัน</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="Delete-measures" class="modal fade show" tabindex="-1" aria-labelledby="info-header-modalLabel"
+        aria-modal="true" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h4 class="modal-title ">
+                        ลบหัวเรื่องมาตรการ
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/<%=process.env.SUBFOLDER%>manage/measures/delete" method="POST">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4" style="text-align: right;">
+                                ชื่อมาตราการรักษาความมั่นคงปลอดภัยโดยทั่วไป :
+                            </div>
+                            <div class="col-md-8 align-items-center d-flex">
+                                <label for="message"></label>
+                                <input type="hidden" name="measures_type_id" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-danger font-weight-medium">ยืนยัน</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="Add-Approach" class="modal fade show" tabindex="-1" aria-labelledby="info-header-modalLabel"
+        aria-modal="true" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h4 class="modal-title ">
+                        เพิ่มการป้องกันเชิงลึก
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/<%=process.env.SUBFOLDER%>Risk-based-Approach/add" method="POST">
+                    <div class="modal-body">
+                        <div class="row mb-2">
+                            <div class="col-md-4 d-flex justify-content-end ">
+                                ชื่อการป้องกันเชิงลึก
+                            </div>
+                            <div class="col-md-8 d-flex justify-content-center">
+                                <input type="text" name="depth_name" class="form-control ">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 d-flex justify-content-end ">
+                                ประเภทการป้องกัน
+                            </div>
+                            <div class="col-md-8 d-flex justify-content-center">
+                                <select name="depth_type" class="form-control">
+                                    <option value="1">
+                                        หลักการป้องกันเชิงลึก
+                                    </option>
+                                    <option value="2">
+                                        มาตรการป้องกันเชิงลึก
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-success font-weight-medium">ยืนยัน</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="Edit-Approach" class="modal fade show" tabindex="-1" aria-labelledby="info-header-modalLabel"
+        aria-modal="true" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h4 class="modal-title ">
+                        เเก้ไขชื่อการป้องกันเชิงลึก
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/<%=process.env.SUBFOLDER%>manage/measures/depth/update" method="POST">
+                    <div class="modal-body">
+                        <div class="row mb-2">
+                            <div class="col-md-4" style="text-align: right;">
+                                ชื่อการป้องกันเชิงลึก
+                            </div>
+                            <div class="col-md-8 d-flex justify-content-center">
+                                <input type="text" name="depth_name" class="form-control">
+                                <input type="hidden" name="depth_id" class="form-control">
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 d-flex justify-content-end ">
+                                ประเภทการป้องกัน
+                            </div>
+                            <div class="col-md-8 d-flex justify-content-center">
+                                <select name="depth_type" class="form-control">
+                                    <option value="1">
+                                        หลักการป้องกันเชิงลึก
+                                    </option>
+                                    <option value="2">
+                                        มาตรการป้องกันเชิงลึก
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-success font-weight-medium">ยืนยัน</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="Delete-Approach" class="modal fade show" tabindex="-1" aria-labelledby="info-header-modalLabel"
+        aria-modal="true" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h4 class="modal-title ">
+                        ลบการป้องกันเชิงลึก
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/<%=process.env.SUBFOLDER%>manage/measures/depth/delete" method="POST">
+                    <div class="modal-body">
+                        <div class="row mb-2">
+                            <div class="col-md-4" style="text-align: right;">
+                                ชื่อการป้องกันเชิงลึก :
+                            </div>
+                            <div class="col-md-8 d-flex justify-content-start">
+                                <label for="message"></label>
+                                <input type="hidden" name="depth_id" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 d-flex justify-content-end ">
+                                ประเภทการป้องกัน :
+                            </div>
+                            <div class="col-md-8 d-flex justify-content-start">
+                                <label for="message"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-danger font-weight-medium">ยืนยัน</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="Add-Assets" class="modal fade show" tabindex="-1" aria-labelledby="info-header-modalLabel"
+        aria-modal="true" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h4 class="modal-title ">
+                        ทรัพย์สินสารสนเทศ
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/<%=process.env.SUBFOLDER%>Information/assets/save" method="POST">
+                    <div class="modal-body">
+                        <div class="row mb-2">
+                            <div class="col-md-4" style="text-align: right;">
+                                ชื่อทรัพย์สินสารสนเทศ
+                            </div>
+                            <div class="col-md-8 d-flex justify-content-center">
+                                <input type="text" name="assets_name_add" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-success font-weight-medium">ยืนยัน</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="Edit-Assets" class="modal fade show" tabindex="-1" aria-labelledby="info-header-modalLabel"
+        aria-modal="true" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h4 class="modal-title ">
+                        เเก้ไขชื่อทรัพย์สินสารสนเทศ
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/<%=process.env.SUBFOLDER%>Information/edit/save" method="POST">
+                    <div class="modal-body">
+                        <div class="row mb-2">
+                            <div class="col-md-4" style="text-align: right;">
+                                ชื่อทรัพย์สินสารสนเทศ
+                            </div>
+                            <div class="col-md-8 d-flex justify-content-center">
+                                <input type="text" name="assets_name" class="form-control">
+                                <input type="hidden" name="assets_id" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-success font-weight-medium">ยืนยัน</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="Delete-Assets" class="modal fade show" tabindex="-1" aria-labelledby="info-header-modalLabel"
+        aria-modal="true" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h4 class="modal-title ">
+                        ลบทรัพย์สินสารสนเทศ
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/<%=process.env.SUBFOLDER%>Information/assets/delete" method="POST">
+                    <div class="modal-body">
+                        <div class="row mb-2">
+                            <div class="col-md-4" style="text-align: right;">
+                                ชื่อทรัพย์สินสารสนเทศ :
+                            </div>
+                            <div class="col-md-8 d-flex justify-content-start">
+                                <label for="message"></label>
+                                <input type="hidden" name="assets_id" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-danger font-weight-medium">ยืนยัน</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="Delete-Assets" class="modal fade show" tabindex="-1" aria-labelledby="info-header-modalLabel"
+        aria-modal="true" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h4 class="modal-title ">
+                        ลบทรัพย์สินสารสนเทศ
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/<%=process.env.SUBFOLDER%>Information/assets/delete" method="POST">
+                    <div class="modal-body">
+                        <div class="row mb-2">
+                            <div class="col-md-4" style="text-align: right;">
+                                ชื่อทรัพย์สินสารสนเทศ :
+                            </div>
+                            <div class="col-md-8 d-flex justify-content-start">
+                                <label for="message"></label>
+                                <input type="hidden" name="assets_id" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-danger font-weight-medium">ยืนยัน</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+
+    <style>
+        .pagination-measures-type {
+            display: flex;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .pagination-depth {
+            display: flex;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .pagination-assets {
+            display: flex;
+            padding-left: 0;
+            list-style: none;
+        }
+    </style>
+        <script src="/UI/dist/js/views_js/scurity_section/manage_measures.js"></script>
+    <%- include ("../_footer") %>

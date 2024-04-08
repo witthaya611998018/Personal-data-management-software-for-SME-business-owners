@@ -1,0 +1,147 @@
+<%- include('../_header') -%>
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">ลงทะเบียบอุปกรณ์ต้นทาง</h3> 
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item"><a href="/index2">การจัดการระบบ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">ลงทะเบียบอุปกรณ์ต้นทาง</li>
+
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="row">
+                        <div class="card-body">
+                            <div class="border-bottom title-part-padding">
+                                <h4 class="card-title mb-0">จัดการอุปกรณ์</h4>
+                            </div>
+                            <div class="card-body" style="min-height: 650px;">
+                                <table class="tablesaw table-striped table-bordered table-hover table " id="myTable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col " data-tablesaw-sortable-col data-tablesaw-sortable-default-col data-tablesaw-priority="3 " class="border ">ลำดับ</th>
+                                            <th scope="col " data-tablesaw-sortable-col data-tablesaw-priority="persist " class="border ">ชื่อโฮสต์</th>
+                                            <th scope="col " data-tablesaw-sortable-col data-tablesaw-priority="2 " class="border ">ไอพีแอดเดรส</th>
+                                            <th scope="col " data-tablesaw-sortable-col data-tablesaw-priority="1 " class="border ">วันที่เข้ามาเชื่อมต่อ</th>
+                                            <th scope="col " data-tablesaw-sortable-col data-tablesaw-priority="4 " class="border ">ประเภทการจัดส่งข้อมูล</th>
+                                            <th scope="col " data-tablesaw-sortable-col data-tablesaw-priority="1 " class="border ">ไม่อนุญาต</th>
+                                            <th scope="col " data-tablesaw-sortable-col data-tablesaw-priority="1 " class="border ">อนุญาต</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% if (data){ for (var i = 0; i < data.length; i++) { %>
+                                            <tr>
+                                                <td class="title align-top ">
+                                                    <%= (i+1) %>
+                                                </td>
+                                                <td class="align-top ">
+                                                    <%=data[i].hostname%>
+                                                </td>
+                                                <td class="align-top ">
+                                                    <%=data[i].input_ip%>
+                                                </td>
+                                                <td class="text-wrap text-break align-top ">
+                                                    <%=data[i].date%>
+                                                </td>
+                                                <td class="align-top ">
+                                                    <%=data[i].type%>
+                                                </td>
+                                                <td class="align-center  "  style="text-align:center;">
+                                                    <!-- href="/device/block/<%=data[i].input_id%>" -->
+                                                    <a onclick="blocked('<%=data[i].input_id%>,<%=data[i].hostname%>,<%=data[i].input_ip%>,<%=data[i].date%>,<%=data[i].type%>')"> 
+                                                    <i class="fas fa-ban fa-2x" style="color:red;"></i>
+                                            </a>
+                                                </td>
+                                                <td style="text-align:center;">
+                                                    <a href="/device/new/<%=data[i].input_id%>">
+                                                        <i class="fas fa-check-circle fa-2x" style="color: #3ac44a;"></i></a>
+                                                </td>
+                                            </tr>
+                                            <%  }} %>
+
+                                                <% if (data.length == 0){%>
+                                                    <tr>
+                                                        <td class="title align-top" style="text-align: center; color: rgb(228, 20, 20);" colspan="7">
+                                                            ไม่พบข้อมูล
+                                                        </td>
+                                                    </tr>
+                                                    <%}%>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Row -->
+
+    <!-- -------------------------------------------------------------- -->
+    <!-- End PAge Content -->
+    <!-- -------------------------------------------------------------- -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function blocked(id) {
+            // alert(id)
+            let timerInterval
+            Swal.fire({
+                confirmButtonText: 'ยืนยัน',
+                showCancelButton: true,
+                cancelButtonText: 'ยกเลิก',
+                title: 'ระงับอุปกรณ์ต้นทาง',
+                html: '<br><label class="text-secondary" > ชื่อโฮสต์:</label> <label >' + id.split(',')[1] + '</label> <br>' +
+                    '<label class="text-secondary" "> ไอพีแอดเดรส:</label> <label >' + id.split(',')[2] + '</label> <br>' +
+                    '<label class="text-secondary" "> วันที่เข้ามาเชื่อมต่อ:</label> <label >' + id.split(',')[3] + '</label> <br>' +
+                    '<label class="text-secondary" "> ประเภทการจัดส่งข้อมูล:</label> <label >' + id.split(',')[4] + '</label> <br>'
+            }).then((result) => {
+                if (result.value) {
+                    var request1 = function() {
+                        console.log(id.split(',')[0]);
+                        result["id"] = id.split(',')[0]
+                        result["hostname"] = id.split(',')[1]
+                        result["input_ip"] = id.split(',')[2]
+                        result["type"] = id.split(',')[3]
+                        $.ajax({
+                            url: "/device/blocked/" + id.split(',')[0],
+                            type: "post",
+                            data: result,
+                            success: function(data) {
+                                setInterval('location.reload()', 300);
+                                alert("ระงับอุปกรณ์ต้นทางเรียบร้อย")
+                                setInterval('location.reload()', 200);
+                            }
+                        });
+                    }
+                    request1();
+                }
+            })
+        }
+    </script>
+    <!--start overlay-->
+
+    <%- include('../_footer') -%>
+
+        <script src="/UI/assets/libs/datatables/media/js/jquery.dataTables.min.js"></script>
+        <script src="/UI/dist/js/pages/datatable/custom-datatable.js"></script>
+        <script src="/UI/dist/js/pages/datatable/datatable-basic.init.js"></script>
+        <script src="/UI/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+        <script src="/UI/dist/js/pages/dashboards/dashboard1.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#myTable').DataTable();
+            });
+        </script>

@@ -1,0 +1,306 @@
+<%- include ("../../_header") %>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">จัดการ Cookie</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/home">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">จัดการ Cookie</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <!-- <div class="col-md-7 justify-content-end align-self-center d-none d-md-flex">
+                <div class="d-flex">
+                    <div class="dropdown me-2">
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#addDomain-modal"><i class="fas fa-plus"></i>
+                            เพิ่มโดเมน</button>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    <div class="container-fluid note-has-grid">
+        <div class="card">
+            <div class="border-bottom title-part-padding">
+                <h4 class="card-title mb-0">จัดการ Cookie</h4>
+            </div>
+            <div class="card-body">
+                <div class="row pb-3">
+                    <div class="col-md-8" id="limit">
+
+                    </div>
+                    <div class="col-md-4 justify-content-end align-self-center d-block d-md-flex">
+                        <div class="input-group mb-2 ">
+                            <a class="btn btn-outline-warning" href="/management/cookies"><i
+                                    data-feather="refresh-cw"></i></a>
+                            <input type="text" class="form-control" placeholder="ค้นหา.." aria-label="" value=""
+                                id="search" aria-describedby="button-addon2" required>
+                            <button class="btn btn-outline-warning" type="button" id="button-search">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive" id="CookieTable" style="min-height: 470px;"> </div>
+                <div class="row mt-3">
+                    <div class="col-md-6 text-secondary">
+                        <div class="row">
+                            <span>แสดงผล <a id="show"></a> ถึง <a id="to_show"></a> ทั้งหมด <a id="show_all"></a>
+                                รายการ</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                        <nav aria-label="Page navigation example" class="mt-2">
+                            <ul class="pagination">
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal add Domain -->
+        <div class="modal fade" id="addDomain-modal" tabindex="-1" aria-labelledby="exampleModalLabel1">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header border-bottom">
+                        <h4 class="modal-title" id="exampleModalLabel1">เพิ่มโดเมน
+                        </h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/adddomain" method="post" id="Demo">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label for="message-text"
+                                        class="col text-start control-label col-form-label">ชื่อโดเมน
+                                        :</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="input-group mb-3 row">
+                                        <div class="col-md-3">
+                                            <select class="form-control" id="" name="protocol"
+                                                aria-label="Default select example">
+                                                <option selected value="https">https://
+                                                </option>
+                                                <option value="http">http://</option>
+                                            </select>
+                                        </div>
+                                        <input type="text" class="form-control" id="domain" required
+                                            name="namedomain_dg" aria-describedby="basic-addon3">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-md-2">
+                                    <label for="message-text"
+                                        class="col text-start control-label col-form-label">ขื่อคุกกี้
+                                        :</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <input class="form-control mt-1" name="name_cookie" required></input>
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-md-2">
+                                    <label for="message-text"
+                                        class="col text-start control-label col-form-label">ข้อความ
+                                        :</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <textarea class="form-control" name="message"></textarea>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-12 text-center text-danger" id="alert">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="justify-content: center;">
+                            <button id="submit" type="submit" class="btn btn-success">บันทึก</button>
+                            <!-- <a id="check_domain" class="btn btn-success">ตกลง</a> -->
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Modal delete Domain -->
+        <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel1">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header border-bottom">
+                        <h4 class="modal-title" id="exampleModalLabel1">ลบโดเมน</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/delete" method="post">
+                        <div class="modal-body">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="message-text"
+                                            class="text-end control-label col-form-label">ชื่อโดเมน
+                                            :</label>
+                                    </div>
+                                    <div class="col-8">
+                                        <label class="control-label col-form-label" id="delete_domain">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col">
+                                        <label for="message-text"
+                                            class="text-end control-label col-form-label">ขื่อคุกกี้
+                                            :</label>
+                                    </div>
+                                    <div class="col-8">
+                                        <label class="control-label col-form-label" id="delete_namecookie">
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-3">
+                                    <div class="col">
+                                        <label for="message-text" class="text-end control-label col-form-label">สถานะ
+                                            :</label>
+                                    </div>
+                                    <div class="col-8">
+                                        <label class="control-label col-form-label" id="delete_status">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col">
+                                        <label for="message-text" class="text-end control-label col-form-label">ข้อความ
+                                            :</label>
+                                    </div>
+                                    <div class="col-8">
+                                        <label class="control-label col-form-label" id="delete_message">
+                                        </label>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="delete_id" name="id_dg">
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="justify-content: center;">
+                            <button type="submit" class="btn btn-danger">ยืนยัน</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Modal edit Domain -->
+        <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModalLabel1">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header border-bottom">
+                        <h3 class="modal-title" id="exampleModalLabel1">เเก้ไขโดเมน
+                        </h3>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/edit-domain" method="post">
+                        <div class="modal-body">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="message-text"
+                                            class="text-end control-label col-form-label">ชื่อโดเมน
+                                            :</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <select class="form-control" id="protocol" name="protocol"
+                                                    aria-label="Default select example">
+                                                </select>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control" id="domain_edit"
+                                                    name="namedomain_dg" placeholder="https://www.domain.com"
+                                                    value="https://">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col">
+                                        <label for="message-text"
+                                            class="text-end control-label col-form-label">ขื่อคุกกี้
+                                            :</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input class="form-control mt-1" id="message-cookie_edit"
+                                            name="name_cookie"></input>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-3">
+                                    <div class="col">
+                                        <label for="message-text" class="text-end control-label col-form-label">สถานะ
+                                            :</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <select class="form-control" id="status_edit" name="status"
+                                            aria-label="Default select example">
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- <div class="row mt-3">
+                                                            <div class="col">
+                                                                <label for="message-text"
+                                                                    class="text-end control-label col-form-label">แท็ก
+                                                                    :</label>
+                                                            </div>
+                                                            <div class="col-8">
+                                                                <select class="select2 form-control" multiple="multiple"
+                                                                    id="option_tag_test" name="tag"
+                                                                    style="height: 36px;width: 100%;">
+                                                                </select>
+                                                            </div>
+                                                        </div> -->
+                                <div class="row mt-3">
+                                    <div class="col">
+                                        <label for="message-text" class="text-end control-label col-form-label">ข้อความ
+                                            :</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <textarea class="form-control" id="message_edit" name="message"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col text-center text-danger mt-3" id="alert_edit">
+                                </div>
+                                <input type="hidden" id="id_edit" name="id_dg">
+                            </div>
+                            <div hidden>
+                                <select class="select2 form-control" multiple="multiple" id="option_tag" name="tag"
+                                    style="height: 36px;width: 100%;">
+                                    <% for (i in tag ) {%>
+                                        <option value="<%= tag[i].id_tag%>">
+                                            <%=tag[i].tag_name%>
+                                        </option>
+                                        <%}%>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="justify-content: center;">
+                            <button type="submit" class="btn btn-warning">บันทึกเเก้ไข</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <link rel="stylesheet" href="/dist/css/css_preview/management_cookie.css">
+    <script src="/dist/js/views_js/tagify.min.js"> </script>
+    <script src="/dist/js/views_js/cookie_managemet/cookie_managemet.js"> </script>
+    <%- include ("../../_footer") %>

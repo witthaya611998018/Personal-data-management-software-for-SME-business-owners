@@ -1,0 +1,137 @@
+<%- include ("../../_header") %>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">เขียน E-mail </h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/management/cookies">หน้าหลัก</a></li>
+                            <!-- <li class="breadcrumb-item"><a href="/appeal">รับเรื่องร้องเรียน</a></li> -->
+                            <li class="breadcrumb-item"><a href="/management/email_consent">E-mail Consent</a></li>
+                            <li class="breadcrumb-item">เขียน E-mail</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-7 justify-content-end align-self-center d-none d-md-flex">
+                <a href="/management/email_consent" class="btn btn-secondary ">ย้อนกลับ</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="card">
+            <div class="border-bottom title-part-padding">
+                <h4 class="card-title mb-0">เขียน E-mail</h4>
+            </div>
+            <div class="card-body">
+                <form action="/send-email" enctype="multipart/form-data" method="post">
+                    <div class="mb-3">
+                        <label for="">ผู้รับ :</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input warning" type="radio" name="exampleRadios"
+                                id="exampleRadios1" value="option1" checked>
+                            <label class="form-check-label" for="exampleRadios1">
+                                email
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input warning" type="radio" name="exampleRadios"
+                                id="exampleRadios2" value="option2">
+                            <label class="form-check-label" for="exampleRadios2">
+                                email csv
+                            </label>
+                        </div>
+                        <div class="d-inline-block">
+                            <a href="/dist/Email.csv" download id="example_filecsv">
+                                <i class=" fas fa-download"></i> download ตัวอย่าง file csv</a>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="">ตำเเหน่งปุ่ม :</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input success " type="radio" name="location" checked
+                                id="secondary-light-radio" value="under">
+                            <label class="form-check-label" for="secondary-light-radio"> ด้านล่าง</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input success" type="radio" name="location"
+                                id="secondary2-light-radio" value="top">
+                            <label class="form-check-label" for="secondary2-light-radio"> ด้านบน</label>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <div class="col-md-6 form-group" id="firstname">
+                            <label class="mb-1">ขื่อผู้รับ</label>
+                            <input type="text" name="email_firstname" class="form-control" placeholder="ขื่อผู้รับ"
+                                id="email_firstname" required>
+                        </div>
+                        <div class="col-md-6 form-group" id="lastname">
+                            <label class="mb-1">นามสกุลผู้รับ</label>
+                            <input class="form-control" type="text" name="email_lastname" placeholder="นามสกุลผู้รับ"
+                                id="email_lastname" required>
+                        </div>
+                        <div class="col-md-6 mt-2 email form-group">
+                            <label class="mb-1">ผู้รับ</label>
+                            <input type="email" id="email" name="email_to" class="form-control" placeholder="email"
+                                required>
+                        </div>
+                        <div class="col-md-6 mt-2 email_csv form-group">
+                            <label class="mb-1">ผู้รับ</label>
+                            <input class="form-control" type="file" id="email_csv" name="email_file_csv"
+                                multiple="multiple" accept=".csv">
+                        </div>
+                        <div class="col-md-6 mt-2 form-group">
+                            <label class="mb-1">เลือกเอกสาร</label>
+                            <select class=" mr-sm-2 form-control" id="policy" name="doc_id">
+                                <option selected value="0" id="policy_selected">เลือกเอกสาร...</option>
+                                <%if (doc_pdpa_document) {%>
+                                    <%for (var i=0;i<doc_pdpa_document.length;i++){%>
+                                        <option value="<%=doc_pdpa_document[i].doc_id%>"
+                                            id="<%=doc_pdpa_document[i].doc_id%>">
+                                            <%=doc_pdpa_document[i].doc_name%>
+                                        </option>
+                                        <%}%>
+                                            <%}else {%>
+                                                -
+                                                <%}%>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <div class="col-md-6 form-group">
+                            <label class="mb-1">หัวข้อ</label>
+                            <input type="text" name="email_subject" id="subject" class="form-control"
+                                value="ขอความยินยอม" placeholder="หัวข้อ" required>
+                        </div>
+                        <div class="col-md-6 ">
+                            <label class="mb-1">ไฟล์แนบ</label>
+                            <input class="form-control" type="file" id="formFile" name="email_file" multiple="multiple">
+                        </div>
+                    </div>
+                    <div>
+                        <h4>เขียนข้อความ</h4>
+                        <input type="hidden" id="content" name="email_content">
+                        <textarea id="message" class="dialog_show"></textarea>
+                    </div>
+                    <div class="modal-footer" style="justify-content: center;">
+                        <button type="submit" class="btn btn-success"><i class="far fa-envelope me-1"></i>ส่ง</button>
+                        <button type="button" class="btn btn-secondary" id="throw_away">ทิ้ง</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="/UI/assets/extra-libs/jqbootstrapvalidation/validation.js"></script>
+    <script id="tetttt">
+        ! function (window, document, $) {
+            "use strict";
+            $("input,select,textarea").not("[type=submit]").jqBootstrapValidation();
+        }(window, document, jQuery);
+    </script>
+    <script src="/UI/assets/extra-libs/summernote/summernote-lite.min.js"></script>
+    <script src="/dist/js/views_js/email/inbox.js"></script>
+    <%- include ("../../_footer") %>

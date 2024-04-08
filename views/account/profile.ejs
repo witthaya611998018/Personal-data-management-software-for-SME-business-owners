@@ -1,0 +1,473 @@
+<%- include('../_header') -%>
+    <!-- <%-JSON.stringify(api)%> -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-6 align-self-center">
+                <h3 class="page-title">โปรไฟล์ของฉัน</h3><br>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">โปรไฟล์ของฉัน
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Column -->
+            <div class="col-lg-4 col-xlg-3 col-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <center class="mt-4"> <img src="/UI/image/<%=data[0].image%>" class="rounded-circle"
+                                width="150" />
+                            <h4 class="card-title mt-2">
+                                <%=data[0].firstname%>
+                                    <%=data[0].lastname%>
+                            </h4>
+                            <h6 class="card-subtitle">
+                                <%=data[0].position%>
+                            </h6>
+                            <!-- <div class="row text-center justify-content-md-center">
+                                <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-people"></i> <font class="font-weight-medium">254</font></a></div>
+                                <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-picture"></i> <font class="font-weight-medium">54</font></a></div>
+                            </div> -->
+                        </center>
+                    </div>
+                    <div>
+                        <hr>
+                    </div>
+                    <div class="card-body"> <small class="text-muted">ที่อยู่อีเมล </small>
+                        <h6>
+                            <%=data[0].email%>
+                        </h6> <small class="text-muted pt-4 db">เบอร์โทรศัพท์มือถือ</small>
+                        <h6>
+                            <%=data[0].phone%>
+                        </h6> <small class="text-muted pt-4 db">ไลน์</small>
+                        <h6>
+                            <%=data[0].line%>
+                        </h6>
+                        </h6> <small class="text-muted pt-4 db">รายละเอียด</small>
+                        <h6>
+                            <%=data[0].descrip%>
+                        </h6>
+                        <!-- <div class="map-box">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d470029.1604841957!2d72.29955005258641!3d23.019996818380896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e848aba5bd449%3A0x4fcedd11614f6516!2sAhmedabad%2C+Gujarat!5e0!3m2!1sen!2sin!4v1493204785508"
+                                width="100%" height="150" frameborder="0" style="border:0" allowfullscreen></iframe>
+                        </div> <small class="text-muted pt-4 db">Social Profile</small> -->
+                        <br />
+
+                    </div>
+                    <div class="card-body">
+                        <center class="mt-4" style="background-color: #83c7f3;">
+                            <h4 class="card-title mt-2">
+                                QR Code สำหรับ Google Authenticator
+                            </h4>
+                            <button type="button" class="btn waves-effect waves-light" id="sa-chain5">
+                                <i class="me-2 mdi mdi-qrcode-scan" style="font-size: 155px;"></i>
+
+                            </button>
+                        </center>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+            <!-- Column -->
+            <div class="col-lg-8 col-xlg-9 col-md-7">
+                <div class="card">
+                    <!-- Tabs -->
+                    <!-- Tabs -->
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="modal-header d-flex align-items-center">
+                            <h4 class="card-title">รายละเอียดผู้ใช้
+                                <%=data[0].name%>
+                            </h4>
+                        </div>
+                        <hr>
+                        <div class="card-body">
+                            <form>
+                                <br>
+                                <div class="mb-3 row">
+                                    <label
+                                        class="col-sm-5 text-end control-label col-form-label text-secondary">ชื่อผู้ใช้</label>
+                                    <div class="col-sm-2">
+                                        <label class="control-label col-form-label">
+                                            <%=data[0].username%>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-5 text-end control-label col-form-label text-secondary">ชื่อ
+                                        :</label>
+                                    <div class="col-sm-5">
+                                        <label class="control-label col-form-label">
+                                            <%=data[0].firstname%>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-5 text-end control-label col-form-label text-secondary">สกุล
+                                        :</label>
+                                    <div class="col-sm-5">
+                                        <label class="control-label col-form-label">
+                                            <%=data[0].lastname%>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-5 text-end control-label col-form-label text-secondary">ตำแหน่ง
+                                        :</label>
+                                    <div class="col-sm-5">
+                                        <label class="control-label col-form-label">
+                                            <%=data[0].position%>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-5 text-end control-label col-form-label text-secondary">อีเมล
+                                        :</label>
+                                    <div class="col-sm-5">
+                                        <label class="control-label col-form-label">
+                                            <%=data[0].email%>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label
+                                        class="col-sm-5 text-end control-label col-form-label text-secondary">เบอร์โทรศัพท์มือถือ
+                                        :</label>
+                                    <div class="col-sm-5">
+                                        <label class="control-label col-form-label">
+                                            <%=data[0].phone%>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label
+                                        class="col-sm-5 text-end control-label col-form-label text-secondary">เบอร์โทรศัพท์</label>
+                                    <div class="col-sm-2">
+                                        <label class="control-label col-form-label">
+                                            <%=data[0].contact%>
+                                        </label>
+                                    </div>
+                                    <label
+                                        class="col-sm-1 text-end control-label col-form-label text-secondary">ต่อ</label>
+                                    <div class="col-sm-2">
+                                        <label class="control-label col-form-label">
+                                            <%=data[0].ext%>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label for="port"
+                                        class="col-sm-5 text-end control-label col-form-label text-secondary">ไลน์</label>
+                                    <div class="col-sm-5">
+                                        <label class="control-label col-form-label">
+                                            <%=data[0].line%>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label for="port"
+                                        class="col-sm-5 text-end control-label col-form-label text-secondary">รายละเอียด</label>
+                                    <div class="col-sm-5">
+                                        <label class="control-label text-end col-form-label">
+                                            <%=data[0].descrip%>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3 row" style="background-color: #83c7f3;" disabled>
+                                        <label for="confirmpassword"
+                                            class="col-sm-3 text-end control-label col-form-label text-secondary"
+                                            for="com4">Muitifactor </label>
+                                        <div class="mb-3 row">
+                                            <label class="col-sm-3 "></label>
+                                            <div class="form-check col-sm-3">
+                                                <%if(data[0].otp_email=='1' ){%>
+                                                    <input type="checkbox" class="form-check-input" id="otp_email"
+                                                        name="otp_email" checked disabled>
+                                                    <%}else{%>
+                                                        <input type="checkbox" class="form-check-input" id="otp_email"
+                                                            name="otp_email" disabled>
+                                                        <%}%>
+                                                            <label class="form-check-label" for="otp_email">OTP By
+                                                                E-mail</label>
+                                            </div>
+                                            <div class="form-check col-sm-3">
+                                                <%if(data[0].otp_sms=='1' ){%>
+                                                    <input type="checkbox" class="form-check-input" id="otp_sms"
+                                                        name="otp_sms" checked disabled>
+                                                    <%}else{%>
+                                                        <input type="checkbox" class="form-check-input" id="otp_sms"
+                                                            name="otp_sms" disabled>
+                                                        <%}%>
+                                                            <label class="form-check-label" for="otp_sms">OTP By
+                                                                SMS</label>
+                                            </div>
+                                            <div class="form-check col-sm-3">
+                                                <%if(data[0].otp_2fa=='1' ){%>
+                                                    <input type="checkbox" class="form-check-input" id="otp_2fa"
+                                                        name="otp_2fa" checked disabled>
+                                                    <%}else{%>
+                                                        <input type="checkbox" class="form-check-input" id="otp_2fa"
+                                                            name="otp_2fa" disabled>
+                                                        <%}%>
+                                                            <label class="form-check-label" for="otp_2fa">OTP By Google
+                                                                Authenticator</label>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label class="col-sm-3 "></label>
+                                            <div class="form-check col-sm-3">
+                                                <%if(data[0].otp_login=='1' ){%>
+                                                    <input type="checkbox" class="form-check-input" id="otp_login"
+                                                        name="otp_login" checked disabled>
+                                                    <%}else{%>
+                                                        <input type="checkbox" class="form-check-input" id="otp_login"
+                                                            name="otp_login" disabled>
+                                                        <%}%>
+                                                            <label class="form-check-label" for="otp_login">Only
+                                                                Login</label>
+                                            </div>
+                                            <div class="form-check col-sm-3">
+                                                <%if(data[0].otp_system=='1' ){%>
+                                                    <input type="checkbox" class="form-check-input" id="otp_system"
+                                                        name="otp_system" checked disabled>
+                                                    <%}else{%>
+                                                        <input type="checkbox" class="form-check-input" id="otp_system"
+                                                            name="otp_system" disabled>
+                                                        <%}%>
+                                                            <label class="form-check-label" for="otp_system">Setting
+                                                                System</label>
+                                            </div>
+                                        </div>
+                                        <br>
+                                    </div><br>
+                                    <%if(api){%>
+                                        <%if(api.length> 0){%>
+                                            <div class="mb-4 row">
+                                                <label for="confirmpassword"
+                                                    class="col-sm-5 text-end control-label col-form-label text-secondary">Api
+                                                    Token ตรวจสอบข้อมูลจากภายนอก </label>
+                                                <div class="mb-4 row">
+                                                    <%if(api[0].auid==null){%>
+                                                        <label class="col-sm-3"></label>
+                                                        <center>
+                                                            <label class="col-sm-4 ">
+                                                                <a class="btn btn-success"
+                                                                    onclick="genkey('<%= api[0].acc_id%>','<%= api[0].name%>','<%= api[0].admin%>')">สร้าง
+                                                                    Api Token</a>
+                                                            </label>
+                                                        </center>
+
+                                                        <%}else if(api[0].confirm==0){%>
+                                                            <label class="col-sm-2"></label>
+                                                            <label class="col-sm-4 align-top" style="color:#39c449"">
+                                                        Token : <%=api[0].genkey%>
+                                                    </label>
+                                                    <!-- <label class=" col-sm-2">
+                                                                <button title="Copy Token"
+                                                                    class="btn btn-facebook waves-effect wavesso-light"
+                                                                    style="background-color: grey;" type="button"
+                                                                    onclick="copyfunc1();"> <svg
+                                                                        xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                        height="24" viewBox="0 0 24 24" fill="none"
+                                                                        stroke="currentColor" stroke-width="2"
+                                                                        stroke-linecap="round" stroke-linejoin="round"
+                                                                        class="feather feather-copy feather-sm">
+                                                                        <rect x="9" y="9" width="13" height="13" rx="2"
+                                                                            ry="2"></rect>
+                                                                        <path
+                                                                            d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                                                                        </path>
+                                                                    </svg>
+                                                                </button>
+                                                            </label> -->
+                                                            <label class="col-sm-3 ">
+                                                                <a class="btn btn-info"
+                                                                    onclick="reqkey('<%= api[0].acc_id%>','<%= api[0].name%>','<%= api[0].admin%>')">เปลี่ยน
+                                                                    Api Token</a>
+                                                            </label>
+                                                            <label class="col-sm-3 ">
+                                                                <a class="btn btn-warning" href="/apicheckverify/guide"
+                                                                    target="_blank">คู่มือ Api Token</a>
+                                                            </label>
+                                                            <%}else if(api[0].confirm==1){%>
+                                                                <center>
+                                                                    <label class="col-sm-4 ">
+                                                                        <a class="btn btn-danger">โดนระงับการใช้งาน Api
+                                                                            Token โปรดติดต่อผู้ดูแลระบบ </a>
+                                                                    </label>
+                                                                </center>
+                                                                <%}%>
+                                                </div>
+                                            </div>
+                                            <%}}%>
+                                                <hr>
+                                </div>
+                                <%if(api){%>
+                                    <%if(api.length==0){%>
+                                        <center>
+                                            <div class="col-sm-2">
+                                                <a href="/account/edit/<%= data[0].acc_id %>">
+                                                    <button type="button"
+                                                        class="btn btn-warning waves-effect btn-lg waves-light">แก้ไขข้อมูล</button>
+                                                </a>
+                                            </div>
+                                        </center>
+                                        <%}}%>
+                                            <br>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+        </div>
+    </div>
+    <script>
+        function genkey(id, name, typeuser) {
+            var nametype = "";
+            if (typeuser == 0) {
+                nametype = 'ผู้ดูแลข้อมูล'
+            } else if (typeuser == 2) {
+                nametype = 'ผู้ใช้งานทั่วไป'
+            } else if (typeuser == 3) {
+                nametype = 'เจ้าหน้าที่คุ้มครองข้อมูล'
+            } else {
+                nametype = 'ผูัประมวลผลข้อมูล'
+            }
+            console.log(nametype);
+            var key = makekeygen(16);
+            if (checkfunc(key) == true) {
+                console.log("yes");
+            } else {
+                console.log("no");
+                key = makekeygen(16);
+            }
+
+            console.log(key, id, name);
+            Swal.fire({
+                confirmButtonText: "ยืนยัน",
+                showCancelButton: true,
+                cancelButtonText: "ยกเลิก",
+                title: "สร้าง token สำหรับใช้ข้อมูลกิจกรรม",
+                html:
+                    '<br><label class="text-secondary" > key token </label> <label style="color:#39c449">' +
+                    key +
+                    "</label> <br>" +
+                    '<label class="text-secondary" "> ชื่อผู้ใช้งาน </label> <label >' +
+                    name +
+                    "</label> <br>"
+                    +
+                    '<label class="text-secondary" "> สถานะ </label> <label >' +
+                    nametype +
+                    "</label> <br>",
+            }).then((result) => {
+                if (result.value) {
+                    var request1 = function () {
+                        $.ajax({
+                            url: "/apicheckverify/add/",
+                            type: "post",
+                            data: {
+                                genkey: key, acc_id: id
+                            },
+                            success: function (data) {
+                                location.reload();
+                            },
+                        });
+                    };
+                    request1();
+                }
+            });
+        }
+        function reqkey(id, name, typeuser) {
+            var nametype = "";
+            if (typeuser == 0) {
+                nametype = 'ผู้ดูแลข้อมูล'
+            } else if (typeuser == 2) {
+                nametype = 'ผู้ใช้งานทั่วไป'
+            } else if (typeuser == 3) {
+                nametype = 'เจ้าหน้าที่คุ้มครองข้อมูล'
+            } else {
+                nametype = 'ผูัประมวลผลข้อมูล'
+            }
+            console.log(nametype);
+            var datacheck = <% -JSON.stringify(api) %>;
+            var keytoken = "";
+            for (x in datacheck) {
+                if (id == datacheck[x].acc_id) {
+                    console.log(datacheck[x].genkey);
+                    keytoken = datacheck[x].genkey
+                }
+            }
+            var key = makekeygen(16);
+            if (checkfunc(key) == true) {
+                console.log("yes");
+            } else {
+                console.log("no");
+                key = makekeygen(16);
+            }
+            Swal.fire({
+                confirmButtonText: "ยืนยัน",
+                showCancelButton: true,
+                cancelButtonText: "ยกเลิก",
+                title: "เปลี่ยน token ใหม่",
+                html:
+                    '<br><label class="text-secondary"> key token เดิม</label> <label style="color:#39c449">' +
+                    keytoken +
+                    "</label> <br>" +
+                    '<label class="text-secondary"> key token ใหม่</label> <label style="color:#ffbc34">' +
+                    key +
+                    "</label> <br>"
+                    +
+                    '<label class="text-secondary"> ชื่อผู้ใช้งาน </label> <label >' +
+                    name +
+                    "</label> <br>"
+                    +
+                    '<label class="text-secondary"> สถานะ </label> <label >' +
+                    nametype +
+                    "</label> <br>",
+            }).then((result) => {
+                if (result.value) {
+                    var request1 = function () {
+                        $.ajax({
+                            url: "/apicheckverify/changekey/",
+                            type: "post",
+                            data: {
+                                genkey: key, acc_id: id
+                            },
+                            success: function (data) {
+                                location.reload();
+                            },
+                        });
+                    };
+                    request1();
+                }
+            });
+        }
+        function makekeygen(length) {
+            var result = "";
+            var characters =
+                "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var charactersLength = characters.length;
+            for (var i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
+        }
+        function checkfunc(val) {
+            var paswd = /^(?=.*[0-9])(?=.*[A-Z])[A-Z0-9]{15,30}$/;
+            if (val.match(paswd)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    </script>
+    <!--start overlay-->
+    <%- include('../_footer') -%>

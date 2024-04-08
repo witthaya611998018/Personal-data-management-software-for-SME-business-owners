@@ -1,0 +1,298 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">ข้อมูลล็อก</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item"><a href="#">ล็อก</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">ข้อมูลล็อก</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-7 justify-content-end align-self-center d-none d-md-flex">
+                <div>
+                    <div class="dropdown me-2">
+                        <%if(data2){%>
+                            <%if(data2.length>0){%>
+                                <form action="/log/search" method="post">
+                                    <div class="input-group mb-3">
+                                        <input type="hidden" value="<%=data2[0].device_id%>" name="device_id">
+                                        <input class="form-control" type="datetime-local" name="date1" required>
+                                        <span class="input-group-text" id="basic-addon1">ถึง</span>
+                                        <input class="form-control" type="datetime-local" name="date2" required>
+                                        <button class="btn btn-outline-warning" type="submit"><i
+                                                class="fas fa-search"></i></button>
+
+                                    </div>
+                                </form>
+                                <%}}%>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 justify-content-end align-self-center d-block d-md-flex">
+            </div>
+
+            <div class="col-md-4 justify-content-end align-self-center d-block d-md-flex">
+                <div style="width: 100%">
+                    <div class="dropdown me-2">
+                        <%if(data2.length>0){%>
+
+                            <form action="/filter" method="post">
+                                <div class="input-group mb-3" style="width: 100%">
+                                    <input type="hidden" value="<%=data2[0].device_id%>" name="device_id">
+                                    <input class="form-control" type="text" placeholder="ค้นหา" name="input" required>
+                                    <button class="btn btn-outline-warning" type="submit"><i
+                                            class="fas fa-search"></i></button>
+                                    <!-- <button class="btn btn-outline-info" type="button"><i class="feather-sm" data-feather="info"></i></button> -->
+                                    <span class="input-group-text"> <i class="feather-sm" data-feather="info"
+                                            data-bs-toggle="tooltip" data-bs-placement="left" title="
+                                            AND ให้ใช้เครื่องหมาย * เช่น Cat*Dog
+                                            OR ให้ใช้เครื่องหมาย  ? เช่น Cat?Dog
+                                            "></i>
+                                    </span>
+
+
+                                </div>
+                            </form>
+                            <%}%>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid" id="centralizedchack">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">รายชื่ออุปกรณ์</h4>
+                                    <div class="message-box scrollable" style="height: 476px;">
+                                        <div class="message-widget message-scroll">
+                                            <!-- Message -->
+                                            <% if (data3){ for (var i=0; i < data3.length; i++) { %>
+                                                <a href="/log/check/<%=data3[i].device_id%>"
+                                                    class="d-flex align-items-center border-bottom p-3">
+                                                    <div class="user-img position-relative d-inline-block mr-0 mr-md-3">
+                                                        <img src="/UI/image/<%=data3[i].image%>" alt="user"
+                                                            class="rounded-circle w-100" style="height: 80px;">
+
+                                                        <span class="profile-status rounded-circle online"></span>
+                                                    </div>
+                                                    <div class="w-85 d-md-flex align-items-center v-middle ps-3">
+                                                        <div class="w-85">
+                                                            <h5 class="mb-0 mt-1 font-weight-medium">
+                                                                <%=data3[i].name%>
+                                                            </h5>
+                                                            <span
+                                                                class="fs-3 text-nowrap d-block text-truncate mail-desc text-muted fw-normal">
+                                                                <%=data3[i].ip%>
+                                                            </span>
+                                                        </div>
+                                                        <span class="fs-2 text-nowrap ms-auto time fw-normal">
+                                                            <%=data3[i].date%>
+                                                        </span>
+                                                    </div>
+                                                </a>
+                                                <% }} %>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 border-start">
+                            <div class="card-body">
+                                <div class="d-md-flex no-block align-items-center">
+                                    <h4 class="font-weight-medium">
+                                        <%if(data){%>
+                                            <% if (data.length> 0){%> ปริมาณข้อมูลล็อกที่บันทึกจาก
+                                                <%=data[0].name%>
+                                                    <% } else{%>
+                                                        ไม่มีข้อมูลล็อกที่ค้นหา
+                                                        <%}}%>
+                                    </h4>
+                                </div>
+                                <div id="log-1"></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <form action="javascrip:void(0);" method="post">
+                                <div class="row pb-3">
+                                    <div class="col-md-8">
+                                    </div>
+                                    <div class="col-md-4 justify-content-end align-self-center d-block d-md-flex">
+                                        <div class="input-group mb-2">
+                                            <input type="text" class="form-control" placeholder="ค้นหา.." id="myInput"
+                                                name="search" aria-label="" aria-describedby="button-addon2">
+                                            <button type="submit" class="btn btn-outline-warning"> Search </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div style="min-height: 470px; margin-left: 0.5%; margin-right: 1%;">
+                                <table id="myTable"
+                                    class="tablesaw no-wrap table-striped table-bordered table-hover table"
+                                    data-tablesaw-mode="stack" data-tablesaw-sortable>
+                                    <thead>
+                                        <tr>
+                                            <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col
+                                                data-tablesaw-priority="3" class="border text-center"
+                                                style="width: 5%;">
+                                                ลำดับ</th>
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist"
+                                                class="border">อุปกรณ์</th>
+
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="5"
+                                                class="border">โฮสต์เนม</th>
+
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2"
+                                                class="border">วันที่ เวลา</th>
+
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1"
+                                                class="border">ข้อความ</th>
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4"
+                                                class="border">ไฟล์</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody id="table-body">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 text-secondary">
+                                    <span>แสดงผล <span id="start"></span> ถึง <span id="end"></span> ทั้งหมด <span
+                                            id="total-db"></span> รายการ</span>
+                                </div>
+                                <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                                    <nav aria-label="Page navigation example" class="mt-2">
+                                        <ul class="pagination" id="pagination-wapper">
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row -->
+
+
+        <!-- -------------------------------------------------------------- -->
+        <!-- End PAge Content -->
+        <!-- -------------------------------------------------------------- -->
+        <!--start overlay-->
+        <%- include('../_footer') -%>
+
+            <script src="/UI/assets/libs/apexcharts/dist/apexcharts.min.js "></script>
+            
+            <script src="/UI/assets/libs/apexcharts/dist/apexcharts.min.js "></script>
+            <script src="/UI/assets/libs/chartist/dist/chartist.min.js "></script>
+            <script src="/UI/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js "></script>
+            <script src="/UI/assets/libs/flot/jquery.flot.js "></script>
+            <script src="/UI/dist/js/pages/widget/widget-charts.js "></script>
+            <script src="/UI/dist/js/app.min.js "></script>
+            <script src="/dist/js/page/page_log.js"></script>
+
+            <script>
+                $(function () {
+                    var x = <%-JSON.stringify(data2) %>;
+                    var count = [];
+                    var count2 = [];
+                    de_name = x[0].name;
+                    for (var i = 0; i < x.length; i++) {
+                        count.push(x[i].num);
+                        count2.push(x[i].no);
+                    }
+                    console.log(count, count2);
+                    var option_Product_Calculation = {
+                        series: [{
+                            name: de_name,
+                            data: count,
+                        }],
+                        chart: {
+                            fontFamily: 'Rubik,sans-serif',
+                            height: 500,
+                            type: "area",
+                            toolbar: {
+                                show: false,
+                            },
+                        },
+                        fill: {
+                            type: 'solid',
+                            opacity: 0.2,
+                            colors: ['#009efb', '#39c449']
+                        },
+                        grid: {
+                            show: true,
+                            strokeDashArray: 3,
+                            borderColor: "rgba(0,0,0,0.1)",
+                            xaxis: {
+                                lines: {
+                                    show: true
+                                }
+                            },
+                        },
+                        colors: ["#39c449", "#009efb"],
+                        dataLabels: {
+                            enabled: false,
+                        },
+                        stroke: {
+                            curve: "smooth",
+                            width: 1,
+                            colors: ['#009efb', '#39c449']
+                        },
+                        markers: {
+                            size: 3,
+                            strokeColors: "transparent",
+                            colors: ['#009efb', '#39c449']
+                        },
+                        xaxis: {
+                            axisBorder: {
+                                show: false,
+                            },
+                            categories: count2,
+                            labels: {
+                                style: {
+                                    colors: "#a1aab2",
+                                },
+                            },
+                        },
+                        yaxis: {
+                            labels: {
+                                style: {
+                                    colors: "#a1aab2",
+                                },
+                            },
+                        },
+                        tooltip: {
+                            x: {
+                                format: "dd/MM/yy HH:mm",
+                            },
+                            theme: "dark",
+                        },
+                        legend: {
+                            show: false,
+                        },
+                    };
+
+                    var chart_area_spline = new ApexCharts(document.querySelector("#log-1"), option_Product_Calculation);
+                    chart_area_spline.render();
+
+                });
+            </script>
+
+            <script>
+                var id = <%-JSON.stringify(id) %>;
+                </script>

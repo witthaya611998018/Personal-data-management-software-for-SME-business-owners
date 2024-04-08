@@ -1,0 +1,77 @@
+<%- include('../_header') -%>
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-md-5 align-self-center">
+            <h3 class="page-title">รายงานตรวจสอบกิจกรรมของผู้ใช้ (Agent)</h3>
+            <div class="d-flex align-items-center">
+                <nav aria-label="breadcrumb" style="margin-top: 1%;">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">รายงานตรวจสอบกิจกรรมของผู้ใช้ (Agent)</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid note-has-grid" id="a_report">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="border-bottom title-part-padding">
+                    <h4 class="card-title mb-0">
+                        <span style="vertical-align: -10px;">รายงานตรวจสอบกิจกรรมของผู้ใช้ (Agent)<span>
+                        <span style="float: right; display: inline;">
+                            <a class="btn btn-info" id="csv" href="javascript:void(0);">CSV</a>
+                            <a class="btn btn-success ms-2" id="excel" href="javascript:void(0);">Excel</a>
+                            <a disabled="" class="btn btn-warning ms-2" style="cursor: not-allowed;" href="javascript:void(0);">PDF</a>
+                        </span>
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <select id="a_db_id" name="select_db" class="form-control" style="width: 25%;">
+                                <option value="" disabled selected>กรุณาเลือก</option>
+                                <% for (const i in data){ %>
+                                    <option value="<%=data[i].agm_id%>"><%=data[i].agm_name%></option>
+                                <% } %>
+                            </select>
+                        </div>
+                        <div class="col-md-4 justify-content-start alig n-self-center d-none d-md-flex">
+                            <div class="input-group mb-2">
+                                <a id="reface" class="btn btn-outline-warning"><i data-feather="refresh-cw"></i></a>
+                                <input type="text" class="form-control" placeholder="ค้นหา.." aria-label="" value="" id="Srearch" aria-describedby="button-addon2">
+                                <button class="btn btn-outline-warning" type="button" id="button-Srearch"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="tablesaw table-striped table-bordered table-hover table" data-tablesaw-mode="stack" data-tablesaw-sortable> <!-- style="min-height: 470px;" -->
+                        <thead>
+                            <tr class="">
+                                <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col data-tablesaw-priority="1" class="border text-center no" width="5%;"> ลำดับ </th>
+                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2" class="border text-center"> ข้อมูลสำหรับรายงานตรวจสอบกิจกรรมผู้ใช้ </th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-report-db"></tbody>
+                    </table>
+                    <div class="row mt-3">
+                        <div class="col-md-6 text-secondary">
+                            <div class="row">
+                                <span>แสดงผล <a id="start-report-db"></a> ถึง <a id="end-report-db"></a> ทั้งหมด <a id="all-report-db"></a>
+                                    รายการ</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                            <nav aria-label="Page navigation example" class="mt-2">
+                                <ul class="pagination" id="pagination-report-db">
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../_footer') -%>

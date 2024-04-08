@@ -1,0 +1,268 @@
+<%- include('../_header') -%>
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-md-5 align-self-center">
+            <h3 class="page-title">รายละเอียดของ Service <%= manage[0].agm_name %></h3>
+            <div class="d-flex align-items-center" style="margin-top: 1%;">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+                        <li class="breadcrumb-item"><a href="/agent_manage">Agent Management</a></li>
+                        <li class="breadcrumb-item active">รายละเอียดของ Service <%= manage[0].agm_name %></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid" id="a_detail">
+<!-- Row -->
+    <div class="row">
+        <!-- Column -->
+        <div class="col-12">
+            <div class="card">
+                <div class="border-bottom title-part-padding">
+                    <h4 class="card-title mb-0">รายละเอียดของ Service Agent (<%=manage[0].agm_name%>)<span class="text-secondary" style="float: right;"><a href="/agent_manage/procedure/<%= manage[0].agm_id%>" class="text-primary">ดูการติดตั้ง</a></span></h4>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <table class="table table-boardless">
+                            <th style="font-weight: bold; width: 15%; text-align: left;">
+                                <label for="code-agent">ชื่อกำกับการใช้งาน</label>
+                            </th>
+                            <td style="text-align: left;">
+                                <span id="code-agent"><%= manage[0].agm_name %></span>
+                            </td>
+                        </table>
+                        <table class="table table-boardless">
+                            <th style="font-weight: bold; width: 15%; text-align: left;">
+                                <label for="code-agent">รหัสของ Agent ที่เลือก</label>
+                            </th>
+                            <td style="text-align: left;">
+                                <span id="code-agent"><%= manage[0].code %></span>
+                            </td>
+                        </table>
+                        <table class="table table-boardless">
+                            <th style="font-weight: bold; width: 15%; text-align: left;">
+                                <label for="kind-agent">ชนิดของ Agent ที่เลือก</label>
+                            </th>
+                            <td style="text-align: left;">
+                                <span id="kind-agent"><%= manage[0].name %></span>
+                            </td>
+                        </table>
+                        <table class="table table-boardless">
+                            <th style="font-weight: bold; width: 15%; text-align: left;">
+                                <label for="type-agent">ประเภทของ Agent ที่เลือก</label>
+                            </th>
+                            <td style="text-align: left;">
+                                <span id="type-agent"><%= manage[0].type %></span>
+                            </td>
+                        </table>
+                        <table class="table table-boardless">
+                            <th style="font-weight: bold; width: 15%; text-align: left;">
+                                <label for="detail-of-agent">คำอธิบายของ Agent ที่เลือก</label>
+                            </th>
+                            <td style="text-align: left;">
+                                <span id="detail-of-agent"><%= manage[0].description %></span>
+                            </td>
+                        </table>
+                        <table class="table table-boardless">
+                            <th style="font-weight: bold; width: 15%; text-align: left;">
+                                <label for="device-plugin">อุปกรณ์ที่ติดตั้ง</label>
+                            </th>
+                            <td style="text-align: left;">
+                                <span id="device-plugin"><%= manage[0].device_plugin %></span>
+                            </td>
+                        </table>
+                        <table class="table table-boardless">
+                            <th style="font-weight: bold; width: 15%; text-align: left;">
+                                <label for="ip-plugin">IP Address</label>
+                            </th>
+                            <td style="text-align: left;">
+                                <span id="ip-plugin"><%= manage[0].ip_plugin %></span>
+                            </td>
+                        </table>
+                        <table class="table table-boardless">
+                            <th style="font-weight: bold; width: 15%; text-align: left;">
+                                <label for="config-detail">รายละเอียดของการตั้งค่า <span style="color: #CD5C5C;"><%= manage[0].name %></span></label>
+                            </th>
+                        </table>
+                        <% if(manage[0].code == "AG1"){%>
+                            <table class="table table-boardless">
+                                <th style="font-weight: bold; width: 15%; text-align: left;">
+                                    <label for="hash-type">ชนิดของ Hash</label>
+                                </th>
+                                <td style="text-align: left;">
+                                    <% if(manage[0].hash_type == -1){%>
+                                        <span id="hash-type">MD5</span>
+                                    <%}else if(manage[0].hash_type == 0){%>
+                                        <span id="hash-type">SHA-1</span>
+                                    <%}else if(manage[0].hash_type == 1){%>
+                                        <span id="hash-type">SHA-256</span>
+                                    <%}%>
+                                </td>
+                            </table>
+                            <% let path = manage[0].config_detail.split(",") %>
+                            <table class="table table-boardless">
+                                <th style="font-weight: bold; width: 15%; text-align: left;">
+                                    <label for="length-path">จำนวนที่อยู่ของไฟล์ Logs</label>
+                                </th>
+                                <td style="text-align: left;">
+                                    <span id="length-path"><%= path.length %>&nbsp;ที่</span>
+                                </td>
+                            </table>
+                            <table class="table table-boardless">
+                                <th style="font-weight: bold; width: 15%; text-align: left; vertical-align: top;">
+                                    <label for="path">ที่อยู่ของไฟล์</label>
+                                </th>
+                                <td style="text-align: left;">
+                                    <% for( i in path ){%>
+                                        <% if(parseInt(i)+1 == path.length){ %>
+                                            <span id="path">-&nbsp;<%= path[i] %></span>
+                                        <%}else{%>
+                                            <span id="path">-&nbsp;<%= path[i] %></span><br/>
+                                        <%}%>
+                                    <%}%>
+                                </td>
+                            </table>
+                        <%}else if(manage[0].code == "AG2"){%>
+                            <% let path = manage[0].config_detail.split(",") %>
+                            <table class="table table-boardless">
+                                <th style="font-weight: bold; width: 15%; text-align: left;">
+                                    <label for="length-path">จำนวนที่อยู่ของไฟล์ Logs</label>
+                                </th>
+                                <td style="text-align: left;">
+                                    <span id="length-path"><%= path.length %>&nbsp;ที่</span>
+                                </td>
+                            </table>
+                            <table class="table table-boardless">
+                                <th style="font-weight: bold; width: 15%; text-align: left; vertical-align: top;">
+                                    <label for="path">ที่อยู่ของไฟล์</label>
+                                </th>
+                                <td style="text-align: left;">
+                                    <% for( i in path ){%>
+                                        <% if(parseInt(i)+1 == path.length){ %>
+                                            <span id="path">-&nbsp;<%= path[i] %></span>
+                                        <%}else{%>
+                                            <span id="path">-&nbsp;<%= path[i] %></span><br/>
+                                        <%}%>
+                                    <%}%>
+                                </td>
+                            </table>
+                        <%}else if(manage[0].code == "AG3"){%>
+                            <% let obj = manage[0].config_detail.split("&") %>
+                            <table class="table table-boardless">
+                                <th style="font-weight: bold; width: 15%; text-align: left;">
+                                    <label for="service_database">Service Database ที่ใช้งาน</label>
+                                </th>
+                                <td style="text-align: left;">
+                                    <% if(obj[0] == 0){%>
+                                        <span id="service_database"> Oracle DB </span>
+                                    <%}else if(obj[0] == 1){%>
+                                        <span id="service_database"> MySQL </span>
+                                    <%}%>
+                                </td>
+                            </table>
+                            <table class="table table-boardless">
+                                <th style="font-weight: bold; width: 15%; text-align: left;">
+                                    <label for="host">IP ของ Database </label>
+                                </th>
+                                <td style="text-align: left;">
+                                    <span id="host"> <%= obj[1] %></span>
+                                </td>
+                            </table>
+                            <table class="table table-boardless">
+                                <th style="font-weight: bold; width: 15%; text-align: left;">
+                                    <label for="username">ชื่อผู้ใช้งานของ Database </label>
+                                </th>
+                                <td style="text-align: left;">
+                                    <span id="username"> <%= obj[2] %></span>
+                                </td>
+                            </table>
+                            <table class="table table-boardless">
+                                <th style="font-weight: bold; width: 15%; text-align: left;">
+                                    <% let conv_passwd = "" %>
+                                    <% for (i in obj[3]){%><%conv_passwd+="*"%><%}%>
+                                    <label for="password">รหัสผ่านของ Database </label>
+                                </th>
+                                <td style="text-align: left;">
+                                    <span id="password"> <%= conv_passwd %></span>&emsp;<u><a href="javascript:void(0);" id="show-password" data-value="<%= manage[0].agm_id %>" class="btn btn-primary">เปิดการมองเห็น</a></u>
+                                </td>
+                            </table>
+                            <table class="table table-boardless">
+                                <th style="font-weight: bold; width: 15%; text-align: left;">
+                                    <label for="database">Database ที่เลือก </label>
+                                </th>
+                                <td style="text-align: left;">
+                                    <span id="database"> <%= obj[4] %></span>
+                                </td>
+                            </table>
+                            <table class="table table-boardless">
+                                <th style="font-weight: bold; width: 15%; text-align: left;">
+                                    <label for="table-length">จำนวน Table ทั้งหมด </label>
+                                </th>
+                                <td style="text-align: left;">
+                                    <% let table_length = obj.length - 5 %>
+                                    <span id="table-length"> <%= table_length %></span>
+                                </td>
+                            </table>
+                            <% for(i=5;i < obj.length; i++){%>
+                                <% let table = obj[i].split(":") %>
+                                <% let columns = table[1].split(",") %>
+                                <table class="table table-boardless">
+                                    <th style="font-weight: bold; width: 15%; text-align: left; vertical-align: top;">
+                                        <label for="table-columns">Table <%=table[0]%> </label>
+                                    </th>
+                                    <td style="text-align: left;">
+                                        <span id="table-columns"> 
+                                            <% for (j in columns){%>
+                                                <% if (parseInt(j)+1 == columns.length){%>
+                                                    -&nbsp;<%=columns[j]%>
+                                                <%}else{%>
+                                                    -&nbsp;<%=columns[j]%><br/>
+                                                <%}%>
+                                            <%}%>
+                                        </span>
+                                    </td>
+                                </table>
+                            <%}%>
+                        <%}else if(manage[0].code == "AG4"){%>
+                            <% let obj = manage[0].config_detail.split(",") %>
+                            <table class="table table-boardless">
+                                <th style="font-weight: bold; width: 15%; text-align: left;">
+                                    <label for="mode"> Mode ที่เลือกใช้ </label>
+                                </th>
+                                <td style="text-align: left;">
+                                    <span id="mode">
+                                        <% if (obj[0] == 0){%>
+                                            FTP
+                                        <%}else if (obj[0] == 1){%>
+                                            Syslogs
+                                        <%}%>
+                                    </span>
+                                </td>
+                            </table>
+                            <% if (obj[0] == 0){%>
+                                <table class="table table-boardless">
+                                    <th style="font-weight: bold; width: 15%; text-align: left;">
+                                        <label for="path"> ที่อยู่ในการเก็บไฟล์ </label>
+                                    </th>
+                                    <td style="text-align: left;">
+                                        <span id="path"><%= obj[1]%></span>
+                                    </td>
+                                </table>
+                            <%}%>
+                        <%}%>
+                    </div>
+                </div>
+            </div>
+            <!-- Card -->
+        </div>
+        <!-- Column -->
+    </div>
+    <!-- Row -->
+    <div class="text-center">
+        <a href="/agent_manage/" class="btn btn-secondary">ย้อนกลับ</a>
+    </div>
+</div>
+<%- include('../_footer') -%>

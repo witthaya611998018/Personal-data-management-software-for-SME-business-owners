@@ -1,0 +1,584 @@
+<%- include ("../../_header") %>
+    <!-- <link rel="stylesheet" type="text/css" href="/UI/assets/libs/select2/dist/css/select2.min.css"> -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-10 align-self-center">
+                <h3 class="page-title">เพิ่มเรื่องร้องเรียน สิทธิของเจ้าของข้อมูลส่วนบุคคล</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/management/cookies">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item"><a href="/appeal">รับเรื่องร้องเรียน
+                                    สิทธิองเจ้าของข้อมูลส่วนบุคคล</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">เพิ่มเรื่องร้องเรียน
+                                สิทธิของเจ้าของข้อมูลส่วนบุคคล</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-2 justify-content-end align-self-center d-none d-md-flex">
+                <div class="d-flex">
+                    <div class="dropdown me-2">
+                        <a href="/appeal" class="btn btn-secondary">ย้อนกลับ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid">
+        <div class="card">
+            <div class="border-bottom title-part-padding">
+                <h4 class="card-title mb-0">เพิ่มเรื่องร้องเรียน สิทธิของเจ้าของข้อมูลส่วนบุคคล</h4>
+            </div>
+            <div class="card-body">
+                <form action="/save/appeal" method="post">
+                    <input type="hidden" name="appeal_personal_data" id="personal">
+
+                    <div class="row mb-3 align-items-center d-none d-md-flex ">
+                        <div class="col-md-3" align="left">
+                            <h5 for="recipient-name" class="control-label">วันที่ร้องเรียน</h5>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="date" name="appeal_date" id="date" class="form-control" style="width: auto;">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3 align-items-center d-none d-md-flex">
+                        <div class="col-md-3" align="left">
+                            <h5 for="message-text" class="control-label">ช่องทางการรับเรื่องร้องเรียน</h5>
+                        </div>
+                        <div class="col-md-7">
+                            <input type="text" name="appeal_email" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <div class="col-md-3 align-items-center d-none d-md-flex justify-content-start">
+                            <h5 class="control-label">ชื่อ-นามสกุล ผู้ร้องเรียน</h5>
+                        </div>
+                        <div class="col-md-7 align-items-center d-none d-md-flex   justify-content-between "
+                            style="column-gap: 20px;">
+                            <div class="col-7 d-flex" style="column-gap: 10px;">
+                                <select class="select2 form-control custom-select" style="width: 40%; " required
+                                    name="prefix_name">
+                                    <option>ค้นหา...</option>
+                                    <% for (var i in prefix) {%>
+                                        <option value="<%=prefix[i].prefix_name%>,<%=prefix[i].prefix_id%>">
+                                            <%=prefix[i].prefix_name%>
+                                        </option>
+                                        <%}%>
+                                </select>
+                                <input type="text" class="form-control" aria-label="firstname" name="appeal_firstname"
+                                    required placeholder="ชื่อ">
+                            </div>
+                            <div class="col">
+                                <input type="text" name="appeal_lastname" placeholder="นามสกุล" class="form-control"
+                                    required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 row  align-items-center d-none d-md-flex">
+                        <div class="col-md-3" align="left">
+                            <h5 class="control-label">ที่อยู่/เบอร์โทร ข้อมูลติดต่อกลับ</h5>
+                        </div>
+                        <div class="col-md-7">
+                            <input type="text" name="appeal_address" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="mb-3 row  align-items-center d-none d-md-flex">
+                        <div class="col-md-3" align="left">
+                            <h5>ช่องทางติดต่อกลับ</h5>
+                        </div>
+                        <div class="col-md-7">
+                            <input type="text" name="appeal_contact" class="form-control" required>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="mt-2 row">
+                        <div class="col-md-3" align="left">
+                            <h5>กิจกรรมการประมวลผล <span style="color: red;">*</span></h5>
+                        </div>
+                        <div class="col-md-7 align-items-center d-none d-md-flex   justify-content-between "
+                            style="column-gap: 20px;">
+                            <div class="col d-flex" style="column-gap: 10px;">
+                                <select class="select2 form-control custom-select" style="width: 100%;" required
+                                    name="activity">
+                                    <option value="">ค้นหา...</option>
+                                    <% for (var i in classify) {%>
+                                        <option value="<%=classify[i].classify_id%>">
+                                            <%=classify[i].classify_name%>
+                                        </option>
+                                        <%}%>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <h5 class="mt-1 mb-3"><b>สิทธิการร้องเรียนของผู้ร้องเรียน</b></h5>
+                    <div class="row mb-1">
+                        <div class="col-md-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="appeal_revoke" value="1"
+                                    onclick="checkbox('flexCheckDefault_1_tr','flexCheckDefault_1')"
+                                    id="flexCheckDefault_1">
+                                <label class="form-check-label" for="flexCheckDefault_1">
+                                    <h5>การเพิกถอนความยินยอม</h5>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="appeal_access" value="1"
+                                    onclick="checkbox('flexCheckDefault_2_tr','flexCheckDefault_2')"
+                                    id="flexCheckDefault_2">
+                                <label class="form-check-label" for="flexCheckDefault_2">
+                                    <h5>การเข้าถึงข้อมูลส่วนบุคคล</h5>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="appeal_edit_information" value="1"
+                                    onclick="checkbox('flexCheckDefault_3_tr','flexCheckDefault_3')"
+                                    id="flexCheckDefault_3">
+                                <label class="form-check-label" for="flexCheckDefault_3">
+                                    <h5>การเเก้ไขข้อมูลส่วนบุคคลให้ถูกต้อง</h5>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="appeal_delet_information"
+                                    value="1" onclick="checkbox('flexCheckDefault_4_tr','flexCheckDefault_4')"
+                                    id="flexCheckDefault_4">
+                                <label class="form-check-label" for="flexCheckDefault_4">
+                                    <h5>การลบข้อมูลส่วนบุคคล</h5>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="appeal_suspend" value="1"
+                                    onclick="checkbox('flexCheckDefault_5_tr','flexCheckDefault_5')"
+                                    id="flexCheckDefault_5">
+                                <label class="form-check-label" for="flexCheckDefault_5">
+                                    <h5>การระงับการประมวลผลข้อมูล</h5>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="appeal_transfer" value="1"
+                                    onclick="checkbox('flexCheckDefault_6_tr','flexCheckDefault_6')"
+                                    id="flexCheckDefault_6">
+                                <label class="form-check-label" for="flexCheckDefault_6">
+                                    <h5>การให้โอนย้ายข้อมูลส่วนบุคคล</h5>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="appeal_oppose" value="1"
+                                    onclick="checkbox('flexCheckDefault_7_tr','flexCheckDefault_7')"
+                                    id="flexCheckDefault_7">
+                                <label class="form-check-label" for="flexCheckDefault_7">
+                                    <h5>การคัดค้านการประมวลผลข้อมูล</h5>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-auto">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="appeal_decision" value="1"
+                                    onclick="checkbox('flexCheckDefault_8_tr','flexCheckDefault_8')"
+                                    id="flexCheckDefault_8">
+                                <label class="form-check-label" for="flexCheckDefault_8">
+                                    <h5>การไม่ตกอยู่ภายใต้การสินใจอัตโตโนมัตเพียงอย่างเดียว</h5>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <hr>
+                    <div class="mt-2 row">
+                        <div class="col-md-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="appeal_approved_complaint" value="1"
+                                    id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    <h5>อนุมัติตามคำร้องเรียน</h5>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="appeal_approved_complaint" value="0"
+                                    id="flexRadioDefault2">
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    <h5>ปฏิเสธเรื่องร้องเรียน</h5>
+                                </label>
+                            </div>
+                        </div>
+                    </div> -->
+                    <hr>
+                    <!-- รายละเอียดร้องเรียน -->
+                    <div class="col mt-4" style="color: black;">
+                        <h5 class="mt-1 mb-3"><b>รายละเอียดร้องเรียน</b></h5>
+                        <textarea name="appeal_detail" rows="5" style="width: 100%;" class="form-control"></textarea>
+                    </div>
+
+                    <!-- เเบบฟอร์มการปฏิเสธเรื่องร้องเรียน -->
+                    <div class="mt-4">
+                        <table class="table  table-bordered">
+                            <tr class="table-success">
+                                <td rowspan="2" style="width: 20%;text-align: center;">
+                                    <b>
+                                        <h5>สิทธิ</h5>
+                                    </b>
+                                </td>
+                                <th colspan="11" scope="colgroup" class="text-center">
+                                    <h5>เหตุเเห่งการปฏิเสธการปฏิบัติตามคำร้องของเจ้าของข้อมูล</h5>
+                                </th>
+                            </tr>
+                            <tr class="table-success" style="font-size: 14px;">
+                                <th>
+                                    <h6>คำขอไม่สมเหตุนสมผล</h6>
+                                </th>
+                                <th>
+                                    <h6>คำขอไม่สมเหตุผล</h6>
+                                </th>
+                                <th>
+                                    <h6>เจ้าของข้อมูลมีข้อมูลอยุ่เเล้ว</h6>
+                                </th>
+                                <th>
+                                    <h6>เก็บเพื่อเสรีภาพในการเเสดงความคิดเห็น</h6>
+                                </th>
+                                <th>
+                                    <h6>เกี่ยวกับการทำจามสัญญา</h6>
+                                </th>
+                                <th>
+                                    <h6>กฏหมายอนุญาต</h6>
+                                </th>
+                                <th>
+                                    <h6>เกิดผลด้านลบเเก่บุคคลอื่น</h6>
+                                </th>
+                                <th>
+                                    <h6>จำเป็นสำหรับการประมวลผล</h6>
+                                </th>
+                                <th>
+                                    <h6>ประโยชน์สาธารณะหรืออำนาจรัฐหรือหน้าที่ตามกฏหมาย</h6>
+                                </th>
+                                <th>
+                                    <h6>ก่อตั้งใช้หรือป้องกันสิทธิทางกฏหมาย</h6>
+                                </th>
+                                <th>
+                                    <h6>ประโยชน์โดยชอบด้วยกฏหมาย</h6>
+                                </th>
+                            </tr>
+
+                            <tr class="text-center" id="flexCheckDefault_1_tr" style="display: none;">
+                                <th scope="row" class="text-start">1.การเพิกถอนความยินยอม</th>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+
+                            </tr>
+
+                            <tr class="text-center" id="flexCheckDefault_2_tr" style="display: none;">
+                                <th scope="row" class="text-start">2.การเข้าถึงข้อมูลส่วนบุคคล</th>
+                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td><i class="fas fa-check " style="color: green;"></i></td>
+                                <td><i class="fas fa-check " style="color: green;"></i></td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                            </tr>
+
+                            <tr class="text-center" id="flexCheckDefault_3_tr" style="display: none;">
+                                <th scope="row" class="text-start">3.การเเก้ไขข้อมูลส่วนบุคคลให้ถูกต้อง
+                                </th>
+                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                            </tr>
+
+                            <tr class="text-center" id="flexCheckDefault_4_tr" style="display: none;">
+                                <th scope="row" class="text-start">4.การลบข้อมูลส่วนบุคคล</th>
+                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                            </tr>
+
+                            <tr class="text-center" id="flexCheckDefault_5_tr" style="display: none;">
+                                <th scope="row" class="text-start">5.การระงับการประมวลผลข้อมูล</th>
+                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                            </tr>
+
+                            <tr class="text-center" id="flexCheckDefault_6_tr" style="display: none;">
+                                <th scope="row" class="text-start">6.การให้โอนย้ายข้อมูลส่วนบุคคล</th>
+                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                            </tr>
+
+                            <tr class="text-center" id="flexCheckDefault_7_tr" style="display: none;">
+                                <th scope="row" class="text-start">7.การคัดค้านการประมวลผลข้อมูล</th>
+                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                            </tr>
+
+                            <tr class="text-center" id="flexCheckDefault_8_tr" style="display: none;">
+                                <th scope="row" class="text-start">
+                                    8.การไม่ตกอยู่ภายใต้การสินใจอัตโตโนมัตเพียงอย่างเดียว</th>
+                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td><i class="fas fa-check" style="color: green;"></i></td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                                <td style="background-color: #f2be79"><i class="ti-close"></i>
+                                </td>
+                            </tr>
+                        </table>
+                        <hr>
+                        <div class="mt-2 row">
+                            <div class="col-md-3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="appeal_approved_complaint"
+                                        value="1" id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        <h5>อนุมัติตามคำร้องเรียน</h5>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="appeal_approved_complaint"
+                                        value="0" id="flexRadioDefault2">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        <h5>ปฏิเสธเรื่องร้องเรียน</h5>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div>
+                            <h5 class="mt-2 mb-3"><b>สรุปการร้องเรียนรายละเอียด</b></h5>
+                            <textarea name="appeal_detail_summary" rows="5" style="width: 100%;"
+                                class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <!-- <hr>
+                    <div class="row mt-3=4">
+                        <div class="col-md-6">
+                            <h5><b>ค้นหาข้อมูลจากข้อมูลส่วนบุคคลทั้งหมด</b></h5>
+                        </div>
+                        <div class="col-md-6 justify-content-start align-self-center d-block d-md-flex">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="ค้นหา.." aria-label="" value=""
+                                    id="Srearch_personal" aria-describedby="button-addon2">
+                                <button class="btn btn-outline-warning" type="button" id="button-addon2"><i
+                                        class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="responsive mt-3">
+                        <table class="table-striped table-bordered table-hover table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        ข้อมูลส่วนบุคคล
+                                    </th>
+                                    <th>
+                                        ความสำคัญ
+                                    </th>
+                                    <th>
+                                        เอกสาร
+                                    </th>
+                                    <th>
+                                        ข้อมูลจัดเก็บ
+                                    </th>
+                                    <th>
+                                        วันเริ่มเก็บ
+                                    </th>
+                                    <th>
+                                        เสร็จสิ้น
+                                    </th>
+                                    <th>
+                                        consent
+                                    </th>
+                                    <th>
+                                        Unconsent
+                                    </th>
+                                    <th>
+                                        ประวัติ
+                                    </th>
+                                    <th>
+                                        เเชร์
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="datashow">
+
+                            </tbody>
+                        </table>
+                    </div> -->
+                    <div class="modal-footer" style="justify-content: center;">
+                        <button type="submit" class="btn btn-success">บันทึกข้อมูล</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="/UI/assets/libs/select2/dist/js/select2.full.min.js"></script>
+    <script src="/UI/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="/dist/js/pages/forms/select2/select2.init.js"></script>
+    <style>
+        .close_tr {
+            display: "none";
+        }
+    </style>
+    <script>
+
+        function myFunction(data) {
+            document.querySelector('#prefix').innerHTML = data
+            document.getElementById('appeal_prefix').value = data
+        }
+
+        function checkbox(id_tr, id_input) {
+            var tr = document.getElementById(`${id_tr}`)
+            var input = document.getElementById(`${id_input}`)
+            if (input.checked == true) {
+                tr.style.display = "";
+            } else {
+                tr.style.display = "none";
+            }
+        }
+        var utc = new Date().toJSON().slice(0, 10);
+        document.getElementById('date').value = utc;
+    </script>
+
+
+
+    <%- include ("../../_footer") %>

@@ -1,0 +1,196 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-6 align-self-center">
+                <h3 class="page-title">ลบข้อมูลผู้ใช้งาน</h3><br>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item"><a href="/index2">การจัดการผู้ใช้</a></li>
+                            <li class="breadcrumb-item"><a href="/account/list">ข้อมูลผู้ใช้</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">ลบข้อมูลผู้ใช้งาน
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- -------------------------------------------------------------- -->
+        <!-- Start Page Content -->
+        <!-- -------------------------------------------------------------- -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body border-bottom">
+                        <h4 class="card-title">ลบข้อมูลผู้ใช้งาน</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3"></div>
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <form action="/account/del/<%=data[0].acc_id%>" method="get">
+                                    <div class="p-lg-5">
+                                        <div class="" style="margin-bottom:1px;">
+                                            <h3 style="text-align: center;">รูปภาพ
+                                        </div>
+                                        </h3>
+
+                                        <div class="avatar-upload" style="margin-top: 10px;">
+                                            <div class="avatar-preview">
+                                                <div id="imagePreview"
+                                                    style="background-image: url(/UI/image/<%=data[0].image%>);">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-3 row">
+                                            <label for="firstname"
+                                                class="col-sm-3 text-end control-label col-form-label">ชื่อ</label>
+                                            <div class="col-sm-6">
+                                                <%=data[0].firstname%>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="lastname"
+                                                class="col-sm-3 text-end control-label col-form-label">สกุล</label>
+                                            <div class="col-sm-6">
+                                                <%=data[0].lastname%>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="name"
+                                                class="col-sm-3 text-end control-label col-form-label">ชื่อในระบบ</label>
+                                            <div class="col-sm-6">
+                                                <%=data[0].name%>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="position" class="col-sm-3 text-end control-label col-form-label"
+                                                for="sender">ตำแหน่ง</label>
+                                            <div class="col-sm-6">
+                                                <%=data[0].position%>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="email"
+                                                class="col-sm-3 text-end control-label col-form-label">อีเมล</label>
+                                            <div class="col-sm-6">
+                                                <%=data[0].email%>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="phone"
+                                                class="col-sm-3 text-end control-label col-form-label">เบอร์โทรศัพท์มือถือ</label>
+                                            <div class="col-sm-6">
+                                                <%=data[0].phone%>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="contact"
+                                                class="col-sm-3 text-end control-label col-form-label">เบอร์โทรศัพท์</label>
+                                            <div class="col-sm-3">
+                                                <%=data[0].contact%>
+                                            </div>
+                                            <label class="col-sm-1 text-end">ต่อ</label>
+                                            <div class="col-sm-2">
+                                                <%=data[0].ext%>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="line"
+                                                class="col-sm-3 text-end control-label col-form-label">ไลน์</label>
+                                            <div class="col-sm-6">
+                                                <%=data[0].line%>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="bd"
+                                                class="col-sm-3 text-end control-label col-form-label">วันเดือนปีเกิด</label>
+                                            <div class="col-sm-4">
+                                                <%=data[0].bd%>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="descrip"
+                                                class="col-sm-3 text-end control-label col-form-label">รายละเอียด</label>
+                                            <div class="col-sm-6">
+                                                <%=data[0].descrip%>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-3 row">
+                                            <label for="username"
+                                                class="col-sm-3 text-end control-label col-form-label">ชื่อผู้ใช้</label>
+                                            <div class="col-sm-6">
+                                                <%=data[0].username%>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="password" class="col-sm-3 text-end control-label col-form-label"
+                                                for="com3">รหัสผ่าน</label>
+                                            <div class="col-sm-6">
+                                                <%=data[0].password%>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-md-3"></div>
+                                        <div class="col-md-6">
+                                            <div class="text-center">
+                                                <button type="submit"
+                                                    class="btn btn-success waves-effect waves-light">ยืนยัน</button>
+                                                <a href="/account/list">
+                                                    <button type="button"
+                                                        class="btn btn-secondary waves-effect waves-light">กลับ</button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- -------------------------------------------------------------- -->
+    <!-- End PAge Content -->
+    <!-- -------------------------------------------------------------- -->
+    <!--start overlay-->
+    <%- include('../_footer') -%>
+        <script src="/UI/assets/libs/bootstrap-switch/dist/js/bootstrap-switch.min.js"></script>
+        <script>
+            $(".bt-switch input[type='checkbox'], .bt-switch input[type='radio']").bootstrapSwitch();
+            var radioswitch = function () {
+                var bt = function () {
+                    $(".radio-switch").on("switch-change", function () {
+                        $(".radio-switch").bootstrapSwitch("toggleRadioState")
+                    }), $(".radio-switch").on("switch-change", function () {
+                        $(".radio-switch").bootstrapSwitch("toggleRadioStateAllowUncheck")
+                    }), $(".radio-switch").on("switch-change", function () {
+                        $(".radio-switch").bootstrapSwitch("toggleRadioStateAllowUncheck", !1)
+                    })
+                };
+                return {
+                    init: function () {
+                        bt()
+                    }
+                }
+            }();
+            $(document).ready(function () {
+                radioswitch.init()
+            });
+        </script>

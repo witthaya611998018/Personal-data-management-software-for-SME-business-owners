@@ -1,0 +1,485 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">รายชื่อผู้ใช้งาน</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item"><a href="/index2">การจัดการผู้ใช้</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">ข้อมูลผู้ใช้
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-7 justify-content-end align-self-center d-none d-md-flex">
+                <div class="d-flex">
+                    <div class="dropdown me-2">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="border-bottom title-part-padding">
+                <h4 class="card-title">รายชื่อผู้ใช้งาน</h4>
+            </div>
+            <div class="card-body" style="min-height: 650px;">
+                <div class="mb-3">
+                    <a href="/account/new"><button class="btn btn-success">
+                            <i class="fas fa-plus"></i> เพิ่มผู้ใช้</button>
+                    </a>
+                </div>
+                <div class="table-responsive">
+                    <table class="tablesaw no-wrap table-striped table-bordered table-hover table" id="myTable">
+                        <thead>
+                            <tr>
+                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-sortable-default-col
+                                    data-tablesaw-priority="3" class="border">ลำดับ</th>
+                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist"
+                                    class="border">ชื่อในระบบ</th>
+                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2" class="border">
+                                    สถานะ</th>
+                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1" class="border">
+                                    ชื่อผู้ใช้งาน</th>
+                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1" class="border">
+                                    รายละเอียด</th>
+                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1" class="border">
+                                    ตำแหน่ง</th>
+                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1" class="border">
+                                    ผู้ใช้งานทั่วไป</th>
+                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1" class="border">
+                                    แก้ไขผู้ใช้</th>
+                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1" class="border">
+                                    ลบผู้ใช้</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (data){ for (var i=0; i < data.length; i++) { %>
+                                <tr>
+                                    <td class="title align-top">
+                                        <%= (i+1) %>
+                                    </td>
+                                    <td class="align-top">
+                                        <div class="d-flex align-items-center">
+                                            <img src='/UI/image/<%= data[i].image%>' width="50" height="50">
+                                            <span class="ms-3 fw-normal">
+                                                <%= data[i].name%>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="align-top">
+                                        <%if(data[i].admin==1){%>
+                                            <span class="badge bg-light-info text-info fw-normal"
+                                                style="font-size: medium;">ผู้ดูแลระบบ</span>
+                                            <%}else if(data[i].admin==0) {%><span
+                                                    class="badge bg-light-success text-success fw-normal"
+                                                    style="font-size: medium;">ผู้ดูแลข้อมูล</span>
+                                                <%}else if(data[i].admin==2) {%><span
+                                                        class="badge bg-light-secondary text-secondary fw-normal"
+                                                        style="font-size: medium;">ผู้ใช้งานทั่วไป</span>
+                                                    <%}else if(data[i].admin==3) {%><span
+                                                            class="badge bg-light-primary text-primary fw-normal"
+                                                            style="font-size: medium;">เจ้าหน้าที่คุ้มครองข้อมูล</span>
+                                                        <%}else if(data[i].admin==4) {%><span
+                                                                class="badge bg-light-warning text-warning fw-normal"
+                                                                style="font-size: medium;">ประมวลผลข้อมูล</span>
+                                                            <%}else if(data[i].admin==5) {%><span
+                                                                    class="badge bg-light-danger text-danger fw-danger"
+                                                                    style="font-size: medium;">ผู้ควบคุมข้อมูล</span>
+                                                                <%}%>
+                                    </td>
+                                    <td class="align-top">
+                                        <%= data[i].username%>
+                                    </td>
+                                    <td class="align-top">
+                                        <%= data[i].descrip%>
+                                    </td>
+                                    <td>
+                                        <%= data[i].position%>
+                                    </td>
+                                    <td>
+                                        <%if(data[i].admin==5){%>
+                                            <a href="/account/new/general/<%=data[i].acc_id%>">
+                                                <i class="fas fa-plus fa-2x text-success"></i>
+                                            </a>
+                                            <%} else {%>
+                                                -
+                                                <%}%>
+                                    </td>
+                                    <td>
+                                        <a href="/account/edit/<%=data[i].acc_id%>">
+                                            <i class="fas fa-pencil-alt fa-2x" style="color:#ffbc34"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <i class="fas fa-trash-alt fa-2x" data-bs-toggle="modal"
+                                            data-bs-target="#samedata2-modal<%=i%>" data-bs-whatever="@mdo"
+                                            style="color: red;"></i>
+                                    </td>
+                                </tr>
+                                <% }} %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <table class="tablesaw no-wrap table-striped table-bordered table-hover table">
+                <thead>
+                    <tr>
+                        <th>
+                            ลำดับ
+                        </th>
+                        <th>
+                            ชื่อในระบบ
+                        </th>
+                        <th>
+                            สถานะ
+                        </th>
+                        <th>
+                            ชื่อผู้ใช้งาน
+                        </th>
+                        <th>
+                            รายละเอียด
+                        </th>
+                        <th>
+                            ตำแหน่ง
+                        </th>
+                        <th>
+                            ผู้ใช้งานทั่วไป
+                        </th>
+                        <th>
+                            เเก้ไขผู้ใช้งาน
+                        </th>
+                        <th>
+                            ลบผู้ใช้
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            1
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <img src='/UI/image/user_pic.png' width="50" height="50">
+                                <span class="ms-3 fw-normal">
+                                    ผู้ควบคุมข้อมูล วีคอนซัลแทนท์
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="badge bg-light-danger text-danger fw-danger"
+                                style="font-size: medium;">ผู้ควบคุมข้อมูล</span>
+                        </td>
+                        <td>
+                            control
+                        </td>
+                        <td>
+                            zczxczxczxczzxc
+                        </td>
+                        <td>
+                            Data Control
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <% if (data){ for (var i=0; i < data.length; i++) { %>
+        <div class="modal fade" id="samedata-modal<%=i%>" tabindex="-1" aria-labelledby="exampleModalLabel1">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header d-flex align-items-center">
+                        <h4 class="card-title">รายละเอียดผู้ใช้<%=data[i].name%>
+                        </h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3 row">
+                                <label for="firstname"
+                                    class="col-sm-3 text-end control-label col-form-label text-secondary"></label>
+                                <div class="col-sm-6">
+                                    <center class="mt-4"> <img src="/UI/image/<%=data[i].image%>" width="85"
+                                            height="85" />
+                                    </center><br>
+                                </div>
+                            </div>
+                            <hr><br>
+                            <div class="mb-3 row">
+                                <label
+                                    class="col-sm-5 text-end control-label col-form-label text-secondary">ชื่อผู้ใช้</label>
+                                <div class="col-sm-2">
+                                    <label class="control-label col-form-label">
+                                        <%=data[i].username%>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-5 text-end control-label col-form-label text-secondary">ชื่อ
+                                    :</label>
+                                <div class="col-sm-5">
+                                    <label class="control-label col-form-label">
+                                        <%=data[i].firstname%>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-5 text-end control-label col-form-label text-secondary">สกุล
+                                    :</label>
+                                <div class="col-sm-5">
+                                    <label class="control-label col-form-label">
+                                        <%=data[i].lastname%>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-5 text-end control-label col-form-label text-secondary">ตำแหน่ง
+                                    :</label>
+                                <div class="col-sm-5">
+                                    <label class="control-label col-form-label">
+                                        <%=data[i].position%>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-5 text-end control-label col-form-label text-secondary">อีเมล
+                                    :</label>
+                                <div class="col-sm-5">
+                                    <label class="control-label col-form-label">
+                                        <%=data[i].email%>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label
+                                    class="col-sm-5 text-end control-label col-form-label text-secondary">เบอร์โทรศัพท์มือถือ
+                                    :</label>
+                                <div class="col-sm-5">
+                                    <label class="control-label col-form-label">
+                                        <%=data[i].phone%>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label
+                                    class="col-sm-5 text-end control-label col-form-label text-secondary">เบอร์โทรศัพท์</label>
+                                <div class="col-sm-2">
+                                    <label class="control-label col-form-label">
+                                        <%=data[i].contact%>
+                                    </label>
+                                </div>
+                                <label class="col-sm-1 text-end control-label col-form-label text-secondary">ต่อ</label>
+                                <div class="col-sm-2">
+                                    <label class="control-label col-form-label">
+                                        <%=data[i].ext%>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="port"
+                                    class="col-sm-5 text-end control-label col-form-label text-secondary">ไลน์</label>
+                                <div class="col-sm-5">
+                                    <label class="control-label col-form-label">
+                                        <%=data[i].line%>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="port"
+                                    class="col-sm-5 text-end control-label col-form-label text-secondary">รายละเอียด</label>
+                                <div class="col-sm-5">
+                                    <label class="control-label col-form-label">
+                                        <%=data[i].descrip%>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- <br> -->
+                            <!-- <hr> -->
+                            <center>
+                                <a href="/account/edit/<%= data[i].acc_id %>">
+                                    <button type="button"
+                                        class="btn btn-success waves-effect btn-lg waves-light">ยืนยัน</button>
+                                </a>
+                                <button type="button" class="btn btn-secondary waves-effect btn-lg waves-light"
+                                    data-bs-dismiss="modal">ยกเลิก</button>
+                            </center>
+
+                            <br>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% }} %>
+            <% if (data){ for (var i=0; i < data.length; i++) { %>
+                <div class="modal fade" id="samedata2-modal<%=i%>" tabindex="-1" aria-labelledby="exampleModalLabel1">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header d-flex align-items-center">
+                                <h4 class="card-title">รายละเอียดผู้ใช้<%=data[i].name%>
+                                </h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="mb-3 row">
+                                        <label for="firstname"
+                                            class="col-sm-3 text-end control-label col-form-label text-secondary"></label>
+                                        <div class="col-sm-6">
+                                            <center class="mt-4"> <img src="/UI/image/<%=data[i].image%>" width="85"
+                                                    height="85" />
+                                            </center><br>
+                                        </div>
+                                    </div>
+                                    <hr><br>
+                                    <div class="mb-3 row">
+                                        <label
+                                            class="col-sm-5 text-end control-label col-form-label text-secondary">ชื่อผู้ใช้</label>
+                                        <div class="col-sm-2">
+                                            <label class="control-label col-form-label">
+                                                <%=data[i].username%>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label
+                                            class="col-sm-5 text-end control-label col-form-label text-secondary">ชื่อ
+                                            :</label>
+                                        <div class="col-sm-5">
+                                            <label class="control-label col-form-label">
+                                                <%=data[i].firstname%>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label
+                                            class="col-sm-5 text-end control-label col-form-label text-secondary">สกุล
+                                            :</label>
+                                        <div class="col-sm-5">
+                                            <label class="control-label col-form-label">
+                                                <%=data[i].lastname%>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label
+                                            class="col-sm-5 text-end control-label col-form-label text-secondary">ตำแหน่ง
+                                            :</label>
+                                        <div class="col-sm-5">
+                                            <label class="control-label col-form-label">
+                                                <%=data[i].position%>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label
+                                            class="col-sm-5 text-end control-label col-form-label text-secondary">อีเมล
+                                            :</label>
+                                        <div class="col-sm-5">
+                                            <label class="control-label col-form-label">
+                                                <%=data[i].email%>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label
+                                            class="col-sm-5 text-end control-label col-form-label text-secondary">เบอร์โทรศัพท์มือถือ
+                                            :</label>
+                                        <div class="col-sm-5">
+                                            <label class="control-label col-form-label">
+                                                <%=data[i].phone%>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label
+                                            class="col-sm-5 text-end control-label col-form-label text-secondary">เบอร์โทรศัพท์</label>
+                                        <div class="col-sm-2">
+                                            <label class="control-label col-form-label">
+                                                <%=data[i].contact%>
+                                            </label>
+                                        </div>
+                                        <label
+                                            class="col-sm-1 text-end control-label col-form-label text-secondary">ต่อ</label>
+                                        <div class="col-sm-2">
+                                            <label class="control-label col-form-label">
+                                                <%=data[i].ext%>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="port"
+                                            class="col-sm-5 text-end control-label col-form-label text-secondary">ไลน์</label>
+                                        <div class="col-sm-5">
+                                            <label class="control-label col-form-label">
+                                                <%=data[i].line%>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="port"
+                                            class="col-sm-5 text-end control-label col-form-label text-secondary">รายละเอียด</label>
+                                        <div class="col-sm-5">
+                                            <label class="control-label col-form-label">
+                                                <%=data[i].descrip%>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <!-- <br> -->
+                                    <!-- <hr> -->
+                                    <center>
+                                        <a href="/account/delete/<%= data[i].acc_id %>">
+                                            <button type="button"
+                                                class="btn btn-danger waves-effect btn-lg waves-light">ยืนยัน</button>
+                                        </a>
+                                        <button type="button" class="btn btn-secondary waves-effect btn-lg waves-light"
+                                            data-bs-dismiss="modal">ยกเลิก</button>
+                                    </center>
+                                    <br>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+                    <% } %>
+
+                        <script>
+                            $.ajax({
+                                type: 'GET',
+                                url: '/api/email_consent',
+                                success: async function (result) {
+                                    if (result == "ไม่มีข้อมูล") {
+                                    } else {
+
+                                    }
+                                },
+                                error: function (e) {
+                                    console.log(e);
+                                }
+                            });
+                        </script>
+
+                        <%- include('../_footer') -%>
+                            <script src="/UI/assets/libs/datatables/media/js/jquery.dataTables.min.js"></script>
+                            <script src="/UI/dist/js/pages/datatable/custom-datatable.js"></script>
+                            <script src="/UI/dist/js/pages/datatable/datatable-basic.init.js"></script>
+                            <script>
+                                $(document).ready(function () {
+                                    $('#myTable').DataTable();
+                                });
+                            </script>

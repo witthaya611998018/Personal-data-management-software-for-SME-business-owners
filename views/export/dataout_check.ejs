@@ -1,0 +1,879 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-3 align-self-center">
+                <h3 class="page-title">ส่งข้อมูลแบบ Syslog</h3> 
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">หน้าหลัก</a></li>
+                            <!-- <li class="breadcrumb-item"><a href="#">การตั้งค่า</a></li> -->
+                            <li class="breadcrumb-item active" aria-current="page">ส่งข้อมูลแบบ Syslog</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-2 align-self-center">
+                <div class="card">
+                    <div class="box p-2 rounded bg-success text-center">
+                        <h2 class="fw-light text-white">
+                            <% if (session.acc_user){%>
+                                <%=session.acc_user%>
+                                    <%}else{%>
+                                        0
+                                        <%}%>
+                        </h2>
+                        <h6 class="text-white">จำนวนไฟล์ทั้งหมด</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 align-self-center">
+                <div class="card">
+                    <div class="box p-2 rounded bg-danger text-center">
+                        <h2 class="fw-light text-white">
+                            <% if (session.acc_user){%>
+                                <%=session.acc_user%>
+                                    <%}else{%>
+                                        0
+                                        <%}%>
+                        </h2>
+                        <h6 class="text-white">พื้นที่ที่ใช้ไป</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 align-self-center">
+                <div class="card">
+                    <div class="box p-2 rounded bg-warning text-center">
+                        <h2 class="fw-light text-white">
+                            <%=session.set_system[0].day_keep%>
+                        </h2>
+                        <h6 class="text-white">จำนวนอุปกรณ์ส่งออก</h6>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-md-2 align-self-center">
+                <div class="card">
+                    <div class="progress-bar bg-warning" id="cpuusedper" style="width:60%; height:30px;" role="progressbar">
+                        <span class="sr-only">60%</span> </div>
+                    <h2 style="align-items: center;">60%</h2>
+                </div>
+            </div> -->
+            <div class="col-md-3 align-self-center">
+                <div class="card">
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+
+                <div class="card">
+
+                    <div class="row">
+
+                        <div class="card-body">
+                            <div class="border-bottom title-part-padding ">
+                                <h4 class="card-title mb-0 ">รายละเอียดข้อมูล</h4>
+                            </div>
+                            <div class="card-body ">
+                                <div class="row pb-3">
+                                    <div class="col-md-8">
+                                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#samedata2-modal" data-bs-whatever="@mdo" type="button"><i class="fas fa-upload"></i> สร้างการส่งออก</button>
+                                    </div>
+                                    <!-- <div class="col-md-4 justify-content-end align-self-center d-block d-md-flex">
+                                        <div class="input-group mb-2">
+                                            <input type="text" class="form-control" placeholder="ค้นหา.." aria-label="" aria-describedby="button-addon2" id="myInput">
+                                            <button class="btn btn-outline-warning" type="button" id="button-addon2" onclick="myFunction()"><i class="fas fa-search"></i></button>
+                                            <button class="btn btn-warning" type="button" id="button-addon2"><i class="fas fa-download"></i> DATA OUT</button>
+                                        </div>
+                                    </div> -->
+                                </div>
+
+                                <table class="tablesaw no-wrap table-striped table-bordered table-hover table " id="myTable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col " data-tablesaw-sortable-col data-tablesaw-sortable-default-col data-tablesaw-priority="3 " class="border ">ลำดับ</th>
+                                            <th scope="col " data-tablesaw-sortable-col data-tablesaw-priority="persist " class="border ">ชื่อข้อมูล</th>
+                                            <th scope="col " data-tablesaw-sortable-col data-tablesaw-priority="2 " class="border ">รายละเอียดข้อมูล</th>
+                                            <th scope="col " data-tablesaw-sortable-col data-tablesaw-priority="2 " class="border ">วันที่จัดเก็บ</th>
+                                            <th scope="col " data-tablesaw-sortable-col data-tablesaw-priority="1 " class="border ">ขนาดข้อมูล</th>
+                                            <th scope="col " data-tablesaw-sortable-col data-tablesaw-priority="4 " class="border ">อุปกรณ์ที่ได้รับ</th>
+                                            <th scope="col " data-tablesaw-sortable-col data-tablesaw-priority="4 " class="border ">ผู้สร้าง</th>
+                                            <th scope="col " data-tablesaw-sortable-col data-tablesaw-priority="4 " class="border ">สถานะ</th>
+                                            <th scope="col " data-tablesaw-sortable-col data-tablesaw-priority="4 " class="border ">ดูข้อมูล</th>
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% if (data){ for (var i = 0; i < data.length; i++) { %>
+                                            <tr>
+                                                <td class="title align-top ">
+                                                    <%= (i+1) %>
+                                                </td>
+                                                <td class="align-top ">
+                                                    <%=data[i].name%>
+                                                </td>
+                                                <td class="align-top ">
+                                                    <%=data[i].descrip%>
+                                                </td>
+                                                <td class="align-top ">
+                                                    <%=data[i].create_date%>
+                                                </td>
+                                                <td class="align-top ">
+                                                    <%=data[i].import_date%>
+                                                </td>
+                                                <td class="align-top ">
+                                                    <%=data[i].path%>
+                                                </td>
+                                                <td class="align-top ">
+                                                    <%=data[i].type_import%>
+                                                </td>
+                                                <td class="align-top ">
+                                                    เรียบร้อย
+                                                </td>
+
+                                                <td class="center" align="center">
+                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#samedata3-modal<%=i%>" data-bs-whatever="@mdo" class="btn waves-effect waves-light btn-info">
+                                                        <i style="font-size: 22px;" data-feather="file-text" class="feather-icon"></i></button>
+                                                    <!-- <a href="/device/del/<%=data[i].device_id%>"><button type="button" class="btn waves-effect waves-light btn-danger"  ><i class="fas fa-trash-alt"></i></button> -->
+                                                    </a>
+                                                </td>
+
+                                            </tr>
+                                            <%  }} %>
+
+                                                <% if (data.length == 0){%>
+                                                    <tr>
+                                                        <td class="title align-top " style="text-align: center; color: rgb(228, 20, 20); " colspan="6 ">
+                                                            ไม่พบข้อมูล
+                                                        </td>
+                                                    </tr>
+                                                    <%}%>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- สร้างการเตือน -->
+        <div class="modal fade" id="samedata2-modal" tabindex="-1" aria-labelledby="exampleModalLabel1">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-header d-flex align-items-center">
+
+                        <h4 class="card-title"><i class="fas fa-upload"></i> &nbsp;สร้างการส่งออกเข้าข้อมูลแบบมีเงื่อนไข
+                        </h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                    </div>
+                    <div class="modal-body">
+                        <form action="/createftp" method="post">
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label text-secondary" for="sender">ชื่อข้อมูล</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control border border-info" placeholder="ภาษาอังกฤษ ห้ามมี *?/_" name="name" required>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label text-secondary" for="spec">รายละเอียดข้อมูล</label>
+                                <div class="col-sm-6">
+                                    <textarea type="text" row="4" class="form-control border border-info" id="spec" name="descrip"></textarea>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label text-secondary" for="spec">วันที่สร้าง</label>
+                                <div class="col-sm-6">
+                                    <input type="datetime-local" class="form-control border border-info " name="create_date">
+                                </div>
+                            </div>
+                            <br>
+
+                            <hr>
+
+                            <div class="mb-3 row">
+                                <label for="cono1" class="col-sm-3 text-end control-label col-form-label text-secondary">เลือกรูปแบบที่ต้องจัดส่ง</label>
+                                <div class="col-sm-3" id="cono1">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input success check-outline outline-success" type="radio" name="type_sender" id="type_sender" value='agent' required>
+                                        <label class="form-check-label" for="hash">Syslog</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="cono1" class="col-sm-3 text-end control-label col-form-label text-secondary">จัดส่งไปยัง</label>
+                                <div class="col-sm-2" id="cono1">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input success check-outline outline-success" type="radio" name="type_sender" id="type_sender" value='agent' required>
+                                        <label class="form-check-label" for="hash">Syslog</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3" id="cono1">
+                                    <div>
+                                        <select class=".select2-with-border border-info form-control" style="width: 100%; height:36px;" name="timezone">
+                                            <option  >กรุณาเลือก</option>
+                                              <option  > WebServer  </option>
+                                              <option  > MailServer  </option>
+                                              <option  > LogServer  </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="mb-3 row">
+                                <label for="cono1" class="col-sm-3 text-end control-label col-form-label text-secondary"></label>
+                                <div class="col-sm-3" id="cono1">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input success check-outline outline-success" type="radio" name="type_import" id="type_import" value='agent' required>
+                                        <label class="form-check-label" for="hash">Share</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3" id="cono1">
+                                    <div>
+                                        <input type="text" class="form-control border border-info " name="path">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3" id="cono1">
+                                </div>
+                                <label for="cono1" class="col-sm-3 text-end control-label col-form-label text-secondary">ความถี่ในการแจ้งเตือน</label>
+                                <div class="col-sm-3" id="cono1">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input secondary" type="radio" name="radio-solid-secondary" id="secondary-radio" value="option1">
+                                        <label class="form-check-label" for="secondary-radio">1 ครั้งต่อชั่วโมง</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3" id="cono1">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input secondary" type="radio" name="radio-solid-secondary" id="secondary-radio" value="option1">
+                                        <label class="form-check-label" for="secondary-radio">เมื่อพบข้อมูล</label>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <hr>
+                            <div class="mb-3 row">
+                                <label for="cono1" class="col-sm-3 text-end control-label col-form-label text-secondary">การแจ้งเตือน</label>
+                                <div class="col-sm-3" id="cono1">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input primary check-outline outline-primary" type="radio" name="type_alert" id="type_alert" value='agent' required>
+                                        <label class="form-check-label" for="hash">ส่งผ่านอีเมล</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="cono1" class="col-sm-3 text-end control-label col-form-label text-secondary"></label>
+                                <div class="col-sm-2" id="cono1">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input primary check-outline outline-primary" type="radio" name="type_alert" id="type_alert" value='agent' required>
+                                        <label class="form-check-label" for="hash">ส่งผ่าน SMS</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3" id="cono1">
+                                    <div>
+                                        <input type="text" class="form-control border border-info " name="path">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label text-secondary" for="spec">IP Address</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control border border-info " name="ip">
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label text-secondary" for="spec">Username</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control border border-info ">
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label text-secondary" for="spec">Password</label>
+                                <div class="col-sm-6">
+                                    <input type="password" class="form-control border border-info " value="xxxxxxx">
+                                </div>
+                            </div> -->
+
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-5">
+                                </div>
+                                <div class="col-sm-1">
+                                    <button type="submit" class="btn btn-success btn waves-effect waves-light">ยืนยัน</button>
+                                </div>
+                                <div class="col-sm-1">
+                                    <button type="button" class="btn btn-secondary waves-effect waves-light" data-bs-dismiss="modal">ยกเลิก</button>
+                                </div>
+                                <div class="col-sm-5">
+                                </div>
+                            </div>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ดูการเตือน -->
+        <% if (data){ for (var i = 0; i < data.length; i++) { %>
+            <div class="modal fade" id="samedata3-modal<%=i%>" tabindex="-1" aria-labelledby="exampleModalLabel1">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+
+                        <div class="modal-header d-flex align-items-center">
+
+                            <h4 class="card-title"><i class="fas fa-upload"></i> &nbsp;ข้อกำหนดการเฝ้าระวัง
+                            </h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                        </div>
+                        <div class="modal-body">
+                            <form action="/createftp" method="post">
+                                <div class="mb-3 row">
+                                    <label class="col-sm-3 text-end control-label col-form-label text-secondary" for="sender">ชื่อข้อกำหนด</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control border border-info" placeholder="ภาษาอังกฤษ ห้ามมี *?/_" name="name" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-3 text-end control-label col-form-label text-secondary" for="spec">เลือกอุปกรณ์</label>
+                                    <div class="col-sm-6">
+                                        <select class=".select2-with-border border-info form-control" style="width: 100%; height:36px;" name="timezone">
+                                            <option  >กรุณาเลือก</option>
+                                              <option  > WebServer  </option>
+                                              <option  > MailServer  </option>
+                                              <option  > LogServer  </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-3 text-end control-label col-form-label text-secondary" for="spec">ประเภทการจัดส่งข้อมูลมาจัดเก็บ</label>
+                                    <div class="col-sm-6">
+                                        <label class="control-label col-form-label ">Syslog</label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-3 text-end control-label col-form-label text-secondary" for="spec">วันที่เริ่มมีข้อมูล</label>
+                                    <div class="col-sm-6">
+                                        <label class="control-label col-form-label ">2022-02-10</label>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-3 text-end control-label col-form-label text-secondary" for="spec">ปริมาณล็อกทั้งหมด</label>
+                                    <div class="col-sm-6">
+                                        <label class="control-label col-form-label ">ข้อมูลจราจรทางคอมพิวเตอร์จากการเชื่อต่อเข้าถึงระบบเครือข่าย (Internet Access)</label>
+                                    </div>
+                                </div><br>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-3 text-end control-label col-form-label" for="spec">ข้อกำหนดการเฝ้าดู</label>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-3 text-end control-label col-form-label text-secondary" for="sender">Sender email address</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control border border-info" placeholder="ปล่อยว่างไว้ถ้าไม่มี" name="name" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-3 text-end control-label col-form-label text-secondary" for="spec">Message ID</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control border border-info " placeholder="ปล่อยว่างไว้ถ้าไม่มี" name="create_date">
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-3 text-end control-label col-form-label text-secondary" for="spec">Receiver email address</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control border border-info " placeholder="ปล่อยว่างไว้ถ้าไม่มี" name="create_date">
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-3 text-end control-label col-form-label text-secondary" for="spec">IP address of client to server</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control border border-info " placeholder="ปล่อยว่างไว้ถ้าไม่มี" name="path">
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label for="cono1" class="col-sm-3 text-end control-label col-form-label text-secondary">Date time</label>
+                                    <div class="col-sm-6">
+                                        <input type="datetime-local" class="form-control border border-info " name="create_date">
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-3 text-end control-label col-form-label text-secondary" for="sender">address of sending computer</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control border border-info" placeholder="ปล่อยว่างไว้ถ้าไม่มี" name="name" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-3 text-end control-label col-form-label text-secondary" for="spec">User ID</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control border border-info" placeholder="ปล่อยว่างไว้ถ้าไม่มี" name="name" required>
+                                    </div>
+                                </div><br>
+
+                                <div class="mb-3 row">
+                                    <label class="col-sm-3 text-end control-label col-form-label " for="spec">การเตือน/การส่งข้อมูล</label>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-3 text-end control-label col-form-label text-secondary" for="spec"> </label>
+
+                                    <div class="col-sm-1">
+                                        <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" checked>
+                                        <label class="btn btn-outline-primary  font-weight-medium" for="option1">Days</label>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off">
+                                        <label class="btn btn-outline-primary font-weight-medium" for="option2">Weeks</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="datetime-local" class="form-control border border-info " name="create_date">
+                                    </div>
+
+                                </div>
+
+                                <div class="mb-3 row">
+                                    <label for="cono1" class="col-sm-3 text-end control-label col-form-label text-secondary"></label>
+                                    <div class="col-sm-3" id="cono1">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input success check-outline outline-success" type="radio" name="type_import" id="type_import" value='agent' required>
+                                            <label class="form-check-label" for="hash">Share</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3" id="cono1">
+                                        <div>
+                                            <input type="text" class="form-control border border-info " name="path">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3" id="cono1">
+                                    </div>
+                                    <label for="cono1" class="col-sm-3 text-end control-label col-form-label text-secondary">ความถี่ในการแจ้งเตือน</label>
+                                    <div class="col-sm-3" id="cono1">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input secondary" type="radio" name="radio-solid-secondary" id="secondary-radio" value="option1">
+                                            <label class="form-check-label" for="secondary-radio">1 ครั้งต่อชั่วโมง</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3" id="cono1">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input secondary" type="radio" name="radio-solid-secondary" id="secondary-radio" value="option1">
+                                            <label class="form-check-label" for="secondary-radio">เมื่อพบข้อมูล</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label for="cono1" class="col-sm-3 text-end control-label col-form-label text-secondary"></label>
+                                    <div class="col-sm-3" id="cono1">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input success check-outline outline-success" type="radio" name="type_import" id="type_import" value='agent' required>
+                                            <label class="form-check-label" for="hash">E-Mail</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3" id="cono1">
+                                        <div>
+                                            <input type="text" class="form-control border border-info " name="path">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3" id="cono1">
+                                    </div>
+                                    <label for="cono1" class="col-sm-3 text-end control-label col-form-label text-secondary">ความถี่ในการแจ้งเตือน</label>
+                                    <div class="col-sm-3" id="cono1">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input secondary" type="radio" name="radio-solid-secondary" id="secondary-radio" value="option1">
+                                            <label class="form-check-label" for="secondary-radio">1 ครั้งต่อชั่วโมง</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3" id="cono1">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input secondary" type="radio" name="radio-solid-secondary" id="secondary-radio" value="option1">
+                                            <label class="form-check-label" for="secondary-radio">เมื่อพบข้อมูล</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label for="cono1" class="col-sm-3 text-end control-label col-form-label text-secondary"></label>
+                                    <div class="col-sm-3" id="cono1">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input success check-outline outline-success" type="radio" name="type_import" id="type_import" value='agent' required>
+                                            <label class="form-check-label" for="hash">Comment</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3" id="cono1">
+                                        <div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3" id="cono1">
+                                    </div>
+                                    <label for="cono1" class="col-sm-3 text-end control-label col-form-label text-secondary">ความถี่ในการแจ้งเตือน</label>
+                                    <div class="col-sm-3" id="cono1">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input secondary" type="radio" name="radio-solid-secondary" id="secondary-radio" value="option1">
+                                            <label class="form-check-label" for="secondary-radio">1 ครั้งต่อชั่วโมง</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3" id="cono1">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input secondary" type="radio" name="radio-solid-secondary" id="secondary-radio" value="option1">
+                                            <label class="form-check-label" for="secondary-radio">เมื่อพบข้อมูล</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button type="submit" class="btn btn-warning btn waves-effect waves-light">แก้ไขข้อมูล</button>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <button type="button" class="btn btn-secondary waves-effect waves-light" data-bs-dismiss="modal">ยกเลิก</button>
+                                    </div>
+                                    <div class="col-sm-5">
+                                    </div>
+                                </div>
+                                <br>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%  }} %>
+                <!-- ลบการเตือน -->
+                <% if (data){ for (var i = 0; i < data.length; i++) { %>
+                    <div class="modal fade" id="samedata4-modal<%=i%>" tabindex="-1" aria-labelledby="exampleModalLabel1">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+
+                                <div class="modal-header d-flex align-items-center">
+
+                                    <h4 class="card-title"><i class="fas fa-upload"></i> &nbsp;ลบการนำเข้าข้อมูล
+                                    </h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/createftp" method="post">
+                                        <div class="mb-3 row">
+                                            <label class="col-sm-3 text-end control-label col-form-label text-secondary" for="sender">ชื่อข้อมูล</label>
+                                            <div class="col-sm-6">
+                                                <label class="control-label col-form-label "><%=data[i].name%></label>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label class="col-sm-3 text-end control-label col-form-label text-secondary" for="spec">รายละเอียดข้อมูล</label>
+                                            <div class="col-sm-6">
+                                                <label class="control-label col-form-label "><%=data[i].descrip%></label>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label class="col-sm-3 text-end control-label col-form-label text-secondary" for="spec">วันที่สร้าง</label>
+                                            <div class="col-sm-6">
+                                                <label class="control-label col-form-label "><%=data[i].create_date%></label>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label class="col-sm-3 text-end control-label col-form-label text-secondary" for="spec">ที่จัดเก็บ</label>
+                                            <div class="col-sm-6">
+                                                <label class="control-label col-form-label "><%=data[i].path%></label>
+                                            </div>
+                                        </div>
+                                        <%if(data[i].type_import == "agent"){%>
+                                            <div class="mb-3 row">
+                                                <label for="cono1" class="col-sm-3 text-end control-label col-form-label text-secondary">นำส่งโดย</label>
+                                                <div class="col-sm-3" id="cono1">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input success check-outline outline-success" type="radio" name="type_import" id="type_import" value='agent' checked disabled>
+                                                        <label class="form-check-label" for="hash">Agent</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label for="cono1" class="col-sm-3 text-end control-label col-form-label text-secondary"></label>
+                                                <div class="col-sm-3" id="cono1">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input warning check-outline outline-warning" type="radio" name="type_import" id="type_import" value='ftp' disabled>
+                                                        <label class="form-check-label" for="hash">FTP Upload</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <%}else{%>
+                                                <div class="mb-3 row">
+                                                    <label for="cono1" class="col-sm-3 text-end control-label col-form-label text-secondary">นำส่งโดย</label>
+                                                    <div class="col-sm-3" id="cono1">
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input success check-outline outline-success" type="radio" name="type_import" id="type_import" value='agent' disabled>
+                                                            <label class="form-check-label" for="hash">Agent</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3 row">
+                                                    <label for="cono1" class="col-sm-3 text-end control-label col-form-label text-secondary"></label>
+                                                    <div class="col-sm-3" id="cono1">
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input warning check-outline outline-warning" type="radio" name="type_import" id="type_import" value='ftp' checked disabled>
+                                                            <label class="form-check-label" for="hash">FTP Upload</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <%}%>
+                                                    <!-- <div class="mb-3 row">
+                                        <label class="col-sm-3 text-end control-label col-form-label text-secondary" for="spec">IP Address</label>
+                                        <div class="col-sm-6">
+                                            <label class="control-label col-form-label "><%=data[i].name%></label>
+                                            <input type="text" class="form-control border border-info " name="ip" value="<%=data[i].name%>">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label class="col-sm-3 text-end control-label col-form-label text-secondary" for="spec">Username</label>
+                                        <div class="col-sm-6">
+                                            <label class="control-label col-form-label "><%=data[i].name%></label>
+                                            <input type="text" class="form-control border border-info " value="<%=data[i].name%>">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label class="col-sm-3 text-end control-label col-form-label text-secondary" for="spec">Password</label>
+                                        <div class="col-sm-6">
+                                            <label class="control-label col-form-label "><%=data[i].name%></label>
+                                            <input type="password" class="form-control border border-info " value="xxxxxxx">
+                                        </div>
+                                    </div> -->
+                                                    <hr>
+                                                    <div class="row">
+                                                        <div class="col-sm-5">
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#tests<%=i%>" data-bs-whatever="@mdo" class="btn btn-success btn waves-effect waves-light">ยืนยัน</button>
+                                                        </div>
+                                                        <div class="col-sm-1">
+                                                            <button type="button" class="btn btn-secondary waves-effect waves-light" data-bs-dismiss="modal">ยกเลิก</button>
+                                                        </div>
+                                                        <div class="col-sm-5">
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <%  }} %>
+                        <!-- google -->
+                        <% if (data){ for (var i = 0; i < data.length; i++) { %>
+                            <div class="modal fade" id="tests<%=i%>" tabindex="-1" aria-labelledby="exampleModalLabel1">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header d-flex align-items-center"></div>
+                                        <div class="modal-body">
+                                            <div class="mb-3 row">
+                                                <h4 class="text-center">OTP by Google Authenticator
+
+                                                </h4><br>
+                                                <hr><br>
+                                                <div class="col-sm-3"></div>
+                                                <div class="col-sm-6">
+                                                    <input type="text" class="form-control border border-info" placeholder="รหัสจาก Google Authenticator" id="authen">
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <button type="button" onclick="check2('<%=data[i].ftp_id %>')" class="btn btn-success btn waves-effect waves-light">ยืนยัน</button>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <button type="button" class="btn btn-secondary waves-effect waves-light" data-bs-dismiss="modal">ยกเลิก</button>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    </div>
+    <%  }} %>
+        <!-- -------------------------------------------------------------- -->
+        <!-- End PAge Content -->
+        <!-- -------------------------------------------------------------- -->
+        <!--start overlay-->
+        <%- include('../_footer') -%>
+            <script>
+                $(".mossparkline").sparkline([2, 4, 4, 6, 8, 5, 6, 4, 8, 6, 6, 2], {
+                    type: 'line',
+                    width: '100%',
+                    height: '50',
+                    lineColor: '#39c449',
+                    fillColor: '#39c449',
+                    maxSpotColor: '#39c449',
+                    highlightLineColor: 'rgba(0, 0, 0, 0.2)',
+                    highlightSpotColor: '#39c449'
+                });
+            </script>
+            <script src="/UI/assets/libs/datatables/media/js/jquery.dataTables.min.js "></script>
+            <script src="/UI/dist/js/pages/datatable/custom-datatable.js "></script>
+            <script src="/UI/dist/js/pages/datatable/datatable-basic.init.js "></script>
+            <script src="/UI/assets/libs/apexcharts/dist/apexcharts.min.js "></script>
+
+            <!-- <script src="/UI/assets/libs/chartist/dist/chartist.min.js "></script>
+                                    <script src="/UI/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js "></script> -->
+            <script src="/UI/assets/libs/flot/jquery.flot.js "></script>
+
+            <script src="/UI/dist/js/pages/widget/widget-charts.js "></script>
+
+            <script src="/UI/dist/js/app.min.js "></script>
+            <script src="/UI/assets/libs/raphael/raphael.min.js"></script>
+
+            <script src="/UI/assets/libs/morris.js/morris.min.js"></script>
+
+            <script src="/UI/assets/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
+            <script src="/UI/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+            <script src="/UI/dist/js/pages/sparkline/jquery.charts-sparkline.js"></script>
+
+            <script>
+                var userid = <%-JSON.stringify(session.userid)%>;
+
+                function check(id) {
+                    var result = []
+                        // console.log(id);
+                    result.value = document.getElementById("authen").value;
+                    if (result.value) {
+                        var request2 = function() {
+                            result["userid"] = userid;
+                            // console.log(result);
+                            $.ajax({
+                                url: "http://127.0.0.1:8081/ajaxcheckuser",
+                                type: "post",
+                                data: {
+                                    value: result.value,
+                                    userid: userid
+                                },
+                                success: function(data) {
+                                    var result = data.data;
+                                    if (result.length == 0) {
+                                        alert("ใส่รหัสผ่านผิด")
+                                        setInterval('location.reload()', 200);
+                                    } else {
+                                        $.ajax({
+                                            url: "http://127.0.0.1:8081/device/confirmdelete/" + id,
+                                            type: "post",
+                                            // success: function(data2) {
+                                            //     console.log(data2);
+                                            //     // if (data2) {
+                                            //     alert("ลบอุปกรณ์ต้นทางเรียบร้อย");
+                                            //     setInterval('location.reload()', 200);
+                                            //     // } else {
+                                            //     //     alert("ข้อมูลผิดพลาด")
+                                            //     //     setInterval('location.reload()', 200);
+                                            //     // }
+
+                                            // }
+                                        });
+                                        alert("ลบอุปกรณ์ต้นทางเรียบร้อย");
+                                        setInterval('location.reload()', 200);
+                                    }
+
+                                }
+                            });
+                        }
+                        request2();
+                    }
+                };
+            </script>
+            <script>
+                var line = new Morris.Line({
+                    element: 'morris-line-chart33',
+                    resize: true,
+                    data: [{
+                        y: '2011 Q1',
+                        item1: 2666
+                    }, {
+                        y: '2011 Q2',
+                        item1: 2778
+                    }, {
+                        y: '2011 Q3',
+                        item1: 4912
+                    }, {
+                        y: '2011 Q4',
+                        item1: 3767
+                    }, {
+                        y: '2012 Q1',
+                        item1: 6810
+                    }, {
+                        y: '2012 Q2',
+                        item1: 5670
+                    }, {
+                        y: '2012 Q3',
+                        item1: 4820
+                    }, {
+                        y: '2012 Q4',
+                        item1: 15073
+                    }, {
+                        y: '2013 Q1',
+                        item1: 10687
+                    }, {
+                        y: '2013 Q2',
+                        item1: 8432
+                    }],
+                    xkey: 'y',
+                    ykeys: ['item1'],
+                    labels: ['Item 1'],
+                    gridLineColor: '#eef0f2',
+                    lineColors: ['#009efb'],
+                    lineWidth: 1,
+                    hideHover: 'auto'
+                });
+            </script>
+            <script>
+                var userid = <%-JSON.stringify(session.userid)%>;
+
+                function check2(id) {
+                    var result = []
+                    console.log(id);
+                    result.value = document.getElementById("authen").value;
+                    if (result.value) {
+                        var request2 = function() {
+                            result["userid"] = userid;
+                            // console.log(result);
+                            $.ajax({
+                                url: "http://127.0.0.1:8081/ajaxcheckuser",
+                                type: "post",
+                                data: {
+                                    value: result.value,
+                                    userid: userid
+                                },
+                                success: function(data) {
+                                    var result = data.data;
+                                    if (result.length == 0) {
+                                        alert("ใส่รหัสผ่านผิด")
+                                        setInterval('location.reload()', 200);
+                                    } else {
+                                        $.ajax({
+                                            url: "http://127.0.0.1:8081/deleteftp/" + id,
+                                            type: "post",
+                                            // success: function(data2) {
+                                            //     console.log(data2);
+                                            //     // if (data2) {
+                                            //     alert("ลบอุปกรณ์ต้นทางเรียบร้อย");
+                                            //     setInterval('location.reload()', 200);
+                                            //     // } else {
+                                            //     //     alert("ข้อมูลผิดพลาด")
+                                            //     //     setInterval('location.reload()', 200);
+                                            //     // }
+
+                                            // }
+                                        });
+                                        alert("ลบนำเข้าข้อมูลต่างๆด้วยFTPเรียบร้อย");
+                                        setInterval('location.reload()', 200);
+                                    }
+
+                                }
+                            });
+                        }
+                        request2();
+                    }
+                };
+            </script>

@@ -1,0 +1,204 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">ประเภทเอกสาร</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item">ประเภทเอกสาร</a></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="border-bottom title-part-padding">
+                        <h4 class="card-title mb-0">ประเภทเอกสาร<span class="text-secondary"></span></h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="/doc_type" method="post">
+                            <div class="row pb-3">
+                                <div class="col-md-8">
+                                    <button type="button" class="btn btn-success px-4" data-bs-toggle="modal"
+                                        data-bs-target="#new_doc_type"><i class="fas fa-plus"></i>
+                                        เพิ่มประเภทเอกสาร</button>
+                                </div>
+                                <div class="col-md-4 justify-content-end align-self-center d-block d-md-flex">
+                                    <div class="input-group mb-2">
+                                        <a href="/doc_type" class="btn btn-outline-warning"><i
+                                                data-feather="refresh-cw"></i></a>
+                                        <input type="text" class="form-control" placeholder="ค้นหา.." id="myInput"
+                                            name="search" aria-label="" aria-describedby="button-addon2"
+                                            value="<%=keyword%>">
+                                        <!-- <input class=" btn btn-outline-warning" type="button" name="search"
+                                            onclick="myFunction()" value="Search" id="button-addon2"> -->
+                                        <button type="submit" class="btn btn-outline-warning"> <i
+                                                class="fas fa-search"></i> </button>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div style="min-height: 470px; margin-left: 1%; margin-right: 1%;">
+                        <table id="myTable" class="tablesaw no-wrap table-striped table-bordered table-hover table"
+                            data-tablesaw-mode="stack" data-tablesaw-sortable>
+                            <thead>
+                                <tr>
+                                    <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col
+                                        data-tablesaw-priority="3" class="border">ลำดับ</th>
+                                    <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist"
+                                        class="border">
+                                        ประเภทเอกสาร</th>
+                                    <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4"
+                                        class="border">
+                                        สถานะ</th>
+                                    <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4"
+                                        class="border">
+                                        แก้ไขข้อมูล</th>
+                                    <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="5"
+                                        class="border">
+                                        ลบข้อมูล</th>
+                                </tr>
+                            </thead>
+                            <input id="doc_type1" value="<%=doc_type1%>" readonly hidden />
+                            <input id='doc_type2' value="<%=doc_type2%>" readonly hidden />
+                            <input id='doc_check' value="<%= check_used_doc %>" readonly hidden />
+
+                            <tbody id="table-body">
+                                <!-- <% for (i in doc_type) {%>
+                                    <tr>
+                                        <td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist" ><b class="tablesaw-cell-label">ลำดับที่:</b> <span class="tablesaw-cell-content"><%= i %></span></td>
+                                        <td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist" ><b class="tablesaw-cell-label"></b> <span class="tablesaw-cell-content"><%= doc_type[i].doc_type_name %></span></td>
+                                        <td class="align-top"><a id="<%= doc_type[i].doc_type_id%>"href="#" onclick="filedoc_type(this.id)"data-bs-toggle="modal" data-bs-target="#file_doc_type" class="text-info"><i class="fas fa-file-alt fa-2x"></i></a> </td>
+                                        <td class="align-top"><a id="<%= doc_type[i].doc_type_id%>" href="#" onclick="edoc_type(this.id)" class="text-edit" data-bs-toggle="modal" data-bs-target="#edit_doc_type"><i class="fas fa-pencil-alt fa-2x"></i></a></td>
+                                        <td class="align-top"><a id="<%= doc_type[i].doc_type_id%>" href="#" onclick="deldoc_type(this.id)" class="text-danger" data-bs-toggle="modal" data-bs-target="#delete_doc_type"><i class="fas fa-trash-alt fa-2x"></i></a></td>
+                                    </tr>    
+                                <%}%> -->
+                            </tbody>
+                        </table>
+                        </form>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 text-secondary" style="margin-left: 1%;">
+                            <span>แสดงผล <span id="start"></span> ถึง <span id="end"></span> ทั้งหมด <%=
+                                    doc_type.length%> รายการ</span>
+                        </div>
+                        <div class="col-md justify-content-end align-self-center d-block d-md-flex">
+                            <nav aria-label="Page navigation example" style="margin-right: 2%;">
+                                <ul class="pagination" id="pagination-wapper">
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form action="/delete_doc_type" method="POST">
+        <div id="delete_doc_type" class="modal fade" tabindex="-1" aria-labelledby="danger-header-modalLabel"
+            aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                        <h4 class="modal-title" style="color: black;">
+                            ยืนยันการลบข้อมูลประเภทเอกสาร
+                        </h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class='table table-borderless'>
+                            <td class="col-md-4">
+                                ประเภทเอกสาร :
+                            </td>
+                            <td class="col-md-8" id="deletedoc_type">
+
+                            </td>
+                        </table>
+
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="submit" class="btn btn-danger  font-weight-medium">บันทึกข้อมูล</button>
+
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก </button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+    </form>
+    <form action="/update_doc_type" method="POST">
+        <div id="edit_doc_type" class="modal fade" tabindex="-1" aria-labelledby="info-header-modalLabel"
+            aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                        <h4 class="modal-title" style="color: black;">
+                            แก้ไขข้อมูลประเภทเอกสาร
+                        </h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class='table table-borderless'>
+                            <th class="col-md-4">
+                                ประเภทเอกสาร :
+                            </th>
+                            <td class="col-md-8" id="edoc_type">
+
+                            </td>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="submit" class="btn btn-warning  font-weight-medium">บันทึกข้อมูล</button>
+
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก </button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+    </form>
+
+    <form action="/save_doc_type" method="POST">
+        <div id="new_doc_type" class="modal fade" tabindex="-1" aria-labelledby="success-header-modalLabel"
+            aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                        <h4 class="modal-title" style="color: black;">
+                            เพิ่มข้อมูลประเภทเอกสาร
+                        </h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class='table table-borderless'>
+                            <th class="col-md-4">
+                                ประเภทเอกสาร :
+                            </th>
+                            <td class="col-md-8">
+                                <input type="text" name="doc_type_name" placeholder="กรุณาป้อนประเภทเอกสาร.."
+                                    class="form-control " required>
+                            </td>
+                        </table>
+
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="submit" class="btn btn-success font-weight-medium">ยืนยัน</button>
+
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก </button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+    </form>
+
+    <script src="/UI/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="/dist/js/views_js/policy/pagination_doc_type.js"></script>
+
+    <%- include('../_footer') -%>

@@ -1,0 +1,376 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="/UI/assets/extra-libs/prism/prism.css">
+    <link href="/UI/dist/css/style.slide_show.css" rel="stylesheet">
+    <link href="/UI/assets/libs/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="16x16" href="/UI/assets/images/PDPA3in1_logo.png">
+    <meta name="keywords"
+        content="โปรแกรมจัดทำ PDPA, อบรม PDPA, ที่ปรึกษา PDPA, ข้อมูลส่วนบุคคล, PDPA, นโยบาย, ความยินยอม, Consent, คุ้กกี้แบนเนอร์, Cookie, Cookies, Popup, Pattern, Classification, รับเรื่องร้องเรียน">
+    <meta name="description" content="PDPA 3in1 ทำ ครบ จบ เรื่อง PDPA ที่นี่">
+</head>
+
+<style>
+    a[title]:hover::after {
+        content: attr(title);
+        position: absolute;
+        top: -100%;
+        left: 0;
+    }
+
+    [data-title]:hover:after {
+        opacity: 1;
+        transition: all 0.1s ease 0.5s;
+        visibility: visible;
+    }
+
+    [data-title]:after {
+        content: attr(data-title);
+        background-color: #00FF00;
+        color: #111;
+        font-size: 150%;
+        position: absolute;
+        padding: 1px 5px 2px 5px;
+        bottom: -1.6em;
+        left: 100%;
+        white-space: nowrap;
+        box-shadow: 1px 1px 3px #222222;
+        opacity: 0;
+        border: 1px solid #111111;
+        z-index: 99999;
+        visibility: hidden;
+    }
+
+    [data-title] {
+        position: relative;
+    }
+
+    /* linear-gradient(to right, #4b79a1, #283e51);
+    background: linear-gradient(to right, #606c88, #3f4c6b); */
+
+    [data-title]:hover:after {
+        opacity: 1;
+        transition: all 0.1s ease 0.5s;
+        visibility: visible;
+    }
+
+    [data-title]:after {
+        content: attr(data-title);
+        position: absolute;
+        bottom: -1.6em;
+        left: 100%;
+        padding: 4px 4px 4px 8px;
+        color: #222;
+        white-space: nowrap;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        -moz-box-shadow: 0px 0px 4px #222;
+        -webkit-box-shadow: 0px 0px 4px #222;
+        box-shadow: 0px 0px 4px #222;
+        background-image: -moz-linear-gradient(top, #f8f8f8, #cccccc);
+        background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f8f8f8), color-stop(1, #cccccc));
+        background-image: -webkit-linear-gradient(top, #f8f8f8, #cccccc);
+        background-image: -moz-linear-gradient(top, #f8f8f8, #cccccc);
+        background-image: -ms-linear-gradient(top, #f8f8f8, #cccccc);
+        background-image: -o-linear-gradient(top, #f8f8f8, #cccccc);
+        opacity: 0;
+        z-index: 99999;
+        visibility: hidden;
+    }
+
+    [data-title] {
+        position: relative;
+    }
+
+    p {
+        color: black;
+    }
+</style>
+<style>
+    div {
+        font-family: 'Sarabun', sans-serif !important;
+        font-size: 16px !important;
+    }
+
+    span {
+        font-family: 'Sarabun', sans-serif !important;
+        font-size: 16px !important;
+    }
+
+    p {
+        font-family: 'Sarabun', sans-serif !important;
+        font-size: 16px !important;
+        line-height: 1.6 !important;
+    }
+
+    body {
+        font-family: 'Sarabun', sans-serif !important;
+        font-size: 16px !important;
+    }
+
+    .h5,
+    h5 {
+        font-family: 'Sarabun', sans-serif !important;
+        font-size: 16px !important;
+    }
+
+    table,
+    th,
+    td {
+        font-family: 'Sarabun', sans-serif !important;
+        font-size: 16px !important;
+    }
+
+    /* table {
+        width: max-content !important;
+    } */
+</style>
+
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="d-flex  title-part-padding align-items-center" style="margin-left: 35%;">
+                <span>Link : <span><span id="valuecopy">
+                            <%=host%>/show_slide/<%=id%>
+                        </span>&nbsp;&nbsp;<a data-title="Copy link เอกสาร Policy" onclick="copyfunc1()"
+                            style="text-align: right;cursor: pointer;" class="btn btn-secondary"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-copy feather-sm">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg></a>
+            </div>
+        </div>
+
+        <input id="site_name" value="<%=user_list[0].Name1%>" readonly hidden />
+        <input id='short_name' value="<%=user_list[0].Name1%>" readonly hidden />
+        <input id='image' value="<%=user_list[0].image%>" readonly hidden />
+        <input id="address_company" value="<%=user_list[0].shortDesciption1%>" readonly hidden />
+        <input id='phone_company' value="<%=user_list[0].phone1%>" readonly hidden />
+        <input id='email_company' value="<%=user_list[0].emailAddress1%>" readonly hidden />
+        <input id="code" value="<%=code%>" readonly hidden />
+        <input id='code1' value="<%=code1%>" readonly hidden />
+        <input id='code_name' value="<%=code_name%>" readonly hidden />
+        <input id='host' value="<%=host%>" readonly hidden />
+        <input id='id' value="<%=id%>" readonly hidden />
+
+
+        <div class="col-md-12">
+            <%if(data.length==0){%>
+                <div class="card" style="margin-left: 30%;margin-right: 30%;height: 1020px;">
+                    <div class="d-flex border-bottom title-part-padding align-items-center">
+                        <div>
+                            <h4 class="card-title mb-0">ดูเอกสาร Policy</h4>
+                        </div>
+                    </div>
+                    <h4 style="margin-left: 70%;"><span id="num_slide">1</span>/<%=data.length%>
+                    </h4>
+                </div>
+                <%}else{%>
+                    <center>
+                        <div class="card" style="margin-top: 1%;min-height: 1130px;width: 800px;">
+                            <div class="d-flex border-bottom title-part-padding align-items-center">
+                                <div>
+                                    <h4 class="card-title mb-0">ดูเอกสาร Policy</h4>
+                                </div>
+                                <h4 style="margin-left: 70%;"><span id="num_slide">1</span>/<%=data.length%>
+                                </h4>
+                            </div>
+
+                            <div class="card-body" style="margin-top: 52.8px;margin-left: 48px;margin-right: 48px;">
+                                <div id="carouselExampleIndicators" class="carousel slide carousel-dark">
+                                    <ol class="carousel-indicators">
+                                        <li data-bs-target="#carouselExampleIndicators"
+                                            onclick="$('#num_slide').text('1')" data-bs-slide-to="0" class="active">
+                                        </li>
+                                        <% let count=0 %>
+                                            <% for (var i=1;i<data.length;i++){%>
+                                                <% if (data.length !=null){%>
+                                                    <li data-bs-target="#carouselExampleIndicators"
+                                                        data-bs-slide-to="<%=count +=1%>"
+                                                        onclick="$('#num_slide').text('<%=i+1%>')"></li>
+                                                    <%}%>
+                                                        <%}%>
+                                    </ol>
+                                    <div class="carousel-inner">
+                                        <div id="setcode">
+                                            <% for (var i=0;i<data.length;i++){%>
+                                                <% if (data.length !=null){%>
+                                                    <% if (i==0){%>
+                                                        <div class="carousel-item active">
+                                                            <%-data[i].page_content%>
+                                                        </div>
+                                                        <%}else{%>
+                                                            <div class="carousel-item">
+                                                                <%-data[i].page_content%>
+                                                            </div>
+                                                            <%}%>
+                                                                <%}%>
+                                                                    <%}%>
+                                        </div>
+
+
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                                        data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                                        data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </center>
+
+                    <%}%>
+        </div>
+    </div>
+</div>
+<script src="/UI/assets/extra-libs/prism/prism.js"></script>
+<script src="/UI/assets/libs/jquery/dist/jquery.min.js"></script>
+<script src="/UI/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    let text = document.getElementById("setcode").innerHTML;
+    const code = document.getElementById("code").value
+    const code1 = document.getElementById('code1').value
+    const code_name = document.getElementById('code_name').value;
+
+    let sort_code = code.split(',')
+    let sort_code1 = code1.split(',')
+    let sort_code2 = code_name.split(',')
+    let obj = []
+    for (i in sort_code1) {
+        obj.push({ "data_id": sort_code[i], "data_code": sort_code1[i], "data_name": sort_code2[i] })
+    }
+    for (j in obj) {
+        var x = obj[j].data_code
+        let position = text.search(x);
+        if (position > -1) {
+            text = text.replaceAll(obj[j].data_code, obj[j].data_name)
+            document.getElementById("setcode").innerHTML = text
+        }
+    }
+
+
+    $('a.carousel-control-prev').on('click', function () {
+        var value = $('li.active').attr('onclick').match(/\d+/g)
+        $('span#num_slide').text(value[0])
+    })
+    $('.carousel-control-next').on('click', function () {
+        var value = $('li.active').attr('onclick').match(/\d+/g)
+        $('span#num_slide').text(value[0])
+    })
+
+    function copyfunc1() {
+        let host = document.getElementById('host').value
+        let id = document.getElementById('id').value
+        host = host + "/show_slide/" + id
+        //   navigator.clipboard.writeText(host);
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val(host).select();
+        document.execCommand("copy");
+        $temp.remove();
+
+        Swal.fire({
+            position: 'top',
+            type: 'success',
+            title: 'Copy link เรียบร้อย',
+            showConfirmButton: false,
+            timer: 800
+        })
+    }
+    summernote_replace();
+    function summernote_replace() {
+        $("#setcode").html($('#myEditor1').val());
+        let text = document.getElementById("setcode").innerHTML;
+        const site_name = document.getElementById("site_name").value;
+        const short_name = document.getElementById('short_name').value;
+        const image = document.getElementById('image').value;
+        const email_company = document.getElementById("email_company").value;
+        const phone_company = document.getElementById('phone_company').value;
+        const address_company = document.getElementById('address_company').value;
+        const number_company = 'number';
+
+        let page_content_replace_company = [];
+        let company_replace =
+            [
+                "@@company_name",
+                "@@short_company_name",
+                "@@logo_company",
+                "@@email_company",
+                "@@phone_company",
+                "@@address_company",
+                "@@number_company",
+            ];
+        let regex =
+            new RegExp(
+                company_replace[0],
+                "ig"
+            );
+        let regex_short =
+            new RegExp(
+                company_replace[1],
+                "ig"
+            );
+        let regex_logo =
+            new RegExp(
+                company_replace[2],
+                "ig"
+            );
+        let regex_email_company =
+            new RegExp(
+                company_replace[3],
+                "ig"
+            );
+        let regex_phone_company =
+            new RegExp(
+                company_replace[4],
+                "ig"
+            );
+        let regex_address_company =
+            new RegExp(
+                company_replace[5],
+                "ig"
+            );
+        let regex_number_company =
+            new RegExp(
+                company_replace[6],
+                "ig"
+            );
+        text = text.replace(
+            regex, site_name
+        );
+        text = text.replace(
+            regex_short, short_name
+        );
+        text = text.replace(
+            regex_logo, 'logo.png'
+        );
+        text = text.replace(
+            regex_email_company, email_company
+        );
+        text = text.replace(
+            regex_phone_company, phone_company
+        );
+        text = text.replace(
+            regex_address_company, address_company
+        );
+        text = text.replace(
+            regex_number_company, number_company
+        );
+        page_content_replace_company.push(
+            text
+        );
+        document.getElementById("setcode").innerHTML = page_content_replace_company
+    }
+
+</script>
+<script src="/UI/assets/libs/sweetalert2/dist/sweetalert2.all.min.js"></script>

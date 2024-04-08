@@ -1,0 +1,1015 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-10 align-self-center">
+                <h3 class="page-title">กำหนดรูปแบบข้อมูล</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index">หน้าแรก</a></li>
+                            <!-- <li class="breadcrumb-item active">การป้องกันข้อมูลสู่ภายนอก (Export)</li> -->
+                            <li class="breadcrumb-item active"><a href="/classification">รูปแบบการประมวลผลข้อมูล</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                รายละเอียดของรูปแบบการประมวลผลข้อมูล <%=classify[0].classify_name %>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-2 d-flex justify-content-end align-items-center">
+                <a href="/classification" class="btn btn-secondary">ย้อนกลับ</a>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid" id="c_detail">
+        <!-- Row -->
+        <div class="row">
+            <!-- Column -->
+            <div class="col-12">
+                <div class="card">
+                    <div class="border-bottom title-part-padding">
+                        <h4 class="card-title mb-0">รายละเอียดของประเภท <%= classify[0].classify_name %><span
+                                    class="text-secondary"></span></h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- Method 1 -->
+                                <p class="h5 font-bold">ประเภทตามข้อมูลที่กำหนดไว้แล้ว (Pattern)</p>
+                                <table class="table table-boardless">
+                                    <td class="font-bold td-head-detail-pattern"> ตัวเลือก: </td>
+                                    <td style="text-align: left;"><a target="_blank"
+                                            href="/pattern/detail<%= classify[0].pattern_id %>">ดูรายละเอียดของ
+                                            Pattern</a></td>
+                                </table><br />
+                                <!-- Method 2 -->
+                                <p class="h5 font-bold ">สร้างรูปแบบจัดเก็บข้อมูลส่วนบุคคล</p>
+                                <table class="table table-boardless">
+                                    <td class="font-bold td-head-detail-pattern2"> ชื่อกิจกรรมการประมวล: </td>
+                                    <td style="text-align: left;">
+                                        <%= classify[0].event_process_name%>
+                                    </td>
+                                </table>
+
+
+
+                                <div class="row col-12">
+                                    <div class="col-2 specific_measures">
+                                        <h5 style="font-weight: bold;">
+                                            มาตราการรักษาความปลอดภัยขั้นต่ำที่PDPAกำหนด (PDPA Specific Measures)
+                                        </h5>
+                                    </div>
+                                    <div class="col-10">
+                                        <div class="specific_measures">
+                                            <div style="min-height: 270px;" class="table-responsive mt-2 mb-2">
+                                                <table
+                                                    class="tablesaw table table-striped   no-wrap table-bordered table-hover">
+                                                    <thead>
+                                                        <th>
+                                                            ลำดับ
+                                                        </th>
+                                                        <th>
+                                                            ชื่อกิจกรรมประมวลผล
+                                                        </th>
+                                                        <th>
+                                                            ชื่อมาตราการ
+                                                        </th>
+
+                                                        <th>
+                                                            Access Control
+                                                        </th>
+                                                        <th>
+                                                            User Access Management
+                                                        </th>
+                                                        <th>
+                                                            User Responsibilitites
+                                                        </th>
+                                                        <th>
+                                                            Audit Trails
+                                                        </th>
+                                                        <th>
+                                                            Privacy
+                                                            and security
+                                                            Awareness
+                                                        </th>
+                                                        <th>
+                                                            Where incident occurs
+                                                        </th>
+                                                        <th>
+                                                            เอกสาร PDPA
+                                                        </th>
+                                                        <th>
+                                                            คำอธิบาย/ รายละเอียด
+                                                        </th>
+                                                        <th>
+                                                            ระยะเวลาทบทวนมาตราการ
+                                                        </th>
+                                                        <th>
+                                                            ผู้ดูแลข้อมูลหรือผู้ดูแลระบบหรือผู้ควบคุมมาตราการ
+                                                        </th>
+                                                    </thead>
+                                                    <tbody id="tbody-specific">
+                                                        <% if (specificONClasssifi.length>0) { %>
+                                                            <% for (let i in specificONClasssifi) {%>
+                                                                <tr>
+                                                                    <td>
+                                                                        <%=specificONClasssifi[i].no%>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%=specificONClasssifi[i].event_process_name%>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%=specificONClasssifi[i].classification_measures_section_name%>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%-specificONClasssifi[i].classification_specific_access_control%>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%-specificONClasssifi[i].classification_specific_user_access_management%>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%-specificONClasssifi[i].classification_specific_user_responsibilitites%>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%-specificONClasssifi[i].classification_specific_audit_trails%>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%-specificONClasssifi[i].classification_specific_privacy_security_awareness%>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%-specificONClasssifi[i].classification_specific_where_incident_occurs%>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%-specificONClasssifi[i].docName%>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%=specificONClasssifi[i].classification_measures_detail%>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%-specificONClasssifi[i].date%>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%-specificONClasssifi[i].classification_measures_supervisor%>
+                                                                    </td>
+                                                                </tr>
+                                                                <% }%>
+                                                                    <%}else {%>
+                                                                        <tr>
+                                                                            <td colspan="20" class="text-center"
+                                                                                style="border: none;">
+                                                                                <b class="text-danger">ไม่พบข้อมูล</b>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <% }%>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+
+                                <table class="table table-boardless">
+                                    <td class="font-bold td-head-detail-pattern2">
+                                        อธิบายความจำเป็นที่ต้องนำข้อมูลส่วนบุคคลไปใช้ในกิจกรรมนี้ (ประมวลผล): </td>
+                                    <td style="text-align: left; vertical-align: middle;">
+                                        <% if(classify[0].classify_explain_process !=null &&
+                                            classify[0].classify_explain_process !="" ){%>
+                                            <%= classify[0].classify_explain_process%>
+                                                <%}else{%><span class="span-table-boolean-false"> ไม่มี </span>
+                                                    <%}%>
+                                    </td>
+                                </table>
+                                <table class="table table-boardless">
+                                    <td class="font-bold td-head-detail-pattern2"> ผู้ใช้งาน/ผู้เข้าถึงข้อมูล
+                                        <br />ประมวลผลนี้
+                                    </td>
+                                    <td style="text-align: left;"><span class="h5">ภายใน: </span>
+                                        <% if(classify[0].classify_user_access_info_process_inside=="1" ){%>
+                                            <span class="span-table-boolean-true"> มี </span> /
+                                            <span class="span-member"> (สมาชิกจำนวน: </span>
+                                            <% if(classify[0].classify_user_access_info_process_inside_from_new_total
+                                                !=null &&
+                                                classify[0].classify_user_access_info_process_inside_from_new_total !=""
+                                                && classify[0].classify_user_access_info_process_inside_from_new_total
+                                                !=0){%>
+                                                <%= classify[0].classify_user_access_info_process_inside_from_new_total
+                                                    %>
+                                                    <%}else{%><span class="span-table-boolean-false">ไม่มี</span>
+                                                        <%}%> คน)<br />
+                                                            <span class='span-member-detail'>รายชื่อ </span>
+                                                            <% if(classify[0].classify_user_access_info_process_inside_from_new_id
+                                                                !=null &&
+                                                                classify[0].classify_user_access_info_process_inside_from_new_id
+                                                                !="" ){%><span
+                                                                    style="font-size: 40px; vertical-align: -12%;">[</span>
+                                                                <% for (var i=0;i<users.length;i++) { if((i+1)
+                                                                    !=users.length){%><img
+                                                                        src="/UI/image/<%=users[i].image%>"
+                                                                        class="image-users"><span
+                                                                        style="vertical-align: middle;">
+                                                                        <%=users[i].name%>/
+                                                                    </span>
+                                                                    <%}else{%><img src="/UI/image/<%=users[i].image%>"
+                                                                            class="image-users"><span
+                                                                            style="vertical-align: middle;">
+                                                                            <%=users[i].name%>
+                                                                        </span>
+                                                                        <%}}%><span
+                                                                                style="font-size: 40px; vertical-align: -12%;">]</span>
+                                                                            <%}else{%><span
+                                                                                    style="font-size: 40px; vertical-align: -12%;">[</span><span
+                                                                                    class="span-table-boolean-false">ไม่มี</span><span
+                                                                                    style="font-size: 40px; vertical-align: -12%;">]</span>
+                                                                                <%}%>
+                                                                                    <%}else{%><span
+                                                                                            class="span-table-boolean-false">
+                                                                                            ไม่มี </span>
+                                                                                        <%}%>
+                                                                                            <br />
+                                                                                            <span class="h5">ภายนอก:
+                                                                                            </span>
+                                                                                            <% if(classify[0].classify_user_access_info_process_outside=="1"
+                                                                                                ){%>
+                                                                                                <span
+                                                                                                    class="span-table-boolean-true">
+                                                                                                    มี </span> /
+                                                                                                <span
+                                                                                                    class="span-member">
+                                                                                                    (สมาชิกจำนวน:
+                                                                                                </span>
+                                                                                                <% if(classify[0].classify_user_access_info_process_outside_from_new_total
+                                                                                                    !=null &&
+                                                                                                    classify[0].classify_user_access_info_process_outside_from_new_total
+                                                                                                    !="" &&
+                                                                                                    classify[0].classify_user_access_info_process_outside_from_new_total
+                                                                                                    !=0){%>
+                                                                                                    <%= classify[0].classify_user_access_info_process_outside_from_new_total
+                                                                                                        %>
+                                                                                                        <%}else{%><span
+                                                                                                                class="span-table-boolean-false">ไม่มี</span>
+                                                                                                            <%}%>
+                                                                                                                คน)<br />
+                                                                                                                <span
+                                                                                                                    class='span-member-detail'>รายชื่อ
+                                                                                                                </span>
+                                                                                                                <% if(classify[0].classify_user_access_info_process_outside_from_new_id
+                                                                                                                    !=null
+                                                                                                                    &&
+                                                                                                                    classify[0].classify_user_access_info_process_outside_from_new_id
+                                                                                                                    !=""
+                                                                                                                    ){%>
+                                                                                                                    <span
+                                                                                                                        style="font-size: 40px; vertical-align: -12%;">[</span>
+                                                                                                                    <% for
+                                                                                                                        (var
+                                                                                                                        i=0;i<users_outside.length;i++)
+                                                                                                                        {
+                                                                                                                        if((i+1)
+                                                                                                                        !=users_outside.length){%>
+                                                                                                                        <img src="/UI/image/<%=users_outside[i].image%>"
+                                                                                                                            class="image-users"><span
+                                                                                                                            style="vertical-align: middle;">
+                                                                                                                            <%=users_outside[i].name%>
+                                                                                                                                /
+                                                                                                                        </span>
+                                                                                                                        <%}else{%>
+                                                                                                                            <img src="/UI/image/<%=users_outside[i].image%>"
+                                                                                                                                class="image-users"><span
+                                                                                                                                style="vertical-align: middle;">
+                                                                                                                                <%=users_outside[i].name%>
+                                                                                                                            </span>
+                                                                                                                            <%}}%>
+                                                                                                                                <span
+                                                                                                                                    style="font-size: 40px; vertical-align: -12%;">]</span>
+                                                                                                                                <%}else{%>
+                                                                                                                                    <span
+                                                                                                                                        style="font-size: 40px; vertical-align: -12%;">[</span><span
+                                                                                                                                        class="span-table-boolean-false">ไม่มี</span><span
+                                                                                                                                        style="font-size: 40px; vertical-align: -12%;">]</span>
+                                                                                                                                    <%}%>
+                                                                                                                                        <%}else{%>
+                                                                                                                                            <span
+                                                                                                                                                class="span-table-boolean-false">
+                                                                                                                                                ไม่มี
+                                                                                                                                            </span>
+                                                                                                                                            <%}%>
+                                    </td>
+                                </table>
+                                <table class="table table-boardless">
+                                    <td class="font-bold td-head-detail-pattern2"> ระยะเวลาการประมวลผล: </td>
+                                    <td style="text-align: left;">
+                                        <%= classify[0].classify_period_process %> &nbsp;[ตามระยะเวลาจัดเก็บ (Policy):
+                                            <%if (classify[0].classify_period_proccess_follow_policy==1){%>
+                                                <%= classify[0].classify_period_proccess_follow_policy_total%> วัน
+                                                    <%}else{%><span class="span-table-boolean-false">ไม่มี</span>
+                                                        <%}%>]
+                                    </td>
+                                </table>
+                                <table class="table table-boardless">
+                                    <td class="font-bold td-head-detail-pattern2"> ระยะเวลาสิ้นสุด: </td>
+                                    <td style="text-align: left;">
+                                        <%= classify[0].classify_period_end %> &nbsp;[ภายหลังจากกำหนดระยะเวลาจัดเก็บ
+                                            (Pattern): <% if(classify[0].classify_period_end_follow_pattern==1){%>
+                                                <%= classify[0].classify_period_end_follow_pattern_total%> วัน<%}else{%>
+                                                        <span class="span-table-boolean-false">ไม่มี</span>
+                                                        <%}%>]
+                                    </td>
+                                </table>
+                                <table class="table table-boardless">
+                                    <td class="font-bold td-head-detail-pattern2"> ประเภทข้อมูลที่ใช้ในกิจกรรม: </td>
+                                    <td style="text-align: left;">ข้อมูลส่วนบุคคล: <%
+                                            if(classify[0].classify_type_data_in_event_personal==1){%><span
+                                                class="span-table-boolean-true"> มี </span>
+                                            <%}else{%><span class="span-table-boolean-false"> ไม่มี </span>
+                                                <%}%>
+                                                    <br />
+                                                    Datamask <%
+                                                        if(classify[0].classify_type_data_in_event_personal_datamark==null
+                                                        || classify[0].classify_type_data_in_event_personal_datamark==""
+                                                        ){%><span class="span-table-boolean-false"> ไม่มี </span>
+                                                        <%}else{%>
+                                                            <%
+                                                                if(classify[0].classify_type_data_in_event_personal_datamark==0){%>
+                                                                : Pseudonymized (หัวข้อมูลอย่างเดียว [
+                                                                จำนวนตัวอักษรที่แสดง : <%=
+                                                                    classify[0].classify_type_data_in_event_personal_datamark_total
+                                                                    %> ])<%}else
+                                                                        if(classify[0].classify_type_data_in_event_personal_datamark==1){%>
+                                                                        : Pseudonymized (หัวและท้ายข้อมูล [
+                                                                        จำนวนตัวอักษรที่แสดง : <%=
+                                                                            classify[0].classify_type_data_in_event_personal_datamark_total
+                                                                            %> ])<%}else
+                                                                                if(classify[0].classify_type_data_in_event_personal_datamark==2){%>
+                                                                                : Pseudonymized (ท้ายข้อมูลอย่างเดียว [
+                                                                                จำนวนตัวอักษรที่แสดง : <%=
+                                                                                    classify[0].classify_type_data_in_event_personal_datamark_total
+                                                                                    %> ])<%}else
+                                                                                        if(classify[0].classify_type_data_in_event_personal_datamark==3){%>
+                                                                                        : Anonymized <%}%>
+                                                                                            <%}%>
+                                                                                                <br />
+                                                                                                ข้อมูลส่วนบุคคลพิเศษ
+                                                                                                (อ่อนไหว): <%
+                                                                                                    if(classify[0].classify_type_data_in_event_special_personal_sensitive==1){%>
+                                                                                                    <span
+                                                                                                        class="span-table-boolean-true">
+                                                                                                        มี </span>
+                                                                                                    <%}else{%><span
+                                                                                                            class="span-table-boolean-false">
+                                                                                                            ไม่มี
+                                                                                                        </span>
+                                                                                                        <%}%>
+                                    </td>
+                                </table>
+                                <table class="table table-boardless">
+                                    <td class="font-bold td-head-detail-pattern2"> ฐานการประมวลผล: </td>
+                                    <td style="text-align: left;">
+                                        <%= classify[0].pattern_processing_base_name%>
+                                    </td>
+                                </table>
+                                <table class="table table-boardless">
+                                    <td class="font-bold td-head-detail-pattern2"> อธิบายเพิ่มเติม (ฐานการประมวลผล):
+                                    </td>
+                                    <td style="text-align: left;">
+                                        <% if(classify[0].classify_processing_base_explain !=null &&
+                                            classify[0].classify_processing_base_explain !="" ){%>
+                                            <%= classify[0].classify_processing_base_explain %>
+                                                <%}else{%><span class="span-table-boolean-false"> ไม่มี </span>
+                                                    <%}%>
+                                    </td>
+                                </table>
+                                <table class="table table-boardless">
+                                    <td class="font-bold td-head-detail-pattern2"> เงื่อนไขพิเศษเพิ่มเติม: </td>
+                                    <td style="text-align: left;">
+                                        <%= classify[0].classification_special_conditions_name%>
+                                    </td>
+                                </table>
+                                <table class="table table-boardless">
+                                    <td class="font-bold td-head-detail-pattern2"> อธิบายเพิ่มเติม
+                                        (เงื่อนไขพิเศษเพิ่มเติม): </td>
+                                    <td style="text-align: left;">
+                                        <% if(classify[0].classify_special_conditiion_explain !=null &&
+                                            classify[0].classify_special_conditiion_explain !="" ){%>
+                                            <%= classify[0].classify_special_conditiion_explain%>
+                                                <%}else{%><span class="span-table-boolean-false"> ไม่มี </span>
+                                                    <%}%>
+                                    </td>
+                                </table><br />
+                                <!-- Method 3 -->
+                                <p class="h5 font-bold">การป้องกันข้อมูล</p>
+                                <table class="table table-boardless">
+                                    <td class="font-bold td-head-detail-pattern2">
+                                        จำกัดปริมาณข้อมูลที่ใช้ประกอบผลไม่เกิน: </td>
+                                    <td style="text-align: left;">
+                                        <% if(classify[0].classify_protect_data_limit_process !=null &&
+                                            classify[0].classify_protect_data_limit_process !="" ){%>
+                                            <%= classify[0].classify_protect_data_limit_process%> Row <%}else{%><span
+                                                        class="span-table-boolean-false"> ไม่มี </span>
+                                                    <%}%>
+                                    </td>
+                                </table>
+                                <table class="table table-boardless">
+                                    <td class="font-bold td-head-detail-pattern2"> กำหนดเวลาเข้าถึงข้อมูลเฉพาะ: </td>
+                                    <td style="text-align: left;">
+                                        <% if(classify[0].classify_protect_data_limit_follow_datetime==1){%>จันทร์ -
+                                            ศุกร์ เวลา 08:00 - 17:00 น.<%}else{%><span class="span-table-boolean-false">
+                                                    ไม่มี </span>
+                                                <%}%>
+                                    </td>
+                                </table>
+                                <table class="table table-boardless">
+                                    <td class="font-bold td-head-detail-pattern2"> กำหนดการเข้าถึงข้อมูลภายใน Alltra ใช้
+                                        2 Factor
+                                        ในการเข้าถึง
+                                    </td>
+                                    <td style="text-align: left;">Google Authen: <%
+                                            if(classify[0].classify_approach_protect_used_two_factor_from_google_authen==1){%>
+                                            <span class="span-table-boolean-true">เลือก</span>
+                                            <%}else{%><span class="span-table-boolean-false"> ไม่ได้เลือก </span>
+                                                <%}%>
+                                                    <br />
+                                                    E-mail: <%
+                                                        if(classify[0].classify_approach_protect_used_two_factor_from_email==1){%>
+                                                        <span class="span-table-boolean-true">เลือก</span>
+                                                        <%}else{%><span class="span-table-boolean-false"> ไม่ได้เลือก
+                                                            </span>
+                                                            <%}%>
+                                                                <br />
+                                                                SMS (Option): <%
+                                                                    if(classify[0].classify_approach_protect_used_two_factor_from_sms==1){%>
+                                                                    <span class="span-table-boolean-true">เลือก</span>
+                                                                    <%}else{%><span class="span-table-boolean-false">
+                                                                            ไม่ได้เลือก </span>
+                                                                        <%}%>
+                                    </td>
+                                </table><br />
+                                <!-- Method 5 -->
+                                <!-- <p class="h5 font-bold">กำหนดข้อมูลยกเว้น หรือ ไม่จำเป็น (Filter)</p>
+                                <table class="table table-boardless">
+                                    <td class="font-bold td-head-detail-pattern"> ชื่อข้อมูล: </th>
+                                    <td style="text-align: left;"><% if(classify[0].classify_data_exception_or_unnecessary_filter_name == null || classify[0].classify_data_exception_or_unnecessary_filter_name == "" || classify[0].classify_data_exception_or_unnecessary_filter_name == "-"){%><span class="span-table-boolean-false"> ไม่มี </span><%}else{%><%= classify[0].classify_data_exception_or_unnecessary_filter_name%><%}%></td>
+                                </table>
+                                <table class="table table-boardless">
+                                    <td class="font-bold td-head-detail-pattern"> Tag: </td>
+                                    <td style="text-align: left;"><% if(classify[0].classify_data_exception_or_unnecessary_filter_tag == null || classify[0].classify_data_exception_or_unnecessary_filter_tag == "" || classify[0].classify_data_exception_or_unnecessary_filter_tag == "-"){%><span class="span-table-boolean-false"> ไม่มี </span><%}else{%><%= classify[0].classify_data_exception_or_unnecessary_filter_tag%><%}%></td>
+                                </table>
+                                <table class="table table-boardless">
+                                    <td class="font-bold td-head-detail-pattern"> Label: </td>
+                                    <td style="text-align: left;"><% if(classify[0].classify_data_exception_or_unnecessary_filter_label == null || classify[0].classify_data_exception_or_unnecessary_filter_label == "" || classify[0].classify_data_exception_or_unnecessary_filter_label == "-"){%><span class="span-table-boolean-false"> ไม่มี </span><%}else{%><%= classify[0].classify_data_exception_or_unnecessary_filter_label%><%}%></td>
+                                </table><br /> -->
+                                <!-- Method 6 -->
+
+                                <div id="dpo_default" style="background-color: #f0e4ca;">
+                                    <br />
+                                    <p class="h5 font-bold" style="color: red;">ประเมินความเสี่ยงของข้อมูล (เฉพาะ
+                                        DPO)</p>
+                                    <table class="table table-boardless">
+                                        <td class="font-bold td-head-detail-pattern2-1"> ข้อมูลส่วนบุคคล
+                                            สามารถระบุตัวบุคคลได้: </td>
+                                        <td style="text-align: left;">
+                                            <%
+                                                if(classify[0].classify_risk_assess_only_dpo_data_personal_can_specify==1){%>
+                                                <span class="span-table-boolean-true"> ได้โดยตรง </span>
+                                                <%}else
+                                                    if(classify[0].classify_risk_assess_only_dpo_data_personal_can_specify==2){%>
+                                                    <span class="span-table-boolean-true"> เป็นข้อมูลที่ไม่ระบุได้โดยตรง
+                                                    </span>
+                                                    <%}else
+                                                        if(classify[0].classify_risk_assess_only_dpo_data_personal_can_specify==3){%>
+                                                        <span class="span-table-boolean-true"> มีการทำข้อมูลแฝง </span>
+                                                        <%}else{%>
+                                                            <span class="span-table-boolean-false"> ไม่มี </span>
+                                                            <%}%>
+                                        </td>
+                                    </table>
+                                    <table class="table table-boardless">
+                                        <td class="font-bold td-head-detail-pattern2-1">
+                                            ปริมาณข้อมูลทั้งหมดที่ใช้ประมวลผล: </td>
+                                        <td style="text-align: left;">
+                                            <%
+                                                if(classify[0].classify_risk_assess_only_dpo_data_number_all_used_process_many==1){%>
+                                                <span class="span-table-boolean-true"> มาก </span> ที่ระบุ: <%
+                                                    if(classify[0].classify_risk_assess_only_dpo_data_number_all_used_process_total
+                                                    !=null &&
+                                                    classify[0].classify_risk_assess_only_dpo_data_number_all_used_process_total
+                                                    !="" ){%>
+                                                    <%= classify[0].classify_risk_assess_only_dpo_data_number_all_used_process_total
+                                                        %>
+                                                        <%}else{%><span class="span-table-boolean-false"> ไม่ได้ระบุ
+                                                            </span>
+                                                            <%}%>
+                                                                <%}else
+                                                                    if(classify[0].classify_risk_assess_only_dpo_data_number_all_used_process_many==0){%>
+                                                                    <span class="span-table-boolean-true"> น้อย </span>
+                                                                    ที่ระบุ: <%
+                                                                        if(classify[0].classify_risk_assess_only_dpo_data_number_all_used_process_total
+                                                                        !=null &&
+                                                                        classify[0].classify_risk_assess_only_dpo_data_number_all_used_process_total
+                                                                        !="" ){%>
+                                                                        <%= classify[0].classify_risk_assess_only_dpo_data_number_all_used_process_total
+                                                                            %>
+                                                                            <%}else{%><span
+                                                                                    class="span-table-boolean-false">
+                                                                                    ไม่ได้ระบุ </span>
+                                                                                <%}%>
+                                                                                    <%}else{%>
+                                                                                        <span
+                                                                                            class="span-table-boolean-false">
+                                                                                            ไม่มี </span>
+                                                                                        <%}%>
+                                        </td>
+                                    </table>
+                                    <table class="table table-boardless">
+                                        <td class="font-bold td-head-detail-pattern2-1"> การควบคุมการเข้าถึงข้อมูลใน
+                                            Alltra: </td>
+                                        <td style="text-align: left;">
+                                            <% if(classify[0].classify_risk_assess_only_dpo_access_control_inside==1){%>
+                                                <span class="span-table-boolean-true"> มี </span>
+                                                <%}else
+                                                    if(classify[0].classify_risk_assess_only_dpo_access_control_inside==0){%>
+                                                    <span class="span-table-boolean-false"> ไม่มี </span>
+                                                    <%}else{%>
+                                                        <span class="span-table-boolean-false"> ไม่ระบุ </span>
+                                                        <%}%>
+                                        </td>
+                                    </table>
+                                    <table class="table table-boardless">
+                                        <td class="font-bold td-head-detail-pattern2-1">
+                                            การควบคุมการเข้าถึงข้อมูลระบบนอก Alltra: </td>
+                                        <td style="text-align: left;">
+                                            <%
+                                                if(classify[0].classify_risk_assess_only_dpo_access_control_outside==1){%>
+                                                <span class="span-table-boolean-true"> มี </span>
+                                                <%}else
+                                                    if(classify[0].classify_risk_assess_only_dpo_access_control_outside==0){%>
+                                                    <span class="span-table-boolean-false"> ไม่มี </span>
+                                                    <%}else{%>
+                                                        <span class="span-table-boolean-false"> ไม่ระบุ </span>
+                                                        <%}%>
+                                        </td>
+                                    </table>
+                                    <table class="table table-boardless">
+                                        <td class="font-bold td-head-detail-pattern2-1"> การป้องกันข้อมูลจากระบบ Alltra:
+                                        </td>
+                                        <td style="text-align: left;">
+                                            <% if(classify[0].classify_risk_assess_only_dpo_protect_data_inside==1){%>
+                                                <span class="span-table-boolean-true"> มี </span>
+                                                <%}else
+                                                    if(classify[0].classify_risk_assess_only_dpo_protect_data_inside==0){%>
+                                                    <span class="span-table-boolean-false"> ไม่มี </span>
+                                                    <%}else{%>
+                                                        <span class="span-table-boolean-false"> ไม่ระบุ </span>
+                                                        <%}%>
+                                        </td>
+                                    </table>
+                                    <table class="table table-boardless">
+                                        <td class="font-bold td-head-detail-pattern2-1"> การป้องกันข้อมูลจากระบบนอก
+                                            Alltra: </td>
+                                        <td style="text-align: left;">
+                                            <% if(classify[0].classify_risk_assess_only_dpo_protect_data_outside==1){%>
+                                                <span class="span-table-boolean-true"> มี </span>
+                                                <%}else
+                                                    if(classify[0].classify_risk_assess_only_dpo_protect_data_outside==0){%>
+                                                    <span class="span-table-boolean-false"> ไม่มี </span>
+                                                    <%}else{%>
+                                                        <span class="span-table-boolean-false"> ไม่ระบุ </span>
+                                                        <%}%>
+                                        </td>
+                                    </table>
+                                    <table class="table table-boardless">
+                                        <td class="font-bold td-head-detail-pattern2-1"> ประเมินผลกระทบต่อเจ้าของข้อมูล:
+                                        </td>
+                                        <td style="text-align: left;">
+                                            <%
+                                                if(classify[0].classify_risk_assess_only_dpo_assess_the_impact_of_data==1){%>
+                                                <span class="span-table-boolean-true"> มีสูง </span>
+                                                <%}else
+                                                    if(classify[0].classify_risk_assess_only_dpo_assess_the_impact_of_data==2){%>
+                                                    <span class="span-table-boolean-true"> มีปานกลาง </span>
+                                                    <%}else
+                                                        if(classify[0].classify_risk_assess_only_dpo_assess_the_impact_of_data==3){%>
+                                                        <span class="span-table-boolean-true"> มีต่ำ </span>
+                                                        <%}else{%>
+                                                            <span class="span-table-boolean-false"> ไม่มี </span>
+                                                            <%}%>
+                                        </td>
+                                    </table>
+                                    <table class="table table-boardless">
+                                        <td class="font-bold td-head-detail-pattern2-1">
+                                            วิธีแก้ไขเมื่อเกิดข้อมูลรั่วไหลหรือผลกระทบต่อเจ้าของข้อมูล: </td>
+                                        <td style="vertical-align: middle; text-align: left;">
+                                            <% if(classify[0].classify_risk_assess_only_dpo_fix_a_leak_of_data !=null &&
+                                                classify[0].classify_risk_assess_only_dpo_fix_a_leak_of_data !="" &&
+                                                classify[0].classify_risk_assess_only_dpo_fix_a_leak_of_data !="-" ){%>
+                                                <%= classify[0].classify_risk_assess_only_dpo_fix_a_leak_of_data %>
+                                                    <%}else{%>
+                                                        <span class="span-table-boolean-false"> ไม่มี </span>
+                                                        <%}%>
+                                        </td>
+                                    </table>
+                                    <table class="table table-boardless">
+                                        <td class="font-bold td-head-detail-pattern2-1"> ประเมินผลกระทบต่อองค์กร: </td>
+                                        <td style="text-align: left;">
+                                            <%
+                                                if(classify[0].classify_risk_assess_only_dpo_assess_the_impact_of_organization==1){%>
+                                                <span class="span-table-boolean-true"> มีสูง </span>
+                                                <%}else
+                                                    if(classify[0].classify_risk_assess_only_dpo_assess_the_impact_of_organization==2){%>
+                                                    <span class="span-table-boolean-true"> มีปานกลาง </span>
+                                                    <%}else
+                                                        if(classify[0].classify_risk_assess_only_dpo_assess_the_impact_of_organization==3){%>
+                                                        <span class="span-table-boolean-true"> มีต่ำ </span>
+                                                        <%}else{%>
+                                                            <span class="span-table-boolean-false"> ไม่มี </span>
+                                                            <%}%>
+                                        </td>
+                                    </table>
+                                    <table class="table table-boardless">
+                                        <td class="font-bold td-head-detail-pattern2-1">
+                                            วิธีแก้ไขเมื่อเกิดข้อมูลรั่วไหลหรือผลกระทบต่อองค์กร: </td>
+                                        <td style="vertical-align: middle; text-align: left;">
+                                            <% if(classify[0].classify_risk_assess_only_dpo_fix_a_leak_of_organization
+                                                !=null &&
+                                                classify[0].classify_risk_assess_only_dpo_fix_a_leak_of_organization
+                                                !="" &&
+                                                classify[0].classify_risk_assess_only_dpo_fix_a_leak_of_organization
+                                                !="-" ){%>
+                                                <%= classify[0].classify_risk_assess_only_dpo_fix_a_leak_of_organization
+                                                    %>
+                                                    <%}else{%>
+                                                        <span class="span-table-boolean-false"> ไม่มี </span>
+                                                        <%}%>
+                                        </td>
+                                    </table>
+                                </div>
+
+                                <%if(session.admin=='3' ){%>
+                                    <a class="btn btn-warning"
+                                        onclick="$('#dpo_edit').show(),$('#dpo_default').hide(),$(this).hide()">แก้ไขข้อมูล
+                                        DPO</a>
+                                    <br><br>
+                                    <%}%>
+
+                                        <div id="dpo_edit" style="background-color: #f0e4ca;">
+                                            <div style="margin-left:1%">
+                                                <form class="needs-validation"
+                                                    action="/classification/dpo_edit/<%=classify[0].classify_id%>"
+                                                    method="POST" novalidate>
+                                                    <br>
+                                                    <div class="row col-12">
+                                                        <div class="col-2">
+                                                            <h5 style="font-weight: bold; color: red;">
+                                                                ประเมินความเสี่ยงของข้อมูล (เฉพาะ DPO)
+                                                            </h5>
+                                                        </div>
+                                                        <div class="col-10">
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row col-12">
+                                                        <div class="col-2">
+                                                            <p class="font-bold">
+                                                                ข้อมูลส่วนบุคคล สามารถระบุตัวบุคคลได้
+                                                            </p>
+                                                        </div>
+                                                        <div class="row col-10">
+                                                            <div class="col-2">
+                                                                <input type="radio" id="customRadio1"
+                                                                    name="classify_risk_assess_only_dpo_data_personal_can_specify"
+                                                                    class="form-check-input" value="1" <%
+                                                                    if(classify[0].classify_risk_assess_only_dpo_data_personal_can_specify==1){%>checked
+                                                                <%}%>/>
+                                                                    <label for="customeRadio1"
+                                                                        style="margin-left: 1%">ได้โดยตรง</label>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <input type="radio" id="customRadio2"
+                                                                    name="classify_risk_assess_only_dpo_data_personal_can_specify"
+                                                                    class="form-check-input" value="2" <%
+                                                                    if(classify[0].classify_risk_assess_only_dpo_data_personal_can_specify==2){%>checked
+                                                                <%}%>/>
+                                                                    <label for="customRadio2"
+                                                                        style="margin-left: 1%">เป็นข้อมูลไม่ระบุได้โดยตรง</label>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <input type="radio" id="customRadio3"
+                                                                    name="classify_risk_assess_only_dpo_data_personal_can_specify"
+                                                                    class="form-check-input" value="3" <%
+                                                                    if(classify[0].classify_risk_assess_only_dpo_data_personal_can_specify==3){%>checked
+                                                                <%}%>/>
+                                                                    <label for="customRadio3"
+                                                                        style="margin-left: 1%">มีการทำข้อมูลแฝง</label>
+                                                            </div>
+
+
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row col-12">
+                                                        <div class="col-2">
+                                                            <p class="font-bold">
+                                                                ปริมาณข้อมูลทั้งหมดที่ใช้ประมวลผล
+                                                            </p>
+                                                        </div>
+                                                        <div class="row col-10">
+                                                            <div class="col-2">
+                                                                <input type="radio" id="customRadio4"
+                                                                    name="classify_risk_assess_only_dpo_data_number_all_used_process_many"
+                                                                    class="form-check-input" value="1" <%
+                                                                    if(classify[0].classify_risk_assess_only_dpo_data_number_all_used_process_many==1){%>checked
+                                                                <%}%> />
+                                                                    <label for="customRadio4"
+                                                                        style="margin-left: 1%">มาก</label>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <input type="radio" id="customRadio5"
+                                                                    name="classify_risk_assess_only_dpo_data_number_all_used_process_many"
+                                                                    class="form-check-input" value="0" <%
+                                                                    if(classify[0].classify_risk_assess_only_dpo_data_number_all_used_process_many==0){%>checked
+                                                                <%}%>/>
+                                                                    <label for="customRadio5"
+                                                                        style="margin-left: 1%">น้อย</label>
+                                                            </div>
+                                                            <div class="col-8">
+                                                                <!-- <span id="risk_assess_only_dpo_data_number_all_used_process_total"></span> -->
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row col-12">
+                                                        <div class="col-2">
+                                                            <p class="font-bold">
+                                                                การควบคุมการเข้าถึงข้อมูลใน Alltra
+
+                                                            </p>
+                                                        </div>
+                                                        <div class="row col-10">
+                                                            <div class="col-2">
+                                                                <input type="radio" id="customRadio6"
+                                                                    name="classify_risk_assess_only_dpo_access_control_inside"
+                                                                    class="form-check-input" value="1" <%
+                                                                    if(classify[0].classify_risk_assess_only_dpo_access_control_inside==1
+                                                                    ){%>checked
+                                                                <%}%>
+                                                                    />
+                                                                    <label for="customRadio6"
+                                                                        style="margin-left: 1%">มี</label>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <input type="radio" id="customRadio7"
+                                                                    name="classify_risk_assess_only_dpo_access_control_inside"
+                                                                    class="form-check-input" value="0" <%
+                                                                    if(classify[0].classify_risk_assess_only_dpo_access_control_inside==0
+                                                                    ){%>checked
+                                                                <%}%>/>
+                                                                    <label for="customRadio7"
+                                                                        style="margin-left: 1%">ไม่มี</label>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row col-12">
+                                                        <div class="col-2">
+                                                            <p class="font-bold">
+                                                                การควบคุมการเข้าถึงข้อมูลระบบนอก Alltra
+                                                            </p>
+                                                        </div>
+                                                        <div class="row col-10">
+                                                            <div class="col-2">
+                                                                <input type="radio" id="customRadio8"
+                                                                    name="classify_risk_assess_only_dpo_access_control_outside"
+                                                                    class="form-check-input" value="1" <%
+                                                                    if(classify[0].classify_risk_assess_only_dpo_access_control_outside==1
+                                                                    ){%>checked
+                                                                <%}%>/>
+                                                                    <label for="customRadio8"
+                                                                        style="margin-left: 1%">มี</label>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <input type="radio" id="customRadio9"
+                                                                    name="classify_risk_assess_only_dpo_access_control_outside"
+                                                                    class="form-check-input" value="0" <%
+                                                                    if(classify[0].classify_risk_assess_only_dpo_access_control_outside==0
+                                                                    ){%>checked
+                                                                <%}%>/>
+                                                                    <label for="customRadio9"
+                                                                        style="margin-left: 1%">ไม่มี</label>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row col-12">
+                                                        <div class="col-2">
+                                                            <p class="font-bold">
+                                                                การป้องกันข้อมูลจากระบบ Alltra
+
+                                                            </p>
+                                                        </div>
+                                                        <div class="row col-10">
+                                                            <div class="col-2">
+                                                                <input type="radio" id="customRadio10"
+                                                                    name="classify_risk_assess_only_dpo_protect_data_inside"
+                                                                    class="form-check-input" value="1" <%
+                                                                    if(classify[0].classify_risk_assess_only_dpo_protect_data_inside==1
+                                                                    ){%>checked
+                                                                <%}%>/>
+                                                                    <label for="customRadio10"
+                                                                        style="margin-left: 1%">มี</label>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <input type="radio" id="customRadio11"
+                                                                    name="classify_risk_assess_only_dpo_protect_data_inside"
+                                                                    class="form-check-input" value="0" <%
+                                                                    if(classify[0].classify_risk_assess_only_dpo_protect_data_inside==0
+                                                                    ){%>checked
+                                                                <%}%>/>
+                                                                    <label for="customRadio11"
+                                                                        style="margin-left: 1%">ไม่มี</label>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row col-12">
+                                                        <div class="col-2">
+                                                            <p class="font-bold">
+                                                                การป้องกันข้อมูลจากระบบนอก Alltra
+
+                                                            </p>
+                                                        </div>
+                                                        <div class="row col-10">
+                                                            <div class="col-2">
+                                                                <input type="radio" id="customRadio12"
+                                                                    name="classify_risk_assess_only_dpo_protect_data_outside"
+                                                                    class="form-check-input" value="1" <%
+                                                                    if(classify[0].classify_risk_assess_only_dpo_protect_data_outside==1
+                                                                    ){%>checked
+                                                                <%}%>/>
+                                                                    <label for="customRadio12"
+                                                                        style="margin-left: 1%">มี</label>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <input type="radio" id="customRadio13"
+                                                                    name="classify_risk_assess_only_dpo_protect_data_outside"
+                                                                    class="form-check-input" value="0" <%
+                                                                    if(classify[0].classify_risk_assess_only_dpo_protect_data_outside==0
+                                                                    ){%>checked
+                                                                <%}%>/>
+                                                                    <label for="customRadio13"
+                                                                        style="margin-left: 1%">ไม่มี</label>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row col-12">
+                                                        <div class="col-2">
+                                                            <p class="font-bold">
+                                                                ประเมินผลกระทบต่อเจ้าของข้อมูล
+                                                            </p>
+                                                        </div>
+                                                        <div class="row col-10">
+                                                            <div class="col-2">
+                                                                <input type="radio" id="customRadio14"
+                                                                    name="classify_risk_assess_only_dpo_assess_the_impact_of_data"
+                                                                    class="form-check-input" value="1" <%
+                                                                    if(classify[0].classify_risk_assess_only_dpo_assess_the_impact_of_data==1
+                                                                    ){%>checked
+                                                                <%}%>
+                                                                    />
+                                                                    <label for="customRadio14"
+                                                                        style="margin-left: 1%">มีสูง</label>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <input type="radio" id="customRadio15"
+                                                                    name="classify_risk_assess_only_dpo_assess_the_impact_of_data"
+                                                                    class="form-check-input" value="2" <%
+                                                                    if(classify[0].classify_risk_assess_only_dpo_assess_the_impact_of_data==2
+                                                                    ){%>checked
+                                                                <%}%>/>
+                                                                    <label for="customRadio15"
+                                                                        style="margin-left: 1%">มีปานกลาง</label>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <input type="radio" id="customRadio16"
+                                                                    name="classify_risk_assess_only_dpo_assess_the_impact_of_data"
+                                                                    class="form-check-input" value="3" <%
+                                                                    if(classify[0].classify_risk_assess_only_dpo_assess_the_impact_of_data==3
+                                                                    ){%>checked
+                                                                <%}%>/>
+                                                                    <label for="customRadio16"
+                                                                        style="margin-left: 1%">มีต่ำ</label>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row col-12">
+                                                        <div class="col-2">
+                                                            <p class="font-bold">
+                                                                วิธีแก้ไขเมื่อเกิดข้อมูลรั่วไหลหรือผลกระทบต่อเจ้าของข้อมูล
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <input type="text"
+                                                                name="classify_risk_assess_only_dpo_fix_a_leak_of_data"
+                                                                value="<%= classify[0].classify_risk_assess_only_dpo_fix_a_leak_of_data %>"
+                                                                placeholder="กรุณาป้อนวิธีแก้ไข..." class="form-control"
+                                                                style="width: 100%;" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row col-12">
+                                                        <div class="col-2">
+                                                            <p class="font-bold">ประเมินผลกระทบต่อองค์กร</p>
+                                                        </div>
+                                                        <div class="row col-10">
+                                                            <div class="col-2">
+                                                                <input type="radio" id="customRadio17"
+                                                                    name="classify_risk_assess_only_dpo_assess_the_impact_of_organization"
+                                                                    class="form-check-input" value="1" <%
+                                                                    if(classify[0].classify_risk_assess_only_dpo_assess_the_impact_of_organization==1
+                                                                    ){%>checked
+                                                                <%}%>
+                                                                    />
+                                                                    <label for="customRadio17"
+                                                                        style="margin-left: 1%">มีสูง</label>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <input type="radio" id="customRadio18"
+                                                                    name="classify_risk_assess_only_dpo_assess_the_impact_of_organization"
+                                                                    class="form-check-input" value="2" <%
+                                                                    if(classify[0].classify_risk_assess_only_dpo_assess_the_impact_of_organization==2
+                                                                    ){%>checked
+                                                                <%}%>/>
+                                                                    <label for="customRadio18"
+                                                                        style="margin-left: 1%">มีปานกลาง</label>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <input type="radio" id="customRadio19"
+                                                                    name="classify_risk_assess_only_dpo_assess_the_impact_of_organization"
+                                                                    class="form-check-input" value="3" <%
+                                                                    if(classify[0].classify_risk_assess_only_dpo_assess_the_impact_of_organization==3
+                                                                    ){%>checked
+                                                                <%}%>/>
+                                                                    <label for="customRadio16"
+                                                                        style="margin-left: 1%">มีต่ำ</label>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row col-12">
+                                                        <div class="col-2">
+                                                            <p class="font-bold">
+                                                                วิธีแก้ไขเมื่อเกิดข้อมูลรั่วไหลหรือผลกระทบต่อเจ้าของข้อมูล
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <input type="text"
+                                                                name="classify_risk_assess_only_dpo_fix_a_leak_of_organization"
+                                                                value="<%= classify[0].classify_risk_assess_only_dpo_fix_a_leak_of_organization%>"
+                                                                placeholder="กรุณาป้อนวิธีแก้ไข..." class="form-control"
+                                                                style="width: 100%;" />
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <input type="text" name="classify_dpo_check" value="1" hidden>
+                                                    <input type="text" name="classify_dpo_check_by_acc_id"
+                                                        value="<%=session.userid%>" hidden>
+                                                    <button type="submit" id="submit_dpo_edit"
+                                                        class="btn btn-success">ยืนยัน</button>
+                                                    <br>
+                                                    <br>
+                                                </form>
+                                            </div>
+                                        </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center" style="margin-bottom: 1%;">
+                        <a href="javascript:void(0);" onclick="history.back()" class="btn btn-secondary ">ย้อนกลับ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#dpo_edit').hide()
+        });
+    </script>
+    <script src="/UI/assets/libs/jquery/dist/jquery.min.js"></script>
+    <%- include('../_footer') -%>

@@ -1,0 +1,253 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">ระดับข้อมูลความเป็นส่วนตัว</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item">ระดับข้อมูลความเป็นส่วนตัว</a></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="border-bottom title-part-padding">
+                        <h4 class="card-title mb-0">ระดับข้อมูลความเป็นส่วนตัว<span class="text-secondary"></span></h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="/level_type" method="post">
+                            <div class="row pb-3">
+                                <div class="col-md-8">
+                                    <button type="button" class="btn btn-success px-4" data-bs-toggle="modal"
+                                        data-bs-target="#new_level_type"><i class="fas fa-plus"></i>
+                                        เพิ่มข้อมูลระดับ</button>
+                                </div>
+
+
+
+                                <div class="col-md-4 justify-content-end align-self-center d-block d-md-flex">
+                                    <div class="input-group mb-2">
+                                        <a href="/level_type" class="btn btn-outline-warning"><i
+                                                data-feather="refresh-cw"></i></a>
+                                        <input type="text" class="form-control" placeholder="ค้นหา.." id="myInput"
+                                            name="search" aria-label="" aria-describedby="button-addon2"
+                                            value="<%=keyword%>">
+                                        <!-- <input class=" btn btn-outline-warning" type="button" name="search"
+                                            onclick="myFunction()" value="Search" id="button-addon2"> -->
+                                        <button type="submit" class="btn btn-outline-warning"> <i
+                                                class="fas fa-search"></i> </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="min-height: 470px;">
+                                <table id="myTable"
+                                    class="tablesaw no-wrap table-striped table-bordered table-hover table"
+                                    data-tablesaw-mode="stack" data-tablesaw-sortable>
+                                    <thead>
+                                        <tr>
+
+                                            <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col
+                                                data-tablesaw-priority="3" class="border">ลำดับ</th>
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist"
+                                                class="border">ระดับข้อมูลความเป็นส่วนตัว</th>
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4"
+                                                class="border">แก้ไขข้อมูล</th>
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="5"
+                                                class="border">ลบข้อมูล</th>
+                                        </tr>
+                                    </thead>
+                                    <input id="level_type1" value="<%=level_type1%>" readonly hidden />
+                                    <input id='level_type2' value="<%=level_type2%>" readonly hidden />
+                                    <input id='level_check' value="<%= check_used_level %>" readonly hidden />
+                                    <tbody id="table-body">
+
+
+                                        <!-- <% for(var i=0;i<level.length;i++){%>
+                                                    <tr>
+                                                        <td>
+                                                            <%= (i+1)%>
+                                                        </td>
+                                                        <td>
+                                                            <%= level[i].level_name %>
+                                                        </td>
+
+                                                        <td class="align-top"><a id="<%= level[i].level_id %>" href="#"
+                                                                onclick="filelevel_type(this.id)" data-bs-toggle="modal"
+                                                                data-bs-target="#file_level_type" class="text-info"><i
+                                                                    class="fas fa-file-alt fa-2x"></i></a>
+
+
+                                                        </td>
+                                                        <td class="align-top"><a id="<%= level[i].level_id %> " href="#"
+                                                                onclick="elevel_type(this.id)" class="text-edit"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#edit_level_type"><i
+                                                                    class="fas fa-pencil-alt fa-2x"></i></a>
+
+
+                                                        </td>
+                                                        <td class="align-top"><a id="<%= level[i].level_id %>" href="#"
+                                                                onclick="dellevel_type(this.id)" class="text-danger"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#delete_level_type"><i
+                                                                    class="fas fa-trash-alt fa-2x"></i></a>
+
+                                                        </td>
+                                                    </tr>
+                                                    <% } %> -->
+
+
+                                    </tbody>
+                                </table>
+                        </form>
+                    </div>
+
+
+                    <form action="/save_level" method="POST">
+                        <div id="new_level_type" class="modal fade" tabindex="-1"
+                            aria-labelledby="success-header-modalLabel" aria-hidden="true" style="display: none;">
+                            <div class="modal-dialog ">
+                                <div class="modal-content">
+                                    <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                                        <h4 class="modal-title" style="color: black;"">
+                                            เพิ่มข้อมูลระดับ
+                                        </h4>
+                                        <button type=" button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table class='table table-borderless'>
+                                            <th class="col-md-2">
+                                                ระดับ :
+                                            </th>
+                                            <td class="col-md-10" id="elevel_type1">
+                                                <input type="text" name="level_name"
+                                                    placeholder="กรุณาป้อนระดับข้อมูลความเป็นส่วนตัว.."
+                                                    class="form-control " required>
+                                            </td>
+                                        </table>
+
+
+                                    </div>
+                                    <div class="modal-footer">
+
+                                        <button type="submit"
+                                            class="btn btn-success font-weight-medium">บันทึกข้อมูล</button>
+
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">ยกเลิก</button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div>
+                    </form>
+
+                    <form action="/update_level" method="POST">
+                        <div id="edit_level_type" class="modal fade" tabindex="-1"
+                            aria-labelledby="info-header-modalLabel" aria-hidden="true" style="display: none;">
+                            <div class="modal-dialog ">
+                                <div class="modal-content">
+                                    <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                                        <h4 class="modal-title" style="color: black;">
+                                            แก้ไขข้อมูลระดับ
+                                        </h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table class='table table-borderless'>
+                                            <th class="col-md-2">
+                                                ระดับ :
+                                            </th>
+                                            <td class="col-md-10" id="editlevel_type1">
+
+                                            </td>
+                                        </table>
+
+
+                                    </div>
+                                    <div class="modal-footer">
+
+                                        <button type="submit"
+                                            class="btn btn-warning  font-weight-medium">บันทึกข้อมูล</button>
+
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">ยกเลิก</button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div>
+                    </form>
+
+                    <form action="/delete_level" method="POST">
+                        <div id="delete_level_type" class="modal fade" tabindex="-1"
+                            aria-labelledby="danger-header-modalLabel" aria-hidden="true" style="display: none;">
+                            <div class="modal-dialog ">
+                                <div class="modal-content">
+                                    <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                                        <h4 class="modal-title" style="color: black;">
+                                            ยืนยันการลบข้อมูลระดับ
+                                        </h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <table class='table table-borderless'>
+                                            <th class="col-md-2" style="vertical-align: middle;">
+                                                ระดับ :
+                                            </th>
+                                            <td class="col-md-10" id="deletelevel_type1"
+                                                style="vertical-align: middle;">
+
+                                            </td>
+                                        </table>
+
+
+                                    </div>
+                                    <div class="modal-footer">
+
+                                        <button type="submit" class="btn btn-danger font-weight-medium">ยืนยัน</button>
+
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">ยกเลิก</button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div>
+                    </form>
+
+                    <div class="row">
+                        <div class="col-md-6 text-secondary">
+                            <span>แสดงผล <span id="start"></span> ถึง <span id="end"></span> ทั้งหมด <%= level.length%>
+                                    รายการ</span>
+                        </div>
+                        <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                            <nav aria-label="Page navigation example" class="mt-2">
+                                <ul class="pagination" id="pagination-wapper">
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+    <script src="/UI/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="/UI/dist/js/pagination_level_type.js"></script>
+
+
+
+    <%- include('../_footer') -%>

@@ -1,0 +1,188 @@
+<%- include('../_header') -%>
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-md-5 align-self-center">
+            <h3 class="page-title">ข้อมูล Agent Logger (Hash Value)</h3>
+            <div class="d-flex align-items-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+                        <li class="breadcrumb-item">ข้อมูล Agent Logger (Hash Value)</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid" id="logger_hash_ag">
+    <!-- Row -->
+    <div class="row">
+        <!-- Column -->
+        <div class="col-lg-6 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">จำนวน Directory ทั้งหมด</h4>
+                    <div class="text-end">
+                        <h2 class="fw-light mb-0"><i class="ti-arrow-up text-success"></i>
+                            <%= path.length %>
+                        </h2>
+                        <span class="text-muted">ณ วันที่ <span id="today"></span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Column -->
+        <!-- Column -->
+        <div class="col-lg-6 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">จำนวน Records ทั้งหมด</h4>
+                    <div class="text-end">
+                        <h2 class="fw-light mb-0"><i class="ti-arrow-up text-info"></i>
+                            <%= hash.length %>
+                        </h2>
+                        <span class="text-muted">ณ วันที่ <span id="today1"></span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Column -->
+    </div>
+    <!-- Row -->
+    <!-- Row -->
+    <div class="row">
+        <!-- Column -->
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="d-flex flex-wrap">
+                                <div>
+                                    <h3>จำนวน Records ทั้งหมดต่อช่วงเวลา</h3>
+                                    <h6 class="card-subtitle">ณ วันที่ <span id="today2"></span></h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div id="revenue-statistics"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Row -->
+    <div class="card">
+        <div class="border-bottom title-part-padding">
+            <h4 class="card-title mb-0">รายการข้อมูล Agent Logger (Hash Value)<span class="text-secondary"></span></h4>
+        </div>
+        <div class="card-body">
+            <div class="row pb-3">
+                <div class="col-md-8">
+                </div>
+                <div class="col-md-4 justify-content-end align-self-center d-block d-md-flex">
+                    <div class="input-group mb-2">
+                        <a href="javascript:void(0);" id="refresh-cw" class="btn btn-outline-warning"><i data-feather="refresh-cw"></i></a>
+                        <input list="browers" type="text" class="form-control" placeholder="ค้นหา.." name="search">
+                        <datalist id="browers">
+                        </datalist>
+                        <button type="button" id="btn-search" class="btn btn-outline-warning"> Search </button>
+                    </div>
+                </div>
+            </div>
+            <div style="min-height: 470px; margin-left: 0.5%; margin-right: 1%;">
+                <table id="myTable" class="tablesaw no-wrap table-striped table-bordered table-hover table" data-tablesaw-mode="stack" data-tablesaw-sortable>
+                    <thead>
+                        <tr>
+                            <th data-tablesaw-priority="persist" class="border" style="width: 5%;">
+                                ลำดับ</th>
+                            <th scope="col" data-tablesaw-priority="1" class="border">
+                                ชื่ออุปกรณ์ที่ส่งมา</th>
+                            <th scope="col" data-tablesaw-priority="2" class="border">
+                                ระบบปฏิบัติการ</th>
+                            <th scope="col" data-tablesaw-priority="3" class="border">
+                                ที่อยู่ของไฟล์</th>
+                            <th scope="col" data-tablesaw-priority="4" class="border">
+                                ชื่อไฟล์</th>
+                            <th scope="col" data-tablesaw-priority="5" class="border">
+                                รายละเอียด</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-6 text-secondary">
+                    <span>แสดงผล <span id="start-hash"></span> ถึง <span id="end-hash"></span> ทั้งหมด <span id="total-hash"><%= hash.length%></span>
+                    รายการ</span>
+                </div>
+                <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                    <nav aria-label="Page navigation example" class="mt-2">
+                        <ul class="pagination" id="pagination-wapper">
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="detail-hash" class="modal fade" tabindex="-1" aria-labelledby="info-header-modalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="info-header-modalLabel">
+                        <span id="header"></span>
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="form-group">
+                        <table class="table table-bordless">
+                            <tr>
+                                <th style="width: 20%; text-align: left;">จำนวนบรรทัด</th>
+                                <td style="text-align: left;"><span id="size_logger_ag"></span></td>
+                            </tr>
+                            <tr>
+                                <th style="width: 20%; text-align: left;">วันที่/เวลาที่บันทึก</th>
+                                <td style="text-align: left;"><span id="recording_time_logger_ag"></span></td>
+                            </tr>
+                            <tr>
+                                <th style="width: 20%; text-align: left;">ค่าแฮชของไฟล์ (<span id="type_hash" class="text-primary"></span>)</th>
+                                <td style="text-align: left;"><span id="hash_value_logger_ag"></span></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div><br/>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+    </div>
+</div>
+</div>
+<script src="/UI/assets/libs/jquery/dist/jquery.min.js"></script>
+<script>
+    let today = new Date();
+    let month = today.getMonth()+1;
+    let day = today.getDate();
+    let hours = today.getHours();
+    let minutes = today.getMinutes();
+    if(String(month).length == 1){
+        month = "0"+String(month)
+    }
+    if(String(day).length == 1){
+        day = "0"+String(day)
+    }
+    if(String(hours).length == 1){
+        hours = "0"+String(hours)
+    }
+    if(String(minutes).length == 1){
+        minutes = "0"+String(minutes)
+    }
+    document.getElementById('today').innerHTML = day + "/" + month + "/" + today.getFullYear() + " " + hours + ":" + minutes
+    document.getElementById('today1').innerHTML = day + "/" + month + "/" + today.getFullYear() + " " + hours + ":" + minutes
+    document.getElementById('today2').innerHTML = day + "/" + month + "/" + today.getFullYear() + " " + hours + ":" + minutes
+</script>
+<%- include('../_footer') -%>

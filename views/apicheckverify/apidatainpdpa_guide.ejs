@@ -1,0 +1,199 @@
+<%- include('../_header') -%>
+<!-- <%-JSON.stringify(data)%> -->
+<div class="page-breadcrumb">
+  <div class="row">
+    <div class="col-md-5 align-self-center">
+      <h3 class="page-title">คู่มือการใช้ข้อมูลกิจกรรมจาก PDPA</h3>
+      <div class="d-flex align-items-center">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+            <li class="breadcrumb-item active" aria-current="page">
+              คู่มือการใช้ข้อมูลกิจกรรมจากภายนอกจาก PDPA
+            </li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <div class="col-md-7 justify-content-end align-self-center d-none d-md-flex">
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="row">
+            <div class="card-body">
+              <div class="border-bottom title-part-padding">
+                <h4 class="card-title">
+                    ตัวอย่างคู่มือการใช้ข้อมูลกิจกรรมจากภายนอกจาก PDPA
+                </h4>
+              </div>
+              <div class="card-body">
+                <div>
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link d-flex active" data-bs-toggle="tab" href="#home2" role="tab" aria-selected="true">
+                                <span><i class="ti-home"></i>
+                                </span>
+                                <span class="d-none d-md-block ms-2">ขั้นตอนที่ 1. Link API และการ SET body</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link d-flex" data-bs-toggle="tab" href="#messages2" role="tab" aria-selected="false">
+                                <span><i class="ti-comment"></i>
+                                </span>
+                                <span class="d-none d-md-block ms-2">2. ผลลัพธ์</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link d-flex" data-bs-toggle="tab" href="#code" role="tab" aria-selected="false">
+                                <span><i class="ti-email"></i>
+                                </span>
+                                <span class="d-none d-md-block ms-2">3. ตัวอย่างโค็ด</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="home2" role="tabpanel">
+                            <div class="p-3 text-start">
+                                <h4 style="color: crimson;">Link API : <%=host%>:8551/apidatain/apiimporttodb</h4>
+                                <h5 >Link สำหรับการรับข้อมูลจาก API</h5>
+                                <h4 style="color: crimson;">มีการ SET body ข้อมูล 3 อย่างคือ 1. name 2. filename 3. data </h4>
+                                <h5>1. name ใช้ชื่อ api_import โดยใช้ชื่อ api_import สำหรับรับข้อมูลมาเก็บรูปแบบ PDPA</h5>
+                                <h5 style="color: crimson;"> name : api_import</h5>
+                                <h5>2. filename คือ ชื่อของไฟล์ที่มีการนำเข้า </h5>
+                                <h5>3. data คือ รูปแบบข้อมูลที่ต้องการนำมาใช้งาน เช่นต้องการนำเข้า name และ id_card เข้าสู่ระบบ จะมีรูปแบบข้อมูลให้เลือกดังตาราง</h5>
+                                <div class="mt-3 mb-3">
+                                  <table
+                                    class="tablesaw no-wrap table-striped table-bordered table-hover table"
+                                    id="myTableclass"
+                                  >
+                                    <thead>
+                                      <tr>
+                                        <th style="width: 50%">ชื่อของข้อมูล</th>
+                                        <th style="width: 50%">ความหมายของข้อมูล</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <%if(data){%> 
+                                      <%if(data.length> 0){%> <%for (i in data){%>
+                                      <tr>
+                                        <td style="vertical-align: center">
+                                          <div>name : <span style="color: crimson;"><%=data[i].data_code%> </span>ชื่อข้อมูล : <%=data[i].data_name%></div>
+                                          
+                                        </td>
+                                        <!-- pattern_storage_method_outside_agent_name -->
+                                        <td style="vertical-align: center">
+                                          <div><%=data[i].data_detail%></div>
+
+                                        </td>
+                                      </tr>
+                                      <%}}}%>
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <h4 style="color: crimson;">ตัวอย่างการ Set API และการ SET body จากโปรแกรม Postman</h4>
+                                <img src="/UI/assets/images/api/guideapidatainpdpa.png" class="img-fluid" alt="">
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="messages2" role="tabpanel">
+                            <div class="p-3 text-start">
+                                <h4 style="color: crimson;">มี 2 รูปแบบคือ ผลลัพธ์ที่สำเร็จและผิดพลาด</h4>
+                                <h5 >1. ผลลัพธ์ที่สำเร็จ จะขึ้นว่า "INSERT SUCCESS : จำนวนข้อมูลที่เพิ่มเข้ามา" ดังรูป</h5>
+                                <h5 >2. ผลลัพธ์ที่ผิดพลาด จะขึ้นว่า "ERROR insert"</h5>
+                                <img src="/UI/assets/images/api/guideapidatainpdpasuc.png" class="img-fluid" alt="">
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="code" role="tabpanel">
+                            <div class="p-3 text-start">
+                                <div class="mb-3">
+                                    <label style="color: crimson;">Ajax Code</label>
+                                    <textarea class="form-control" rows="15">
+                                      var settings = {
+                                        "url": "http://127.0.0.1:8551/apidatain/apiimporttodb",
+                                        "method": "POST",
+                                        "timeout": 0,
+                                        "headers": {
+                                          "Content-Type": "application/json",
+                                          "Cookie": "connect.sid=s%3Ag8_lqW3GuamssNZStvHRXFQtAcCn11e0.9GxWvYHzRqExObCEqGidwo%2FdtljD3dTDEwFVJ55%2Fk7U"
+                                        },
+                                        "data": JSON.stringify({
+                                          "name": "api_import",
+                                          "namefile": "excel1",
+                                          "data": {
+                                            "name": [
+                                              "name1",
+                                              "name2",
+                                              "name3",
+                                              "name4",
+                                              "name5",
+                                              "name6",
+                                              "name7",
+                                              "name8",
+                                              "name9",
+                                              "name10",
+                                              "name11",
+                                              "name12"
+                                            ],
+                                            "id_card": [
+                                              "ser1",
+                                              "ser2",
+                                              "ser3",
+                                              "ser4",
+                                              "ser5",
+                                              "ser6",
+                                              "ser7",
+                                              "ser8",
+                                              "ser9",
+                                              "ser10",
+                                              "ser11",
+                                              "ser12"
+                                            ],
+                                            "surname": [
+                                              "id_card1",
+                                              "id_card2",
+                                              "id_card3",
+                                              "id_card4",
+                                              "id_card5",
+                                              "id_card6",
+                                              "id_card7",
+                                              "id_card8",
+                                              "id_card9",
+                                              "id_card10",
+                                              "id_card11",
+                                              "id_card12"
+                                            ]
+                                          }
+                                        }),
+                                      };
+                                      
+                                      $.ajax(settings).done(function (response) {
+                                        console.log(response);
+                                      });
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/UI/assets/libs/datatables/media/js/jquery.dataTables.min.js"></script>
+  <script src="/UI/dist/js/pages/datatable/custom-datatable.js"></script>
+  <script src="/UI/dist/js/pages/datatable/datatable-basic.init.js"></script>
+  <script>
+    $('#myTableclass').DataTable({
+  // bAutoWidth: false,
+  "lengthMenu": [[ 3, 5,10, -1], [ 3, 5,10, "All"]] 
+});
+</script>
+      <%- include('../_footer') -%>

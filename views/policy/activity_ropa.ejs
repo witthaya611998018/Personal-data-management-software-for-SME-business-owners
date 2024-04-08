@@ -1,0 +1,501 @@
+<%- include ("../_header") %>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-8 align-self-center">
+                <h3 class="page-title tiile_edit_text">การบันทึกรายการกิจกรรม (RoPA)</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item tiile_edit_text">การบันทึกรายการกิจกรรม (RoPA)</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="card" id="first-hidden" hidden>
+            <div class="border-bottom title-part-padding">
+                <div class="row">
+                    <div class="col-md-8 justify-content-start align-self-center d-none d-md-flex">
+                        <h4 class="card-title mb-0 tiile_edit_text">การบันทึกรายการกิจกรรม (RoPA)</h4>
+                    </div>
+                    <div class="col-md-4 justify-content-end align-self-center d-none d-md-flex space">
+                        <div class="not_allowed">
+                            <a id="pdf" class="col-md-1" title="pdf"> <i class="mdi mdi-file-pdf mdi-24px"></i> </a>
+                            <a id="printer" title="คลิกพิมพ์เอกสาร" target="_blank" rel="noopener noreferrer"
+                                class="col-md-1"><i class="mdi mdi-printer mdi-24px"></i></a>
+                            <a id="mail" class="col-md-1" title="ส่ง E-mail" data-bs-toggle="modal"
+                                data-bs-target="#mail-modal" onclick="mail()"> <i class="mdi mdi-email mdi-24px"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div style="min-height: 470px;" class="table-responsive">
+                    <table class=" tablesaw table no-wrap  table-bordered table-hover" style="width: 90%;"
+                        id="export-part-1">
+                        <thead>
+                            <tr>
+                                <th colspan="2" style="background-color: #c5eaf1ab;">
+                                    ส่วนที่ 1 : ข้อมูลติดต่อบุคคลที่เกี่ยวข้องกับการประมวลข้อมูลส่วนบุคคล [ข้อ 3
+                                    (1) - (3) ]
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="2" style="background-color: #ccccccde;">
+                                    <div class="justify-content-between align-self-center d-flex align-items-center">
+                                        ผู้ประมวลผลข้อมูลส่วนบุคคล (เเละตัวเเทน หากมี)
+                                        <a class="text-warning " data-bs-toggle="modal" id="edit_data_processor"
+                                            type-label="processor" data-bs-target="#edit_data_modal">
+                                            <i class="fas fa-pencil-alt fa-2x"></i>
+                                        </a>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="part-1">
+
+                        </tbody>
+                    </table>
+                    <div class="row mt-4 mb-2">
+                        <div class="col-md-3 justify-content-start align-items-center d-none d-md-flex">
+                            <label for="">เลือกรายการที่บันทึก</label>
+                        </div>
+                        <div class="col-md-4 justify-content-start align-self-center d-none d-md-flex">
+                            <div class="input-group mb-2 ">
+                                <a class="btn btn-outline-warning" href="/activity-ropa"><i
+                                        data-feather="refresh-cw"></i></a>
+                                <select name="search_doc_type" class="form-control" id="selecte_classifi">
+                                </select>
+                                <button class="btn btn-outline-warning" type="button" id="search_classifi"><i
+                                        class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="min-height: 470px;">
+                        <table class="tablesaw table table-striped   no-wrap table-bordered table-hover"
+                            id="export-part-2">
+                            <thead>
+                                <tr>
+                                    <th colspan="10" style="background-color: #c5eaf1ab;">
+                                        ส่วนที่ 2 : บันทึกรายการของกิจกรรมการประมวลผลข้อมูลส่วนบุคคล
+                                    </th>
+                                </tr>
+                                <tr class="color_td">
+                                    <th rowspan="2" class="ttt">
+                                        ลำดับ
+                                    </th>
+                                    <th rowspan="2" class="ttt">
+                                        เลือก
+                                    </th>
+                                    <th>
+                                        ข้อมูลเกี่ยวกับผู้ควบคุมข้อมูลส่วนบุคคล
+                                    </th>
+                                    <th colspan="3">
+                                        รายละเอียดทั่วไปของการประมวลผลข้อมูลส่วนบุคคล [ข้อ 3(4)]
+                                    </th>
+                                    <th>
+                                        การโอนข้อมูลไปยังจ่างประเทศ (หากมี) [ข้อ 3(5)]
+                                    </th>
+                                    <th colspan="3">
+                                        มาตราการรักษาตวามมั่นคงปลอดภัยตามมาตรา 40 วรรณหนึ่ง (2) [ข้อ 3 (6)]
+                                    </th>
+                                </tr>
+                                <tr class="color_td">
+                                    <td>
+                                        ผู้ควบคุมข้อมูลส่วนบุคคล (เเละตัวเเทน หากมี)
+                                    </td>
+                                    <td>
+                                        ประเภทหรือลักษณะ (ชื่อกิจกรรม)
+                                    </td>
+                                    <td>
+                                        ข้อมูลส่วนบุคคล
+                                    </td>
+                                    <td>
+                                        วัตถุประสงค์
+                                    </td>
+                                    <td>
+                                        ชื่อประเทศเเละองค์กร/บุคคลปลายทาง
+                                    </td>
+                                    <td>
+                                        คำอธิบายมาตราการรักษาความปลอดภัย
+                                    </td>
+                                    <td>
+                                        บันทึกการเเจ้งเหตุการณ์ละเมิดข้อมูล<br>
+                                        ส่วนบุคคลกับผู้ควบคุมข้อมูล (หากมี)
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody id="past-2">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6 text-secondary">
+                        <div class="row">
+                            <span>แสดงผล <a id="show"></a> ถึง <a id="to_show"></a> ทั้งหมด <a id="show_all"></a>
+                                รายการ</span>
+                        </div>
+                    </div>
+                    <div class="col justify-content-end align-self-center d-block d-md-flex">
+                        <nav aria-label="Page navigation example" class="mt-2">
+                            <ul class="pagination"></ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" id="first-hidden-data-controller" hidden>
+            <div class="border-bottom title-part-padding">
+                <div class="row">
+                    <div class="col-md-8 justify-content-start align-self-center d-none d-md-flex">
+                        <h4 class="card-title mb-0 tiile_edit_text">การบันทึกรายการกิจกรรม (RoPA) </h4>
+                    </div>
+                    <div class="col-md-4 justify-content-end align-self-center d-none d-md-flex space">
+                        <div class="not_allowed_controller">
+                            <a id="pdf-data-controller" title="pdf" class="col-md-1 "><i
+                                    class="mdi mdi-file-pdf mdi-24px "></i></a>
+                            <a id="printer-data-controller" title="คลิกพิมพ์เอกสาร" target="_blank"
+                                rel="noopener noreferrer" class="col-md-1"><i class="mdi mdi-printer mdi-24px"></i></a>
+                            <a class="col-md-1" data-bs-toggle="modal" data-bs-target="#mail-modal" title="ส่ง E-mail"
+                                id="mail-data-controller" onclick="mail('data-controller')">
+                                <i class="mdi mdi-email mdi-24px"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class=" tablesaw table no-wrap   table-bordered " style="width: 90%;"
+                        id="export-part-1-data-controller">
+                        <thead>
+                            <tr>
+                                <th colspan="2" style="background-color: #c5eaf1ab;">
+                                    ส่วนที่ 1 : ข้อมูลเกี่ยวข้องกับผู้ควบคุมข้อมูลส่วนบุคคล
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="2" style="background-color: #ccccccde;">
+                                    <div class="justify-content-between align-self-center d-flex align-items-center">
+                                        ผู้ควบคุมข้อมูลส่วนบุคคล
+                                        <a class="text-warning " data-bs-toggle="modal" id="edit_data"
+                                            type-label="data-controller" data-bs-target="#edit_data_modal">
+                                            <i class="fas fa-pencil-alt fa-2x"></i>
+                                        </a>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="part-1-data-controller">
+
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-md-3 justify-content-start align-items-center d-none d-md-flex">
+                            <h4>เลือกรายการที่บันทึก</h4>
+                        </div>
+                        <div class="col-md-4 justify-content-start align-self-center d-none d-md-flex">
+                            <div class="input-group mb-2 ">
+                                <a class="btn btn-outline-warning" href="/activity-ropa"><i
+                                        data-feather="repeat"></i></a>
+                                <select name="search_doc_type" class="form-control"
+                                    id="selecte_classifi_data_controller">
+                                </select>
+                                <button class="btn btn-outline-warning" type="button"
+                                    id="search_classifi_data_controller"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="min-height: 470px;">
+                        <table class="tablesaw table table-striped no-wrap table-bordered table-hover">
+                            <thead>
+                                <tr class="color_td">
+                                    <th colspan="11">
+                                        ส่วนที่ 2 : บันทึกรายการ
+                                    </th>
+                                </tr>
+                                <tr class="color_td">
+                                    <th rowspan="2">
+                                        ลำดับ
+                                    </th>
+                                    <th rowspan="2">
+                                        <div>
+                                            เลือก
+                                        </div>
+                                        <div class="mt-4">
+                                            <input onclick="checkboxAll(this)" id="checkboxAll"
+                                                class="form-check-input secondary check-outline outline-secondary"
+                                                type="checkbox">
+                                        </div>
+                                    </th>
+                                    <th colspan="5">
+                                        รายละเอียดทั่วไปของการประมวลผลข้อมูลส่วนบุคคล (เก็บรวบรวม ใช้ เปิดเผย)
+                                    </th>
+                                    <th>
+                                        มาตราการรักษาตวามมั่นคงปลอดภัยตามมาตรา 37 (1)
+                                    </th>
+                                    <th colspan="2" class="text-center">
+                                        การใช้สิทธิ
+                                    </th>
+                                    <th>
+                                        หมายเหตุ
+                                    </th>
+                                </tr>
+                                <tr class="color_td">
+                                    <td>
+                                        ชื่อกิจกรรม
+                                    </td>
+                                    <td>
+                                        วัตถุประสงค์
+                                    </td>
+                                    <td>
+                                        ข้อมูลส่วนบุคคลที่มีการเก็บรวบรวม
+                                    </td>
+                                    <td>
+                                        การใช้ / เปิดเผย
+                                    </td>
+                                    <td>
+                                        ระยะเวลา
+                                    </td>
+                                    <td>
+                                        มาตราการรักษาความปลอดภัย
+                                    </td>
+                                    <td>
+                                        สิทธิของเจ้าขอข้อมูลส่วนบุคคล
+                                    </td>
+                                    <td>
+                                        การบันทึกรายละเอียดการปฏิเสธคำขอหรือ<br>การคัดค้านการใช้สิทธิของเจ้าของข้อมูลส่วนบุคคล
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody id="past-2-data-controller">
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- <style>
+                    #container {
+                      width: 300px;
+                      overflow: hidden;
+                      white-space: normal; /* ให้เกิดการขึ้นบรรทัดใหม่ */
+                      /* border: 1px solid #ccc; */
+                    }
+                  </style>
+
+                <div id="container">
+                    This is a long text that we want to break into a nexxxxxxxxxxxxxxxxxxxxxxxxxw line instead of using ellipsis.
+                  </div> -->
+
+
+                <div class="row mt-3">
+                    <div class="col-md-6 text-secondary  align-self-center d-block d-md-flex">
+                        <div class="row">
+                            <span>แสดงผล <a id="show_data_controller"></a> ถึง <a id="to_show_data_controller"></a>
+                                ทั้งหมด <a id="show_all_data_controller"></a>
+                                รายการ</span>
+                        </div>
+                    </div>
+                    <div class="col justify-content-end align-self-center d-block d-md-flex">
+                        <nav aria-label="Page navigation example" class="mt-2">
+                            <ul class="pagination-data-controller"></ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="mail-modal" class="modal fade show" tabindex="-1" aria-labelledby="info-header-modalLabel"
+        aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header bg-info text-white">
+                    <h4 class="modal-title" id="info-header-modalLabel">
+                        แชร์การบันทึกรายการกิจกรรม (RoPA)
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <input type="email" name="email_outside" class="form-control" placeholder="อีเมลล์ผู้รับ"
+                            id="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" name="subject" class="form-control" placeholder="หัวข้อ" id="subject"
+                            required>
+                    </div>
+                    <div id="previews" style="border-style:solid ;padding: 3px;">
+
+                    </div>
+                </div>
+                <div class="mb-3  text-center">
+                    <a id="share" class="btn btn-info font-weight-medium">ส่ง</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        id="close-modal">ปิด</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="edit_data_modal" class="modal fade" tabindex="-1"
+        aria-labelledby="success-header-modalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="POST" id="form_edit">
+                    <div class="modal-header  border-bottom title-part-padding">
+                        <h4 class="modal-title text" id="title_edit">
+
+                        </h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card-body" id="modal-edite">
+
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-warning" id="submit_data">
+                            บันทึก</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            ปิด
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="edit_data_modal_protection" class="modal fade" tabindex="-1"
+        aria-labelledby="success-header-modalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="/activity-ropa/update" method="POST">
+                    <div class="modal-header  border-bottom title-part-padding">
+                        <h4 class="modal-title text">
+                            เเก้ไขข้อมูลเจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคล
+                        </h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card-body">
+                            <input type="hidden" name="data_account" value="" class="form-control"
+                                id="data_protection_id">
+                            <div class="mb-2  d-flex">
+                                <label for="fname" class="col-md-4 text-start control-label col-form-label">
+                                    ชื่อ-สกุล :</label>
+                                <div class="col-md-8">
+                                    <input type="text" name="data_account" value="" class="form-control"
+                                        id="data_protection_1" required>
+                                </div>
+                            </div>
+                            <div class="mb-2  d-flex">
+                                <label for="fname" class="col-md-4 text-start control-label col-form-label">
+                                    ที่อยู่ :</label>
+                                <div class="col-md-8">
+                                    <input type="text" name="data_account" value="" class="form-control"
+                                        id="data_protection_2" required>
+                                </div>
+                            </div>
+                            <div class="mb-2  d-flex">
+                                <label for="fname" class="col-md-4 text-start control-label col-form-label">
+                                    อีเมล :</label>
+                                <div class="col-md-8">
+                                    <input type="text" name="data_account" value="" class="form-control"
+                                        id="data_protection_3" required>
+                                </div>
+                            </div>
+                            <div class="mb-2  d-flex">
+                                <label for="fname" class="col-md-4 text-start control-label col-form-label">
+                                    เบอร์โทรศัพท์ :</label>
+                                <div class="col-md-8">
+                                    <input type="text" name="data_account" value="" class="form-control"
+                                        id="data_protection_4" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-warning" id="submit_data">
+                            บันทึก</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            ปิด
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div id="mail-modal-data-controller" class="modal fade show" tabindex="-1" aria-labelledby="info-header-modalLabel"
+        aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header bg-info text-white">
+                    <h4 class="modal-title" id="info-header-modalLabel">
+                        แชร์การบันทึกรายการกิจกรรม (RoPA)
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <input type="email" name="email_outside" class="form-control" placeholder="อีเมลล์ผู้รับ"
+                            id="email-data-controller" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" name="subject" class="form-control" placeholder="หัวข้อ"
+                            id="subject-data-controller" required>
+                    </div>
+                </div>
+                <div class="mb-3  text-center">
+                    <a id="share-data-controller" class="btn btn-info font-weight-medium">ส่ง</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        id="close-modal-data-controller">ปิด</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+
+    <style>
+        table th,
+        td {
+            font-size: 15px;
+        }
+
+        .pagination-data-controller {
+            display: flex;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .color_td th {
+            background-color: #ccccccde;
+        }
+
+        .color_td td {
+            background-color: #ccccccde;
+        }
+
+        .disabled_href:hover {
+            cursor: not-allowed;
+        }
+    </style>
+
+    <script src="/dist/js/views_js/policy/activity_ropa.js"></script>
+    <%- include ("../_footer") %>

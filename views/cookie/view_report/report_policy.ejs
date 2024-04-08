@@ -1,0 +1,128 @@
+<%-include ("../../_header")%>
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">ข้อมูลตามเอกสาร</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">ข้อมูลตามเอกสาร</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid note-has-grid">
+        
+
+        <div class="card">
+            <div class="border-bottom title-part-padding">
+                <div class="row">
+                    <div class="col-md-8 justify-content-start align-self-center d-none d-md-flex">
+                        <h4 class="card-title mb-0">ข้อมูลตามเอกสาร</h4>
+                    </div>
+                    <div class="col-md-4 justify-content-end align-self-center d-none d-md-flex space">
+                        <div class="not_allowed">
+                            <a class="btn btn-info" id="csv">CSV</a>
+                            <a class="btn btn-success" id="excel">Excel</a>
+                            <a class="btn btn-warning" id="pdf"> PDF</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card-body">
+                <div class="row pb-2 justify-content-end">
+                    <div class="col-md-8 justify-content-start align-self-center d-none d-md-flex">
+                        <div class="d-flex">
+                            <div class="input-group mb-3">
+                                <input class="form-control" type="date" value="" id="firstDay">
+                                <span class="input-group-text" id="basic-addon1">ถึง</span>
+                                <input class="form-control" type="date" value="" id="lastDay">
+                                <button class="btn btn-outline-warning" type="button" id="search_date"><i
+                                        class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="input-group mb-2 ">
+                            <a class="btn btn-outline-warning" id="reface"><i data-feather="refresh-cw"></i></a>
+                            <input type="text" class="form-control" placeholder="ค้นหา.." aria-label="" value=""
+                                id="Srearch" aria-describedby="button-addon2">
+                            <button class="btn btn-outline-warning" type="button" id="button-addon2"><i
+                                    class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pb-2 justify-content-end">
+                    <div class="col-md-8 justify-content-start align-self-center d-none d-md-flex">
+                        
+
+
+
+
+
+
+
+                        <!-- <div class="col-12">
+                            <div class="input-group mb-3">
+                                
+                                <div class="input-group my-group "> 
+                                    <select class="select2 selectpicker form-control" data-live-search="true" 
+                                            multiple="multiple" name="TB_TR_PDPA_DATA"
+                                            style="height: 36px;width: 80%;">
+                                            <%if(TB_TR_PDPA_DATA){for (var i=0; i < TB_TR_PDPA_DATA.length; i++) {%>
+
+                                                <option value="<%=TB_TR_PDPA_DATA[i].data_id%>">
+                                                    <%=TB_TR_PDPA_DATA[i].data_name%>
+                                                </option>
+                                                <%}}%>
+                                        </select>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-outline-warning my-group-button" type="button" id="search_date2"><i
+                                            class="fas fa-search"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                    
+                    <div class="col-md-4">
+                        
+                    </div>
+                </div>
+                <div style="min-height: 400px;" class="table-responsive">
+                    <div id="table_Data-cookie"> </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6 text-secondary ">
+                        <div class="row">
+                            <span>แสดงผล <a id="show"></a> ถึง <a id="to_show"></a> ทั้งหมด <a id="show_all"></a>
+                                รายการ</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                        <nav aria-label="Page navigation example" class="mt-2">
+                            <ul class="pagination">
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/dist/js/views_js/report_js/js_report_policy.js"></script>
+    <script type="text/javascript" src="/dist/js/xlsx.full.min.js"></script>
+    
+    <script src="/UI/dist/js/feather.min.js"></script>
+    <script src="/UI/dist/js/custom.min.js"></script>
+    <script src="/UI/assets/libs/select2/dist/js/select2.full.min.js"></script>
+    <script src="/UI/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="/UI/dist/js/pages/forms/select2/select2.init.js"></script>
+    <%-include ("../../_footer")%>

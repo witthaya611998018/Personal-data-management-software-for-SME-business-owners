@@ -1,0 +1,1948 @@
+<%- include('../_header') -%>
+    <link href="/UI/dist/css/style.min.css" rel="stylesheet">
+
+    <div class="page-breadcrumb">
+        <div class='row'>
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title"> แก้ไขรูปแบบข้อมูล</h3>
+                <div class="d-flex align-items-center" style="margin-top: 1%;">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index2">หน้าแรก</a></li>
+                            <li class="breadcrumb-item"><a href="/pattern">กำหนดรูปแบบข้อมูล (Pattern)</a></li>
+                            <li class="breadcrumb-item active" aria-current='page'>แก้ไขรูปแบบข้อมูล</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-7 d-flex align-items-center justify-content-end">
+                <a href="/pattern" class="btn btn-secondary">ย้อนกลับ</a>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class='container-fluid'>
+        <!-- Row -->
+        <div class='row'>
+            <!-- Column -->
+            <div class='col-12'>
+                <div class="card">
+                    <div class="border-bottom title-part-padding">
+                        <h4 class="card-title mb-0">แก้ไขรูปแบบข้อมูล สำหรับค้นหาตรวจสอบ และ ป้องกัน <span
+                                class="text-secondary"></span></h4>
+                    </div>
+                    <form id="form_edit_pattern" class="needs-validation" action="/pattern/edit<%=pattern.pattern_id%>"
+                        patternPath="<%=pattern.pattern_id%>" method="POST" novalidate>
+
+                        <input type="hidden" class="form-control" name="new_data_papd_specific"
+                            id="new_data_papd_specific">
+                        <input type="hidden" class="form-control" name="papd_specific" id="papd_specific">
+                        <input type="hidden" class="form-control" name="pattern_specific_id"
+                            value="<%=pattern.pattern_id%>">
+
+
+                        <div class='card-body'>
+                            <div class='h5' style="font-weight: bold;">
+                                กำหนดค่าข้อมูล
+                            </div>
+                            <div class="col-12">
+                                <div class="row col-12">
+                                    <div class="col-2">
+                                        <h5 style="font-weight: bold;">ชื่อรูปแบบข้อมูล:</h5>
+
+                                    </div>
+                                    <div class="col-10">
+                                        <input type='text' name='pattern_name' placeholder='กรุณาป้อนชื่อรูปแบบ...'
+                                            value="<%=pattern.pattern_name%>" class='form-control' required>
+                                    </div>
+                                </div>
+                                <br>
+                                <hr>
+                                <div class="row col-12">
+                                    <div id="doc_id_policy" class="col-2">
+                                        <h5 style="font-weight: bold;">ข้อมูลตามเอกสาร Policy</h5>
+                                    </div>
+                                    <div class="col-10">
+                                        <button type="button" id='btn-add-policy' href='#add-policy'
+                                            class='btn btn-success' data-bs-toggle='modal'>
+                                            เลือกเอกสาร
+                                        </button>
+                                        <input id="doc_id" name='doc_id' value="<%=pattern.doc_id%>" readonly hidden>
+                                        <div id="previewer_policy" class="col-10">
+                                            * เอกสาร Policy ที่เลือกแล้ว
+                                            <br>
+                                            <br>
+                                            <%if(doc_id){%>
+                                                <%for (var i=0; i < doc_id.length; i++) {%>
+                                                    <div id="previewer_<%=doc_id[i].doc_id%>">
+                                                        <div class="row">
+                                                            <div class="col-5">
+                                                                ชื่อ : <%=doc_id[i].doc_name%>
+                                                                    <br>
+                                                                    ประเภท : <%=doc_id[i].doc_type_name%>
+                                                                        <br>
+                                                                        จำนวนหน้า : <%=doc_id[i].page%>
+                                                            </div>
+                                                            <div class="col-7">
+                                                                <a class="btn btn btn-info" " href="
+                                                                    /show_slide/<%=doc_id[i].doc_id%>"
+                                                                    target="_blank">Preview Policy</a>
+                                                            </div>
+                                                            <hr>
+                                                        </div>
+                                                    </div>
+                                                    <%}%>
+                                                        <%}%>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row col-12">
+                                    <div class="col-2">
+                                        <h5 style="font-weight: bold;"> ข้อมูลส่วนบุคคล</h5>
+                                    </div>
+                                    <div class="col-10">
+                                        <table class="table customize-table table-striped mb-0 v-middle">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 10%;">
+                                                        ลำดับที่
+                                                    </th>
+                                                    <th style="width: 20%;">
+                                                        ชื่อ
+                                                    </th>
+                                                    <th style="width: 20%;">
+                                                        ระยะเวลา
+                                                    </th>
+                                                    <th style="width: 20%;">
+                                                        ความเสี่ยง
+                                                    </th>
+                                                    <th style="width: 20%;">
+                                                        ประเภทข้อมูล
+                                                    </th>
+                                                    <th style="width: 10%;">
+                                                        เลือกใช้ข้อมูล
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbody_table_pattern_data">
+                                                <%if(data_out[0]){%>
+                                                    <%for (var i=0; i < data_out[0].data.length; i++) {%>
+                                                        <tr>
+                                                            <td>
+                                                                <%=i+1%>
+                                                            </td>
+                                                            <td>
+                                                                <%=data_out[0].data[i].data_name%> <br>
+                                                                    <%=data_out[0].data[i].data_code%>
+                                                            </td>
+                                                            <td>
+                                                                <%=data_out[0].data[i].day_start%> ถึง
+                                                                    <%=data_out[0].data[i].day_end%>
+                                                            </td>
+                                                            <td>
+                                                                <%=data_out[0].data[i].level_name%>
+                                                            </td>
+                                                            <td>
+                                                                <%=data_out[0].data[i].data_type_name%>
+                                                            </td>
+                                                            <td>
+                                                                เลือก <input type="checkbox" class="form-check-input"
+                                                                    name="doc_id_person_data"
+                                                                    value="<%=data_out[0].data[i].data_id%>"
+                                                                    <%if(data_id){ for (var k=0; k < data_id.length;
+                                                                    k++) {
+                                                                    if(data_id[k].data_id==data_out[0].data[i].data_id){%>
+                                                                checked <%}}}%>>
+                                                            </td>
+                                                        </tr>
+
+                                                        <%}%>
+                                                            <%}%>
+                                        </table>
+                                    </div>
+                                </div>
+                                <br>
+                                <hr>
+                                <div class="row col-12 mt-4">
+                                    <div class="col-2">
+                                        <h5 style="font-weight: bold;">
+                                            มาตราการรักษาความปลอดภัยขั้นต่ำที่PDPA กำหนด (PDPA Specific Measures)
+                                        </h5>
+                                    </div>
+                                    <div class="col-10 ">
+                                        <div class="table-responsive" style="min-height: 150px;">
+                                            <table
+                                                class="tablesaw table table-striped  no-wrap table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 10%;">
+                                                            เเก้ไข
+                                                        </th>
+                                                        <th style="width: 10%;">
+                                                            ลำดับที่
+                                                        </th>
+                                                        <th style="width: 10%;">
+                                                            ชื่อกิจกรรมประมวลผล
+                                                        </th>
+                                                        <th style="width: 20%;">
+                                                            ชื่อมาตราการ
+                                                        </th>
+                                                        <th style="width: 20%;">
+                                                            Access Control
+                                                        </th>
+                                                        <th style="width: 20%;">
+                                                            User Access Management
+                                                        </th>
+                                                        <th style="width: 20%;">
+                                                            User Responsibilitites
+                                                        </th>
+                                                        <th style="width: 10%;">
+                                                            Audit Trails
+                                                        </th>
+                                                        <th style="width: 10%;">
+                                                            Privacy and security Awareness
+                                                        </th>
+                                                        <th style="width: 10%;">
+                                                            Where incident occurs
+                                                        </th>
+                                                        <th style="width: 10%;">
+                                                            เอกสาร
+                                                        </th>
+                                                        <th style="width: 10%;">
+                                                            ดูรายละเอียด
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tbody-measures">
+                                                    <tr>
+                                                        <td colspan="20" class="text-center" style="border: none;">
+                                                            <b class="text-danger">ไม่พบข้อมูล</b>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <hr>
+                                <div class="mb-4 text-center">
+                                    <a class="btn btn-success" data-bs-toggle='modal' id="choose_measures_specific"
+                                        href="#select-measures">เลือกมาตราการรักษาความปลอดภัย</a>
+                                </div>
+                                <hr>
+                                <br>
+                                <hr>
+                                <div class="row col-12">
+                                    <div class="col-2">
+                                        <h5 style="font-weight: bold;">Label:</h5>
+                                    </div>
+                                    <div class="col-10">
+                                        <input type='text' name="pattern_label" placeholder="กรุณาป้อนLabel..."
+                                            class='form-control' value="<%=pattern.pattern_label%>" />
+                                    </div>
+                                </div>
+                                <br>
+                                <hr>
+                                <div class="row col-12">
+                                    <div class="col-2">
+                                        <h5 style="font-weight: bold;">เริ่ม:</h5>
+                                    </div>
+                                    <div class="col-10">
+                                        <input type='date' name="pattern_start_date" id='start_time'
+                                            class='form-control' value="<%=pattern.start_date%>" required />
+                                    </div>
+                                </div>
+                                <br>
+
+                                <div class="row col-12">
+                                    <div class="col-2">
+                                        <h5 style="font-weight: bold;">ระยะเวลาการจัดเก็บ:</h5>
+                                    </div>
+                                    <div class="col-10">
+
+                                        <div class="input-group mb-3">
+                                            <input type="number" class="form-control"
+                                                placeholder="กรุณาป้อนจำนวนระยะเวลา..." name="pattern_total_date"
+                                                value="<%=pattern.pattern_total_date%>" required>
+                                            <span class="input-group-text">วัน</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <hr>
+                                <div class="row col-12">
+                                    <div class="col-2">
+                                        <h5 style="font-weight: bold;">ชนิดข้อมูล:</h5>
+                                    </div>
+                                    <div class="col-10">
+                                        <input type="checkbox" id="customCheck4" name="pattern_type_data_file"
+                                            class="form-check-input" value="1"
+                                            <%if(pattern.pattern_type_data_file==1){%> checked <%}%>
+                                            onclick="if($(this).prop('checked')){$('#data_file_csv').show()}else{$('#data_file_csv').hide()}"
+                                            />
+                                            <label for="customCheck4">File MS Excel / CSV</label>
+                                            <div class="row col-12">
+                                                <div class="col-1">
+                                                </div>
+                                                <div class="col-11">
+                                                    <div id="data_file_csv" class="row ">
+                                                        <div class="">
+                                                            <input type="text" name="pattern_type_data_file_path"
+                                                                class="form-control" placeholder="กรุณาป้อนที่อยู่ไฟล์"
+                                                                value="">
+                                                        </div>
+                                                        <div class="">
+                                                            <input type="radio" name="pattern_type_data_file_of_path"
+                                                                class="form-check-input" value="1"
+                                                                <%if(pattern.pattern_type_data_file_of_path==1){%>
+                                                            checked <%}%>
+                                                                >Windows
+                                                                <input type="radio"
+                                                                    name="pattern_type_data_file_of_path"
+                                                                    class="form-check-input" value="0"
+                                                                    <%if(pattern.pattern_type_data_file_of_path==0){%>
+                                                                checked
+                                                                <%}%>>Linux
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                    </div>
+                                    <div class="col-2">
+                                    </div>
+                                    <div class="col-10">
+                                        <input type="checkbox" id="customCheck5" name="pattern_type_data_database"
+                                            class="form-check-input" value="1"
+                                            <%if(pattern.pattern_type_data_database==1){%> checked <%}%>
+                                            onclick="if($(this).prop('checked')){$('#data_file_database').show()}else{$('#data_file_database').hide()}"
+                                            />
+                                            <label for="customCheck5">Database</label>
+                                            <div id="data_file_database">
+                                                <div class="row col-12">
+                                                    <div class="col-1">
+                                                    </div>
+                                                    <div class="col-11">
+                                                        <input type="text" name="pattern_type_data_database_name"
+                                                            class="form-control" placeholder="กรุณาป้อนที่อยู่ไฟล์">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                    </div>
+                                </div>
+
+                                <br>
+                                <hr>
+                                <div class="row col-12">
+                                    <div class="col-2">
+                                        <h5 style="font-weight: bold;">วิธีการจัดเก็บข้อมูลส่วนบุคคล:</h5>
+                                    </div>
+                                    <div class="col-10">
+                                        <input type="checkbox" id="customCheck6" name="pattern_storage_method_inside"
+                                            class="form-check-input" value="1"
+                                            onclick="if($(this).prop('checked')){$('#pattern_storage_method_inside').show()}else{$('#pattern_storage_method_inside').hide()}"
+                                            <%if(pattern.pattern_storage_method_inside==1){%> checked <%}%> />
+                                            <label for="customCheck6">ภายใน Alltra</label>
+                                            <div id="pattern_storage_method_inside">
+
+                                                <div class="row">
+                                                    <div class="col-1">
+                                                    </div>
+                                                    <div class="row col-11">
+                                                        <div class="col-1">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                name="pattern_storage_method_inside_import" value="1"
+                                                                <%if(pattern.pattern_storage_method_inside_import==1){%>
+                                                            checked <%}%>
+                                                                onclick="if($(this).prop('checked')){$('#pattern_storage_method_inside_import_id').show()}else{$('#pattern_storage_method_inside_import_id').hide()}">
+
+                                                                อุปกรณ์
+                                                        </div>
+                                                        <div id="pattern_storage_method_inside_import_id"
+                                                            class="col-11">
+                                                            <input type="text"
+                                                                id="input_pattern_storage_method_outside_device_name"
+                                                                name="pattern_storage_method_inside_import_id"
+                                                                class="form-control" placeholder="กรุณาป้อนที่อยู่ไฟล์"
+                                                                value="" hidden>
+
+                                                            <!-- <a href="#select-device" class="option-pattern">
+                                                                เลือกอุปกรณ์
+                                                            </a> -->
+
+                                                            <select
+                                                                id="select_pattern_storage_method_outside_device_name"
+                                                                class="select2 form-control" multiple="multiple"
+                                                                style="height: 36px;width: 100%;"
+                                                                onchange="$('#input_pattern_storage_method_outside_device_name').val($(this).val().toString())">
+
+                                                                <%if(ftp.length> 0){for (var i=0; i < ftp.length; i++)
+                                                                        {%>
+                                                                        <%if(pattern.pattern_storage_method_inside_import_id.split(',').indexOf(ftp[i].ftp_id+'')>
+                                                                            -1 ){ %>
+                                                                            <option value="<%=ftp[i].ftp_id%>" selected>
+                                                                                <%=ftp[i].name%>
+                                                                            </option>
+                                                                            <%}else{%>
+                                                                                <option value="<%=ftp[i].ftp_id%>">
+                                                                                    <%=ftp[i].name%>
+                                                                                </option>
+                                                                                <%}%>
+
+
+
+                                                                                    <%}}%>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-1">
+
+                                                    </div>
+                                                    <div class="row col-11">
+                                                        <div class="col-1">
+                                                            <input type="checkbox" class="form-check-input" value="1"
+                                                                name="pattern_storage_method_inside_agent"
+                                                                <%if(pattern.pattern_storage_method_inside_agent==1){%>
+                                                            checked <%}%>
+                                                                onclick="if($(this).prop('checked')){$('#pattern_storage_method_outside_agent_name').show()}else{$('#pattern_storage_method_outside_agent_name').hide()}">
+                                                                Agent
+                                                        </div>
+                                                        <div id="pattern_storage_method_outside_agent_name"
+                                                            class="col-11">
+                                                            <input type="text"
+                                                                id="input_pattern_storage_method_outside_agent_name"
+                                                                name="pattern_storage_method_inside_agent_name"
+                                                                class="form-control" placeholder="กรุณาป้อนที่อยู่ไฟล์"
+                                                                value="" hidden>
+
+
+
+                                                            <!-- <a href="#select-agent" data-bs-toggle="modal"
+                                                                class="option-pattern">
+                                                                เลือก Agent
+                                                            </a> -->
+
+                                                            <select
+                                                                id="select_pattern_storage_method_outside_agent_name"
+                                                                class="select2 form-control" multiple="multiple"
+                                                                style="height: 36px;width: 100%;"
+                                                                onchange="$('#input_pattern_storage_method_outside_agent_name').val($(this).val().toString())">
+
+                                                                <%if(doc_pdpa_agent_manage){for (var i=0; i <
+                                                                    doc_pdpa_agent_manage.length; i++) {%>
+
+                                                                    <%if(pattern.pattern_storage_method_outside_agent_name.split(',').indexOf(doc_pdpa_agent_manage[i].agm_id)>
+                                                                        -1){ %>
+                                                                        <option
+                                                                            value="<%=doc_pdpa_agent_manage[i].agm_id%>"
+                                                                            selected>
+                                                                            <%=doc_pdpa_agent_manage[i].implement_device%>
+                                                                        </option>
+                                                                        <%}else{%>
+                                                                            <option
+                                                                                value="<%=doc_pdpa_agent_manage[i].agm_id%>">
+                                                                                <%=doc_pdpa_agent_manage[i].implement_device%>
+                                                                            </option>
+
+                                                                            <%}%>
+                                                                                <%}}%>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="row">
+                                                    <div class="col-1">
+    
+                                                    </div>
+                                                    <div class="row col-11">
+                                                        <div class="col-2">
+                                                            <input type="checkbox" class="form-check-input" value="1"
+                                                                name="pattern_storage_method_inside_database_outside"
+                                                                <%if(pattern.pattern_storage_method_inside_database_outside ==1){%> checked <%}%>
+                                                                onclick="if($(this).prop('checked')){$('#pattern_storage_method_outside_database_outside_name').show()}else{$('#pattern_storage_method_outside_database_outside_name').hide()}">
+                                                            Database ภายนอก
+                                                        </div>
+                                                        <div id="pattern_storage_method_outside_database_outside_name"
+                                                            class="col-9">
+                                                            <input type="text"
+                                                                name="pattern_storage_method_inside_database_outside_name"
+                                                                class="form-control" placeholder="กรุณาป้อนที่อยู่ไฟล์" value="<%=pattern.pattern_storage_method_outside_database_outside_name%>">
+                                                           
+                                                        </div>
+    
+    
+                                                    </div>
+    
+                                                </div> -->
+                                            </div>
+                                    </div>
+                                    <div class="col-2">
+                                    </div>
+                                    <div class="col-10">
+                                        <input type="checkbox" id="customCheck7" name="pattern_storage_method_outside"
+                                            class="form-check-input" value="1"
+                                            <%if(pattern.pattern_storage_method_outside==1){%> checked <%}%>
+                                            onclick="if($(this).prop('checked')){$('#pattern_storage_method_outside').show()}else{$('#pattern_storage_method_outside').hide()}"
+                                            />
+                                            <label for="customCheck7">ภายนอก</label>
+                                            <div id="pattern_storage_method_outside">
+                                                <div class="row">
+                                                    <div class="col-1">
+                                                    </div>
+                                                    <div class="row col-11">
+                                                        <input type="text" name="pattern_storage_method_outside_name"
+                                                            class="form-control" placeholder="กรุณาป้อนที่อยู่ภายนอก"
+                                                            value="<%=pattern.pattern_storage_method_outside_name%>">
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <hr>
+                                <div class="row col-12">
+                                    <div id="select_processing_base_table" class="col-2">
+                                        <h5 style="font-weight: bold;">ฐานการประมวลผล (ถ้าระบุได้):</h5>
+                                    </div>
+                                    <div class="col-10">
+
+
+                                        <div class="input-group">
+                                            <select id="pattern_processing_base_id" class="form-control"
+                                                name="pattern_processing_base_id" style="display: inline; width: 20%;">
+                                                <option value='' disabled>กรุณาเลือก</option>
+                                                <% for (i in process){%>
+                                                    <option value="<%=process[i].pattern_processing_base_id%>"
+                                                        <%if(pattern.pattern_processing_base_id==process[i].pattern_processing_base_id){%>
+                                                        selected <%}%>>
+                                                            <%= process[i].pattern_processing_base_name%>
+                                                    </option>
+                                                    <%}%>
+                                            </select>
+                                            <span class="input-group-text">
+                                                <a id="btn_add_processing_base" href="#add-processing-base"
+                                                    data-bs-toggle="modal" class='option-pattern'>
+                                                    เพิ่มฐานการประมวล
+                                                </a>
+                                            </span>
+                                        </div>
+
+
+
+
+
+
+
+                                    </div>
+                                </div>
+                                <br>
+                                <hr>
+                                <div class="row col-12">
+                                    <div class="col-2">
+                                        <h5 style="font-weight: bold;">ผู้ประมวลผล (ถ้าระบุได้):</h5>
+                                    </div>
+                                    <div class="col-10">
+                                        <input type="checkbox" id="customCheck1" name="pattern_processor_inside"
+                                            class="form-check-input" value="1"
+                                            <%if(pattern.pattern_processor_inside==1){%> checked <%}%>
+                                            onclick="if($(this).prop('checked')){$('#pattern_processor_inside').show()}else{$('#pattern_processor_inside').hide()}"
+                                            />
+                                            <label for="customeCheck1">
+                                                ภายใน<span id="processor_inside_total"></span>
+                                            </label>
+                                            <br><br>
+                                            <div id="pattern_processor_inside" class="row col-12">
+                                                <select id="pattern_processor_inside_id" class="select2 form-control"
+                                                    multiple="multiple" name="pattern_processor_inside_id"
+                                                    style="height: 36px;width: 100%;"
+                                                    onchange="processor_inside_total($(this).val().length)">
+                                                    <script>
+                                                        function processor_inside_total(params) {
+                                                            $('#pattern_processor_inside_total').val(params);
+                                                            if (params > 0) {
+                                                                $('#processor_inside_total').html(" ( " + params + " คน )");
+                                                            } else {
+                                                                $('#processor_inside_total').html("");
+                                                            }
+                                                        }
+                                                    </script>
+
+                                                    <%if(account){for (var i=0; i < account.length; i++) { %>
+                                                        <%if(pattern.pattern_processor_inside_id.indexOf(account[i].acc_id)>
+                                                            -1){ %>
+                                                            <option value="<%=account[i].acc_id%>" selected>
+                                                                <%=account[i].firstname%>
+                                                                    <%=account[i].lastname%>
+                                                            </option>
+                                                            <%}else{%>
+                                                                <option value="<%=account[i].acc_id%>">
+                                                                    <%=account[i].firstname%>
+                                                                        <%=account[i].lastname%>
+                                                                </option>
+                                                                <%}%>
+                                                                    <%}}%>
+                                                </select>
+                                                <!-- <input type="text" name="pattern_processor_inside_id" readonly> -->
+
+                                                <input id="pattern_processor_inside_total" type="text"
+                                                    name="pattern_processor_inside_total"
+                                                    value="<%=pattern.pattern_processor_inside_total%>" readonly hidden>
+
+                                            </div>
+
+
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div class="col-2">
+                                    </div>
+                                    <div class="col-10">
+                                        <br>
+                                        <input type="checkbox" id="customCheck2" name="pattern_processor_outside"
+                                            class="form-check-input" value="1"
+                                            <%if(pattern.pattern_processor_outside==1){%> checked <%}%>
+                                            onclick="if($(this).prop('checked')){$('#pattern_processor_outside').show()}else{$('#pattern_processor_outside').hide()}"
+                                            />
+                                            <label for="customCheck2">
+                                                ภายนอก<span id="processor_outside_total"></span>
+                                            </label>
+                                            <br><br>
+                                            <div id="pattern_processor_outside" class="row col-12">
+                                                <select id="pattern_processor_outside_id" class="select2 form-control"
+                                                    multiple="multiple" name="pattern_processor_outside_id"
+                                                    style="height: 36px;width: 100%;"
+                                                    onchange="processor_outside_total($(this).val().length)">
+                                                    <script>
+
+                                                        function processor_outside_total(params) {
+                                                            $('#pattern_processor_outside_total').val(params);
+                                                            if (params > 0) {
+                                                                $('#processor_outside_total').html(" ( " + params + " คน )");
+                                                            } else {
+                                                                $('#processor_outside_total').html("");
+                                                            }
+                                                        }
+                                                    </script>
+                                                    <%if(account){for (var i=0; i < account.length; i++) {%>
+                                                        <%if(pattern.pattern_processor_outside_id.indexOf(account[i].acc_id)>
+                                                            -1){ %>
+                                                            <option value="<%=account[i].acc_id%>" selected>
+                                                                <%=account[i].firstname%>
+                                                                    <%=account[i].lastname%>
+                                                            </option>
+                                                            <%}else{%>
+                                                                <option value="<%=account[i].acc_id%>">
+                                                                    <%=account[i].firstname%>
+                                                                        <%=account[i].lastname%>
+                                                                </option>
+                                                                <%}%>
+                                                                    <%}}%>
+                                                </select>
+                                                <input id="pattern_processor_outside_total" type="text"
+                                                    name="pattern_processor_outside_total"
+                                                    value="<%=pattern.pattern_processor_outside_total%>" readonly
+                                                    hidden>
+                                            </div>
+                                            <br>
+
+                                    </div>
+                                </div>
+                                <br>
+                                <hr>
+                                <div class="row col-12">
+                                    <div class="col-2">
+                                        <h5 style="font-weight: bold;">กำหนดระยะเวลาสิ้นสุด:</h5>
+                                    </div>
+                                    <div class="col-10">
+                                        <input type="checkbox" id="customCheck3" name="pattern_set_end_date"
+                                            class="form-check-input" value="1" <%if(pattern.pattern_set_end_date==1){%>
+                                        checked <%}%>
+                                            onclick="if($(this).prop('checked')){$('#pattern_set_end_date').show()}else{$('#pattern_set_end_date').hide()}"
+                                            />
+                                            <label for="customCheck3">กำหนด</label>
+
+                                            <div id="pattern_set_end_date" class="row">
+                                                <div class="row">
+                                                    <div class="col-1">
+                                                    </div>
+                                                    <div class="row col-11">
+
+                                                        เมื่อหมดระยะเวลาจัดเก็บข้อมูลจะเก็บข้อมูลต่อไปอีกเป็นระยะเวลา
+
+                                                    </div>
+                                                    <div class="col-1">
+                                                    </div>
+                                                    <div class="row col-11">
+                                                        <div class="input-group mb-3">
+                                                            <input type="number" class="form-control"
+                                                                placeholder="กรุณาป้อนจำนวนระยะเวลา..."
+                                                                name="pattern_set_end_date_total"
+                                                                value="<%=pattern.pattern_set_end_date_total%>" min="1"
+                                                                required>
+                                                            <span class="input-group-text">วัน</span>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <div class="col-1">
+                                                    </div>
+                                                    <div class="row col-11">
+
+                                                        ถือการสิ้นสุดจะเป็นการเตรียมทำลายข้อมูลและไม่มีการใช้ข้อมูลเพื่อกรประมวลผล
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <hr>
+                                <div class="dpo_check row col-12" style="background-color: #f0e4ca;margin-left: 1px;">
+                                    <hr>
+                                    <div class="row col-12">
+                                        <div class="col-2">
+                                            <h5 style="font-weight: bold;">
+                                                DPO
+                                                <br>
+                                                ต้องอนุมัติทุกครั้งถึงสามารถประมวลผลได้:
+                                            </h5>
+
+                                        </div>
+                                        <div class="col-3">
+                                            <br>
+
+                                            <input type="checkbox" id="customeCheck_1" disabled
+                                                name="pattern_dpo_approve_process" value="1" class="form-check-input"
+                                                <%if(pattern.pattern_dpo_approve_process==1){%> checked <%}%> />
+                                                <label for="customeCheck_1">ต้องอนุมัติ</label>
+
+                                        </div>
+
+                                    </div>
+
+                                    <br>
+                                    <div class="row col-12">
+                                        <div class="col-2">
+                                            <h5 style="font-weight: bold;">
+                                                DPO
+                                                <br>
+                                                ต้องอนุมัติทุกครั้งที่จะนำข้อมูล Raw file ออกได้:
+                                            </h5>
+
+                                        </div>
+                                        <div class="col-3">
+                                            <br>
+
+                                            <input type="checkbox" id="customeCheck_2" value="1" disabled
+                                                name="pattern_dpo_approve_raw_file_out" class="form-check-input"
+                                                <%if(pattern.pattern_dpo_approve_raw_file_out==1){%> checked <%}%>
+                                                />
+                                                <label for="customeCheck_2">ต้องอนุมัติ</label>
+
+                                        </div>
+
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+                                </div>
+                                <%if(session.admin=='3' ){%>
+                                    <div class="row col-12" style="background-color: #f0e4ca;margin-left: 1px;">
+                                        <hr>
+                                        <div class="row col-12">
+                                            <div class="col-2">
+                                                <h5 style="font-weight: bold;">
+                                                    ตรวจสอบโดย DPO :
+                                                </h5>
+                                            </div>
+                                            <div class="col-10">
+                                                <%if(pattern.pattern_dpo_check==0){%>
+                                                    <button type="button" class="btn btn-success"
+                                                        onclick="$('#dpo_c').val('1'),$('#dpo_check').show()">
+                                                        ตรวจสอบ
+                                                    </button>
+                                                    <%}else{%>
+                                                        <button type="button" class="btn btn-secondary"
+                                                            onclick="$('#dpo_check').show()">
+                                                            ตรวจสอบแล้ว
+                                                        </button>
+                                                        <%}%>
+                                                            <input id="dpo_c" type="text" name="dpo_c" value="0" hidden>
+                                                            <input id="dpo_date" type="text" name="dpo_date" value=""
+                                                                hidden>
+
+                                            </div>
+
+                                        </div>
+
+                                        <br>
+                                        <br>
+                                    </div>
+                                    <div id="dpo_check" class="row col-12"
+                                        style="background-color: #f0e4ca;margin-left: 1px;">
+                                        <hr>
+                                        <div class="row col-12">
+                                            <div class="col-2">
+                                                <h5 style="font-weight: bold;">
+                                                    สำหรับ DPO :
+                                                </h5>
+                                            </div>
+                                            <div class="col-10">
+                                            </div>
+                                        </div>
+                                        <div class="row col-12">
+                                            <div class="col-2">
+                                                <h5 style="font-weight: bold;">
+                                                    DPO
+                                                    <br>
+                                                    ต้องอนุมัติทุกครั้งถึงสามารถประมวลผลได้:
+                                                </h5>
+                                            </div>
+                                            <div class="col-10">
+                                                <div class="row col-12" style="margin-top: 1%;">
+                                                    <div class="col-2">
+                                                        <input type="radio" class="btn-check"
+                                                            name="dpo_pattern_dpo_approve_process" id="option1"
+                                                            autocomplete="off" value="1" <%
+                                                            if(pattern.pattern_dpo_check==1){ %> disabled <% }%>
+                                                            <% if(pattern.pattern_dpo_check==0){ %> checked <% }%>
+                                                                    <% if(pattern.dpo_pattern_dpo_approve_process==1){
+                                                                        %> checked <% }%> >
+                                                                            <label
+                                                                                class="btn btn-outline-success  rounded-pill font-weight-medium me-2 mb-2"
+                                                                                for="option1">
+                                                                                อนุมัติ
+                                                                            </label>
+                                                    </div>
+                                                    <div class="col-10">
+                                                        <input type="radio" class="btn-check"
+                                                            name="dpo_pattern_dpo_approve_process" id="option2"
+                                                            autocomplete="off" value="0" <%
+                                                            if(pattern.pattern_dpo_check==1){ %> disabled <% }%>
+                                                            <% if(pattern.dpo_pattern_dpo_approve_process==0){ %>
+                                                                checked <% } %> >
+                                                                    <label
+                                                                        class="btn btn-outline-danger  rounded-pill font-weight-medium me-2 mb-2"
+                                                                        for="option2">
+                                                                        ปฏิเสธ
+                                                                    </label>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <br>
+                                        <div class="row col-12">
+                                            <div class="col-2">
+                                                <h5 style="font-weight: bold;">
+                                                    DPO
+                                                    <br>
+                                                    ต้องอนุมัติทุกครั้งที่จะนำข้อมูล Raw file ออกได้:
+                                                </h5>
+                                            </div>
+                                            <div class="col-10">
+                                                <div class="row col-12 " style="margin-top: 1%;">
+                                                    <div class="col-2">
+                                                        <input type="radio" class="btn-check"
+                                                            name="dpo_pattern_dpo_approve_raw_file_out" id="option3"
+                                                            autocomplete="off" value="1" <%
+                                                            if(pattern.pattern_dpo_check==1){ %> disabled <% }%>
+                                                            <% if(pattern.pattern_dpo_check==0){ %> checked <% }%>
+                                                                    <% if(pattern.dpo_pattern_dpo_approve_raw_file_out==1){
+                                                                        %> checked <% } %> >
+                                                                            <label
+                                                                                class="btn btn-outline-success  rounded-pill font-weight-medium me-2 mb-2"
+                                                                                for="option3">
+                                                                                อนุมัติ
+                                                                            </label>
+                                                    </div>
+                                                    <div class="col-10">
+                                                        <input type="radio" class="btn-check"
+                                                            name="dpo_pattern_dpo_approve_raw_file_out" id="option4"
+                                                            autocomplete="off" value="0" <%
+                                                            if(pattern.pattern_dpo_check==1){ %> disabled <% }%>
+                                                            <% if(pattern.dpo_pattern_dpo_approve_raw_file_out==0){ %>
+                                                                checked <% } %> >
+                                                                    <label
+                                                                        class="btn btn-outline-danger  rounded-pill font-weight-medium me-2 mb-2"
+                                                                        for="option4">
+                                                                        ปฏิเสธ
+                                                                    </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                    </div>
+                                    <%}%>
+                            </div>
+
+
+
+                            <div align="center">
+                                <br>
+                                <br>
+                                <button type="button" onclick="form_edit_pattern_submit()"
+                                    class="btn btn-warning">บันทึกข้อมูล</button>
+                                <!-- <button id="form_edit_pattern_submit_b" type="" hidden></button> -->
+                                <a href="javascript:history.back()" class="btn btn-secondary">ยกเลิก</a>
+                            </div>
+                            <br>
+                            <br>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modals Add Policy -->
+    <div id="add-policy" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel" aria-hidden="true"
+        style="display: none; margin-top: 5%;">
+        <div class="modal-dialog modal-lm">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                    <h4 class="modal-title" style="color: black; font-weight: bold;">
+                        ข้อมูลที่ใช้
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="h5" style="font-weight: bold;">
+                        เลือกข้อมูลที่ต้องการใช้งาน
+                    </div>
+                    <div>
+                        <table class="table table-boardless" style="text-align: left;">
+                            <tbody id="table-body-policy-add">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 justify-content-center align-self-center d-block d-md-flex">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination" id="pagination-wapper-policy-add">
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-md-12 ">
+                            <!-- <span> แสดงผล <span id="start-policy-add"></span> ถึง <span id="end-policy-add"></span>
+                                ทั้งหมด <span id="total-policy-add"></span> รายการ
+                            </span> -->
+
+                            <div class="row">
+                                <% for (let i=0; i < doc_pdpa_document.length; i++) { %>
+                                    <div class="col-9 ">
+                                        ชื่อ : <%=doc_pdpa_document[i].doc_name%>
+                                            <br>
+                                            ประเภท : <%=doc_pdpa_document[i].doc_type_name%>
+                                                <br>
+                                                จำนวนหน้า : <%=doc_pdpa_document[i].page%> หน้า
+                                                    <hr>
+
+                                    </div>
+                                    <div class="col-3">
+                                        <br>
+                                        <label class="btn btn-light-info text-info font-weight-medium">
+                                            <div class="mr-sm-2">
+                                                <input type="checkbox" class="material-inputs" <%if (doc_id) { for (var
+                                                    k=0; k < doc_id.length; k++) { if
+                                                    (doc_id[k].doc_id==doc_pdpa_document[i].doc_id) {%> checked <%} }
+                                                    }%> id="checkbox_<%=doc_pdpa_document[i].doc_id%>" value = "1"
+                                                        onchange = "preview_policy(this,
+                                                        <%=doc_pdpa_document[i].doc_id%>,
+                                                            '<%=doc_pdpa_document[i].doc_name%>',
+                                                                '<%=doc_pdpa_document[i].doc_type_name%>',
+                                                                    '<%=doc_pdpa_document[i].page %>')">
+                                                                        <label class="form-check-label"
+                                                                            for="checkbox_<%=doc_pdpa_document[i].doc_id%>">
+                                                                            <span class="d-block d-md-none">2</span>
+                                                                            <span class="d-none d-md-block">เลือก</span>
+                                                                        </label>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <%}%>
+                            </div>
+                        </div>
+                    </div>
+                    <div align="center" style="margin-top: 5%;">
+                        <button type="button" class="btn btn-danger font-weight-large" data-bs-dismiss="modal">
+                            ยกเลิก
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modals Add Tags -->
+    <div id="add-tags" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel" aria-hidden="true"
+        style="display: none; margin-top: 5%">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                    <h4 class="modal-title" style="color: black; font-weight: bold;">
+                        ข้อมูลที่ใช้
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="h5" style="font-weight: bold;">
+                        เลือกข้อมูลที่ต้องการใช้งาน
+                    </div>
+                    <div>
+                        <table class="table table-boardless">
+                            <tbody id="table-body-tag-add">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 justify-content-center align-self-center d-block d-md-flex">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination" id="pagination-wapper-tag-add">
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-12 text-secondary">
+                            <span>แสดงผล <span id="start-tag-add"></span> ถึง <span id="end-tag-add"></span> ทั้งหมด
+                                <span id="total-tag-add"></span> รายการ</span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div style="margin-right: 42%;">
+                            <button type="button" class="btn btn-danger font-weight-large"
+                                data-bs-dismiss="modal">ยกเลิก</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+    <!-- Modals Add Processing_base -->
+    <div id="add-processing-base" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel"
+        aria-hidden="true" style="display: none; margin-top: 5%;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                    <h4 class="modal-title" style="color: black; font-weight: bold;">
+                        สร้างฐานการประมวลผล
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="h5" style="font-weight: bold;">
+                        สร้างฐานการประมวลผลที่ต้องการใช้งาน
+                    </div>
+                    <div>
+                        <table class="table table-boardless">
+                            <tbody id="">
+                                <th class="th-pattern1">ฐานการประมวลผล : </th>
+                                <td class="td-option-pattern"><input type="text" name="pattern_processing_base_name"
+                                        placeholder="กรุณป้อนฐานการประมวลผล..." class='form-control' /></td>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="button-center-success">
+                            <a id="add_processing_base" type="button"
+                                class="btn btn-success font-weight-large">ยืนยัน</a>
+                        </div>
+                        <div class="button-center-danger1">
+                            <button type="button" class="btn btn-danger font-weight-large"
+                                data-bs-dismiss="modal">ยกเลิก</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+    <!-- Modals Add Processing_base -->
+    <div id="add-processing-base" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel"
+        aria-hidden="true" style="display: none; margin-top: 5%">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                    <h4 class="modal-title" style="color: black; font-weight: bold;">
+                        สร้างฐานการประมวลผล
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="h5" style="font-weight: bold;">
+                        สร้างฐานการประมวลผลที่ต้องการใช้งาน
+                    </div>
+                    <div>
+                        <table class="table table-boardless">
+                            <tbody id="">
+                                <th class="th-pattern1">ฐานการประมวลผล : </th>
+                                <td class="td-option-pattern"><input type="text" name="pattern_processing_base_name"
+                                        placeholder="กรุณป้อนฐานการประมวลผล..." class='form-control' /></td>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="button-center-success">
+                            <a id="add_processing_base" type="button"
+                                class="btn btn-success font-weight-large">ยืนยัน</a>
+                        </div>
+                        <div class="button-center-danger1">
+                            <button type="button" class="btn btn-danger font-weight-large"
+                                data-bs-dismiss="modal">ยกเลิก</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+    <!-- Modals Add Users (Inside) -->
+    <div id="add-users" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel" aria-hidden="true"
+        style="display: none; margin-top: 5%">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                    <h4 class="modal-title" style="color: black; font-weight: bold;">
+                        สมาชิกในระบบ Alltra
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="h5" style="font-weight: bold;">
+                        เลือกสมาชิกในระบบ Alltra ที่ต้องการใช้งาน
+                    </div>
+                    <div>
+                        <table class="table table-boardless">
+                            <tbody id="table-body-users">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 justify-content-center align-self-center d-block d-md-flex">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination" id="pagination-wapper-users">
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-12 text-secondary">
+                            <span>แสดงผล <span id="start-users"></span> ถึง <span id="end-users"></span> ทั้งหมด
+                                <span id="total-users"></span> รายการ</span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div style="margin-right: 42%;">
+                            <button type="button" class="btn btn-danger font-weight-large"
+                                data-bs-dismiss="modal">ยกเลิก</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+    <!-- Modals Add Users (Outside) -->
+    <div id="add-users-1" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel" u
+        aria-hidden="true" style="display: none; margin-top: 5%">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                    <h4 class="modal-title" style="color: black; font-weight: bold;">
+                        สมาชิกในระบบ Alltra
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="h5" style="font-weight: bold;">
+                        เลือกสมาชิกในระบบ Alltra ที่ต้องการใช้งาน
+                    </div>
+                    <div>
+                        <table class="table table-boardless">
+                            <tbody id="table-body-users-1">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 justify-content-center align-self-center d-block d-md-flex">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination" id="pagination-wapper-users-1">
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-12 text-secondary">
+                            <span>แสดงผล <span id="start-users-1"></span> ถึง <span id="end-users-1"></span> ทั้งหมด
+                                <span id="total-users-1"></span> รายการ</span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div style="margin-right: 42%;">
+                            <button type="button" class="btn btn-danger font-weight-large"
+                                data-bs-dismiss="modal">ยกเลิก</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+    <!-- Modals Agent -->
+    <div id="select-agent" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel" u
+        aria-hidden="true" style="display: none; margin-top: 5%">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                    <h4 class="modal-title" style="color: black; font-weight: bold;">
+                        เลือก Agent ที่ต้องการ
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="h5" style="font-weight: bold;">
+                        เลือก Agent ที่ต้องการใช้งาน
+                    </div>
+                    <div>
+                        <table class="table table-boardless">
+                            <tbody id="table-body-agent">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 justify-content-center align-self-center d-block d-md-flex">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination" id="pagination-wapper-agent">
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-12 text-secondary">
+                            <span>แสดงผล <span id="start-agent"></span> ถึง <span id="end-agent"></span> ทั้งหมด
+                                <span id="total-agent"></span> รายการ</span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div style="margin-right: 42%;">
+                            <button type="button" class="btn btn-danger font-weight-large"
+                                data-bs-dismiss="modal">ยกเลิก</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+
+
+
+
+    <!-- Modals Edit measures chooses -->
+    <div id="edit-measures-chooses" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                    <h4 class="modal-title" style="color: black; font-weight: bold;">
+                        เเก้ไขมาตราการรักษาความปลอดภัยขั้นต่ำที่PDPA กำหนด (PDPA Specific Measures)
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <!-- <div id="tbody-measures-chooses"> -->
+                    <div class="row mb-2">
+                        <div class="col-md-4  justify-content-end align-items-center d-flex ">
+                            กิจกรรมการประมวลผล
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <select name="event_process_id" class="form-control" id="process" disabled>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-4 d-flex justify-content-end">
+                            ชื่อมาตราการ
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <input type="text" name="measures_section_name" class="form-control" disabled value="">
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-4 d-flex justify-content-end">
+                            คำอธิบาย/ รายละเอียด
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <textarea name="measures_detail" cols="65" rows="8" class="form-control"
+                                disabled></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-4 d-flex justify-content-end align-content-center">
+                            เอกสารPDPA
+                        </div>
+                        <div class="col-md-8 d-flex align-content-center">
+                            <div class="input-group">
+                                <select name="doc_id" class="select2 form-control select2-dropdown" multiple="multiple"
+                                    disabled style="height: 36px;width: 100%;" id="selecte_type_policy">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-4 d-flex  align-items-center">
+                            <label style="text-align: right;">
+                                การควบคุมการเข้าถึงข้อมูลส่วนบุคคล (Access Control)
+                            </label>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-between">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input success check-outline outline-success" type="radio"
+                                    name="specific_access_control" id="warning-outline-radio" value="1">
+                                <label class="form-check-label" for="warning-outline-radio">มี</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                    name="specific_access_control" id="warning2-outline-radio" value="2">
+                                <label class="form-check-label" for="warning2-outline-radio">ไม่มี</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-center align-items-center ">
+                            <label class="me-2"> อธิบาย </label>
+                            <textarea name="specific_access_control_explain" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-4 d-flex justify-content-end align-items-center">
+                            <label style="text-align: right;">
+                                การบริหารจัดการการเข้าถึงของผู้ใช้งาน (user Access Management)
+                            </label>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-between">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input success check-outline outline-success" type="radio"
+                                    id="success-outline-radio-5" name="specific_user_access_management" value="1"
+                                    checked="">
+                                <label class="form-check-label" for="success-outline-radio-5">มี</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                    id="danger2-outline-radio" name="specific_user_access_management" value="2">
+                                <label class="form-check-label" for="danger2-outline-radio">ไม่มี</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-center align-items-center ">
+                            <label class="me-2"> อธิบาย </label>
+                            <textarea name="specific_user_access_management_explain" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-4 d-flex justify-content-end align-items-center">
+                            <label style="text-align: right;">
+                                การกำหนดหน้าที่ความรับผิดชอบของผู้ใช้งาน (User Responsibilitites)
+                            </label>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-between">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input success check-outline outline-success" type="radio"
+                                    name="specific_user_responsibilitites" id="primary-outline-radio" value="1"
+                                    checked="">
+                                <label class="form-check-label" for="primary-outline-radio">มี</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                    name="specific_user_responsibilitites" id="primary2-outline-radio" value="2">
+                                <label class="form-check-label" for="primary2-outline-radio">ไม่มี</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-center align-items-center ">
+                            <label class="me-2"> อธิบาย </label>
+                            <textarea name="specific_user_responsibilitites_explain" id=""
+                                class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-4 d-flex justify-content-end align-items-center">
+                            <label style="text-align: right;">
+                                การจัดให้มีวิธีการเพื่อให้สามารถตรวจสอบย้อนหลังเกี่ยวกับการเข้าถึงเปลียนแปลงแก้ไขหรือลบ
+                                (Audit Trails)
+                            </label>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-between">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input success check-outline outline-success" type="radio"
+                                    name="specific_audit_trails" id="secondary-radio" value="1" checked="">
+                                <label class="form-check-label" for="secondary-radio">มี</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                    name="specific_audit_trails" id="secondary2-radio" value="2">
+                                <label class="form-check-label" for="secondary2-radio">ไม่มี</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-center align-items-center ">
+                            <label class="me-2"> อธิบาย </label>
+                            <textarea name="specific_audit_trails_explain" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-4 d-flex justify-content-end align-items-center">
+                            <label style="text-align: right;">
+                                การสร้างเสริมความตระหนักรู้ด้านความสำ
+                                คัญของการคุ้มครองข้อมูลส่วนบุคคลและการรักษาความมั่นคงปลอดภัย
+                                (privacy and security Awareness)
+                            </label>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-between">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input success check-outline outline-success" type="radio"
+                                    name="specific_privacy_security_awareness" id="warning-radio" value="1" checked="">
+                                <label class="form-check-label" for="warning-radio">มี</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                    name="specific_privacy_security_awareness" id="warning2-radio" value="2">
+                                <label class="form-check-label" for="warning2-radio">ไม่มี</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-center align-items-center ">
+                            <label class="me-2"> อธิบาย </label>
+                            <textarea name="specific_privacy_security_awareness_explain"
+                                class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-4 d-flex justify-content-end align-items-center">
+                            <label style="text-align: right;">
+                                การแจ้งนโยบายการแจ้งเตือนแนวปฏิบัติReviewandRevision (Where incident occurs)
+                            </label>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-between">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input success check-outline outline-success" type="radio"
+                                    name="specific_where_incident_occurs" id="primary-radio" value="1" checked="">
+                                <label class="form-check-label" for="primary-radio">มี</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                    name="specific_where_incident_occurs" id="primary2-radio" value="2">
+                                <label class="form-check-label" for="primary2-radio">ไม่มี</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-center align-items-center ">
+                            <label class="me-2"> อธิบาย </label>
+                            <textarea name="specific_where_incident_occurs_explain" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-4 d-flex justify-content-end">
+                            ระยะเวลาทบทวนมาตราการ
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <div class="input-group">
+                                <input type="date" name="measures_date" class="form-control" value="" required>
+                                <input type="number" name="measures_date_count" class="form-control" required value=""
+                                    placeholder="กรุณาป้อนจำนวนระยะเวลา...">
+                                <span class="input-group-text">วัน</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-4" style="text-align: right;">
+                            ผู้ดูแลข้อมูลหรือผู้ดูแลระบบหรือผู้ควบคุมมาตราการ
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <select name="measures_supervisor" class="select2 form-control" multiple="multiple"
+                                style="height: 36px;width: 100%;">
+                                <option value=''>${arrSupervisor.firstname}
+                                    ${arrSupervisor.lastname} </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-success font-weight-large" onclick="submit_edite(this)"
+                            id="submit" data-bs-dismiss="modal">บันทึกข้อมูล</button>
+                        <button type="button" class="btn btn-secondary font-weight-large"
+                            data-bs-dismiss="modal">ปิด</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- selecte measures -->
+    <div id="select-measures" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel"
+        aria-hidden="true" style="display: none; margin-top: 5%">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                    <h4 class="modal-title" style="color: black; font-weight: bold;">
+                        เลือกมาตราการรักษาความปลอดภัยขั้นต่ำที่PDPA กำหนด (PDPA Specific Measures)
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="h5" style="font-weight: bold;">
+                        มาตราการรักษาความปลอดภัยขั้นต่ำที่PDPA กำหนด (PDPA Specific Measures)
+                    </div>
+                    <div class="table-responsive">
+                        <table class="tablesaw table table-striped  no-wrap table-bordered table-hover">
+                            <thead>
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10%;">
+                                            เลือก
+                                        </th>
+                                        <th style="width: 10%;">
+                                            ลำดับที่
+                                        </th>
+                                        <th style="width: 10%;">
+                                            ชื่อกิจกรรมประมวลผล
+                                        </th>
+                                        <th style="width: 20%;">
+                                            ชื่อมาตราการ
+                                        </th>
+                                        <th style="width: 20%;">
+                                            เอกสาร Policy
+                                        </th>
+                                        <th style="width: 10%;">
+                                            ดูรายละเอียด
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                            </thead>
+                            <tbody id="table-select-measures">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 text-secondary ">
+                            <div class="row">
+                                <span>แสดงผล <a id="show-Specific-Measures-choose"></a> ถึง <a
+                                        id="to-show-Specific-Measures-choose"></a>
+                                    ทั้งหมด <a id="show-all-Specific-Measures-choose"></a>
+                                    รายการ</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 justify-content-end align-self-center  d-md-flex">
+                            <nav aria-label="Page navigation example" class="mt-2">
+                                <ul class="pagination-choose">
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-secondary font-weight-large"
+                            data-bs-dismiss="modal">ปิด</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+    <style>
+        .highlighted {
+            background-color: yellow;
+        }
+
+        .pagination-choose {
+            display: flex;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .select2-dropdown {
+            z-index: 9999;
+        }
+    </style>
+    <script>
+
+        $(document).ready(function () {
+
+            var date = new Date();
+
+            var day = date.getDate();
+            var month = date.getMonth() + 1;
+            var year = date.getFullYear();
+
+            if (month < 10) month = "0" + month;
+            if (day < 10) day = "0" + day;
+
+            var today = year + "-" + month + "-" + day;
+
+            $("#dpo_date").attr("value", today);
+
+            $('#dpo_check').hide();
+
+        });
+        var patternxx = '<%=pattern.pattern_tag%>';
+        var u_select_policy = [];
+        var u_select_policy_num = 0;
+        // success_data_tag = new Set([...])
+        // success_data_tag = [...success_data_tag].join(',')
+        success_data_tag = '<%=data_out[0].data_tag%>'.split(',')
+        success_data_tag = new Set([...success_data_tag])
+        success_data_tag = [...success_data_tag].join(',')
+        success_data_tag = success_data_tag.split(',')
+
+        // var x = document.getElementById("select_tag_pattern");
+        // x.value = ''
+        // var length = x.options.length;
+        // for (i = length - 1; i >= 0; i--) {
+        //     x.options[i] = null;
+        // }
+        for (var i = 0; i < success_data_tag.length; i++) {
+            var opt = document.createElement('option');
+            opt.value = success_data_tag[i];
+            if (patternxx.split(',').indexOf(success_data_tag[i]) > -1) {
+                opt.className = "select_tag_pattern_option"
+            }
+            opt.innerHTML = success_data_tag[i];
+            // x.appendChild(opt);
+        }
+        $('.select_tag_pattern_option').prop('selected', true);
+
+    </script>
+
+    <%if(doc_id){for (var i=0; i < doc_id.length; i++) {%>
+        <script>
+            u_select_policy.push('<%=doc_id[i].doc_id%>')
+        </script>
+        <%}}%>
+
+            <script>
+                $(document).ready(function () {
+                    $('#data_file_csv').hide();
+                    if ($('#customCheck4').prop('checked')) {
+                        $('#data_file_csv').show();
+                    }
+                    $('#data_file_database').hide();
+                    if ($('#customCheck5').prop('checked')) {
+                        $('#data_file_database').show();
+                    }
+                    $('#pattern_storage_method_inside').hide();
+                    if ($('#customCheck6').prop('checked')) {
+                        $('#pattern_storage_method_inside').show();
+                    }
+                    $('#pattern_storage_method_outside').hide();
+                    if ($('#customCheck7').prop('checked')) {
+                        $('#pattern_storage_method_outside').show();
+                    }
+                    $('#pattern_storage_method_inside_import_id').hide();
+                    if ($('input[name="pattern_storage_method_inside_import"]').prop('checked')) {
+                        $('#pattern_storage_method_inside_import_id').show();
+                    }
+                    $('#pattern_storage_method_outside_agent_name').hide();
+                    if ($('input[name="pattern_storage_method_inside_agent"]').prop('checked')) {
+                        $('#pattern_storage_method_outside_agent_name').show();
+                    }
+                    // $('#pattern_storage_method_outside_database_outside_name').hide();
+                    // if ($('input[name="pattern_storage_method_outside_database_outside"]').prop('checked')) {
+                    //     $('#pattern_storage_method_outside_database_outside_name').show();
+                    // }
+                    $('#pattern_processor_inside').hide();
+                    if ($('input[name="pattern_processor_inside"]').prop('checked')) {
+                        $('#pattern_processor_inside').show();
+                    }
+                    $('#pattern_processor_outside').hide();
+                    if ($('input[name="pattern_processor_outside"]').prop('checked')) {
+                        $('#pattern_processor_outside').show();
+                    }
+                    $('#pattern_set_end_date').hide();
+                    if ($('input[name="pattern_set_end_date"]').prop('checked')) {
+                        $('#pattern_set_end_date').show();
+                    }
+                    processor_inside_total($('#pattern_processor_inside_total').val());
+                    processor_outside_total($('#pattern_processor_outside_total').val());
+                });
+
+
+                function preview_policy(params, id_policy, doc_name, doc_type_name, page) {
+                    // console.log("กดได้สักที", params);
+                    console.log("id_policy", id_policy);
+                    // console.log("doc_name", doc_name);
+                    // console.log("doc_type_name", doc_type_name);
+                    // console.log("page", page);
+
+                    if ($('#' + params.id).prop("checked")) {
+                        add_preview_policy(id_policy, doc_name, doc_type_name, page)
+                        // doc_id_select.push(id_policy);
+                        // add_preview_policy_measures();
+                    } else {
+                        del_preview_policy(id_policy)
+                        // if (doc_id_select.indexOf(id_policy) > -1) {
+                        //     doc_id_select.splice(doc_id_select.indexOf(id_policy), 1);
+                        // }
+                        // add_preview_policy_measures();
+                    }
+                }
+                function add_preview_policy(id_policy, doc_name, doc_type_name, page) {
+                    console.log("add_preview_policy", id_policy);
+                    console.log("u_select_policy", u_select_policy);
+                    if (u_select_policy.indexOf(id_policy) == -1) {
+                        if (u_select_policy_num == 0) {
+                            $('#previewer_policy').html('');
+                            $('#previewer_policy').append(`<br>เอกสาร Policy ที่เลือกแล้ว<br><br>`);
+                        }
+                        u_select_policy_num++;
+                        u_select_policy.push(id_policy);
+                        $('#previewer_policy').append(`
+                                        <div id="previewer_`+ id_policy + `">
+                                            <div class="row">
+                                                <div class="col-5">
+                                                    ชื่อ : `+ doc_name + `
+                                                    <br>
+                                                    ประเภท : `+ doc_type_name + `
+                                                    <br>
+                                                    จำนวนหน้า : `+ page + `
+                                                </div>
+                                                <div class="col-7">
+                                                    <a class="btn btn btn-info" " href="/show_slide/` + id_policy + `" target="_blank">Preview Policy</a>
+                                                </div>
+                                                <hr>
+                                            </div>
+                                        </div>`);
+                        $('#doc_id').val(u_select_policy.toString());
+                        check_doc_id()
+                    }
+
+                }
+
+                function del_preview_policy(id_policy) {
+                    if (u_select_policy.indexOf(id_policy) > -1) {
+                        u_select_policy.splice(u_select_policy.indexOf(id_policy), 1);
+                        $('#previewer_' + id_policy).remove();
+                        u_select_policy_num--;
+                        if (u_select_policy_num == 0) {
+                            $('#previewer_policy').html('');
+                            $('#previewer_policy').append(`
+                    *ยังไม่ได้เลือกเอกสาร Policy
+                    <br>
+                    <br>
+                    `);
+                        }
+                        $('#doc_id').val(u_select_policy.toString());
+                        check_doc_id()
+                    }
+                }
+
+
+                function check_doc_id() {
+                    console.log("else");
+                    if ($('input[name="doc_id"]').val() != "") {
+                        console.log("if");
+                        // $('#textarea_doc_id').val($('input[name="doc_id"]').val());
+                        $.ajax({
+                            type: 'POST',
+                            url: '/pattern/get/doc_id_detail',
+                            data: { doc_id: $('input[name="doc_id"]').val() },
+                            success: function (result) {
+                                $.each(result, function (i, xxx) {
+                                    console.log("xxx", xxx);
+                                    if (xxx.data.length != 0) {
+                                        var tbody_table_pattern_data = ``;
+                                        for (let i = 0; i < xxx.data.length; i++) {
+                                            tbody_table_pattern_data += `<tr >`
+                                            tbody_table_pattern_data += `   <td>`
+                                            tbody_table_pattern_data += `       ` + (i + 1);
+                                            tbody_table_pattern_data += `   </td>`
+                                            tbody_table_pattern_data += `   <td>`
+                                            tbody_table_pattern_data += `       ` + xxx.data[i].data_name + ` <br>( ` + xxx.data[i].data_code + ` )`;
+                                            tbody_table_pattern_data += `   </td>`
+                                            tbody_table_pattern_data += `   <td>`
+                                            tbody_table_pattern_data += `       ` + xxx.data[i].day_start + ` ถึง ` + xxx.data[i].day_end;
+                                            tbody_table_pattern_data += `   </td>`
+                                            tbody_table_pattern_data += `   <td>`
+                                            tbody_table_pattern_data += `       ` + xxx.data[i].level_name;
+                                            tbody_table_pattern_data += `   </td>`
+                                            tbody_table_pattern_data += `   <td>`
+                                            tbody_table_pattern_data += `       ` + xxx.data[i].data_type_name;
+                                            tbody_table_pattern_data += `   </td>`
+                                            tbody_table_pattern_data += `   <td>`
+                                            tbody_table_pattern_data += `       เลือก <input type="checkbox" class="form-check-input" name="doc_id_person_data" value="` + xxx.data[i].data_id + `" checked> `;
+                                            tbody_table_pattern_data += `   </td>`
+                                            tbody_table_pattern_data += `</tr>`
+                                        }
+
+                                        var tbody_tableadd_tag_pattern = ``;
+                                        success_data_tag = new Set([...xxx.data_tag])
+                                        success_data_tag = [...success_data_tag].join(',')
+                                        success_data_tag = success_data_tag.split(',')
+                                        success_data_tag = new Set([...success_data_tag])
+                                        success_data_tag = [...success_data_tag].join(',')
+                                        success_data_tag = success_data_tag.split(',')
+                                        for (let i = 0; i < success_data_tag.length; i++) {
+                                            tbody_tableadd_tag_pattern += `<tr >`
+                                            tbody_tableadd_tag_pattern += `   <td>`
+                                            tbody_tableadd_tag_pattern += `       ` + (i + 1);
+                                            tbody_tableadd_tag_pattern += `   </td>`
+                                            tbody_tableadd_tag_pattern += `   <td>`
+                                            tbody_tableadd_tag_pattern += `       ` + success_data_tag[i];
+                                            tbody_tableadd_tag_pattern += `   </td>`
+                                            tbody_tableadd_tag_pattern += `   <td>`
+                                            tbody_tableadd_tag_pattern += `       เลือก <input type="checkbox" class="form-check-input" name="doc_id_person_tag" value="` + success_data_tag[i] + `" checked> `;
+                                            tbody_tableadd_tag_pattern += `   </td>`
+                                            tbody_tableadd_tag_pattern += `</tr>`
+                                        }
+                                        // var x = document.getElementById("select_tag_pattern");
+                                        // x.value = ''
+                                        // var length = x.options.length;
+                                        // for (i = length - 1; i >= 0; i--) {
+                                        //     x.options[i] = null;
+                                        // }
+                                        for (var i = 0; i < success_data_tag.length; i++) {
+                                            var opt = document.createElement('option');
+                                            opt.value = success_data_tag[i];
+                                            opt.className = "select_tag_pattern_option"
+                                            opt.innerHTML = success_data_tag[i];
+                                            // x.appendChild(opt);
+                                        }
+                                        $('.select_tag_pattern_option').prop('selected', true);
+                                        $('#tbody_table_pattern_data').html(tbody_table_pattern_data);
+                                        $('#tbody_tableadd_tag_pattern').html(tbody_tableadd_tag_pattern);
+                                    } else {
+                                        $('#tbody_table_pattern_data').html('');
+                                        $('#tbody_tableadd_tag_pattern').html('');
+                                    }
+                                });
+                            },
+                            error: function (e) {
+                            }
+                        });
+                    } else {
+                        $('#tbody_table_pattern_data').html('');
+                        $('#tbody_tableadd_tag_pattern').html('');
+
+                    }
+                }
+
+
+                function form_edit_pattern_submit() {
+
+                    // console.log("data_new", data_new);
+                    // document.getElementById("new_data_papd_specific").value = JSON.stringify(data_new);
+                    // console.log("data_set_found", data_set_found);
+                    // document.getElementById("papd_specific").value = data_set_found.toString();
+
+                    // if ($('input[name="pattern_name"]').val() == '') {
+                    //     $('input[name="pattern_name"]').focus();
+                    //     $('input[name="pattern_name"]').addClass('highlighted');
+                    //     setTimeout(function () {
+                    //         $('input[name="pattern_name"]').removeClass('highlighted');
+                    //     }, 1500);
+                    // } else if ($('input[name="doc_id"]').val() == '') {
+                    //     $('#btn-add-policy').focus();
+                    //     $('#btn-add-policy').addClass('highlighted');
+                    //     setTimeout(function () {
+                    //         $('#btn-add-policy').removeClass('highlighted');
+                    //     }, 1500);
+                    // } else if ($('input[name="pattern_start_date"]').val() == '') {
+                    //     $('input[name="pattern_start_date"]').focus();
+                    //     $('input[name="pattern_start_date"]').addClass('highlighted');
+                    //     setTimeout(function () {
+                    //         $('input[name="pattern_start_date"]').removeClass('highlighted');
+                    //     }, 1500);
+                    // } else if ($('input[name="pattern_total_date"]').val() == '') {
+                    //     $('input[name="pattern_total_date"]').focus();
+                    //     $('input[name="pattern_total_date"]').addClass('highlighted');
+                    //     setTimeout(function () {
+                    //         $('input[name="pattern_total_date"]').removeClass('highlighted');
+                    //     }, 1500);
+                    // } else if ($('#pattern_processing_base_id').val() == null) {
+                    //     $('#select_processing_base_table').focus();
+                    //     $('#select_processing_base_table').addClass('highlighted');
+                    //     setTimeout(function () {
+                    //         $('#select_processing_base_table').removeClass('highlighted');
+                    //     }, 1500);
+                    // } else {
+                    // $('#form_edit_pattern').submit();
+                    // $('#form_edit_pattern_submit_b').click();
+                    // }
+
+                    if ($('input[name="doc_id"]').val() == '') {
+                        $('#btn-add-policy').focus();
+                        $('#doc_id_policy').addClass('highlighted');
+                        setTimeout(function () {
+                            $('#doc_id_policy').removeClass('highlighted');
+                        }, 1500);
+                    } else if ($('#pattern_processing_base_id').val() == null) {
+                        $('#select_processing_base_table').focus();
+                        $('#select_processing_base_table').addClass('highlighted');
+                        setTimeout(function () {
+                            $('#select_processing_base_table').removeClass('highlighted');
+                        }, 1500);
+                    } else {
+                        if (data_new.length > 0) {
+                            document.getElementById("new_data_papd_specific").value = JSON.stringify(data_new);
+                        }
+                        if (data_set_found.length > 0) {
+                            document.getElementById("papd_specific").value = data_set_found.toString();
+                        }
+                        $('#form_edit_pattern').submit();
+                        // $('#form_edit_pattern_submit_b').click();
+
+                        if ($('input[name="pattern_name"]').val() == '') {
+                            $('input[name="pattern_name"]').focus();
+                        } else if ($('input[name="pattern_start_date"]').val() == '') {
+                            $('input[name="pattern_start_date"]').focus();
+                        } else if ($('input[name="pattern_total_date"]').val() == '') {
+                            $('input[name="pattern_total_date"]').focus();
+                        } else {
+
+                        }
+                    }
+                }
+
+            </script>
+            <%if(pattern.pattern_dpo_check==1 ){%>
+
+                <script>
+                    $(document).ready(function () {
+                        $('#dpo_check').show();
+                    });
+                </script>
+                <%}%>
+
+                    <script src="/UI/assets/libs/jquery/dist/jquery.min.js"></script>
+                    <script src="/UI/dist/js/feather.min.js"></script>
+                    <script src="/UI/dist/js/custom.min.js"></script>
+                    <script src="/UI/assets/libs/select2/dist/js/select2.full.min.js"></script>
+                    <script src="/UI/assets/libs/select2/dist/js/select2.min.js"></script>
+                    <script src="/UI/dist/js/pages/forms/select2/select2.init.js"></script>
+                    <script src="/dist/js/views_js/pattern/pattern_edit.js"></script>
+
+                    <%- include('../_footer') -%>

@@ -1,0 +1,710 @@
+<!-- -------------------------------------------------------------- -->
+<!-- End Container fluid  -->
+<!-- -------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------- -->
+<!-- footer -->
+<!-- -------------------------------------------------------------- -->
+<footer class="footer">
+    PDPA 3in1 Version 1.0, All right reserved by SGC Service Co., Ltd.
+</footer>
+<!-- -------------------------------------------------------------- -->
+<!-- End footer -->
+<!-- -------------------------------------------------------------- -->
+</div>
+<!-- -------------------------------------------------------------- -->
+<!-- End Page wrapper  -->
+<!-- -------------------------------------------------------------- -->
+</div>
+</div>
+
+<!-- -------------------------------------------------------------- -->
+<!-- End Wrapper -->
+<!-- -------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------- -->
+<!-- customizer Panel -->
+<!-- -------------------------------------------------------------- -->
+
+
+<aside class="customizer">
+    <a href="javascript:void(0)" class="service-panel-toggle"><i class="fa fa-spin fa-cog"></i></a>
+    <div class="customizer-body">
+        <ul class="nav customizer-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="pills-profile-tab" data-bs-toggle="pill" href="#chat" role="tab" aria-controls="chat" aria-selected="true"><i class="mdi mdi-history fs-6"></i></a>
+            </li>
+    
+        </ul>
+        <div class="tab-content" id="pills-tabContent">
+            <!-- Tab 1 -->
+            <div class="tab-pane fade " id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                <div class="p-3 border-bottom">
+                    <!-- Sidebar -->
+                    <h5 class="font-weight-medium mb-2 mt-2">Layout Settings</h5>
+                    <div class="form-check mt-3">
+                        <%if(session.theme[0].theme_view == '1'){%>
+                            <input type="checkbox" name="theme-view" class="form-check-input" id="theme-view" checked>
+                            <%}else{%>
+                                <input type="checkbox" name="theme-view" class="form-check-input" id="theme-view">
+                                <%}%>
+                                    <label class="form-check-label" for="theme-view"> <span>Dark Theme</span> </label>
+                    </div>
+                    <div class="form-check mt-2">
+                        <input type="checkbox" class="sidebartoggler form-check-input" name="collapssidebar" id="collapssidebar">
+                        <label class="form-check-label" for="collapssidebar"> <span>Collapse Sidebar</span> </label>
+                    </div>
+                    <div class="form-check mt-2">
+                        <%if(session.theme[0].sidebar_position == '1'){%>
+                            <input type="checkbox" name="sidebar-position" class="form-check-input" id="sidebar-position" checked>
+                            <%}else{%>
+                                <input type="checkbox" name="sidebar-position" class="form-check-input" id="sidebar-position">
+                                <%}%>
+                                    <label class="form-check-label" for="sidebar-position"> <span>Fixed Sidebar</span> </label>
+                    </div>
+                    <div class="form-check mt-2">
+                        <%if(session.theme[0].header_position == '1'){%>
+                            <input type="checkbox" name="header-position" class="form-check-input" id="header-position" checked>
+                            <%}else{%>
+                                <input type="checkbox" name="header-position" class="form-check-input" id="header-position">
+                                <%}%>
+                                    <label class="form-check-label" for="header-position"> <span>Fixed Header</span> </label>
+                    </div>
+                    <div class="form-check mt-2">
+                        <%if(session.theme[0].boxed_layout == '1'){%>
+                            <input type="checkbox" name="boxed-layout" class="form-check-input" id="boxed-layout" checked>
+                            <%}else{%>
+                                <input type="checkbox" name="boxed-layout" class="form-check-input" id="boxed-layout">
+                                <%}%>
+                                    <label class="form-check-label" for="boxed-layout"> <span>Boxed Layout</span> </label>
+                    </div>
+                </div>
+                <div class="p-3 border-bottom">
+                    <!-- Logo BG -->
+                    <h5 class="font-weight-medium mb-2 mt-2">Logo Backgrounds</h5>
+                    <ul class="theme-color m-0 p-0">
+                        <li class="theme-item list-inline-item me-1">
+                            <a href="javascript:void(0)" class="theme-link rounded-circle d-block" data-logobg="skin1"></a>
+                        </li>
+                        <li class="theme-item list-inline-item me-1">
+                            <a href="javascript:void(0)" class="theme-link rounded-circle d-block" data-logobg="skin2"></a>
+                        </li>
+                        <li class="theme-item list-inline-item me-1">
+                            <a href="javascript:void(0)" class="theme-link rounded-circle d-block" data-logobg="skin3"></a>
+                        </li>
+                        <li class="theme-item list-inline-item me-1">
+                            <a href="javascript:void(0)" class="theme-link rounded-circle d-block" data-logobg="skin4"></a>
+                        </li>
+                        <li class="theme-item list-inline-item me-1">
+                            <a href="javascript:void(0)" class="theme-link rounded-circle d-block" data-logobg="skin5"></a>
+                        </li>
+                        <li class="theme-item list-inline-item me-1">
+                            <a href="javascript:void(0)" class="theme-link rounded-circle d-block" data-logobg="skin6"></a>
+                        </li>
+                    </ul>
+                    <!-- Logo BG -->
+                </div>
+                <div class="p-3 border-bottom">
+                    <!-- Navbar BG -->
+                    <h5 class="font-weight-medium mb-2 mt-2">Navbar Backgrounds</h5>
+                    <ul class="theme-color m-0 p-0">
+                        <li class="theme-item list-inline-item me-1">
+                            <a href="javascript:void(0)" class="theme-link rounded-circle d-block" data-navbarbg="skin1"></a>
+                        </li>
+                        <li class="theme-item list-inline-item me-1">
+                            <a href="javascript:void(0)" class="theme-link rounded-circle d-block" data-navbarbg="skin2"></a>
+                        </li>
+                        <li class="theme-item list-inline-item me-1">
+                            <a href="javascript:void(0)" class="theme-link rounded-circle d-block" data-navbarbg="skin3"></a>
+                        </li>
+                        <li class="theme-item list-inline-item me-1">
+                            <a href="javascript:void(0)" class="theme-link rounded-circle d-block" data-navbarbg="skin4"></a>
+                        </li>
+                        <li class="theme-item list-inline-item me-1">
+                            <a href="javascript:void(0)" class="theme-link rounded-circle d-block" data-navbarbg="skin5"></a>
+                        </li>
+                        <li class="theme-item list-inline-item me-1">
+                            <a href="javascript:void(0)" class="theme-link rounded-circle d-block" data-navbarbg="skin6"></a>
+                        </li>
+                    </ul>
+                    <!-- Navbar BG -->
+                </div>
+                <div class="p-3 border-bottom">
+                    <!-- Logo BG -->
+                    <h5 class="font-weight-medium mb-2 mt-2">Sidebar Backgrounds</h5>
+                    <ul class="theme-color m-0 p-0">
+                        <li class="theme-item list-inline-item me-1">
+                            <a href="javascript:void(0)" class="theme-link rounded-circle d-block" data-sidebarbg="skin1"></a>
+                        </li>
+                        <li class="theme-item list-inline-item me-1">
+                            <a href="javascript:void(0)" class="theme-link rounded-circle d-block" data-sidebarbg="skin2"></a>
+                        </li>
+                        <li class="theme-item list-inline-item me-1">
+                            <a href="javascript:void(0)" class="theme-link rounded-circle d-block" data-sidebarbg="skin3"></a>
+                        </li>
+                        <li class="theme-item list-inline-item me-1">
+                            <a href="javascript:void(0)" class="theme-link rounded-circle d-block" data-sidebarbg="skin4"></a>
+                        </li>
+                        <li class="theme-item list-inline-item me-1">
+                            <a href="javascript:void(0)" class="theme-link rounded-circle d-block" data-sidebarbg="skin5"></a>
+                        </li>
+                        <li class="theme-item list-inline-item me-1">
+                            <a href="javascript:void(0)" class="theme-link rounded-circle d-block" data-sidebarbg="skin6"></a>
+                        </li>
+                    </ul>
+                    <!-- Logo BG -->
+                </div>
+            </div>
+            <!-- End Tab 1 -->
+            <!-- Tab 2 -->
+            <div class="tab-pane fade show active" id="chat" role="tabpanel" aria-labelledby="pills-profile-tab">
+                <ul class="mailbox list-style-none mt-3">
+                    <li>
+                        <div class="message-center chat-scroll position-relative">
+                            <% if (session.history){ for (var i = 0; i < (session.history).length; i++) { %>
+                                <a href="javascript:void(0)" class="message-item d-flex align-items-center border-bottom px-3 py-2" id='chat_user_1' data-user-id='1'>
+                                    <span class="user-img position-relative d-inline-block"> <img
+                                        src="/UI/image/<%=session.history[i].image%>" alt="user" class="rounded-circle w-100">
+                                    <span class="profile-status rounded-circle online"></span> </span>
+                                    <div class="w-75 d-inline-block v-middle ps-3" data-bs-toggle="tooltip" data-bs-placement="left" title="<%=session.history[i].msg%>">
+                                        <h5 class="message-title mb-0 mt-1">
+                                            <%=session.history[i].name%>
+                                        </h5>
+                                         <span class="fs-2 text-nowrap d-block text-muted text-truncate">
+                                            <%=session.history[i].msg%>
+                                         </span> 
+                                         <span class="fs-2 text-nowrap d-block text-muted">
+                                            <%=session.history[i].date%>
+                                        </span>
+                                    </div>
+                                </a>
+                                <%}}%>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+
+            <!-- End Tab 2 -->
+
+        </div>
+    </div>
+</aside>
+<!-- -------------------------------------------------------------- -->
+<!-- All Jquery -->
+<!-- -------------------------------------------------------------- -->
+<script src="/UI/assets/libs/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap tether Core JavaScript -->
+<script src="/UI/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!-- apps -->
+<script src="/UI/dist/js/app.min.js"></script>
+<!-- box layout -->
+<script>
+    $(function() {
+
+        "use strict";
+        var boxed_layout = <%-JSON.stringify(session.theme[0].boxed_layout)%>;
+        var header_position = <%-JSON.stringify(session.theme[0].header_position)%>;
+        var sidebar_position = <%-JSON.stringify(session.theme[0].sidebar_position)%>;
+
+        var checkBoxedLayout;
+        var checkHeaderPosition;
+        var checkSidebarPosition;
+
+
+        if (boxed_layout == '1') {
+            checkBoxedLayout = true
+        } else {
+            checkBoxedLayout = false
+        }
+
+        if (header_position == '1') {
+            checkHeaderPosition = true
+        } else {
+            checkHeaderPosition = false
+        }
+
+        if (sidebar_position == '1') {
+            checkSidebarPosition = true
+        } else {
+            checkSidebarPosition = false
+        }
+
+        $("#main-wrapper").AdminSettings({
+
+            Theme: 'dark', // this can be true or false ( true means dark and false means light ),
+            Layout: 'vertical',
+            LogoBg: 'skin6', // You can change the Value to be skin1/skin2/skin3/skin4/skin5/skin6
+            NavbarBg: 'skin6', // You can change the Value to be skin1/skin2/skin3/skin4/skin5/skin6
+            SidebarType: 'full', // You can change it full / mini-sidebar / iconbar / overlay
+            SidebarColor: 'skin6', // You can change the Value to be skin1/skin2/skin3/skin4/skin5/skin6
+            SidebarPosition: checkSidebarPosition, // it can be true /  ( true means Fixed and false means absolute )
+            HeaderPosition: checkHeaderPosition, // it can be true / false ( true means Fixed and false means absolute )
+            BoxedLayout: checkBoxedLayout
+                // it can be true / false ( true means Boxed and false means Fluid )
+        });
+    });
+</script>
+<script>
+    var logobg_skin = <%-JSON.stringify(session.theme[0].logobg_skin)%>;
+    var navbarbg_skin = <%-JSON.stringify(session.theme[0].navbarbg_skin)%>;
+    var sidebarbg_skin = <%-JSON.stringify(session.theme[0].sidebarbg_skin)%>;
+
+    $(function() {
+        "use strict";
+        //****************************
+        /* Left header Theme Change function Start */
+        //****************************
+        function handlelogobg() {
+
+            if (logobg_skin) {
+                $('.topbar .top-navbar .navbar-header').attr("data-logobg", logobg_skin);
+                $('.theme-color .theme-item .theme-link').on("click", function() {
+                    var logobgskin = $(this).attr("data-logobg");
+                    if (logobgskin == undefined) {
+                        console.log(logobgskin);
+                    } else {
+                        var data = {};
+                        data["logobg_skin"] = logobgskin;
+
+                        $.ajax({
+                            url: "/ajaxchecktheme",
+                            type: "post",
+                            data: data,
+                            success: function(data) {
+                                console.log(data);
+                            }
+                        })
+                    }
+                    $('.topbar .top-navbar .navbar-header').attr("data-logobg", logobgskin);
+                });
+            } else {
+
+                $('.theme-color .theme-item .theme-link').on("click", function() {
+                    var logobgskin = $(this).attr("data-logobg");
+                    if (logobgskin == undefined) {
+                        console.log(logobgskin);
+                    } else {
+                        var data = {};
+                        data["logobg_skin"] = logobgskin;
+
+                        $.ajax({
+                            url: "/ajaxchecktheme",
+                            type: "post",
+                            data: data,
+                            success: function(data) {
+                                console.log(data);
+                            }
+                        })
+                    }
+                    $('.topbar .top-navbar .navbar-header').attr("data-logobg", logobgskin);
+                });
+            }
+        };
+        handlelogobg();
+        //****************************
+        /* Top navbar Theme Change function Start */
+        //****************************
+        function handlenavbarbg() {
+            if ($('#main-wrapper').attr('data-navbarbg') == 'skin6') {
+                // do this
+                $(".topbar .navbar").addClass('navbar-light');
+                $(".topbar .navbar").removeClass('navbar-dark');
+            }
+            if (navbarbg_skin) {
+                $('#main-wrapper').attr("data-navbarbg", navbarbg_skin);
+                $('.topbar .navbar-collapse').attr("data-navbarbg", navbarbg_skin);
+
+                $('.theme-color .theme-item .theme-link').on("click", function() {
+                    var navbarbgskin = $(this).attr("data-navbarbg");
+                    console.log('navbarbgskin', navbarbgskin);
+                    if (navbarbgskin == undefined) {
+                        console.log(navbarbgskin);
+                    } else {
+                        var data = {};
+                        data["navbarbg_skin"] = navbarbgskin;
+
+                        $.ajax({
+                            url: "/ajaxchecktheme",
+                            type: "post",
+                            data: data,
+                            success: function(data) {
+                                console.log(data);
+                            }
+                        })
+                    }
+
+                    $('#main-wrapper').attr("data-navbarbg", navbarbgskin);
+                    $('.topbar .navbar-collapse').attr("data-navbarbg", navbarbgskin);
+
+                    if ($('#main-wrapper').attr('data-navbarbg') == 'skin6') {
+                        // do this
+                        $(".topbar .navbar").addClass('navbar-light');
+                        $(".topbar .navbar").removeClass('navbar-dark');
+                    } else {
+                        // do that
+                        $(".topbar .navbar").removeClass('navbar-light');
+                        $(".topbar .navbar").addClass('navbar-dark');
+                    }
+                });
+
+            } else {
+
+                $('.theme-color .theme-item .theme-link').on("click", function() {
+                    var navbarbgskin = $(this).attr("data-navbarbg");
+                    console.log('navbarbgskin', navbarbgskin);
+                    if (navbarbgskin == undefined) {
+                        console.log(navbarbgskin);
+                    } else {
+                        var data = {};
+                        data["navbarbg_skin"] = navbarbgskin;
+
+                        $.ajax({
+                            url: "/ajaxchecktheme",
+                            type: "post",
+                            data: data,
+                            success: function(data) {
+                                console.log(data);
+                            }
+                        })
+                    }
+                    $('#main-wrapper').attr("data-navbarbg", navbarbgskin);
+                    $('.topbar .navbar-collapse').attr("data-navbarbg", navbarbgskin);
+                    if ($('#main-wrapper').attr('data-navbarbg') == 'skin6') {
+                        // do this
+                        $(".topbar .navbar").addClass('navbar-light');
+                        $(".topbar .navbar").removeClass('navbar-dark');
+                    } else {
+                        // do that
+                        $(".topbar .navbar").removeClass('navbar-light');
+                        $(".topbar .navbar").addClass('navbar-dark');
+                    }
+                });
+            }
+        };
+
+        handlenavbarbg();
+
+        //****************************
+        // ManageSidebar Type
+        //****************************
+        function handlesidebartype() {
+
+        };
+        handlesidebartype();
+
+
+        //****************************
+        /* Manage sidebar bg color */
+        //****************************
+        function handlesidebarbg() {
+            if (sidebarbg_skin) {
+                $('.left-sidebar').attr("data-sidebarbg", sidebarbg_skin);
+                $('.theme-color .theme-item .theme-link').on("click", function() {
+
+                    var sidebarbgskin = $(this).attr("data-sidebarbg");
+                    if (sidebarbgskin == undefined) {
+                        console.log(sidebarbgskin);
+                    } else {
+                        var data = {};
+                        data["sidebarbg_skin"] = sidebarbgskin;
+
+                        $.ajax({
+                            url: "/ajaxchecktheme",
+                            type: "post",
+                            data: data,
+                            success: function(data) {
+                                console.log(data);
+                            }
+                        })
+                    }
+                    $('.left-sidebar').attr("data-sidebarbg", sidebarbgskin);
+                });
+
+            } else {
+
+                $('.theme-color .theme-item .theme-link').on("click", function() {
+
+                    var sidebarbgskin = $(this).attr("data-sidebarbg");
+                    if (sidebarbgskin == undefined) {
+                        console.log(sidebarbgskin);
+                    } else {
+                        var data = {};
+                        data["sidebarbg_skin"] = sidebarbgskin;
+
+                        $.ajax({
+                            url: "/ajaxchecktheme",
+                            type: "post",
+                            data: data,
+                            success: function(data) {
+                                console.log(data);
+                            }
+                        })
+                    }
+                    $('.left-sidebar').attr("data-sidebarbg", sidebarbgskin);
+                });
+            }
+        };
+        handlesidebarbg();
+        /* Header position */
+        //****************************
+        function handleheaderposition() {
+            $('#header-position').change(function() {
+                if ((document.getElementById('header-position').checked) == true) {
+                    $('#main-wrapper').attr("data-header-position", 'fixed');
+                } else {
+                    $('#main-wrapper').attr("data-header-position", 'relative');
+                }
+                var ckeck = this.checked
+                console.log(ckeck);
+                var data = {};
+                if (ckeck == true) {
+                    data["header_position"] = 1;
+                } else {
+                    data["header_position"] = 0;
+                }
+
+                $.ajax({
+                    url: "/ajaxchecktheme",
+                    type: "post",
+                    data: data,
+                    success: function(data) {
+                        console.log(data);
+                    }
+                });
+                if ($(this).is(":checked")) {
+
+                    $('#main-wrapper').attr("data-header-position", 'fixed');
+                } else {
+                    $('#main-wrapper').attr("data-header-position", 'relative');
+                }
+            });
+        };
+        handleheaderposition();
+        //****************************
+        /* sidebar position */
+        //****************************
+        function handleboxedlayout() {
+
+            if ((document.getElementById('boxed-layout').checked) == true) {
+                $('#main-wrapper').attr("data-boxed-layout", 'boxed');
+            } else {
+                $('#main-wrapper').attr("data-boxed-layout", 'full');
+            }
+            $('#boxed-layout').change(function() {
+                var ckeck = this.checked
+                console.log(ckeck);
+                var data = {};
+                if (ckeck == true) {
+                    data["boxed_layout"] = 1;
+                } else {
+                    data["boxed_layout"] = 0;
+                }
+
+                $.ajax({
+                    url: "/ajaxchecktheme",
+                    type: "post",
+                    data: data,
+                    success: function(data) {
+                        console.log(data);
+                    }
+                });
+                if ($(this).is(":checked")) {
+                    $('#main-wrapper').attr("data-boxed-layout", 'boxed');
+                } else {
+                    $('#main-wrapper').attr("data-boxed-layout", 'full');
+                }
+            });
+
+        };
+        handleboxedlayout();
+        //****************************
+        /* Header position */
+        //****************************
+        // function handlethemeview() {
+        //     console.log(document.getElementById('theme-view').checked);
+
+        //     if ((document.getElementById('theme-view').checked) == true) {
+        //         $('body').attr("data-theme", 'dark')
+        //     } else {
+        //         $('body').attr("data-theme", 'light');
+
+        //     }
+        //     $('#theme-view').change(function() {
+        //         var ckeck = this.checked
+        //         console.log(ckeck);
+        //         var data = {};
+        //         if (ckeck == true) {
+        //             data["theme_view"] = 1;
+        //         } else {
+        //             data["theme_view"] = 0;
+        //         }
+
+        //         $.ajax({
+        //             url: "/ajaxchecktheme",
+        //             type: "post",
+        //             data: data,
+        //             success: function(data) {
+        //                 console.log(data);
+        //             }
+        //         });
+        //         if ($(this).is(":checked")) {
+        //             $('body').attr("data-theme", 'dark');
+        //         } else {
+        //             $('body').attr("data-theme", 'light');
+        //         }
+
+        //     });
+        // };
+        // handlethemeview();
+    });
+</script>
+<!-- <script src="/UI/dist/js/app-style-switcher.js"></script> -->
+<!-- slimscrollbar scrollbar JavaScript -->
+<script src="/UI/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+<script src="/UI/assets/extra-libs/sparkline/sparkline.js"></script>
+<!--Wave Effects -->
+<script src="/UI/dist/js/waves.js"></script>
+<!--Menu sidebar -->
+<script src="/UI/dist/js/sidebarmenu.js"></script>
+<!--Custom JavaScript -->
+<script src="/UI/dist/js/feather.min.js"></script>
+<script src="/UI/dist/js/custom.min.js"></script>
+
+<script src="/UI/assets/libs/tablesaw/dist/tablesaw.jquery.js"></script>
+<script src="/UI/assets/libs/tablesaw/dist/tablesaw-init.js"></script>
+<script src="/UI/assets/extra-libs/prism/prism.js"></script>
+
+<script src="/UI/assets/libs/sweetalert2/dist/sweetalert2.all.min.js"></script>
+
+<!-- <script src="/UI/assets/libs/echarts/dist/echarts-en.min.js"></script> -->
+<!-- <script src="/UI/dist/js/pages/echarts/pie-doughnut/pie-doghnut.js"></script> -->
+
+<script src="/UI/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+<script src="/UI/assets/libs/chart.js/dist/Chart.min.js"></script>
+
+<script src="/UI/assets/libs/d3/dist/d3.min.js"></script>
+
+<script src="/UI/assets/libs/c3/c3.min.js"></script>
+<script src="/UI/dist/js/pages/c3-chart/bar-pie/c3-pie.js"></script>
+
+
+<script>
+    var userid = '<%-JSON.stringify(session.userid)%>';
+    $("#sa-chain5").click(function() {
+        Swal.mixin({
+            input: 'text',
+            confirmButtonText: 'ยืนยัน',
+            showCancelButton: true,
+            cancelButtonText: 'ยกเลิก',
+
+        }).queue([{
+            title: 'การสร้าง QR Code สำหรับ Google Authenticator',
+            text: 'กรุณากรอกรหัสผ่าน'
+        }]).then((result) => {
+
+            if (result.value) {
+                var request1 = function() {
+                    result["userid"] = userid;
+                    $.ajax({
+                        url: "/qr",
+                        type: "post",
+                        data: result,
+                        success: function(data) {
+                            console.log(data);
+                            if (data.data.length == 0) {
+                                alert("ใส่รหัสผ่านผิด")
+                                setInterval('location.reload()', 200);
+                            } else {
+                                //alert("สร้าง QR Code เรียบร้อย กรุณากดอีกครั้งเพื่อแสดง")
+                                Swal.fire({
+                                    title: 'QR Code สำหรับ Google Authenticator',
+                                    html: '<br>  <img src="' + data.data[0].image +
+                                        '" alt="">'
+                                })
+                            }
+
+                        }
+                    });
+                }
+                request1();
+            }
+        })
+    });
+</script>
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+
+        'use strict';
+        window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        console.log(event.preventDefault());
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+<!-- ===== For Classification ======= -->
+<script>
+    $('body').on('mousemove', function() {
+        if ($('aside.left-sidebar').is(':hover')) {
+            $('i#export_icon_main').hide()
+            $('span#export_hidden').css('margin-left', '13%')
+        } else {
+            $('i#export_icon_main').show()
+        }
+    });
+</script>
+<script src="/UI/assets/libs/bootstrap-switch/dist/js/bootstrap-switch.min.js"></script>
+<script>
+    $(".bt-switch input[type='checkbox'], .bt-switch input[type='radio']").bootstrapSwitch();
+    var radioswitch = function() {
+        var bt = function() {
+            $(".radio-switch").on("switch-change", function() {
+                $(".radio-switch").bootstrapSwitch("toggleRadioState")
+            }), $(".radio-switch").on("switch-change", function() {
+                $(".radio-switch").bootstrapSwitch("toggleRadioStateAllowUncheck")
+            }), $(".radio-switch").on("switch-change", function() {
+                $(".radio-switch").bootstrapSwitch("toggleRadioStateAllowUncheck", !1)
+            })
+        };
+        return {
+            init: function() {
+                bt()
+            }
+        }
+    }();
+    $(document).ready(function() {
+        radioswitch.init()
+    });
+</script>
+<!-- <script src="/UI/dist/js/custom_chart.js"></script>
+<script src="/UI/dist/js/pagination.js"></script> -->
+<!-- <script src="/UI/dist/js/all_function_agents.js"></script> -->
+<script src="/UI/dist/js/custom_charts.js"></script>
+<!-- <script src="/UI/dist/js/all_function_pattern.js"></script> -->
+<!-- <script src="/UI/dist/js/all_function_classification.js"></script> -->
+<script>
+    if (document.getElementById('dataflow')) {
+        let background_color_list = document.getElementById('card-list');
+        let color_list = document.getElementById('p-2');
+        if (document.getElementById("theme-view").checked == true) {
+            background_color_list.style.backgroundColor = "#3c424e";
+            color_list.style.border = "2px solid white";
+        } else {
+            background_color_list.style.backgroundColor = "#e9ecef";
+            color_list.style.border = "2px solid black";
+        }
+    }
+</script>
+</body>
+
+</html>

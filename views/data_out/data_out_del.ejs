@@ -1,0 +1,83 @@
+<% if (dataout){ for (var i = 0; i < dataout.length; i++) { %>
+    <div class="modal fade" id="modal-del<%=i%>" tabindex="-1" aria-labelledby="exampleModalLabel1">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+
+                <div class="modal-header d-flex align-items-center">
+
+                    <h4 class="card-title">ยืนยันลบการใช้ข้อมูล
+                    </h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                </div>
+                <hr>
+                <div class="modal-body">
+                    <div class="mb-3 row">
+                        <label class="col-sm-5 text-end control-label col-form-label text-secondary">ชื่อประเภท</label>
+                        <div class="col-sm-6">
+                            <label class="control-label col-form-label "><%=dataout[i].classify_name%></label>
+                        </div>
+                    </div>
+                        <div class="mb-3 row">
+                            <label class="col-sm-5 text-end control-label col-form-label text-secondary">ข้อมูลที่แยกประเภท :</label>
+                            <div class="col-sm-6">
+                                <label class=" control-label col-form-label"><%=dataout[i].pattern_name%></label>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-sm-5 text-end control-label col-form-label text-secondary">วันที่สร้าง :</label>
+                            <div class="col-sm-6">
+                                <label class="control-label col-form-label"><%=dataout[i].datecreate%></label>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-sm-5 text-end control-label col-form-label text-secondary">ระยะเวลา :</label>
+                            <div class="col-sm-6">
+                                <label class="control-label col-form-label"><%=dataout[i].long_date%> วัน <%=dataout[i].long_hour%> ชั่วโมง</label>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-sm-5 text-end control-label col-form-label text-secondary">เครื่องหมายข้อมูล :</label>
+                            <div class="col-sm-6">
+                                <%if(dataout[i].classify_type_data_in_event_personal_datamark == 1){%>
+                                    <label class="control-label col-form-label">Yes</label>
+                                    <%}else{%>
+                                        <label class="control-label col-form-label">No</label>
+                                        <%}%>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-sm-5 text-end control-label col-form-label text-secondary">ผู้สร้าง :</label>
+                            <div class="col-sm-6">
+                                <label class="control-label col-form-label"><%=dataout[i].firstname %> <%=dataout[i].lastname %></label>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-sm-5 text-end control-label col-form-label text-secondary">อุปกรณ์/Agent :</label>
+                            <div class="col-sm-6">
+                                <label class="control-label col-form-label"><span style="color: blue;" id="importdel_<%=dataout[i].data_out_id%>"> -</span> จาก 
+                                    <span style="color: red;"><%=dataout[i].pattern_storage_method_inside_agent_name %></span></label>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-sm-5 text-end control-label col-form-label text-secondary">DPO review  :</label>
+                            <div class="col-sm-6">
+                                <%if(dataout[i].dpo_confirm == 0){%>
+                                    <label class="control-label col-form-label" style="color: red;text-align: center;">DPO Review</label>
+                                    <%}else{%>
+                                        <label class="control-label col-form-label" style="color: green;text-align: center;">DPO Review</label>
+                                        <%}%>
+                            </div>
+                        </div>
+                        <hr>
+                        <br>
+                        <center>
+                            <a href="/dataoutdel/<%=dataout[i].data_out_id%>"><button type="button"  class="btn btn-danger font-weight-large">ยืนยัน</button></a>
+                            <button type="button" class="btn btn-secondary font-weight-large"
+                                data-bs-dismiss="modal">ยกเลิก</button>
+                        </center>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%  }} %>

@@ -1,0 +1,213 @@
+<%- include('../_header') -%>
+<!-- <%-JSON.stringify(dataout[0])%> -->
+<div class="page-breadcrumb">
+  <div class="row">
+    <div class="col-md-5 align-self-center">
+      <h3 class="page-title"><i class="me-2 mdi mdi-clipboard-text"></i>กำหนดการใช้ข้อมูลส่งออกไปภายนอก</h3>
+      <br />
+      <div class="d-flex align-items-center">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="/index2">หน้าแรก</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="/dataoutlist">กำหนดการใช้ข้อมูล</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+              รายละเอียดของการใช้ข้อมูล <%=dataout[0].classify_name%>
+              <%=dataout[0].pattern_name%>
+            </li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <!-- Row -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="border-bottom title-part-padding">
+          <h4 class="card-title mb-0">
+            รายละเอียดของการใช้ข้อมูล <%=dataout[0].classify_name%>
+            <%=dataout[0].pattern_name%>
+            <span class="text-secondary"></span>
+          </h4>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <p class="h5 font-bold">กำหนดการส่งออกข้อมูลไปภายนอก</p>
+              <table class="table table-boardless">
+                <tr>
+                  <td class="font-bold td-head-detail-pattern">การอนุมัติจาก DPO :</td>
+                  <td style="text-align: left">
+                    <%if(dataout[0].dpo_confirm == 1){%>
+                            <span style="color: green;">อนุมัติ</span> 
+                    <%}else{%>
+                      <span style="color: red;">รออนุมัติ</span> 
+                        <%}%>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="font-bold td-head-detail-pattern">วิธีการจัดส่ง :</td>
+                  <td style="text-align: left">
+                    <%if(dataout[0].type_res == 0){%>
+                     E-MAIL
+                      <%}else{%>
+                        API-LINK
+                          <%}%>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="font-bold td-head-detail-pattern">ประเภทของข้อมูล :</td>
+                  <td style="text-align: left">
+                    <%if(dataout[0].type_link == 0){%>
+                      รูปแบบ ไม่มีการปิดบังข้อมูล
+                       <%}else if(dataout[0].type_link == 1){%>
+                        รูปแบบ มีการปิดบังข้อมูล
+                           <%}else if(dataout[0].type_link == 3){%>
+                            รูปแบบ CSV
+                            <%}else if(dataout[0].type_link == 4){%>
+                              รูปแบบ JSON
+                              <%}%>
+                  </td>
+                </tr>
+                <%if(dataout[0].type_res == 1){%>
+                <tr>
+                  <td class="font-bold td-head-detail-pattern">LINK :</td>
+                  <td style="text-align: left">
+                    <a href="<%=host%>/apisend/<%=dataout[0].res_link%>" target="_blank"><%=host%>/apisend/<%=dataout[0].res_link%><a>
+                  </td>
+                </tr>
+                <%}else{%>
+                  <tr>
+                    <td class="font-bold td-head-detail-pattern">E-MAIL :</td>
+                    <td style="text-align: left">
+                    <%=dataout[0].res_link%>
+                    </td>
+                  </tr>
+                  <%}%>
+
+                  <%if(dataout[0].type_link == 3){%>
+                    <%if(set_system){%>
+                      <%if(set_system.length > 0){%>
+                    <tr>
+                      <td class="font-bold td-head-detail-pattern">รูปแบบการเข้ารหัส 
+                        <%if(set_system){%>
+                          <%if(set_system.length > 0){%>
+                            <%if(set_system[0].view_hash_pdpa_dataout == "sha256"){%>
+                              SHA-256
+                              <%}if(set_system[0].view_hash_pdpa_dataout == "sha1"){%>
+                                SHA-1
+                                <%}if(set_system[0].view_hash_pdpa_dataout == "md5"){%>
+                                  MD5
+                            <%}}}%> : </td>
+                      <td style="text-align: left">
+                        <%if(set_system[0].view_hash_pdpa_dataout == "md5"){%>
+                          <%=dataout[0].hash_md5%>
+                          <%}else if(set_system[0].view_hash_pdpa_dataout == "sha1"){%>
+                            <%=dataout[0].hash_sha1%>
+                            <%}else if(set_system[0].view_hash_pdpa_dataout == "sha256"){%>
+                              <%=dataout[0].hash_sha256%>
+                                <%}%>
+                                <%if(dataout[0].hash_md5 == null){%>
+                                <span class="text-warning">NULL กรุณาทำการ DOWNLOAD FILE CSV ก่อน</span> 
+                                <%}%>
+                      </td>
+                    </tr>
+                      <%}}}%>
+
+                <tr>
+                  <td class="font-bold td-head-detail-pattern">วันที่สร้าง :</td>
+                  <td style="text-align: left">
+                    <%=dataout[0].datecreate%>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="font-bold td-head-detail-pattern">ระยะเวลา :</td>
+                  <td style="text-align: left">
+                    <%=dataout[0].long_date%> วัน <%=dataout[0].long_hour%> ชั่วโมง
+                  </td>
+                </tr>
+              </table>
+              <p class="h5 font-bold">รูปแบบข้อมูล</p>
+              <table class="table table-boardless">
+                <tr>
+                  <td class="font-bold td-head-detail-pattern">ชื่อประเภท :</td>
+                  <td style="text-align: left">
+                    <%= dataout[0].classify_name %>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="font-bold td-head-detail-pattern">ข้อมูลที่แยกประเภท :</td>
+                  <td style="text-align: left">
+                    <%= dataout[0].pattern_name %>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="font-bold td-head-detail-pattern">อุปกรณ์/Agent :</td>
+                  <td style="text-align: left">
+                   <span style="color: blue;" id="importname"> -</span> จาก <span style="color: red;"><%=dataout[0].pattern_storage_method_inside_agent_name %></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="font-bold td-head-detail-pattern">ผู้สร้าง :</td>
+                  <td style="text-align: left">
+                    <%=dataout[0].firstname %> <%=dataout[0].lastname %>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div >
+            <center>
+                <a href="/dataoutlist"> <button type="button" class="btn btn-secondary waves-effect waves-light btn-lg">ย้อนกลับ</button></a>
+              </center>
+              </div>
+        </div>
+      </div>
+    </div>
+    <!-- Row -->
+  </div>
+  </div>
+  <script>
+    var databar = <%-JSON.stringify(dataout)%>;
+    var importname = <%-JSON.stringify(importname)%>;
+    for(s in databar){
+      var datan = databar[s].pattern_storage_method_inside_import_id;
+      datan = datan.split(",");
+      console.log(datan);
+      var namee = ""
+      for(ss in datan){
+        for(sss in importname){
+        if(datan[ss] == importname[sss].ftp_id){
+          var text = "#importname"
+          if(ss != 0){
+            namee = namee+","+importname[sss].name
+            $(text).text(namee)
+          }else{
+            namee = importname[sss].name
+            $(text).text(namee)
+          }
+          console.log(namee);
+          
+        }
+
+      }
+      }
+    }
+  </script>
+
+  <!-- -------------------------------------------------------------- -->
+  <!-- End PAge Content -->
+  <!-- -------------------------------------------------------------- -->
+  <!--start overlay-->
+  <%- include('../_footer') -%>
+  <script src="/UI/assets/libs/datatables/media/js/jquery.dataTables.min.js"></script>
+  <script src="/UI/dist/js/pages/datatable/custom-datatable.js"></script>
+  <script src="/UI/dist/js/pages/datatable/datatable-basic.init.js"></script>
+  <script src="/UI/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+

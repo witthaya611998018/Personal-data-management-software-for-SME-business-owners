@@ -1,0 +1,123 @@
+<%- include ("../../_header") %>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">เอกสารขอความยินยอมทาง E-mail (E-mailConsent)</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/management/cookies">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item">เอกสารขอความยินยอมทาง E-mail (E-mailConsent)</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <!-- <div class="col-lg-12">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="card card-body">
+                        <div class="row pt-2 pb-2">
+                            <div class="col pr-0">
+                                <h1 class="fw-light text-center" id="email-wait">-</h1>
+                                <h6 class="text-muted">จำนวน E-mail รอ Consent</h6>
+                            </div>
+                            <div class="col text-end align-self-center">
+                                <div data-label="50%" class="css-bar mb-0 css-bar-info css-bar-0" id="email-wait-icon">
+                                    <i class="mdi mdi-email"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card card-body">
+                        <div class="row pt-2 pb-2">
+                            <div class="col pr-0">
+                                <h1 class="fw-light text-center" id="email-notagree">-</h1>
+                                <h6 class="text-muted">จำนวน E-mail ไม่ยินยอม</h6>
+                            </div>
+                            <div class="col text-end align-self-center">
+                                <div data-label="40%" class="css-bar mb-0 css-bar-danger css-bar-0"
+                                    id="email-notagree-icon">
+                                    <i class="mdi mdi-email"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card card-body">
+                        <div class="row pt-2 pb-2">
+                            <div class="col pr-0">
+                                <h1 class="fw-light text-center" id="email-approve">-</h1>
+                                <h6 class="text-muted">จำนวน E-mail ยินยอม</h6>
+                            </div>
+                            <div class="col text-end align-self-center">
+                                <div data-label="30%" class="css-bar mb-0 css-bar-info css-bar-0"
+                                    id="email-approve-icon"><i class="mdi mdi-email"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="card">
+            <div class="border-bottom title-part-padding">
+                <div style="justify-content:start" class="align-items-center d-none d-md-flex">
+                    <h4 class="card-title mb-0">เอกสารขอความยินยอมทาง E-mail (E-mailConsent)</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row pb-3">
+                    <div class="col-md-4 justify-content-start align-items-center d-none d-md-flex" id="limit">
+
+                    </div>
+                    <div class="col-md-8 justify-content-start align-items-center d-none d-md-flex">
+                        <div class="input-group mb-2 ">
+                            <a class="btn btn-outline-warning" href="/management/email_consent"><i
+                                    data-feather="repeat"></i></a>
+                            <input class="form-control" type="date" value="" id="firstDay">
+                            <span class="input-group-text" id="basic-addon1">ถึง</span>
+                            <input class="form-control" type="date" value="" id="lastDay">
+                            <input type="text" class="form-control" placeholder="ค้นหา.." aria-label="" value=""
+                                id="Srearch" aria-describedby="button-search">
+                            <button class="btn btn-outline-warning" type="button" id="button-search"><i
+                                    class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <!---------------------------  table setdate  ---------------------------->
+                <div style="min-height: 470px;" class="table-responsive">
+                    <div id="table_Data_Email_consent">
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6 text-secondary ">
+                        <div class="row">
+                            <span>แสดงผล <a id="show"></a> ถึง <a id="to_show"></a> ทั้งหมด <a id="show_all"></a>
+                                รายการ</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                        <nav aria-label="Page navigation example" class="mt-2">
+                            <ul class="pagination">
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .disabled-href {
+            opacity: .65;
+            pointer-events: none;
+            box-shadow: none;
+        }
+    </style>
+    <script src="/dist/js/views_js/email/email_consent.js"></script>
+    <%- include ("../../_footer") %>

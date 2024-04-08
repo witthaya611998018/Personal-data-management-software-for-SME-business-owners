@@ -1,0 +1,128 @@
+<%- include('../_header') -%>
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">การนำออกไฟล์ล็อก</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item"><a href="/index2">การนำออกข้อมูลล็อก</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">ไฟล์ล็อก</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-7 justify-content-end align-self-center d-none d-md-flex">
+                <div>
+                    <div class="dropdown me-2">
+                        <%if(data){%>
+                            <form action="/exporthistory/search" method="post">
+                                <div class="input-group mb-3">
+                                    <input class="form-control" type="datetime-local" name="date1" required>
+                                    <span class="input-group-text" id="basic-addon1">ถึง</span>
+                                    <input class="form-control" type="datetime-local" name="date2" required>
+                                    <button class="btn btn-outline-warning" type="submit"><i class="fas fa-search"></i></button>
+
+                                </div>
+                            </form>
+                            <%}%>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="row">
+                        <div class="card-body">
+                            <div class="border-bottom title-part-padding">
+                                <h4 class="card-title mb-0">การนำออกไฟล์ล็อก</h4>
+                            </div>
+                            <div class="card-body" style="min-height: 650px;">
+                                <div class="row pb-3">
+                                    <div class="col-md-8">
+                                        &nbsp;
+
+                                    </div>
+                                    <table class="tablesaw no-wrap table-striped table-bordered table-hover table" data-tablesaw-mode="stack" data-tablesaw-sortable id="myTable">
+                                        <thead>
+                                            <tr>
+
+                                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-sortable-default-col data-tablesaw-priority="3" class="border">ลำดับ</th>
+                                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist" class="border">วัน เวลา ที่นำออก</th>
+                                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2" class="border">ชื่อผู้นำออก</th>
+                                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1" class="border">ไฟล์</th>
+                                                <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4" class="border">ค่าแฮชของไฟล์ (SHA256)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% if (data){ for (var i = 0; i < data.length; i++) { %>
+                                                <tr>
+                                                    <td class="title align-top">
+                                                        <%= (i+1) %>
+                                                    </td>
+                                                    <td class="align-top">
+                                                        <%=data[i].date%>
+                                                    </td>
+                                                    <td class="align-top">
+                                                        <%=data[i].acc_name%>
+                                                    </td>
+                                                    <td class="text-wrap text-break align-top">
+                                                        <%=data[i].name%>
+                                                    </td>
+                                                    <td class="align-top">
+                                                        <%=data[i].hash%>
+                                                    </td>
+                                                </tr>
+                                                <%  }}%>
+                                                    <% if (data.length == 0){%>
+                                                        <tr>
+                                                            <td class="title align-top" style="text-align: center; color: rgb(228, 20, 20);" colspan="5">
+                                                                ไม่พบข้อมูล
+                                                            </td>
+                                                        </tr>
+                                                        <%}%>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  </div>
+        <!-- Row -->
+
+
+        <!-- -------------------------------------------------------------- -->
+        <!-- End PAge Content -->
+        <!-- -------------------------------------------------------------- -->
+        <!--start overlay-->
+        <%- include('../_footer') -%>
+            <script src="/UI/assets/libs/datatables/media/js/jquery.dataTables.min.js "></script>
+            <script src="/UI/dist/js/pages/datatable/custom-datatable.js "></script>
+            <script src="/UI/dist/js/pages/datatable/datatable-basic.init.js "></script>
+            <script src="/UI/assets/libs/apexcharts/dist/apexcharts.min.js "></script>
+
+            <script src="/UI/assets/libs/chartist/dist/chartist.min.js "></script>
+            <script src="/UI/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js "></script>
+            <script src="/UI/assets/libs/flot/jquery.flot.js "></script>
+
+            <script src="/UI/dist/js/pages/widget/widget-charts.js "></script>
+
+            <script src="/UI/dist/js/app.min.js "></script>
+
+            <script src="/UI/assets/libs/datatables/media/js/jquery.dataTables.min.js "></script>
+            <script src="/UI/dist/js/pages/datatable/custom-datatable.js "></script>
+            <script src="/UI/dist/js/pages/datatable/datatable-basic.init.js "></script>
+            <script>
+                $(document).ready(function() {
+                    $('#myTable').DataTable();
+                });
+            </script>

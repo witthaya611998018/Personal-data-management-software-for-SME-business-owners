@@ -1,0 +1,340 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">รูปแบบข้อมูลทั้งหมด</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index">หน้าแรก</a></li>
+                            <li class="breadcrumb-item"><a href="/pattern">กำหนดรูปแบบข้อมูล</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">รูปแบบข้อมูลทั้งหมด</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid" id="datatype">
+        <!-- Row -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Row -->
+                        <div class="row pb-3">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-4 justify-content-end align-self-center d-block d-md-flex">
+                                <div class="input-group mb-2">
+                                    <a href="javascript:void(0);" class="btn btn-outline-warning"><i
+                                            data-feather="refresh-cw"></i></a>
+                                    <input type="text" class="form-control" placeholder="ค้นหา.." id="myInput"
+                                        name="search" aria-label="" aria-describedby="button-addon2" value="">
+                                    <!-- <input class=" btn btn-outline-warning" type="button" name="search"
+                                        onclick="myFunction()" value="Search" id="button-addon2"> -->
+                                    <button type="submit" class="btn btn-outline-warning"> Search </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Row -->
+                        <!-- Row -->
+                        <div class="row">
+                            <!-- Column -->
+                            <div class="col-lg-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-md-flex align-items-center">
+                                            <h4 class="card-title">การนำเข้าทั้งหมด</h4>
+                                            <div class="ms-auto">
+                                                <ul class="list-inline">
+                                                    <li class="list-inline-item">
+                                                        <h6 class="text-muted"><i
+                                                                class="fa fa-circle me-1 text-info"></i>2016</h6>
+                                                    </li>
+                                                    <!-- <li class="list-inline-item">
+                                        <h6 class="text-muted"><i class="fa fa-circle me-1 text-info"></i>2020</h6>
+                                    </li> -->
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div id="total-revenue1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Column -->
+                            <!-- Column -->
+                            <div class="col-lg-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-md-flex align-items-center">
+                                            <h4 class="card-title">การใช้งานข้อมูล</h4>
+                                            <div class="ms-auto">
+                                                <ul class="list-inline">
+                                                    <li class="list-inline-item">
+                                                        <h6 class="text-muted"><i
+                                                                class="fa fa-circle me-1 text-info"></i>2016</h6>
+                                                    </li>
+                                                    <!-- <li class="list-inline-item">
+                                        <h6 class="text-muted"><i class="fa fa-circle me-1 text-info"></i>2020</h6>
+                                    </li> -->
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div id="total-revenue2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Column -->
+                            <!-- Column -->
+                            <div class="col-lg-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-md-flex align-items-center">
+                                            <h4 class="card-title">การส่งออกข้อมูล</h4>
+                                            <div class="ms-auto">
+                                                <ul class="list-inline">
+                                                    <li class="list-inline-item">
+                                                        <h6 class="text-muted"><i
+                                                                class="fa fa-circle me-1 text-info"></i>2016</h6>
+                                                    </li>
+                                                    <!-- <li class="list-inline-item">
+                                        <h6 class="text-muted"><i class="fa fa-circle me-1 text-info"></i>2020</h6>
+                                    </li> -->
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div id="total-revenue3"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Row -->
+                        <div class="row">
+                            <!-- Column -->
+                            <div class="col-12">
+                                <span class='h4' style="margin-left: 1%;">การนำเข้าแยกตามอุปกรณ์</span>
+                                <div class="row">
+                                    <div class="col">
+                                    </div>
+                                    <div class="col-md-4 col-lg-2 col-xl-2">
+                                        <div class="card text-center alert-dismissible fade show alert p-0 card-hover"
+                                            role="alert">
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                            <div class="p-2 d-block mt-3">
+                                                <img src="/UI/assets/images/pattern/email-server.jpg" width="75"
+                                                    class="img-fluid" />
+                                                <h5 class="card-title mt-3" data-value="Mail Server">MailServer
+                                                </h5>
+                                                <a class="btn btn-light-info font-weight-medium d-block w-100 text-info px-4"
+                                                    data-bs-toggle="collapse" href="#collapseMailServer" role="button"
+                                                    aria-expanded="false" aria-controls="collapseMailServer">
+                                                    แหล่งกำเนิด &nbsp; <i class="ti-angle-down"></i>
+                                                </a>
+                                            </div>
+                                            <div align='left' class="collapse" id="collapseMailServer">
+                                                <div class="card card-body">
+                                                    <h4>Mail Server</h4>
+                                                    <table>
+                                                        <th style="vertical-align: top;">
+                                                            Spec :
+                                                        </th>
+                                                        <td>
+                                                            Server<br />
+                                                            Windows10<br />
+                                                            MS Exchage Server
+                                                        </td>
+                                                    </table>
+                                                    <h4>Log Raw (Log 0)</h4>
+                                                    <table>
+                                                        <th style="vertical-align: top;">
+                                                            Network :
+                                                        </th>
+                                                        <td>
+                                                            External<br />
+                                                            NAT 192.168.1.34
+                                                        </td>
+                                                    </table><br />
+                                                    <p align="center">
+                                                    <div class="row pb-3">
+                                                        <div class="col-3 col-xl-5">
+                                                            <img src="/UI/assets/images/users/3.jpg" width="75"
+                                                                class="rounded-circle img-fluid" />
+                                                        </div>
+                                                        <div class="col-9 col-xl-7 d-flex align-items-center">
+                                                            <div>
+                                                                <h4 class="card-title mb-1">ผู้ดูแลระบบ</h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-lg-2 col-xl-2">
+                                        <div class="card text-center alert-dismissible fade show alert p-0 card-hover"
+                                            role="alert">
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                            <div class="p-2 d-block mt-3">
+                                                <img src="/UI/assets/images/pattern/agent.png" width="75"
+                                                    class="img-fluid" />
+                                                <h5 class="card-title mt-3" data-value="Agent">Agent
+                                                </h5>
+                                                <a class="btn btn-light-info font-weight-medium d-block w-100 text-info px-4"
+                                                    data-bs-toggle="collapse" href="#collapseAgent" role="button"
+                                                    aria-expanded="false" aria-controls="collapseAgent">
+                                                    การส่งข้อมูล &nbsp; <i class="ti-angle-down"></i>
+                                                </a>
+                                            </div>
+                                            <div align='left' class="collapse" id="collapseAgent">
+                                                <div class="card card-body">
+                                                    <span><h4 class="h_inline">Agent AllTRA 1.0</h4> <h5 class="h_inline">for mail</h5></span>
+                                                    <table>
+                                                        <th class="th_log_raw">
+                                                            Internet : <br/>
+                                                            Username : <br/>
+                                                            Password : <br/>
+                                                        </th>
+                                                        <td align='left'>
+                                                            FTP<br />
+                                                            XJSD***<br />
+                                                            *****
+                                                        </td>
+                                                    </table>
+                                                    <h4>Log Raw (Log 0)</h4>
+                                                    <table>
+                                                        <th class="th_log_raw">
+                                                            Data Hash : <br/>
+                                                            Check Log : <br/>
+                                                        </th>
+                                                        <td>
+                                                            SHA256 <br />
+                                                            0
+                                                        </td>
+                                                    </table>
+                                                    <h5 style="margin-top: 1%;">Policy All day M-F 23.00</h5>
+                                                    <p align="center">
+                                                    <div class="row pb-3">
+                                                        <div class="col-3 col-xl-5">
+                                                            <img src="/UI/assets/images/users/3.jpg" width="75"
+                                                                class="rounded-circle img-fluid" />
+                                                        </div>
+                                                        <div class="col-9 col-xl-7 d-flex align-items-center">
+                                                            <div>
+                                                                <h4 class="card-title mb-1">ผู้ดูแลระบบ</h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-lg-2 col-xl-2">
+                                        <div class="card text-center alert-dismissible fade show alert p-0 card-hover"
+                                            role="alert">
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                            <div class="p-2 d-block mt-3">
+                                                <img src="/UI/assets/images/pattern/firewall.png" width="75"
+                                                    class="img-fluid" />
+                                                <h5 class="card-title mt-3" data-value="Firewall">Firewall
+                                                </h5>
+                                                <a class="btn btn-light-info font-weight-medium d-block w-100 text-info px-4"
+                                                    data-bs-toggle="collapse" href="#collapseFirewall" role="button"
+                                                    aria-expanded="false" aria-controls="collapseFirewall">
+                                                    การบันทึกข้อมูล &nbsp; <i class="ti-angle-down"
+                                                        style="width: 10%;"></i>
+                                                </a>
+                                            </div>
+                                            <div align='left' class="collapse" id="collapseFirewall">
+                                                <div class="card card-body">
+                                                    <h4>AllTRA 1.1.1</h4>
+                                                    <h5>Log Management (Log2)</h5>
+                                                    <table>
+                                                        <td>
+                                                            MySQL Server<br />
+                                                            Drive G:XXXX<br />
+                                                            Data Hash SHA256<br />
+                                                            Check Log 0 = 1
+                                                        </td>
+                                                    </table>
+                                                    <p align="center">
+                                                    <div class="row pb-3">
+                                                        <div class="col-3 col-xl-5">
+                                                            <img src="/UI/assets/images/users/3.jpg" width="75"
+                                                                class="rounded-circle img-fluid" />
+                                                        </div>
+                                                        <div class="col-9 col-xl-7 d-flex align-items-center">
+                                                            <div>
+                                                                <h5 class="card-title mb-1">ผู้ดูแลระบบ</h5>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pb-3" style="margin-left: 10%;">
+                                                        <div class="col-3 col-xl-4">
+                                                            <img src="/UI/assets/images/users/6.jpg" width="75"
+                                                                class="rounded-circle img-fluid" />
+                                                        </div>
+                                                        <div class="col-9 col-xl-8 d-flex align-items-center">
+                                                            <div>
+                                                                <h5 class="card-title mb-1">Monitor</h5>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pb-3" style="margin-left: 10%;">
+                                                        <div class="col-3 col-xl-4">
+                                                            <img src="/UI/assets/images/users/7.jpg" width="75"
+                                                                class="rounded-circle img-fluid" />
+                                                        </div>
+                                                        <div class="col-9 col-xl-8 d-flex align-items-center">
+                                                            <div>
+                                                                <h5 class="card-title mb-1">Watch Dog</h5>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row pb-3" style="margin-left: 10%;">
+                                                        <div class="col-3 col-xl-4">
+                                                            <img src="/UI/assets/images/users/8.jpg" width="75"
+                                                                class="rounded-circle img-fluid" />
+                                                        </div>
+                                                        <div class="col-9 col-xl-8 d-flex align-items-center">
+                                                            <div>
+                                                                <h5 class="card-title mb-1">Data out</h5>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Column -->
+                        </div>
+                        <!-- Row -->
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+            <!-- Row -->
+        </div>
+    </div>
+    <!-- Row -->
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+    <script src="/UI/assets/libs/jquery/dist/jquery.min.js"></script>
+    <!-- <div align = 'center' >
+        <img src='/UI/assets/images/underconstruction1.png' style="width: 60%; ;">
+    </div> -->
+    <%- include('../_footer') -%>

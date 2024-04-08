@@ -1,0 +1,206 @@
+<%- include ("../../_header") %>
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">Cookie Consent Management</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/management/cookies">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item"><a href="/consent/management/cookie">Consent Management</a></li>
+                            <li class="breadcrumb-item">Cookie Consent Management</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-7 justify-content-end align-self-center d-none d-md-flex">
+                <a href="/consent/management/cookie" class="btn btn-secondary ">ย้อนกลับ</a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="border-bottom title-part-padding">
+                <h4 class="card-title mb-0">Cookie Consent</h4>
+            </div>
+            <div class="card-body">
+                <div class="mb-3 row">
+                    <div class="col-md-5 text-end control-label col-form-label">
+                        <label for="domainname">ชื่อโดเมน</label>
+                    </div>
+                    <div class="col-md-6 control-label col-form-label">
+                        <label for="domainname">
+                            <%=pdpa_log_setting_cookiepolicy[0].namedomain_dg%>
+                        </label>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <div class="col-md-5 text-end control-label col-form-label">
+                        <label for="domainname">ขื่อคุกกี้</label>
+                    </div>
+                    <div class="col-md-6 control-label col-form-label">
+                        <label for="domainname">
+                            <%=pdpa_log_setting_cookiepolicy[0].name_cookie%>
+                        </label>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <div class="col-md-5 text-end control-label col-form-label">
+                        <label for="domainname">หมายเหตุ</label>
+                    </div>
+                    <div class="col-md-6 control-label col-form-label">
+                        <label for="domainname">
+                            <%=pdpa_log_setting_cookiepolicy[0].message%>
+                        </label>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <div class="col-md-5 text-end control-label col-form-label">
+                        <label for="domainname">สถานะ</label>
+                    </div>
+                    <div class="col-md-6 control-label col-form-label">
+                        <label for="domainname" style="color: #39c449;">
+                            <%=pdpa_log_setting_cookiepolicy[0].status_name%>
+                        </label>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <div class="col-md-5 text-end control-label col-form-label">
+                        <label for="domainname">ไอพีแอดเดรส</label>
+                    </div>
+                    <div class="col-md-6 control-label col-form-label">
+                        <label for="domainname">
+                            <%=pdpa_log_setting_cookiepolicy[0].policylog_ip%>
+                        </label>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <div class="col-md-5 text-end control-label col-form-label">
+                        <label for="domainname">เบราว์เซอร์</label>
+                    </div>
+                    <div class="col-md-6 control-label col-form-label">
+                        <label for="domainname">
+                            <%=pdpa_log_setting_cookiepolicy[0].policylog_browser%>
+                        </label>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <div class="col-md-5 text-end control-label col-form-label">
+                        <label for="domainname">เซสชั่นไอดี</label>
+                    </div>
+                    <div class="col-md-6 control-label col-form-label">
+                        <label for="domainname">
+                            <%=pdpa_log_setting_cookiepolicy[0].policylog_sessionid%>
+                        </label>
+                    </div>
+                </div>
+                <hr>
+                <form action="/consent/management/cookie/save" method="post">
+                    <input type="hidden" name="id_lsc" value="<%=pdpa_log_setting_cookiepolicy[0].id_lsc%>">
+                    <input type="hidden" name="domaingroup_id"
+                        value="<%=pdpa_log_setting_cookiepolicy[0].domaingroup_id%>">
+                    <% for(var i=0;i< cookiepolicy.length;i++) {%>
+                        <div class="card-body" style="padding: 0.25rem;">
+                            <div class="row">
+                                <div class="col-2">
+                                    <p class="text-center">
+                                        <b>
+                                            <%=cookiepolicy[i].name_cookietype%>
+                                        </b>
+                                    </p>
+                                </div>
+                                <div class="col-8">
+                                    <p class="form-control" id="content_preview_<%=cookiepolicy[i].id_dsc%>"
+                                        style="width: 100%;height: 100px;">
+                                        <%=cookiepolicy[i].detail_cookie%>
+                                    </p>
+                                </div>
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input check_class enable_disable"
+                                                    name="approve_cp" value="<%=cookiepolicy[i].id_dsc%>"
+                                                    id="active_preview_<%=cookiepolicy[i].id_dsc%>" type="checkbox"
+                                                    onclick="activeCheck_preview('<%=cookiepolicy[i].id_dsc%>')"
+                                                    <%if(cookiepolicy_check[i]==1){%>checked
+                                                <%}%>>
+                                                    <label class="form-check-label check_label "
+                                                        id="label_preview_<%=cookiepolicy[i].id_dsc%>"><b>
+                                                            <%if(cookiepolicy_check[i]==1){%>
+                                                                Consent<%}else{%><b style="color: red;">Unconsent</b>
+                                                                    <%}%>
+                                                        </b></label>
+                                                    <input type="hidden" name="cookiepolicy"
+                                                        value="<%=cookiepolicy[i].id_dsc%>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <%}%>
+                            <div class="mt-4" style="text-align: center;">
+                                <button type="submit" class="btn btn-success">บันทึก</button>
+                            </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <style>
+        #banner {
+            width: 100%;
+            border: 1.5px solid black;
+            box-sizing: border-box;
+        }
+
+        #check_default {
+            opacity: .65;
+            pointer-events: none;
+            box-shadow: none;
+        }
+    </style>
+    <script>
+        function activeCheck_preview(id) { // ส่วนของ preview 
+            if ($('#active_preview_' + id).prop("checked") == true) {
+                // $('#active_preview_' + id).val(1);
+                $('#active_' + id).val(id);
+                $('#label_preview_' + id).text("Consent");
+                $('#label_preview_' + id).attr('style', 'color:black');
+                $('#active_' + id).prop("checked", true)
+                $('#label_' + id).text("Consent");
+                $('#label_' + id).attr('style', 'color:black');
+            } else {
+                // $('#active_preview_' + id).val(0);
+                $('#active_' + id).val(id);
+                $('#label_preview_' + id).text("Unconsent");
+                $('#label_preview_' + id).attr('style', 'color:red');
+                $('#label_' + id).text("Unconsent");
+                $('#label_' + id).attr('style', 'color:red');
+                $('#active_' + id).prop("checked", false);
+            }
+        }
+        var tesxs = 11111
+
+        // const numsArr = Array.from(String(tesxs), Number);
+        // console.log("numsArr", length.search("1"));
+
+        // console.log( (!(tesxs.toString().search("1") > -1)) && (!(tesxs.toString().search("0") > -1)) );
+
+        // console.log(((tesxs.split("1").length - 1) == tesxs.length) || ((tesxs.split("0").length - 1) == tesxs.length));
+        console.log(((tesxs.toString().split("1").length - 1) == tesxs.length) || ((tesxs.toString().split("0").length - 1) == tesxs.length));
+
+        if (((tesxs.toString().split("1").length - 1) == tesxs.length) || ((tesxs.toString().split("0").length - 1) == tesxs.length)) {
+            if (tesxs.toString().search("1") > -1) {
+                console.log("1");
+            } else {
+                console.log("0");
+            }
+        } else {
+            console.log("ผสม");
+        }
+
+
+    </script>
+    <%- include ("../../_footer") %>

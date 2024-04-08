@@ -1,0 +1,179 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">การสำรองฐานข้อมูล</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">การสำรองฐานข้อมูล</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-7 justify-content-end align-self-center d-none d-md-flex">
+                <div class="d-flex">
+                    <div class="dropdown me-2">
+                        <form action="/access_history/search" method="post">
+                            <div class="input-group mb-3">
+                                <input class="form-control" type="datetime-local" name="date1" required>
+                                <span class="input-group-text" id="basic-addon1">ถึง</span>
+                                <input class="form-control" type="datetime-local" name="date2" required>
+                                <button class="btn btn-outline-warning" type="submit"><i
+                                        class="fas fa-search"></i></button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-12">
+                <div class="card">
+
+                    <div class="row">
+
+                        <div class="card-body" style="min-height: 650px;">
+                            <div class="row ">
+                                <div class="col-8">
+                                    <h4 class="card-title mb-0 ">ประวัติการสำรองฐานข้อมูล</h4>
+                                </div>
+                                <div class="col-2">
+                                    <button class="btn btn-outline-warning text-end" type="submit"
+                                        onclick="backupdb()"><i class="fas fa-search"></i>สำรองฐานข้อมูล</button>
+                                </div>
+                                <div class="col-2">
+                                    <button class="btn btn-outline-warning text-end" type="submit"
+                                        onclick="backupconf()"><i class="fas fa-search"></i>สำรองการตั้งค่า</button>
+                                </div>
+                                <div class="card-body " style="min-height: 650px;">
+                                    <table class="tablesaw no-wrap table-striped table-bordered table-hover table "
+                                        id="myTable">
+                                        <thead>
+                                            <tr>
+
+                                                <th>ลำดับ</th>
+                                                <th>วัน เวลา</th>
+                                                <th>ชื่อไฟล์</th>
+                                                <th>ดาวน์โหลด</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% if (data){ for (var i=0; i < data.length; i++) { %>
+                                                <tr>
+                                                    <td class="title align-top ">
+                                                        <%= (i+1) %>
+                                                    </td>
+                                                    <td class="align-top ">
+                                                        <%=data[i].date%>
+                                                    </td>
+                                                    <td class="align-top ">
+                                                        <%=data[i].file_name%>
+                                                    </td>
+                                                    <td class="align-top">
+                                                        <a href="/backup/download/<%=data[i].file_name %>">ดาวน์โหลด</a>
+                                                    </td>
+
+                                                </tr>
+                                                <% }}%>
+                                                    <% if (data.length==0){%>
+                                                        <tr>
+                                                            <td class="title align-top "
+                                                                style="text-align: center; color: rgb(228, 20, 20); "
+                                                                colspan="5 ">
+                                                                ไม่พบข้อมูล
+                                                            </td>
+                                                        </tr>
+                                                        <%}%>
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Row -->
+
+
+        <!-- -------------------------------------------------------------- -->
+        <!-- End PAge Content -->
+        <!-- -------------------------------------------------------------- -->
+        <!--start overlay-->
+        <%- include('../_footer') -%>
+            <script src="/UI/assets/libs/datatables/media/js/jquery.dataTables.min.js "></script>
+            <script src="/UI/dist/js/pages/datatable/custom-datatable.js "></script>
+            <script src="/UI/dist/js/pages/datatable/datatable-basic.init.js "></script>
+            <script src="/UI/assets/libs/apexcharts/dist/apexcharts.min.js "></script>
+
+            <script src="/UI/assets/libs/chartist/dist/chartist.min.js "></script>
+            <script src="/UI/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js "></script>
+            <script src="/UI/assets/libs/flot/jquery.flot.js "></script>
+
+            <script src="/UI/dist/js/pages/widget/widget-charts.js "></script>
+
+            <script src="/UI/dist/js/app.min.js "></script>
+
+            <script src="/UI/assets/libs/datatables/media/js/jquery.dataTables.min.js "></script>
+            <script src="/UI/dist/js/pages/datatable/custom-datatable.js "></script>
+            <script src="/UI/dist/js/pages/datatable/datatable-basic.init.js "></script>
+            <script>
+                $(document).ready(function () {
+                    $('#myTable').DataTable();
+                });
+            </script>
+            <script>
+                function backupdb() {
+                    var result = 'backup database'
+                    var request2 = function () {
+                        $.ajax({
+                            url: "/ajaxbackup",
+                            type: "post",
+                            data: {
+                                types: "backup database"
+                            },
+                            success: function (data) {
+                                var result = data.data;
+
+                            }
+
+                        });
+                        alert("สำรองข้อมูลเรียบร้อย เมื่อสำเร็จเราจะแจ้งผ่านทางอีเมล");
+                        setInterval('location.reload()', 200);
+                    }
+                    request2();
+
+                };
+            </script>
+             <script>
+                function backupconf() {
+                    var result = 'backup database'
+                    var request2 = function () {
+                        $.ajax({
+                            url: "/ajaxbackup",
+                            type: "post",
+                            data: {
+                                types: "backup config"
+                            },
+                            success: function (data) {
+                                var result = data.data;
+
+                            }
+
+                        });
+                        alert("สำรองการตั้งค่าเรียบร้อย เมื่อสำเร็จเราจะแจ้งผ่านทางอีเมล");
+                        setInterval('location.reload()', 200);
+                    }
+                    request2();
+
+                };
+            </script>

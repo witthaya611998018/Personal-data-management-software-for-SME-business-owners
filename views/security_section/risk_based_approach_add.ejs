@@ -1,0 +1,527 @@
+<%- include ("../_header") %>
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-10 align-self-center">
+                <h3 class="page-title">เพิ่มมาตรการรักษาความปลอดภัย</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/<%=process.env.SUBFOLDER%>index2">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item">
+                                <a href="/<%=process.env.SUBFOLDER%>security/section/Risk-based-Approach">
+                                    มาตรการที่ต้องสามารถระบุความเสี่ยงที่สำคัญที่อาจจะเกิด (Risk-based Approach)
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">เพิ่มมาตรการรักษาความปลอดภัย </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-2 d-flex justify-content-end align-items-center">
+                <a href="/<%=process.env.SUBFOLDER%>security/section/Risk-based-Approach" class="btn btn-secondary">ย้อนกลับ</a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="border-bottom title-part-padding">
+                <h4 class="card-title mb-0">เพิ่มมาตรการรักษาความปลอดภัย</h4>
+            </div>
+            <div class="card-body">
+                <form action="/<%=process.env.SUBFOLDER%>General-Measures/save" method="post">
+                    <div class="row mb-2">
+                        <div class="col-md-3  justify-content-end align-items-center d-flex ">
+                            ชื่อทรัพย์สินสารสนเทศ
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <select name="assets_id" class="form-control" id="select_assets">
+                            </select>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center ">
+                            <a href="#Add-assets" data-bs-toggle="modal">เพิ่มทรัพย์สินสารสนเทศ</a>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3  justify-content-end align-items-center d-flex ">
+                            หัวเรื่องมาตรการที่ต้องสามารถระบุความเสี่ยงที่สำคัญที่อาจจะเกิด
+                            (Risk-based Approach)
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <select name="approach_heading_risk_based" id="head_approach" class="form-control">
+                                <option value="1">
+                                    มาตรการรักษาความมั่นคงปลอดภัยเกี่ยวกับทรัพย์สินสารสนเทศ (Information assets)
+                                </option>
+                                <option value="2">
+                                    มาตรการรักษาความมั่นคงปลอดภัยส่วนประกอบต่าง ๆ (Network and Equipment )
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3 d-flex justify-content-end">
+                            ชื่อมาตราการ
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <input type="text" name="measures_section_name" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3 d-flex justify-content-end">
+                            คำอธิบาย / รายละเอียด
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <textarea name="measures_detail" id="" cols="65" rows="8" class="form-control"
+                                required></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3 d-flex justify-content-end align-content-center">
+                            เอกสารPDPA
+                        </div>
+                        <div class="col-md-6 d-flex align-content-center">
+                            <div class="input-group">
+                                <select name="doc_id" class="select2 form-control" multiple="multiple"
+                                    style="height: 36px;width: 100%;" id="selecte_type_policy">
+                                </select>
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-2 d-flex align-items-center ">
+                            <a href="/<%=process.env.SUBFOLDER%>index" target="_blank">เพิ่มเอกสาร PDPA</a>
+                        </div> -->
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3 d-flex justify-content-end">
+                            ระยะเวลาทบทวนมาตรการ
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <div class="input-group">
+                                <input type="date" name="measures_date" class="form-control" required>
+                                <input type="number" name="measures_date_count" class="form-control" required
+                                    placeholder="กรุณาป้อนจำนวนระยะเวลา...">
+                                <span class="input-group-text">วัน</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="Defense_Depth_div">
+                        <div class="row mb-2">
+                            <div class="col-md-3 d-flex justify-content-end align-items-center">
+                                <label style="font-size: 13px;text-align: right;">
+                                    <font class="font-16">
+                                        ความลับ (confidentiality)
+                                    </font>
+                                    <br>
+                                    การควบคุมการเข้าถึงข้อมูลเฉพาะผู้ที่ได้รับอนุญาติเครื่องมือสำคัญ ได้แก่ นโยบายกำหนดชั้นข้อมูล (classification policy) เพื่อกำหนดประเภทของข้อมูลและประเภทของบุคคลที่จะเข้าถึง
+                                </label>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center justify-content-between">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input success check-outline outline-success" type="radio"
+                                        name="approach_confidentiality" id="warning-outline-radio" value="1" checked="">
+                                    <label class="form-check-label" for="warning-outline-radio">มี</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                        name="approach_confidentiality" id="warning2-outline-radio" value="0">
+                                    <label class="form-check-label" for="warning2-outline-radio">ไม่มี</label>
+                                </div>
+                                <label>
+                                    อธิบาย
+                                </label>
+                            </div>
+                            <div class="col-md-5 d-flex justify-content-center align-items-center ">
+                                <textarea name="approach_confidentiality_explain" id="" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-3 d-flex justify-content-end align-items-center">
+                                <label style="font-size: 13px;text-align: right;">
+                                    <font class="font-16">
+                                        ความถูกต้องครบถ้วน (integrity)
+                                    </font>
+                                    <br>
+                                    การควบคุมการแก้ไขข้อมูลโดยเครื่องมือสำคัญ ได้แก่ นโยบายแบ่งแยกหน้าที่ (separationof duty) ให้มีผู้ปฏิบัติงานถ่วงดุลตรวจสอบกัน
+                                </label>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center justify-content-between">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input success check-outline outline-success" type="radio"
+                                        id="success-outline-radio-5" name="approach_integrity" value="1" checked="">
+                                    <label class="form-check-label" for="success-outline-radio-5">มี</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                        id="danger2-outline-radio" name="approach_integrity" value="0">
+                                    <label class="form-check-label" for="danger2-outline-radio">ไม่มี</label>
+                                </div>
+                                <label>
+                                    อธิบาย
+                                </label>
+                            </div>
+                            <div class="col-md-5 d-flex justify-content-center align-items-center ">
+                                <textarea name="approach_integrity_explain" id="" class="form-control"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-md-3 d-flex justify-content-end align-items-center">
+                                <label style="font-size: 13px;text-align: right;">
+                                    <font class="font-16">
+                                        สภาพพร้อมใช้งาน (availability)
+                                    </font>
+                                    <br>
+                                    การควบคุมการหยุดชะงักของระบบให้ใช้งานได้อย่างต่อเนื่องโดยเครื่องมือสำคัญ ได้แก่ แผนฉุกเฉิน (contingencyplanning)
+
+                                </label>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center justify-content-between">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input success check-outline outline-success" type="radio"
+                                        name="approach_availability" id="primary-outline-radio" value="1" checked="">
+                                    <label class="form-check-label" for="primary-outline-radio">มี</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                        name="approach_availability" id="primary2-outline-radio" value="0">
+                                    <label class="form-check-label" for="primary2-outline-radio">ไม่มี</label>
+                                </div>
+                                <label>
+                                    อธิบาย
+                                </label>
+                            </div>
+                            <div class="col-md-5 d-flex justify-content-center align-items-center ">
+                                <textarea name="approach_availability_explain" id="" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="Measure_Depth_Div" style="display: none;">
+                        <div class="row mb-2">
+                            <div class="col-md-3 d-flex justify-content-end align-items-center">
+                                <label style="text-align: right;">
+                                    หลักการป้องกันเชิงลึก (defense in depth)
+                                </label>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center justify-content-between">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input success check-outline outline-success" type="radio"
+                                        id="success-outline-radio" onchange="show_h(this.value)" name="approach_defense_principles" value="1"
+                                        checked="">
+                                    <label class="form-check-label" for="success-outline-radio">มี</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                        id="success2-outline-radio" onchange="show_h(this.value)" name="approach_defense_principles" value="0">
+                                    <label class="form-check-label" for="success2-outline-radio">ไม่มี</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-2" id="depth_id_defense_show">
+                            <div class="col-md-3 d-flex justify-content-end align-items-center">
+                                <label style="text-align: right;">
+                                    หลักการป้องกันเชิงลึก
+                                </label>
+                            </div>
+                            <div class="col-md-5 d-flex align-items-center justify-content-between">
+                                <select name="depth_id_defense" class="select2 form-control" multiple="multiple"
+                                    style="height: 36px;width: 100%;" id="Defense-Depth">
+                                </select>
+
+                            </div>
+                            <div class="col-md-3 d-flex align-items-center justify-content-between">
+                                <label for="">เลือกชั้น (เพิ่มได้หลายชั้น) </label>
+                                <a href="#level-up" data-bs-toggle="modal"> เพิ่มหลักการป้องกัน</a>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-3 d-flex justify-content-end align-items-center">
+                                <label style="text-align: right;">
+                                    อธิบาย
+                                </label>
+                            </div>
+                            <div class="col-md-5 d-flex align-items-center">
+                                <textarea name="approach_defense_principles_explain" class="form-control"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-md-3 d-flex justify-content-end align-items-center">
+                                <label style="text-align: right;">
+                                    มาตรการป้องกันหลายชั้น
+                                </label>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center justify-content-between">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input success check-outline outline-success" type="radio"
+                                        id="defense-in-depth" onchange="show_h_2(this.value)" name="approach_defense_protection" checked="" value="1">
+                                    <label class="form-check-label" for="defense-in-depth">มี</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input danger check-outline outline-danger" type="radio"
+                                        id="defense2-in-depth" onchange="show_h_2(this.value)" name="approach_defense_protection" value="0">
+                                    <label class="form-check-label" for="defense2-in-depth">ไม่มี</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2" id="depth_id_measures_show">
+                            <div class="col-md-3 d-flex justify-content-end align-items-center">
+                                <label style="text-align: right;">
+                                    เลือกมาตรการป้องกันเชิงลึก
+                                </label>
+                            </div>
+                            <div class="col-md-5 d-flex align-items-center justify-content-between">
+                                <select name="depth_id_measures" class="select2 form-control" multiple="multiple"
+                                    style="height: 36px;width: 100%;" id="Measure_Depth">
+                                </select>
+                            </div>
+                            <div class="col-md-3 d-flex align-items-center justify-content-between">
+                                <label for="">วิธีการป้องกัน (เพิ่มได้หลายวิธี)</label>
+                                <a href="#Add-measure" data-bs-toggle="modal">เพิ่มมาตรการป้องกัน</a>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-md-3 d-flex justify-content-end align-items-center">
+                                <label style="text-align: right;">
+                                    อธิบาย
+                                </label>
+                            </div>
+                            <div class="col-md-5 d-flex align-items-center">
+                                <textarea name="approach_defense_protection_explain" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-3 d-flex justify-content-end align-items-center">
+                            ผู้ดูแลข้อมูลหรือผู้ดูแลระบบหรือผู้ควบคุมมาตรการ
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <select class="select2 form-control" multiple="multiple" name="measures_supervisor" style="height: 36px;width: 100%;" required>
+
+                                <%if(account){for (var i=0; i < account.length; i++) {%>
+
+                                    <option value="<%=account[i].acc_id%>">
+                                        <%=account[i].firstname%>
+                                            <%=account[i].lastname%>
+                                    </option>
+                                    <%}}%>
+                            </select>
+                        </div>
+                        
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3 d-flex justify-content-end align-items-center">
+                            
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <p id="acc"></p>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="justify-content: center;">
+                        <div class="">
+                            <button type="submit" class="btn btn-success me-2">บันทึก</button>
+                            <a href="/<%=process.env.SUBFOLDER%>security/section/Risk-based-Approach" class="btn btn-secondary">ย้อนกลับ</a>
+                        </div>
+                        <input value="0" type="hidden" name="measures_consult">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="level-up" class="modal fade" tabindex="-1" aria-labelledby="info-header-modalLabel" aria-modal="true"
+        role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h4 class="modal-title" id="info-header-modalLabel">
+                        เพิ่มระดับชั้น
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/<%=process.env.SUBFOLDER%>Risk-based-Approach/add" method="POST">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4 d-flex justify-content-start">
+                                หลักการป้องกันเชิงลึก
+                            </div>
+                            <div class="col-md-8 d-flex justify-content-center">
+                                <input type="text" name="depth_type_level_up" id="" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-success font-weight-medium">ยืนยัน</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="Add-measure" class="modal fade" tabindex="-1" aria-labelledby="info-header-modalLabel" aria-modal="true"
+        role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h4 class="modal-title" id="info-header-modalLabel">
+                        เพิ่มมาตรการป้องกัน
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/<%=process.env.SUBFOLDER%>Risk-based-Approach/add" method="POST">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4 d-flex justify-content-start">
+                                มาตรการป้องกันเชิงลึก
+                            </div>
+                            <div class="col-md-8 d-flex justify-content-center">
+                                <input type="text" name="depth_type_measures" id="" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-success font-weight-medium">ยืนยัน</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="Add-assets" class="modal fade" tabindex="-1" aria-labelledby="info-header-modalLabel" aria-modal="true"
+        role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h4 class="modal-title" id="info-header-modalLabel">
+                        เพิ่มทรัพย์สินสารสนเทศ
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/<%=process.env.SUBFOLDER%>Information/assets/save" method="POST">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4 d-flex justify-content-start">
+                                ทรัพย์สินสารสนเทศ
+                            </div>
+                            <div class="col-md-8 d-flex justify-content-center">
+                                <input type="text" name="assets_name" id="" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-success font-weight-medium">ยืนยัน</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="/UI/assets/libs/select2/dist/js/select2.full.min.js"></script>
+    <script src="/UI/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="/UI/dist/js/pages/forms/select2/select2.init.js"></script>
+
+
+    <script>
+        function get_data() {
+            $.ajax({
+                type: 'GET',
+                url: `/api/measures/doc/list`,
+                success: async function (result) {
+
+                    let measures = result.measures
+                    let doc = result.doc
+                    let depth = result.depth
+                    let assets = result.assets
+
+
+                    let Defense_Depth = ``
+                    let Measure_Depth = ``
+                    let selecte_type_policy = ``
+                    let select_assets = `<option selected>เลือก...</option>`
+
+
+
+                    if (doc == 'ไม่มีข้อมูล') {
+                        selecte_type_policy = `<option value="">ไม่มีเอกสารที่เปิดใช้งาน</option>`
+                    } else {
+                        doc.forEach(element => {
+                            selecte_type_policy += `
+                        <option value="${element.doc_id}">${element.doc_name}</option>
+                        `
+                        });
+                    }
+
+                    if (assets == 'ไม่มีข้อมูล') {
+                        select_assets = `<option value="">ไม่มีทรัพย์สินสารสนเทศ</option>`
+                    } else {
+                        assets.forEach(element => {
+                            select_assets += `
+                        <option value="${element.assets_id}">${element.assets_name}</option>
+                        `
+                        });
+                    }
+
+                    depth.forEach(element => {
+                        if (element.depth_type == 1) {
+                            Defense_Depth += `
+                        <option value="${element.depth_id}">${element.depth_name}</option>
+                        `
+                        } else if (element.depth_type == 2) {
+                            Measure_Depth += `
+                        <option value="${element.depth_id}">${element.depth_name}</option>
+                        `
+                        }
+                    });
+
+                    document.getElementById('Defense-Depth').innerHTML = Defense_Depth
+                    document.getElementById('Measure_Depth').innerHTML = Measure_Depth
+                    document.getElementById('selecte_type_policy').innerHTML = selecte_type_policy
+                    document.getElementById('select_assets').innerHTML = select_assets
+
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+        }
+        get_data()
+        $('#head_approach').on('change', async function () {
+            let Defense_Depth_div = document.getElementById("Defense_Depth_div")
+            let Measure_Depth_Div = document.getElementById("Measure_Depth_Div")
+            if ($(this).val() == '1') {
+                Defense_Depth_div.style.display = ""
+                Measure_Depth_Div.style.display = "none"
+                console.log(Defense_Depth_div);
+            } else {
+                Defense_Depth_div.style.display = "none"
+                Measure_Depth_Div.style.display = ""
+                Measure_Depth_Div.getElementsByTagName('select')[0].required = false
+                Measure_Depth_Div.getElementsByTagName('select')[1].required = false
+            }
+        })
+        
+        function show_h(data) {
+            if (data == 1) {
+                document.getElementById('depth_id_defense_show').style.display = '';
+            }else{
+                document.getElementById('depth_id_defense_show').style.display = 'none';
+            }
+            
+        }
+        function show_h_2(data) {
+            if (data == 1) {
+                document.getElementById('depth_id_measures_show').style.display = '';
+            }else{
+                document.getElementById('depth_id_measures_show').style.display = 'none';
+            }
+            
+        }
+
+    </script>
+    <%- include ("../_footer") %>

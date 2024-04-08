@@ -1,0 +1,100 @@
+<%- include ("../../_header") %>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">เเชร์</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/management/cookies">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item"><a href="/appeal">รับเรื่องร้องเรียน</a></li>
+                            <li class="breadcrumb-item"><a href="/appeal/add">เพิ่มเรื่องร้องเรียน</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">เเชร์</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-7 justify-content-end align-self-center d-none d-md-flex">
+                <div class="d-flex">
+                    <div class="dropdown me-2">
+                        <a href="/appeal/add" class="btn btn-dark">กลับ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <%- JSON.stringify(personal_data) %> -->
+    <div class="container-fluid">
+        <div class="card">
+            <div class="border-bottom title-part-padding">
+                <h4 class="card-title mb-0">เขียน e-mail</h4>
+            </div>
+            <div class="card-body">
+                <div class="card-body">
+                    <form action="/send-email" enctype="multipart/form-data" method="post">
+                        <div class="mb-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                                    value="option1" checked>
+                                <label class="form-check-label" for="exampleRadios1">
+                                    email
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                                    value="option2">
+                                <label class="form-check-label" for="exampleRadios2">
+                                    email csv
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col-md-6">
+                                <input type="email" id="email" name="email_to" class="form-control border-info"
+                                    placeholder="email">
+                            </div>
+                            <div class="col-md-1 align-self-center">
+                                <h5>email csv</h5>
+                            </div>
+                            <div class="col-md-5">
+                                <input class="form-control border-info" type="file" id="formFile" name="email_file_csv"
+                                    multiple="multiple" accept=".csv">
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col-md-6">
+                                <textarea name="email_subject" class="form-control border-info" style="width: 100%;"
+                                    placeholder="หัวข้อ"></textarea>
+                            </div>
+                            <div class="col-md-1 align-self-center">
+                                <h5>ไฟล์แนบ</h5>
+                            </div>
+                            <div class="col-md-5">
+                                <input class="form-control border-info" type="file" id="formFile" name="email_file"
+                                    multiple="multiple">
+                            </div>
+                        </div>
+                        <div>
+                            <h4>เขียนข้อความ</h4>
+                            <div>
+                                <textarea name="email_content" id="message" class="form-control border-info text-left"
+                                    style="width: 100%;height: 350px;text-align: left;">
+                                        ข้อมูลส่วนบุคคล: <%= personal_data[0].personal %>
+                                        เอกสาร:  <%= personal_data[0].document %>
+                                        วันเริ่มเก็บ:<%= personal_data[0].start_date %>
+                                        เสร็จสิ้น:<%= personal_data[0].end_date %>
+                                        consent:<%= personal_data[0].consent %>
+                                   </textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="justify-content: center;">
+                            <button type="submit" class="btn btn-success"><i
+                                    class="far fa-envelope me-1"></i>ส่ง</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ทิ้ง</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include ("../../_footer") %>

@@ -1,0 +1,10 @@
+<%
+        function contains(target){
+            var pattern = ['.gif','.png', '.jpg','.jpeg','.webp'];
+            var value = 0;
+            pattern.forEach(function(word){
+              value = value + target.includes(word);
+            });
+            return (value === 1)
+        }
+%>

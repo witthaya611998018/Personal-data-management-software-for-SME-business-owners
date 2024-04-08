@@ -1,0 +1,193 @@
+<%- include ("../_header") %>
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-10 align-self-center">
+                <h3 class="page-title">เพิ่มมาตรการรักษาความปลอดภัย</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/<%=process.env.SUBFOLDER%>index2">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item">
+                                <a href="/<%=process.env.SUBFOLDER%>security/section/General-Measures">มาตรการรักษาความมั่นคงปลอดภัยโดยทั่วไป
+                                    (General Measures)</a>
+                            </li>
+                            <li class="breadcrumb-item">เพิ่มมาตรการรักษาความปลอดภัย </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-2 d-flex justify-content-end align-items-center">
+                <a href="/<%=process.env.SUBFOLDER%>security/section/General-Measures"
+                    class="btn btn-secondary">ย้อนกลับ</a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="border-bottom title-part-padding">
+                <h4 class="card-title mb-0">เพิ่มมาตรการรักษาความปลอดภัย</h4>
+            </div>
+            <div class="card-body">
+                <form action="/<%=process.env.SUBFOLDER%>General-Measures/save" method="post">
+                    <div class="row mb-2">
+                        <div class="col-md-3  justify-content-end align-items-center d-flex ">
+                            หัวเรื่อง มาตรการรักษาความมั่นคงปลอดภัยโดยทั่วไป (General Measures)
+                            <!-- ชื่อมาตรการ -->
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <select name="measures_type_id" id="measure_type" class="form-control">
+                            </select>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center ">
+                            <a href="#add-title" data-bs-toggle="modal">เพิ่มหัวเรื่อง</a>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3 d-flex justify-content-end">
+                            ชื่อมาตราการ
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <input type="text" name="measures_section_name" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3 d-flex justify-content-end">
+                            คำอธิบาย / รายละเอียด
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <textarea name="measures_detail" id="" cols="65" rows="8" class="form-control"
+                                required></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3 d-flex justify-content-end align-content-center">
+                            เอกสารPDPA
+                        </div>
+                        <div class="col-md-6 d-md-flex align-content-center">
+                            <div class="input-group">
+                                <select name="doc_id" class="select2 form-control" multiple="multiple"
+                                    style="height: 36px;width: 100%;" id="selecte_type_policy">
+                                </select>
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-2 d-flex align-items-center ">
+                            <a href="/<%=process.env.SUBFOLDER%>index" target="_blank">เพิ่มเอกสาร PDPA</a>
+                        </div> -->
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3 d-flex justify-content-end">
+                            ระยะเวลาทบทวนมาตรการ
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <div class="input-group">
+                                <input type="date" name="measures_date" class="form-control" required>
+                                <input type="number" name="measures_date_count" class="form-control" required
+                                    placeholder="กรุณาป้อนจำนวนระยะเวลา...">
+                                <span class="input-group-text">วัน</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-3 d-flex justify-content-end align-items-center">
+                            ผู้ดูแลข้อมูลหรือผู้ดูแลระบบหรือผู้ควบคุมมาตรการ
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <select class="select2 form-control" multiple="multiple" name="measures_supervisor"
+                                style="height: 36px;width: 100%;" required>
+                                <%if(account){for (var i=0; i < account.length; i++) {%>
+                                    <option value="<%=account[i].acc_id%>">
+                                        <%=account[i].firstname%>
+                                            <%=account[i].lastname%>
+                                    </option>
+                                    <%}}%>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="justify-content: center;">
+                        <div class="">
+                            <button type="submit" class="btn btn-success me-2">บันทึก</button>
+                            <a href="/<%=process.env.SUBFOLDER%>security/section/General-Measures"
+                                class="btn btn-secondary">ยกเลิก</a>
+                        </div>
+                        <input value="0" type="hidden" name="measures_consult">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="add-title" class="modal fade show" tabindex="-1" aria-labelledby="info-header-modalLabel" aria-modal="true"
+        role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h4 class="modal-title" id="info-header-modalLabel">
+                        เพิ่มหัวเรื่อง
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/<%=process.env.SUBFOLDER%>General-Measures/add_title" method="POST">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4 d-flex justify-content-end">
+                                ชื่อมาตราการ
+                            </div>
+                            <div class="col-md-8 d-flex justify-content-center">
+                                <input type="text" name="measure_type" id="" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-success font-weight-medium">ยืนยัน</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="/UI/assets/libs/select2/dist/js/select2.full.min.js"></script>
+    <script src="/UI/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="/UI/dist/js/pages/forms/select2/select2.init.js"></script>
+
+    <script>
+        function get_data() {
+            $.ajax({
+                type: 'GET',
+                url: `/api/measures/doc/list`,
+                success: async function (result) {
+
+                    let measures = result.measures
+                    let doc = result.doc
+
+                    let measure_type = ""
+                    let selecte_type_policy = ``
+                    if (measures == "ไม่มีข้อมูล") {
+                        measure_type = `<option value="">ไม่มีมาตรการ</option>`
+                    } else {
+                        measures.forEach(element => {
+                            measure_type += `
+                        <option value="${element.measures_type_id}">${element.measures_type}</option>
+                        `
+                        });
+                    }
+
+                    if (doc == 'ไม่มีข้อมูล') {
+                        selecte_type_policy = `<option value="">ไม่มีเอกสารที่เปิดใช้งาน</option>`
+                    } else {
+                        doc.forEach(element => {
+                            selecte_type_policy += `
+                        <option value="${element.doc_id}">${element.doc_name}</option>
+                        `
+                        });
+                    }
+                    document.getElementById('measure_type').innerHTML = measure_type
+                    document.getElementById('selecte_type_policy').innerHTML = selecte_type_policy
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+        }
+        get_data()
+    </script>
+    <%- include ("../_footer") %>

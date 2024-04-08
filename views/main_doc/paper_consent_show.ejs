@@ -1,0 +1,417 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-6 align-self-center">
+                <h3 class="page-title">เอกสารขอความยินยอมทางอิเล็กทรอนิกส์ (Paper Consent)</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item">เอกสารขอความยินยอมทางอิเล็กทรอนิกส์ (Paper Consent)</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="tab-content">
+            <div id="note-full-container" class="note-has-grid row">
+                <input id="doc_type" value="<%= JSON.stringify(doc_type) %>" readonly hidden />
+                <input id="doc_i" value="<%=doc_i%>" readonly hidden />
+                <input id='doc_n' value="<%=doc_n%>" readonly hidden />
+                <input id="doc_r" value="<%=doc_r%>" readonly hidden />
+                <input id='doc_t' value="<%=doc_t%>" readonly hidden />
+                <input id="doc_status" value="<%=doc_status%>" readonly hidden />
+                <input id="doc_consent_status" value="<%=doc_consent_status%>" readonly hidden />
+
+                <input id="Data_set" value=" <%= JSON.stringify(doc) %>" readonly hidden />
+                <input id="my_user" value=" <%= JSON.stringify(my_user[0].name) %>" readonly hidden />
+                <input id="countconsent" value=" <%= JSON.stringify(countconsent) %>" readonly hidden />
+                <input id="countconsentun" value=" <%= JSON.stringify(countconsentun) %>" readonly hidden />
+                <input id="host" value=" <%=host%>" readonly hidden />
+                <input id="status_date_cancle" value=" <%=JSON.stringify(status_date_cancle)%>" readonly hidden />
+
+                <div class="card">
+                    <div class="border-bottom title-part-padding">
+                        <h4 class="card-title mb-0">เอกสารขอความยินยอมทางอิเล็กทรอนิกส์ (Paper Consent)</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row pb-3">
+                            <div class="col-md-8">
+                                
+                                <%if(user_site.length> 0){%>
+                                    <% if (session.limit.paper===-1 || doc.length < session.limit.paper) {%>
+                                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                            title="สร้าง Paper Consent จากเอกสารที่ใช้งาน"
+                                            data-bs-target="#add_paper_consent"><i class="fas fa-plus"></i>
+                                            สร้าง Paper Consent</button>
+                                        <% } else {%>
+                                            <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                                disabled title="สร้าง Paper Consent จากเอกสารที่ใช้งาน"
+                                                data-bs-target="#add_paper_consent"><i class="fas fa-plus"></i>
+                                                สร้าง Paper Consent</button>
+                                            <% }%>
+                                                <%}else{%>
+                                                    <p class="text-danger">กรุณาสร้าง Policy Doc ก่อน <a
+                                                            href="/index">คลิกที่นี่</a></p>
+                                                    <%}%>
+                            </div>
+                            <div class="col-md-4 justify-content-end align-self-center d-block d-md-flex">
+                                <div class="input-group mb-2 ">
+                                    <a class="btn btn-outline-warning" id="reface"><i data-feather="refresh-cw"></i></a>
+                                    <input type="text" class="form-control" placeholder="ค้นหา.." aria-label="" value=""
+                                        id="search" aria-describedby="button-addon2" required>
+                                    <button class="btn btn-outline-warning" type="button" id="button-search"><i
+                                            class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive" id="DataTable-PaperConsent" style="min-height: 470px;">
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6 text-secondary">
+                                <div class="row">
+                                    <span>แสดงผล <a id="show"></a> ถึง <a id="to_show"></a> ทั้งหมด <a
+                                            id="show_all"></a>
+                                        รายการ</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                                <nav aria-label="Page navigation example" class="mt-2">
+                                    <ul class="pagination">
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form action="/paper_consent_add" method="POST">
+        <div class="modal fade" id="add_paper_consent" class="modal fade" tabindex="-1"
+            aria-labelledby="success-header-modalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                        <h3 style="color:black" class="modal-title ">
+                            สร้าง ขอความยินยอมทางอิเล็คทรอนิค ตามเอกสาร PDPA</h3>
+                        <button type=" button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card-body">
+                            <div class="mb row">
+                                <label for="fname" class="col-sm-4 text-start control-label col-form-label">
+                                    ชื่อเอกสาร:</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="doc_name" placeholder="กรอกชื่อเอกสาร.."
+                                        class="form-control" required style="margin-bottom: 10px;">
+                                </div>
+                            </div>
+                            <div class="mb-2 row">
+                                <label for="lname" class="col-sm-4 text-start control-label col-form-label"> เอกสาร
+                                    PDPA <span style="color: #39c449;"> (เปิดใช้งาน)</span> :</label>
+                                <div class="col-sm-8 ">
+                                    <select name="doc_id" class="form-control" required>
+                                        <option selected disabled value="">
+                                            เลือก.. </option>
+                                        <%if(user_site.length> 0){%>
+                                            <%if(user_site[0].policy_doc !=0){%>
+                                                <option value="blank_paper">
+                                                    เอกสารเปล่า
+                                                </option>
+                                                <%}}%>
+
+                                                    <% if(doc_select){ %>
+                                                        <% for(var i=0;i<doc_select.length;i++){%>
+                                                            <option value="<%= doc_select[i].doc_id %>">
+                                                                <%= doc_select[i].doc_name %>
+                                                            </option>
+                                                            <% } %>
+                                                                <% } %>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mb row">
+                                <label for="fname" class="col-sm-4 text-start control-label col-form-label">
+                                    ตำแหน่งของปุ่มยิมยอม:</label>
+                                <div class="col-sm-8 mt-2">
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input" id="radio1" value="1"
+                                            name="button_consent_position">
+                                        <label class="form-check-label" for="radio1">บน</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input" id="radio2" value="0"
+                                            name="button_consent_position" checked>
+                                        <label class="form-check-label" for="radio2">ล่าง</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <label class="text-danger mt-1">เลือกข้อมูลที่ต้องการให้ตอบกลับมาจาก Form</label>
+                            <div class="mb-2 row">
+                                <!-- <div class="col-md-2 col-xl-2 ">
+
+                                </div> -->
+
+                                <div class="col-md-12 col-xl-12 mt-2 d-flex flex-col mt-1">
+                                    <div class="form-check form-check-inline ">
+                                        <input class="form-check-input success check-outline outline-success"
+                                            type="checkbox" name="consent_firstname_status" id="success-outline-check1"
+                                            value="1" checked>
+                                        <label class="form-check-label" for="success-outline-check1">ชื่อ</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input success check-outline outline-success"
+                                            type="checkbox" name="consent_lastname_status" id="success2-outline-check2"
+                                            value="1" checked>
+                                        <label class="form-check-label" for="success2-outline-check2">นามสกุล</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input success check-outline outline-success"
+                                            type="checkbox" name="consent_address_status" id="success-outline-check3"
+                                            value="1">
+                                        <label class="form-check-label" for="success-outline-check3">ที่อยู่</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input success check-outline outline-success"
+                                            type="checkbox" name="consent_phone_status" id="success2-outline-check4"
+                                            value="1">
+                                        <label class="form-check-label" for="success2-outline-check4">เบอร์โทร</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <input class="form-check-input success check-outline outline-success"
+                                                    type="checkbox" onclick="oncheck()" name="consent_other_status"
+                                                    id="check_show" value="1">
+                                                <label class="form-check-label mr-5" for="check_show"> อื่นๆ</label>
+                                            </div>
+                                            <div class="col-9">
+                                                <input type="text" name="consent_other_name" id="showhide"
+                                                    placeholder="กรอกชื่ออื่นๆ" class="form-control ">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="mb row">
+                                        <div class="col-sm-7">
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <input type="text" name="consent_other_name" id="showhide" placeholder="กรอกชื่ออื่นๆ"
+                                                class="form-control" required>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-success">
+                            บันทึกเอกสาร </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            ปิด
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form action="/updatedoc" method="POST">
+        <div class="modal fade" id="edit_doc" class="modal fade" tabindex="-1"
+            aria-labelledby="success-header-modalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                        <h3 style="color:black" class="modal-title">
+                            แก้ไขเอกสาร</h3>
+                        <button type=" button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <input type="hidden" value="PaperConsent" name="paperconsent">
+                    <div align="left" class="modal-body">
+                        <div class="card-body" id="editdoc">
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-warning">
+                            บันทึกเอกสาร </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            ปิด
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form action="/deletedoc" method="POST">
+        <div class="modal fade" id="del_doc" class="modal fade" tabindex="-1"
+            aria-labelledby="success-header-modalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                        <h3 style="color:black" class="modal-title ">
+                            ยืนยันการลบเอกสาร</h3>
+                        <button type=" button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card-body" id="deletedoc">
+
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-danger">
+                            ลบเอกสาร </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            ปิด
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form action="/copydoc_save" method="POST">
+        <div id="copydoc-modal" class="modal fade show" tabindex="-1" aria-labelledby="info-header-modalLabel"
+            aria-modal="true" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-colored-header bg-info text-white">
+                        <h4 class="modal-title" id="info-header-modalLabel">
+                            คัดลอกเอกสาร
+                        </h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="copydoc_input">
+
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-info font-weight-medium">ยืนยัน</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form action="/sent_mail" method="POST">
+        <div id="setlink-modal" class="modal fade show" tabindex="-1" aria-labelledby="info-header-modalLabel"
+            aria-modal="true" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header modal-colored-header bg-info text-white">
+                        <h4 class="modal-title" id="info-header-modalLabel">
+                            แชร์เอกสาร
+                        </h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <input type="email" name="email_outside" class="form-control" placeholder="อีเมลล์ผู้รับ"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" name="subject" class="form-control" placeholder="หัวข้อ" required>
+                        </div>
+                        <div class="mb-3">
+                            <textarea name="link_and_remark" id="setlink_id" cols="30" rows="10" class="form-control">
+
+                            </textarea>
+                        </div>
+                        <input id="setdoc_id" type="hidden" name="link_doc_id" readonly>
+                        <input id="comment_doc_id" type="hidden" name="doc_id" readonly>
+                        <input id="server_doc_path" type="hidden" name="server_doc_path" readonly>
+                    </div>
+
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-info font-weight-medium">ส่ง</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div>
+
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+    </form>
+
+    <script src="/dist/js/views_js/policy/paper_consent.js"></script>
+    <script>
+        function editdoc(id) {
+            const doc_type = document.getElementById("doc_type").value //doc_id
+            console.log("doc_type", doc_type);
+            const doc_id = document.getElementById("doc_i").value //doc_id
+            const doc_name = document.getElementById('doc_n').value //doc_name
+            const doc_type_id = document.getElementById('doc_t').value //doc_type_id
+            const doc_remark = document.getElementById('doc_r').value //doc_remark
+            const doc_status = document.getElementById('doc_status').value //doc_status
+            const doc_consent_status = document.getElementById('doc_consent_status').value //doc_consent_status
+
+            let sort_doc_id = doc_id.split(',')
+            let sort_doc_name = doc_name.split(',')
+            let sort_doc_type_id = doc_type_id.split(',')
+            let sort_doc_remark = doc_remark.split(',')
+            let sort_doc_status = doc_status.split(',')
+            let sort_doc_consent_status = doc_consent_status.split(',')
+
+            let obj = []
+            var editdoc = document.getElementById("editdoc");
+
+            for (i in sort_doc_id) {
+                obj.push({ "doc_id": sort_doc_id[i], "doc_name": sort_doc_name[i], "doc_type_id": sort_doc_type_id[i], "doc_remark": sort_doc_remark[i], "doc_status": sort_doc_status[i], "doc_consent_status": sort_doc_consent_status[i] })
+            }
+            console.log("obj", obj);
+            for (j in obj) {
+                if (id == obj[j].doc_id) {
+                    if (obj[j].doc_consent_status == 1) {
+                        editdoc.innerHTML = '<div class="mb-2 row"><label for="fname" class="col-sm-4 text-start control-label col-form-label"> ชื่อเอกสาร :</label><div class="col-sm-8"><input type="text" name="doc_name" value="' + obj[j].doc_name + '" placeholder="กรุณาป้อนชื่อเอกสาร.." class="form-control" required></div></div>'
+                            + '<div class="mb-2 row"><label for="lname" class="col-sm-4 text-start control-label col-form-label">ชนิดเอกสาร : </label><div class="col-sm-8"><select id="doc_edit_type" name="doc_type_id" class="form-control" required><option name="" value="">เลือก..</option><% if(doc_type){ %><% for(var i=0;i<doc_type.length;i++){%><option id="option_edit_doc" value="<%= doc_type[i].doc_type_id %>"><%= doc_type[i].doc_type_name %></option> <% } %><% } %></select></div></div>'
+                            + '<div class="mb-2 row"><label for="fname" class="col-sm-4 text-start control-label col-form-label"> สถานะเอกสาร :</label><div class="col-sm-8"><select id="edit_status" class="form-control" name="doc_status" > <option  value="0">ร่าง</option><option  value="1">ต้นฉบับ</option><option value="2"> ใช้งาน</option><option value="3"> ยกเลิก</option></select></div></div>'
+                            + '<div class="mb-2 row"><label for="fname" class="col-sm-4 text-start control-label col-form-label"> หมายเหตุ :</label><div class="col-sm-8"><textarea style="margin-top: 10px;height:100px" name="doc_remark" cols="30" rows="10"class="form-control" placeholder="หมายเหตุ..">' + obj[j].doc_remark + '</textarea></div></div>'
+                            + '<input type="hidden" name="doc_id" value="' + obj[j].doc_id + '" readonly>'
+                    }
+                    else {
+                        editdoc.innerHTML = '<div class="mb-2 row"><label for="fname" class="col-sm-4 text-start control-label col-form-label"> ชื่อเอกสาร :</label><div class="col-sm-8"><input type="text" name="doc_name" value="' + obj[j].doc_name + '" placeholder="กรุณาป้อนชื่อเอกสาร.." class="form-control" required></div></div>'
+                            + '<div class="mb-2 row"><label for="lname" class="col-sm-4 text-start control-label col-form-label">ชนิดเอกสาร : </label><div class="col-sm-8"><select id="doc_edit_type" name="doc_type_id" class="form-control" required><option name="" value="">เลือก..</option><% if(doc_type){ %><% for(var i=0;i<doc_type.length;i++){%><option id="option_edit_doc" value="<%= doc_type[i].doc_type_id %>"><%= doc_type[i].doc_type_name %></option> <% } %><% } %></select></div></div>'
+                            + ' <div class="mb-2 row"><label for="fname" class="col-sm-4 text-start control-label col-form-label"> สถานะเอกสาร :</label><div class="col-sm-8"><select id="edit_status" class="form-control" name="doc_status" > <option  value="0">ร่าง</option><option  value="1">ต้นฉบับ</option><option value="2"> ใช้งาน</option><option value="3"> ยกเลิก</option></select></div></div>'
+                            + '<div class="mb-2 row"><label for="fname" class="col-sm-4 text-start control-label col-form-label"> หมายเหตุ :</label><div class="col-sm-8"><textarea style="height:100px" name="doc_remark" cols="30" rows="10"class="form-control" placeholder="หมายเหตุ..">' + obj[j].doc_remark + '</textarea></div></div>'
+                            + '<input type="hidden" name="doc_id" value="' + obj[j].doc_id + '" readonly>'
+                    }
+                }
+            }
+            var re = new RegExp("[0-9]");
+            var selected = $('select#doc_edit_type')
+            for (j in obj) {
+                if (id == obj[j].doc_id) {
+                    console.log(id, obj[j].doc_id)
+                    var option = $('option#option_edit_doc').map(function () {
+                        return $(this).val()
+                    })
+                    for (k in option) {
+                        if (option[k] == obj[j].doc_type_id) {
+                            selected.find('option[value=' + option[k] + ']').attr('selected', 'selected');
+                        }
+                    }
+                }
+            }
+
+            var selected_doc = $('select#edit_status').find('option').map(function () {
+                return $(this).val()
+            })
+            for (a in selected_doc) {
+                for (b in obj) {
+                    if (obj[b].doc_id == id) {
+                        if (obj[b].doc_status == selected_doc[a]) {
+                            $('select#edit_status').find('option[value=' + selected_doc[a] + ']').attr('selected', true)
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <%- include('../_footer') -%>

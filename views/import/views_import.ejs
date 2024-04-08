@@ -1,0 +1,560 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-3 align-self-center">
+                <h3 class="page-title">นำเข้าข้อมูล</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item"><a href="#">ล็อก</a></li>
+                            <li class="breadcrumb-item"><a href="/import">นำเข้าข้อมูล</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">ไฟล์นำเข้า</li>
+
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+
+                <div class="card">
+                    <div class="border-bottom title-part-padding">
+                        <h4 class="card-title mb-0">นำเข้าข้อมูล
+                            <span class="text-secondary"></span>
+                        </h4>
+                    </div>
+
+                    <div class="row">
+                 
+                        <div class="card-body">
+                            <div class="border-bottom title-part-padding ">
+                                <div class="col-md-8">
+                                    <button class="btn btn-success" data-bs-toggle="modal"
+                                        data-bs-target="#samedata2-modal" data-bs-whatever="@mdo" type="button"><i
+                                            class="fas fa-upload"></i> นำเข้าข้อมูลไฟล์ผ่าน FTP</button>
+                                </div>
+                            </div>
+                            <div class="card-body ">
+                               
+
+                                <table class="tablesaw no-wrap table-striped table-bordered table-hover table "
+                                    id="myTable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col " data-tablesaw-sortable-col
+                                                data-tablesaw-sortable-default-col data-tablesaw-priority="3 "
+                                                class="border ">ลำดับ</th>
+                                            <th scope="col " data-tablesaw-sortable-col
+                                                data-tablesaw-priority="persist " class="border ">ประเภท</th>
+                                            <th scope="col " data-tablesaw-sortable-col data-tablesaw-priority="2 "
+                                                class="border ">ชื่อไฟล์</th>
+                                            <th scope="col " data-tablesaw-sortable-col data-tablesaw-priority="2 "
+                                                class="border ">วันที่นำเข้า</th>
+                                            <th scope="col " data-tablesaw-sortable-col data-tablesaw-priority="4 "
+                                                class="border ">ดูข้อมูล</th>
+                                    
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% if (data){ for (var i=0; i < data.length; i++) { %>
+                                            <tr>
+                                                <td class="title align-top ">
+                                                    <%= (i+1) %>
+                                                </td>
+                                                <td class="align-top ">
+                                                    <%=data[i].type%>
+                                                </td>
+                                                <td class="align-top ">
+                                                    <%=data[i].name%>
+                                                </td>
+                                                <td class="align-top ">
+                                                    <%=data[i].date%>
+                                                </td>
+                                  
+    
+
+                                                <td class="center" align="center">
+                                                            <a href="#" title="ดูข้อมูล"
+                                                                class="text-info">
+                                                                <i class="fas fa-file-alt fa-2x"></i>
+                                                            </a>
+                                                    
+                                              
+                                                </td>
+                              
+
+                                            </tr>
+                                            <% }} %>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                           <center>
+                            <a href="/import"> <button type="button" class="btn btn-lg  btn-secondary waves-effect waves-light">ย้อนกลับ</button></a>
+                           </center>
+                              
+                
+                        </div>
+
+
+                        <table class="tablesaw no-wrap table-striped table-bordered table-hover table " id="myTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col " data-tablesaw-sortable-col data-tablesaw-sortable-default-col
+                                        data-tablesaw-priority="3 " class="border ">ลำดับ</th>
+                                    <th scope="col " data-tablesaw-sortable-col data-tablesaw-priority="persist "
+                                        class="border ">ประเภท</th>
+                                    <th scope="col " data-tablesaw-sortable-col data-tablesaw-priority="2 "
+                                        class="border ">ชื่อไฟล์</th>
+                                    <th scope="col " data-tablesaw-sortable-col data-tablesaw-priority="2 "
+                                        class="border ">วันที่นำเข้า</th>
+                                    <th scope="col " data-tablesaw-sortable-col data-tablesaw-priority="4 "
+                                        class="border ">ดูข้อมูล</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (data){ for (var i=0; i < data.length; i++) { %>
+                                    <tr>
+                                        <td class="title align-top ">
+                                            <%= (i+1) %>
+                                        </td>
+                                        <td class="align-top ">
+                                            <%=data[i].type%>
+                                        </td>
+                                        <td class="align-top ">
+                                            <%=data[i].name%>
+                                        </td>
+                                        <td class="align-top ">
+                                            <%=data[i].date%>
+                                        </td>
+
+
+
+                                        <td class="text-center" align="center">
+                                            <a href="#" class="text-info"><i class="fas fa-file-alt fa-2x"></i></a>
+
+
+                                        </td>
+
+
+                                    </tr>
+                                    <% }} %>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- Row -->
+        <div class="modal fade" id="samedata2-modal" tabindex="-1" aria-labelledby="exampleModalLabel1">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-header d-flex align-items-center">
+
+                        <h4 class="card-title"><i class="fas fa-upload"></i> &nbsp;สร้างการนำเข้าไฟล์
+                        </h4><button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+
+                    </div>
+                    <div class="modal-body">
+                        <form action="/import_file" id="post" enctype="multipart/form-data" method="post">
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label text-secondary"
+                                    for="sender">รายละเอียดข้อมูล</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control border border-info"
+                                        placeholder="รายละเอียดข้อมูล" name="name" required>
+                                    <input type="hidden" name="id" value="<%=id%>">
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-3 text-end control-label col-form-label text-secondary"
+                                    for="spec">นำเข้าไฟล์</label>
+                                <div class="col-sm-6">
+                                    <input class="form-control" type="file" id="formFile"
+                                        accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                                        name="file">
+                                </div>
+                            </div>
+
+
+
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-5">
+                                </div>
+                                <div class="col-sm-1">
+                                    <button type="submit"
+                                        class="btn btn-success btn waves-effect waves-light">ยืนยัน</button>
+                                </div>
+                                <div class="col-sm-1">
+                                    <button type="button" class="btn btn-secondary waves-effect waves-light"
+                                        data-bs-dismiss="modal">ยกเลิก</button>
+                                </div>
+                                <div class="col-sm-5">
+                                </div>
+                            </div>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+        <!-- -------------------------------------------------------------- -->
+        <!-- End PAge Content -->
+        <!-- -------------------------------------------------------------- -->
+        <!--start overlay-->
+        <%- include('../_footer') -%>
+            <script>
+                $(".mossparkline").sparkline([2, 4, 4, 6, 8, 5, 6, 4, 8, 6, 6, 2], {
+                    type: 'line',
+                    width: '100%',
+                    height: '50',
+                    lineColor: '#39c449',
+                    fillColor: '#39c449',
+                    maxSpotColor: '#39c449',
+                    highlightLineColor: 'rgba(0, 0, 0, 0.2)',
+                    highlightSpotColor: '#39c449'
+                });
+            </script>
+            <script src="/UI/assets/libs/datatables/media/js/jquery.dataTables.min.js "></script>
+            <script src="/UI/dist/js/pages/datatable/custom-datatable.js "></script>
+            <script src="/UI/dist/js/pages/datatable/datatable-basic.init.js "></script>
+            <script src="/UI/assets/libs/apexcharts/dist/apexcharts.min.js "></script>
+
+            <!-- <script src="/UI/assets/libs/chartist/dist/chartist.min.js "></script>
+                                    <script src="/UI/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js "></script> -->
+            <script src="/UI/assets/libs/flot/jquery.flot.js "></script>
+
+            <script src="/UI/dist/js/pages/widget/widget-charts.js "></script>
+
+            <script src="/UI/dist/js/app.min.js "></script>
+            <script src="/UI/assets/libs/raphael/raphael.min.js"></script>
+
+            <script src="/UI/assets/libs/morris.js/morris.min.js"></script>
+
+            <script src="/UI/assets/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
+            <script src="/UI/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+            <script src="/UI/dist/js/pages/sparkline/jquery.charts-sparkline.js"></script>
+
+
+            <script>
+                var userid = <% -JSON.stringify(session.userid) %>;
+
+                function check(id) {
+                    var result = []
+                    // console.log(id);
+                    result.value = document.getElementById("authen").value;
+                    if (result.value) {
+                        var request2 = function () {
+                            result["userid"] = userid;
+                            // console.log(result);
+                            $.ajax({
+                                url: "/ajaxcheckuser",
+                                type: "post",
+                                data: {
+                                    value: result.value,
+                                    userid: userid
+                                },
+                                success: function (data) {
+                                    var result = data.data;
+                                    if (result.length == 0) {
+                                        alert("ใส่รหัสผ่านผิด")
+                                        setInterval('location.reload()', 200);
+                                    } else {
+                                        $.ajax({
+                                            url: "/device/confirmdelete/" + id,
+                                            type: "post",
+                                            // success: function(data2) {
+                                            //     console.log(data2);
+                                            //     // if (data2) {
+                                            //     alert("ลบอุปกรณ์ต้นทางเรียบร้อย");
+                                            //     setInterval('location.reload()', 200);
+                                            //     // } else {
+                                            //     //     alert("ข้อมูลผิดพลาด")
+                                            //     //     setInterval('location.reload()', 200);
+                                            //     // }
+
+                                            // }
+                                        });
+                                        alert("ลบอุปกรณ์ต้นทางเรียบร้อย");
+                                        setInterval('location.reload()', 200);
+                                    }
+
+                                }
+                            });
+                        }
+                        request2();
+                    }
+                };
+            </script>
+            <script>
+                var line = new Morris.Line({
+                    element: 'morris-line-chart33',
+                    resize: true,
+                    data: [{
+                        y: '2011 Q1',
+                        item1: 2666
+                    }, {
+                        y: '2011 Q2',
+                        item1: 2778
+                    }, {
+                        y: '2011 Q3',
+                        item1: 4912
+                    }, {
+                        y: '2011 Q4',
+                        item1: 3767
+                    }, {
+                        y: '2012 Q1',
+                        item1: 6810
+                    }, {
+                        y: '2012 Q2',
+                        item1: 5670
+                    }, {
+                        y: '2012 Q3',
+                        item1: 4820
+                    }, {
+                        y: '2012 Q4',
+                        item1: 15073
+                    }, {
+                        y: '2013 Q1',
+                        item1: 10687
+                    }, {
+                        y: '2013 Q2',
+                        item1: 8432
+                    }],
+                    xkey: 'y',
+                    ykeys: ['item1'],
+                    labels: ['Item 1'],
+                    gridLineColor: '#eef0f2',
+                    lineColors: ['#009efb'],
+                    lineWidth: 1,
+                    hideHover: 'auto'
+                });
+            </script>
+            <script>
+                var userid = <% -JSON.stringify(session.userid) %>;
+
+                function check2(id) {
+                    var result = []
+                    console.log(id);
+                    result.value = document.getElementById("authen").value;
+                    if (result.value) {
+                        var request2 = function () {
+                            result["userid"] = userid;
+                            // console.log(result);
+                            $.ajax({
+                                url: "/ajaxcheckuser",
+                                type: "post",
+                                data: {
+                                    value: result.value,
+                                    userid: userid
+                                },
+                                success: function (data) {
+                                    var result = data.data;
+                                    if (result.length == 0) {
+                                        alert("ใส่รหัสผ่านผิด")
+                                        setInterval('location.reload()', 200);
+                                    } else {
+                                        $.ajax({
+                                            url: "/deleteftp/" + id,
+                                            type: "post",
+                                            // success: function(data2) {
+                                            //     console.log(data2);
+                                            //     // if (data2) {
+                                            //     alert("ลบอุปกรณ์ต้นทางเรียบร้อย");
+                                            //     setInterval('location.reload()', 200);
+                                            //     // } else {
+                                            //     //     alert("ข้อมูลผิดพลาด")
+                                            //     //     setInterval('location.reload()', 200);
+                                            //     // }
+
+                                            // }
+                                        });
+                                        alert("ลบนำเข้าข้อมูลต่างๆด้วยFTPเรียบร้อย");
+                                        setInterval('location.reload()', 200);
+                                    }
+
+                                }
+                            });
+                        }
+                        request2();
+                    }
+                };
+            </script>
+            <script>
+                $(function () {
+                    "use strict";
+                    var basicpieChart = echarts.init(document.getElementById('basic-pie3'));
+                    var option = {
+                        // Add title
+                        title: {
+                            text: 'จำนวนไฟล์ทั้งหมด',
+                            subtext: 'สัดส่วนของไฟล์จากแต่ละอุปกรณ์',
+                            x: 'center'
+                        },
+
+                        // Add tooltip
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: "{a} <br/>{b}: {c} ({d}%)"
+                        },
+
+                        // Add legend
+                        legend: {
+                            orient: 'vertical',
+                            x: 'left',
+                            data: ['IE', 'Opera', 'Safari', 'Firefox', 'Chrome']
+                        },
+
+                        // Add custom colors
+                        color: ['#ffbc34', '#7460ee', '#212529', '#f62d51', '#009efb'],
+
+                        // Display toolbox
+                        // toolbox: {
+                        //     show: true,
+                        //     orient: 'vertical',
+                        //     feature: {
+                        //         mark: {
+                        //             show: true,
+                        //             title: {
+                        //                 mark: 'Markline switch',
+                        //                 markUndo: 'Undo markline',
+                        //                 markClear: 'Clear markline'
+                        //             }
+                        //         },
+                        //         dataView: {
+                        //             show: true,
+                        //             readOnly: false,
+                        //             title: 'View data',
+                        //             lang: ['View chart data', 'Close', 'Update']
+                        //         },
+                        //         magicType: {
+                        //             show: true,
+                        //             title: {
+                        //                 pie: 'Switch to pies',
+                        //                 funnel: 'Switch to funnel',
+                        //             },
+                        //             type: ['pie', 'funnel'],
+                        //             option: {
+                        //                 funnel: {
+                        //                     x: '25%',
+                        //                     y: '20%',
+                        //                     width: '50%',
+                        //                     height: '70%',
+                        //                     funnelAlign: 'left',
+                        //                     max: 1548
+                        //                 }
+                        //             }
+                        //         },
+                        //         // restore: {
+                        //         //     show: true,
+                        //         //     title: 'Restore'
+                        //         // },
+                        //         // saveAsImage: {
+                        //         //     show: true,
+                        //         //     title: 'Same as image',
+                        //         //     lang: ['Save']
+                        //         // }
+                        //     }
+                        // },
+
+                        // Enable drag recalculate
+                        calculable: true,
+
+                        // Add series
+                        series: [{
+                            name: 'Browsers',
+                            type: 'pie',
+                            radius: '70%',
+                            center: ['50%', '57.5%'],
+                            data: [{
+                                value: 335,
+                                name: 'IE'
+                            }, {
+                                value: 310,
+                                name: 'Opera'
+                            }, {
+                                value: 234,
+                                name: 'Safari'
+                            }, {
+                                value: 135,
+                                name: 'Firefox'
+                            }, {
+                                value: 1548,
+                                name: 'Chrome'
+                            }]
+                        }]
+                    };
+
+                    basicpieChart.setOption(option);
+                });
+            </script>
+
+            <script>
+                // Check
+                var check_1 = 0;
+                var check_2 = 0;
+                function check_data_1() {
+                    // console.log(check_1,':',check_2);
+                    if (check_1 == 0 && check_2 == 0) {
+                        $('#path_file').text('/var/log/agent/');
+                        $('#path').val('/var/log/agent/');
+                    } else if (check_1 == 0 && check_2 == 1) {
+                        $('#path_file').text('/var/log/ftp/');
+                        $('#path').val('/var/log/ftp/');
+                    } else if (check_1 == 1 && check_2 == 0) {
+                        $('#path_file').text('/var/pdpa/agent/');
+                        $('#path').val('/var/pdpa/agent/');
+                    } else if (check_1 == 1 && check_2 == 1) {
+                        $('#path_file').text('/var/pdpa/ftp/');
+                        $('#path').val('/var/pdpa/ftp/');
+                    }
+                }
+
+
+                $("#form_ftp").hide();
+                $('#checkbox_agent').on("click", function () {
+                    $("#form_ftp").hide();
+                    $("#form_agent").fadeIn();
+                    check_2 = 0;
+                    check_data_1()
+                });
+
+                $('#checkbox_ftp').on("click", function () {
+                    $("#form_agent").hide();
+                    $("#form_ftp").fadeIn();
+                    check_2 = 1;
+                    check_data_1()
+                });
+
+                $('#checkbox_log').on("click", function () {
+                    check_1 = 0;
+                    check_data_1()
+                });
+
+                $('#checkbox_pdpa').on("click", function () {
+                    check_1 = 1;
+                    check_data_1()
+                });
+            </script>

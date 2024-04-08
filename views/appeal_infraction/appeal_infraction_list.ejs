@@ -1,0 +1,157 @@
+<%- include ("../_header") %>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">รับเรื่องร้องเรียน การละเมิด </h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item">รับเรื่องร้องเรียน การละเมิด</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="card card-body">
+                    <div class="row pt-2 pb-2">
+                        <div class="col pr-0">
+                            <h1 class="fw-light text-center" id="appeal-high-risk">-</h1>
+                            <h6 class="text-muted">จำนวน การละเมิด เสี่ยงสูง</h6>
+                        </div>
+                        <div class="col text-end align-self-center">
+                            <div data-label="50%" class="css-bar mb-0 css-bar-info css-bar-0 "
+                                id="appeal-high-risk-icon">
+                                <i class="mdi mdi-email"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card card-body">
+                    <div class="row pt-2 pb-2">
+                        <div class="col pr-0">
+                            <h1 class="fw-light text-center" id="appeal-risk">-</h1>
+                            <h6 class="text-muted">จำนวน การละเมิด เสี่ยง</h6>
+                        </div>
+                        <div class="col text-end align-self-center">
+                            <div data-label="40%" class="css-bar mb-0 css-bar-danger css-bar-0" id="appeal-risk-icon">
+                                <i class="mdi mdi-email"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card card-body">
+                    <div class="row pt-2 pb-2">
+                        <div class="col pr-0">
+                            <h1 class="fw-light text-center" id="appeal-not-risk">-</h1>
+                            <h6 class="text-muted">จำนวน การละเมิด ไม่เสี่ยง</h6>
+                        </div>
+                        <div class="col text-end align-self-center">
+                            <div data-label="30%" class="css-bar mb-0 css-bar-info css-bar-0" id="appeal-not-risk-icon">
+                                <i class="mdi mdi-email"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="border-bottom title-part-padding">
+                <div class="align-items-center d-none d-md-flex">
+                    <h4 class="card-title mb-0">รับเรื่องร้องเรียน การละเมิด</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row pb-2">
+                    <div class="col-md-5 justify-content-start align-items-center d-none d-md-flex">
+                        <a href="/appeal/infraction/add" class="btn btn-success"><i class="fas fa-plus"></i>
+                            เพิ่มการแจ้งการละเมิด</a>
+                    </div>
+                    <div class="col-md-7 justify-content-end align-self-center d-none d-md-flex">
+                        <div class="input-group mb-2 ">
+                            <a class="btn btn-outline-warning" href="/appeal/infraction/list"><i
+                                    data-feather="repeat"></i></a>
+                            <input class="form-control" type="date" value="" id="firstDay">
+                            <span class="input-group-text" id="basic-addon1">ถึง</span>
+                            <input class="form-control" type="date" value="" id="lastDay">
+                            <input type="text" class="form-control" placeholder="ค้นหา.." id="search"
+                                aria-describedby="button-search">
+                            <button class="btn btn-outline-warning" type="button" id="button-search"><i
+                                    class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!---------------------------  table setdate  ---------------------------->
+                <div style="min-height: 470px;" class="table-responsive">
+                    <label for="ประวัติการแจ้งละเมิด" class="mb-2">ประวัติการแจ้งละเมิด</label>
+                    <table class="tablesaw table table-striped   no-wrap table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    ลำดับ
+                                </th>
+                                <th>
+                                    ผู้แจ้งเรื่องการละเมิด
+                                </th>
+                                <th>
+                                    เลขที่ร้องเรียน
+                                </th>
+                                <th>
+                                    ประเมินความน่าเชื่อถือ
+                                </th>
+                                <th>
+                                    ประเภทของการละเมิด
+                                </th>
+                                <th>
+                                    มาตราฐานขององค์กร
+                                </th>
+                                <th>
+                                    ประเมินความเสี่ยง
+                                </th>
+                                <th>
+                                    การส่งข้อมูลไปยังเจ้าของช้อมูลส่วนบุคคล
+                                </th>
+                                <th>
+                                    ส่งข้อมูลคณะกรรมการ
+                                </th>
+                                <th>
+                                    หมายเหต
+                                </th>
+                                <th>
+                                    เเก้ไข
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6 text-secondary ">
+                        <div class="row">
+                            <span>แสดงผล <a id="show"></a> ถึง <a id="to-show"></a> ทั้งหมด <a id="show-all"></a>
+                                รายการ</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                        <nav aria-label="Page navigation example" class="mt-2">
+                            <ul class="pagination">
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/dist/js/views_js/appeal/appeal_infraction_list.js"></script>
+    <%- include ("../_footer") %>

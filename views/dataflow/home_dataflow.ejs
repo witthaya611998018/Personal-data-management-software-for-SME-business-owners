@@ -1,0 +1,226 @@
+<%- include('../_header') -%>
+    <script type="text/javascript" src="/UI/dist/js/html2canvas.min.js"></script>
+    <script src="/UI/dist/js/jspdf.umd.min.js"></script>
+    <!-- Cookie Consent by https://www.cookiewow.com -->
+
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-12 align-self-center">
+                <h3 class="page-title">Dataflow กระบวนการทำงาน</h3>
+                <div class="d-flex align-items-center" style="margin-top: 1%;">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index2">หน้าแรก</a></li>
+                            <!-- <li class="breadcrumb-item active">การป้องกันข้อมูลสู่ภายนอก (Export)</li> -->
+                            <li class="breadcrumb-item active" aria-current="page">Dataflow กระบวนการทำงาน
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <!-- Row -->
+        <div class="row">
+            <!-- Column -->
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+
+
+                        <div class="col-12">
+
+                            <div class="row">
+
+                                <div class="col-4 row">
+                                    <div style="width: 30%;">
+                                        <label for="select-policy">
+                                            <b>
+                                                เลือกตามเอกสารกิจกรรม/Policy
+                                            </b>
+                                        </label>
+                                    </div>
+                                    <div style="width: 70%;">
+                                        <select id="select-policy" name="policy" class="form-control">
+                                            <option value="" selected>แสดงทั้งหมด</option>
+                                            <% for(i in policy){%>
+                                                <option value="<%= policy[i].doc_id %>">
+                                                    <%= policy[i].doc_name %>
+                                                </option>
+                                                <%}%>
+                                        </select>&nbsp;&nbsp;
+                                    </div>
+                                </div>
+
+                                <div class="col-4 row">
+                                    <div style="width: 30%;">
+                                        <label for="select-pattern">
+                                            <b>
+                                                เลือก Pattern
+                                            </b>
+                                        </label>
+                                    </div>
+                                    <div style="width: 70%;">
+                                        <select id="select-pattern" name="pattern" class="form-control">
+                                            <option value="" selected>แสดงทั้งหมด</option>
+                                            <% for(i in pattern){%>
+                                                <option value="<%= pattern[i].pattern_id %>">
+                                                    <%= pattern[i].pattern_name %>
+                                                </option>
+                                                <%}%>
+                                        </select>&nbsp;&nbsp;
+                                    </div>
+                                </div>
+
+                                <div class="col-4 row">
+                                    <div style="width: 30%;">
+                                        <label for="select-classify">
+                                            <b>
+                                                เลือก Classification
+                                            </b>
+                                        </label>
+                                    </div>
+                                    <div style="width: 70%;">
+                                        <select id="select-classify" name="classify" class="form-control">
+                                            <option value="" selected>แสดงทั้งหมด</option>
+                                            <% for(i in classify){%>
+                                                <option value="<%= classify[i].classify_id%>">
+                                                    <%= classify[i].classify_name %>
+                                                </option>
+                                                <%}%>
+                                        </select>&nbsp;&nbsp;
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="col-4 row">
+                                    <div style="width: 30%;">
+                                        <label for="select-users">
+                                            <b>
+                                                เลือกบุคคล <br>(ที่เกี่ยวข้อง)
+                                            </b>
+                                        </label>
+                                    </div>
+                                    <div style="width: 70%;">
+                                        <select id="select-users" name="account" class="form-control">
+                                            <option value="" selected>แสดงทั้งหมด</option>
+                                            <% for(i in account){%>
+                                                <option value="<%= account[i].acc_id %>">
+                                                    <%= account[i].name%>
+                                                </option>
+                                                <%}%>
+                                        </select>&nbsp;&nbsp;
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="col-4 row">
+                                    <div style="width: 30%;">
+                                        <label for="select-personal-data">
+                                            <b>
+                                                เลือกข้อมูลส่วนบุคคล
+                                            </b>
+                                        </label>
+                                    </div>
+                                    <div style="width: 70%;">
+                                        <select id="select-personal-data" name="data" class="form-control"
+                                            onchange="select_personal_data()">
+                                            <option id="option_personal_data_00" value="" selected>เลือก</option>
+                                            <% for(i in data){%>
+                                                <option id="option_personal_data_<%=data[i].data_id%>"
+                                                    value="<%=data[i].data_id%>">
+                                                    <%= data[i].data_name%>
+                                                </option>
+                                                <%}%>
+                                        </select>&nbsp;&nbsp;
+                                        <input id="input_select_personal_data" type="text" name="select-personal-data"
+                                            hidden>
+                                    </div>
+                                </div>
+                                <div class="col-8 row">
+                                    <div style="width:15%;">
+                                        <label for="select-personal-data">
+                                           <b>
+                                            ข้อมูลส่วนบุคคล:
+                                           </b>
+                                        </label>
+                                    </div>
+                                    <div id="input_personal_data" style="width:85%;">
+                                    </div>
+                                </div>
+                                <hr>
+
+                                <div class="col-8 row">
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+
+                        <div style="float: right; margin-right: 1.5%;">
+                            <!-- <button id="flow_download_pdf" value='Take screenshot' class="btn btn-secondary"
+                                type="button" style="vertical-align: -.5px;"><i class="fas fa-file-pdf"></i></button> -->
+                            <!-- PDF -->
+                            <!-- <button id="flow_preview_print" value='Take screenshot' class="btn btn-secondary"
+                                type="button" style="vertical-align: -.5px;"><i class="icon-printer"></i></button> -->
+                            <a disabled="" id="flow_preview_print" class="btn btn-warning "
+                                style="cursor: not-allowed; vertical-align: -.5px;"> PDF</a>
+
+                            <!-- พิมพ์ -->
+                            <button id="search_flow" class="btn btn-success" type="button"
+                                style="vertical-align: -.5px;">ค้นหา</button>
+                        </div>
+                    </div>
+                    <div class="card-body" id="body-1">
+                        <!-- <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body" id="card-list"
+                                        style="border-radius: 30px;  font-size: 14.5px;background-color: rgb(241, 241, 241);">
+                                        <p>
+                                            <img src="/UI/assets/images/circle/White_full.png"
+                                                style="border-radius: 50%; width:20px; height:20px; vertical-align: -4px;">
+                                            &nbsp;&nbsp;เอกสารตามกิจกรรม
+                                            / Policy &emsp;
+                                            <img id="p-2" src="/UI/assets/images/circle/Yellow_orange_drop.png"
+                                                style="border-radius: 50%; width:21px; height:21px; vertical-align: -4px;">
+                                            &nbsp;&nbsp;ข้อมูลจัดเก็บตาม
+                                            Pattern ไม่ได้จัดเก็บใน Alltra &emsp;
+                                            <img src="/UI/assets/images/circle/Yellow_orange_drop.png"
+                                                style="border-radius: 50%; width:20px; height:20px; vertical-align: -4px;">
+                                            &nbsp;&nbsp;ข้อมูลจัดเก็บตาม
+                                            Pattern จัดเก็บใน Alltra &emsp;
+                                            <img src="/UI/assets/images/circle/Sky_blue.png"
+                                                style="border-radius: 50%; width:20px; height:20px; vertical-align: -4px;">
+                                            &nbsp;&nbsp;ข้อมูลใช้ในกิจกรรม/ประมวลผล
+                                            Classification &emsp;
+                                            <img src="/UI/assets/images/circle/Green.png"
+                                                style="border-radius: 50%; width:20px; height:20px; vertical-align: -4px;">
+                                            &nbsp;&nbsp;ผู้ใช้งานข้อมูล(ประมวลผล)ภายใน
+                                            &emsp;
+                                            <img src="/UI/assets/images/circle/Red.png"
+                                                style="border-radius: 50%; width:20px; height:20px; vertical-align: -4px;">
+                                            &nbsp;&nbsp;ผู้ใช้งานข้อมูล(ประมวลผล)ภายนอก
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div class="row" id="show_flow">
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/dist/js/views_js/dataflow/dataflow.js"></script>
+
+    <%- include('../_footer') -%>

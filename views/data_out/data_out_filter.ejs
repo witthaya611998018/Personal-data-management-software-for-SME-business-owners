@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords"
+        content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, monster admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, ">
+    <meta name="description" content="monster is powerful and clean admin dashboard template">
+    <meta name="robots" content="noindex,nofollow">
+    <title>All Inclusive Security</title>
+    <!-- <link rel="canonical" href="https://www.wrappixel.com/templates/monsteradmin/" /> -->
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/UI/assets/images/favicon_bak.png">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/UI/assets/libs/apexcharts/dist/apexcharts.css">
+    <link href="/UI/assets/libs/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+    <link href="/UI/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"
+        href="/UI/assets/libs/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="/UI/assets/libs/bootstrap-duallistbox/dist/bootstrap-duallistbox.min.css">
+    <link rel="stylesheet" type="text/css" href="/UI/assets/extra-libs/css-chart/css-chart.css">
+    <link href="/UI/assets/extra-libs/jquery-steps/jquery.steps.css" rel="stylesheet">
+    <link href="/UI/assets/extra-libs/jquery-steps/steps.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/UI/assets/libs/select2/dist/css/select2.min.css">
+    <link href="/UI/assets/libs/magnific-popup/dist/magnific-popup.css" rel="stylesheet">
+    <link href="/UI/assets/libs/tablesaw/dist/tablesaw.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/UI/assets/extra-libs/prism/prism.css">
+    <link href="/UI/assets/libs/morris.js/morris.css" rel="stylesheet">
+    <link href="/UI/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
+    <link href="/UI/dist/js/pages/chartist/chartist-init.css" rel="stylesheet">
+    <link href="/UI/assets/extra-libs/css-chart/css-chart.css" rel="stylesheet">
+    <link href="/UI/assets/extra-libs/c3/c3.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/UI/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/UI/dist/css/style.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!-- [if lt IE 9] -->
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <!-- This Dew style icon -->
+    <link href="/UI/dist/css/charts.css" rel="stylesheet">
+    <!-- This Page bootstrap-table -->
+    <link href="/UI/assets/libs/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet" />
+    <link href="/UI/assets/libs/bootstrap-table/dist/bootstrap-table.min.css" rel="stylesheet" type="text/css" />
+    <!-- Custom switch -->
+    <link rel="stylesheet" type="text/css" href="/UI/assets/libs/c3/c3.min.css">
+    <!-- Custom date -->
+    <link rel="stylesheet" type="text/css" href="/UI/assets/libs/daterangepicker/daterangepicker.css">
+
+    <!-- [ของซันกับอาม] -->
+    <link href="/UI/assets/libs/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.41.0/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.41.0/theme/blackboard.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.41.0/theme/monokai.min.css">
+    <link rel="stylesheet" type="text/css" href="/UI/assets/extra-libs/summernote/summernote-lite.min.css">
+    <link href="/UI/dist/css/style_sun.css" rel="stylesheet">
+    <link href="/UI/dist/css/modal_page_A4.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify@3.1.0/dist/tagify.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify@3.1.0/dist/tagify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+
+
+</head>
+<script language="javascript">
+    function init() {
+        document.getElementById('username').focus();
+    }
+</script>
+<style>
+    table.table-bordered.dataTable tbody th, table.table-bordered.dataTable tbody td {
+    border-bottom-width: 0;
+    text-align: center !important;
+}
+</style>
+<body onLoad="init();" style="background:  #373b44 ;">
+    <div class="main-wrapper">
+        <!-- -------------------------------------------------------------- -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- -------------------------------------------------------------- -->
+        <div class="preloader">
+            <svg class="tea lds-ripple" width="37" height="48" viewbox="0 0 37 48" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M27.0819 17H3.02508C1.91076 17 1.01376 17.9059 1.0485 19.0197C1.15761 22.5177 1.49703 29.7374 2.5 34C4.07125 40.6778 7.18553 44.8868 8.44856 46.3845C8.79051 46.79 9.29799 47 9.82843 47H20.0218C20.639 47 21.2193 46.7159 21.5659 46.2052C22.6765 44.5687 25.2312 40.4282 27.5 34C28.9757 29.8188 29.084 22.4043 29.0441 18.9156C29.0319 17.8436 28.1539 17 27.0819 17Z"
+                    stroke="#2962FF" stroke-width="2"></path>
+                <path
+                    d="M29 23.5C29 23.5 34.5 20.5 35.5 25.4999C36.0986 28.4926 34.2033 31.5383 32 32.8713C29.4555 34.4108 28 34 28 34"
+                    stroke="#2962FF" stroke-width="2"></path>
+                <path id="teabag" fill="#2962FF" fill-rule="evenodd" clip-rule="evenodd"
+                    d="M16 25V17H14V25H12C10.3431 25 9 26.3431 9 28V34C9 35.6569 10.3431 37 12 37H18C19.6569 37 21 35.6569 21 34V28C21 26.3431 19.6569 25 18 25H16ZM11 28C11 27.4477 11.4477 27 12 27H18C18.5523 27 19 27.4477 19 28V34C19 34.5523 18.5523 35 18 35H12C11.4477 35 11 34.5523 11 34V28Z">
+                </path>
+                <path id="steamL" d="M17 1C17 1 17 4.5 14 6.5C11 8.5 11 12 11 12" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" stroke="#2962FF"></path>
+                <path id="steamR" d="M21 6C21 6 21 8.22727 19 9.5C17 10.7727 17 13 17 13" stroke="#2962FF"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+        </div>
+        <%
+        function contains(target){
+            var pattern = ['.gif','.png', '.jpg','.jpeg','.webp'];
+            var value = 0;
+            pattern.forEach(function(word){
+              value = value + target.includes(word);
+            });
+            return (value === 1)
+        }
+        %>
+        <div class="col-12 d-flex align-items-center justify-content-center">
+            <div class="row justify-content-center w-100 mt-4 mt-lg-0">
+                <div class="col-lg-8 col-xl-8 col-md-6">
+                    <div class="card-body rounded" style="background-color: white;margin-top: 5%;">
+                        <%if(typefilter==1){%>
+                            <div class="table-responsive">
+                                <table id="tablecsv" class="table-hover table">
+                                    <thead>
+                                        <tr>
+                                            <th class="border">
+                                                ลำดับ
+                                            </th>
+                                            <% for (x in data[0]){%>
+                                                <th class="border">
+                                                    <%= data[0][x]%>
+                                                </th>
+                                                <%}%>
+                                        </tr>
+                                    </thead>
+                                    <% for (let i=1; i < data.length; i++){%>
+                                        <tr style="background: black;background-color: black;color: black;">
+                                            <td class="title align-top">
+                                                <%= i%>
+                                            </td>
+                                            <% for (let p=0; p < data[i].length; p++){%>
+                                                <td class="title align-top">
+                                                    <%= data[i][p]%>
+                                                </td>
+                                                <%}%>
+                                        </tr>
+                                        <%}%>
+                                            <table>
+                            </div>
+                            <%}else{%>
+                                <div class="table-responsive">
+                                    <table id="tablecsv"
+                                        class="tablesaw table-striped table-bordered table-hover table">
+                                        <thead>
+                                            <tr>
+                                                <th class="border">
+                                                    ลำดับ
+                                                </th>
+                                                <% for (x in data[0]){%>
+                                                    <th class="border">
+                                                        <%= data[0][x]%>
+                                                    </th>
+                                                    <%}%>
+                                            </tr>
+                                        </thead>
+                                        <% for (let i=1; i < data.length; i++){%>
+                                            <tr>
+                                                <td class="title align-top">
+                                                    <%= i%>
+                                                </td>
+                                                <% for (let p=0; p < data[i].length; p++){%>
+                                                    <td class="title align-top">
+                                                        <!-- <%= data[i][p]%> -->
+                                                        <% var result = data[i][p].toLowerCase() %>
+                                                        <% var checktrue = contains(result) %>
+
+                                                        <% if(checktrue == true){ %>
+                                                            <img src="<%=data[i][p]%>" alt="img" width="50px" style="filter: blur(1px);">
+                                                       <% }else{ %>
+                                                        <%= data[i][p]%>
+                                                        <%}%>
+                                                        
+                                                    </td>
+                                                    <%}%>
+                                            </tr>
+                                            <%}%>
+                                                <table>
+                                </div>
+                                <%}%>
+                                    <hr>
+                                    <br>
+                                    <div>
+                                        <center>
+                                            <a href="<%=host%>/loginemail/<%=id%>"> <button type="button"
+                                                    class="btn btn-info waves-effect waves-light btn-lg">กลับ</button></a>
+                                        </center>
+                                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- -------------------------------------------------------------- -->
+        <!-- Login box.scss -->
+        <!-- -------------------------------------------------------------- -->
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#tablecsv').DataTable({
+                lengthMenu: [
+          [1000, 500, 100 , 10],
+          [1000, 500, 100 , 10],
+        ], // bAutoWidth: false, 
+            });
+        });
+    </script>
+    <!-- -------------------------------------------------------------- -->
+    <!-- All Required js -->
+    <!-- -------------------------------------------------------------- -->
+    <script src="/UI/assets/libs/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="/UI/assets/libs/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="/UI/dist/js/pages/datatable/custom-datatable.js"></script>
+    <script src="/UI/dist/js/pages/datatable/datatable-basic.init.js"></script>
+    <script src="/UI/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+    <script src="/UI/dist/js/pages/dashboards/dashboard1.js"></script>
+    <script src="/UI/dist/js/feather.min.js"></script>
+    <script src="/UI/dist/js/custom.min.js"></script>
+    <script>
+        $(".preloader").fadeOut();
+        // ---------------------------
+        // Login and Recover Password
+        // ---------------------------
+        $('#to-recover').on("click", function () {
+            $("#loginform").hide();
+            $("#recoverform").fadeIn();
+        });
+
+        $('#to-login').on("click", function () {
+            $("#loginform").fadeIn();
+            $("#recoverform").hide();
+        });
+
+        $('#to-register').on("click", function () {
+            $("#loginform").hide();
+            $("#registerform").fadeIn();
+        });
+
+        $('#to-login2').on("click", function () {
+            $("#loginform").fadeIn();
+            $("#registerform").hide();
+        });
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
+    <script>
+        $(function () {
+            "use strict";
+            $("#main-wrapper").AdminSettings({
+                Theme: true, // this can be true or false ( true means dark and false means light ),
+                Layout: 'vertical',
+                LogoBg: 'skin3', // You can change the Value to be skin1/skin2/skin3/skin4/skin5/skin6
+                NavbarBg: 'skin2', // You can change the Value to be skin1/skin2/skin3/skin4/skin5/skin6
+                SidebarType: 'full', // You can change it full / mini-sidebar / iconbar / overlay
+                SidebarColor: 'skin3', // You can change the Value to be skin1/skin2/skin3/skin4/skin5/skin6
+                SidebarPosition: true, // it can be true /  ( true means Fixed and false means absolute )
+                HeaderPosition: true, // it can be true / false ( true means Fixed and false means absolute )
+                BoxedLayout: false, // it can be true / false ( true means Boxed and false means Fluid )
+            });
+        });
+    </script>
+
+</body>
+
+</html>

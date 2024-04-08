@@ -1,0 +1,1240 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">Monitor</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/monitor">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">ระบบ</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+
+        <!-- Row -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12" id="chart4">
+                <div class="card">
+                    <div class="d-flex align-items-start" style="padding-right: 20px;">
+                        <div>
+                        </div>
+                        <div class="ms-auto p-right">
+                            <% if (data[3].status==0) { %>
+                                <i id="heart-4" text="1" onclick="heart_4()" style="font-size: 150%;transition-delay: 250ms;" class="mdi mdi-heart-outline cursor-icon"></i>
+                                <% }else{ %>
+                                    <i id="heart-4" text="1" onclick="heart_4_f()" style="cursor: pointer;font-size: 150%;color:red;" class="mdi mdi-heart"></i>
+                                    <%}%>
+                                        <!--<i class="mdi mdi-reorder-horizontal cursor-icon"></i> -->
+
+                                        <i id="close-4" class="mdi mdi-close-octagon cursor-icon" onclick="close_4()"></i>
+
+                                        <!-- <i class="mdi mdi-close-octagon cursor-icon"></i> -->
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card">
+                                <div class="card-body bd-st m-l10px">
+                                    <div class="d-flex align-items-start">
+                                        <div class="bg-light-warning text-warning d-inline-block px-4 py-3 rounded">
+                                            <i data-feather="cpu" class="feather-icon"></i>
+                                        </div>
+                                        <div class="ms-auto">
+
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <h4 class="card-title">CPU Usage</h4>
+                                        <div class="progress mt-4">
+                                            <div class="progress-bar bg-warning" id="cpuusedper" style="width:0%; height:6px;" role="progressbar"> </div>
+                                        </div>
+                                        <div class="d-flex align-items-center mt-2 font-weight-medium">
+
+                                            <span id="cpuused">0%</span>
+                                            <div class="ms-auto">
+                                                <span>3.5 GHz</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card">
+                                <div class="card-body bd-st">
+                                    <div class="d-flex align-items-start">
+                                        <div class="bg-light-info text-info d-inline-block px-4 py-3 rounded">
+                                            <i class="fas fa-microchip"></i>
+                                        </div>
+                                        <div class="ms-auto">
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <h4 class="card-title">Memory Usage</h4>
+                                        <div class="progress mt-4">
+                                            <div class="progress-bar bg-info" id="memusedper" style="width:0%; height:6px;" role="progressbar"> <span class="sr-only">50% Usage</span> </div>
+                                        </div>
+                                        <div class="d-flex align-items-center mt-2 font-weight-medium">
+                                            <span id="memused">0%</span>
+                                            <div class="ms-auto">
+                                                <span id="mem">0 GB</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card">
+                                <div class="card-body bd-st">
+                                    <div class="d-flex align-items-start">
+                                        <div class="bg-light-primary text-primary d-inline-block px-4 py-3 rounded">
+                                            <i data-feather="hard-drive" class="feather-icon"></i>
+                                        </div>
+                                        <div class="ms-auto">
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <h4 class="card-title">HDD</h4>
+                                        <div class="progress mt-4">
+                                            <div class="progress-bar bg-primary" id="storageusedper" style="width: 0%; height:6px;" role="progressbar"> <span class="sr-only">10% Usage</span> </div>
+                                        </div>
+
+                                        <div class="d-flex align-items-center mt-2 font-weight-medium">
+                                            <span id="storageall">0 GB (0%)</span>
+                                            <div class="ms-auto">
+                                                <span id="storage">0 GB</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card">
+                                <div class="card-body bd-st m-r10px">
+                                    <div class="d-flex align-items-start">
+                                        <div class="bg-light-success text-success d-inline-block px-4 py-3 rounded">
+                                            <i data-feather="arrow-up" class="feather-icon"></i>
+                                        </div>
+                                        <div class="ms-auto">
+                                        </div>
+
+                                        <div class="bg-light-danger text-danger d-inline-block px-4 py-3 rounded">
+                                            <i data-feather="arrow-down" class="feather-icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <h4 class="card-title">Traffic</h4>
+                                        <div class="progress mt-4">
+                                            <!-- <div class="progress-bar bg-primary" id="storageusedper" style="width: 0%; height:6px;" role="progressbar"> <span class="sr-only">10% Usage</span> </div> -->
+                                        </div>
+
+                                        <div class="d-flex align-items-center mt-2 font-weight-medium">
+                                            <span id="txkB">0 kB/s</span>
+                                            <div class="ms-auto">
+                                                <span id="rxkB">0 kB/s</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+            </div>
+
+
+        </div>
+        <div class="row">
+            <div class="col-md-4" id="chart1">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-start">
+                            <div>
+                                <h4 class="card-title mt-5px">ข้อมูล Log ประจำวัน</h4>
+                                <h6 class="card-subtitle">
+                                    <%= v_average_1 %>%
+                                        <% if(v_1 >= v_compare_1){%>
+                                            <i class="ti-arrow-up text-success"></i> เมื่อเทียบจากค่าเฉลี่ย</h6>
+                                <% }else{ %>
+                                    <i class="ti-arrow-down text-danger"></i> เมื่อเทียบจากค่าเฉลี่ย</h6>
+                                    <% } %>
+                            </div>
+                            <div class="ms-auto p-right">
+                                <% if (data[0].status==0) { %>
+                                    <i id="heart-1" text="1" onclick="heart_1()" style="font-size: 150%;transition-delay: 250ms;" class="mdi mdi-heart-outline cursor-icon"></i>
+                                    <% }else{ %>
+                                        <i id="heart-1" text="1" onclick="heart_1_f()" style="cursor: pointer;font-size: 150%;color:red;" class="mdi mdi-heart"></i>
+                                        <%}%>
+                                            <!--<i class="mdi mdi-reorder-horizontal cursor-icon"></i> -->
+
+                                            <i id="close-1" class="mdi mdi-close-octagon cursor-icon" onclick="close_1()"></i>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div>
+                        <div id="chart1_v2"></div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row" style="    margin-bottom: 1px;
+                                                                border-bottom: 1px solid #e9ecef!important;">
+                            <div class="col-7 col-xl-12 align-items-center">
+                                <p>ปริมาณ Log ประจำวัน</p>
+                            </div>
+                        </div>
+                        <div class="row pb-3 border-bottom" style="margin-bottom: 1px;">
+                            <div class="col-12 col-xl-12">
+                                <b style="font-size: 11px;">ข้อมูล Log ล่าสุด:</b>
+                                <b style="font-size: 11px;" id="hostname"></b>
+                                <b style="font-size: 11px;">IP ต้นทาง:</b>
+                                <b style="font-size: 11px;" id="device_ip"></b>
+                                <b style="font-size: 11px;">IP เวลา:</b>
+                                <b style="font-size: 11px;" id="log_time"></b>
+
+
+
+
+                            </div>
+                        </div>
+                        <div class="row pb-3" style="padding: 10px;height: 133px;">
+                            <h5 style="font-size: 11px;">#
+                                <p class="dis-in" style="font-size: 11px;" id="data_log_1"></p>
+                            </h5>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4" id="chart2">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-start">
+                            <div>
+                                <h4 class="card-title mt-5px">ประวัติการส่ง e-mail</h4>
+                                <h6 class="card-subtitle">
+                                    <%= v_average_2 %>%
+                                        <% if(v_2 >= v_compare_2){%>
+                                            <i class="ti-arrow-up text-success"></i> เมื่อเทียบจากค่าเฉลี่ย</h6>
+                                <% }else{ %>
+                                    <i class="ti-arrow-down text-danger"></i> เมื่อเทียบจากค่าเฉลี่ย</h6>
+                                    <% } %>
+                                        </h6>
+                            </div>
+                            <div class="ms-auto p-right">
+                                <% if (data[1].status==0) { %>
+                                    <i id="heart-2" text="1" onclick="heart_2()" style="font-size: 150%;transition-delay: 250ms;" class="mdi mdi-heart-outline cursor-icon"></i>
+                                    <% }else{ %>
+                                        <i id="heart-2" text="1" onclick="heart_2_f()" style="cursor: pointer;font-size: 150%;color:red;" class="mdi mdi-heart"></i>
+                                        <%}%>
+                                            <!--<i class="mdi mdi-reorder-horizontal cursor-icon"></i> -->
+
+                                            <i id="close-2" class="mdi mdi-close-octagon cursor-icon" onclick="close_2()"></i>
+                                            <!-- <i class="mdi mdi-close-octagon cursor-icon"></i> -->
+
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div id="chart2_v2"></div>
+                    </div>
+                    <div class="card-body">
+                        <p>ประวัติ E-mail 7 วัน</p>
+                        <div class="card" style="margin-bottom: 1px;height: 200px;">
+                            <div class="table-responsive">
+                                <table id="mainTable" class="table editable-table table-bordered table-striped m-b-0" style="height: 100px;">
+                                    <thead>
+                                        <tr>
+
+                                            <th>หัวเรื่อง</th>
+                                            <th>วันที่</th>
+                                            <th>ผู้รับ E-mail</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <% if (data11.length > 0) { %>
+
+                                            <% for (i in data11) { %>
+                                                <tr>
+
+                                                    <td>
+                                                        <%= data11[i].date_ms %>
+                                                    </td>
+                                                    <td>
+                                                        <%= data11[i].date %>
+                                                    </td>
+                                                    <td>
+
+                                                        <% for (var l = 0; l< data13.length; l++) { %>
+                                                            <% if (data11[i].acc_id == data13[l].acc_id) { %>
+                                                                <div class="t-center">
+                                                                    <img src="/UI/image/<%= data13[l].image %>" class="rounded-circle" alt="user" width="25px" data-bs-toggle="tooltip" data-bs-placement="bottom" title="<%= data13[l].name %>">
+                                                                </div>
+                                                                <% } %>
+                                                                    <% if (data11[i].acc_id.length > 1) { %>
+                                                                        <% for (var ii = 0; ii< data11[i].acc_id.length; ii++) { %>
+                                                                            <% if (data11[i].acc_id[ii] == data13[l].acc_id) { %>
+                                                                                <div class="t-center">
+                                                                                    <img src="/UI/image/<%= data13[l].image %>" class="rounded-circle" alt="user" width="25px" data-bs-toggle="tooltip" data-bs-placement="bottom" title="<%= data13[l].name %>">
+                                                                                </div>
+                                                                                <% }%>
+                                                                                    <% }%>
+                                                                                        <% }%>
+                                                                                            <% } %>
+                                                    </td>
+                                                </tr>
+                                                <% } %>
+                                                    <% }else{%>
+                                                        <tr>
+                                                            <td>
+                                                                ไม่มีข้อมูล
+                                                            </td>
+                                                            <td>
+                                                                ไม่มีข้อมูล
+                                                            </td>
+                                                            <td>
+                                                                ไม่มีข้อมูล
+                                                            </td>
+                                                        </tr>
+
+                                                        <% }%>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" id="chart3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-start">
+                            <div>
+                                <h4 class="card-title mt-5px">ประวัติการเตือนจาก System</h4>
+                                <h6 class="card-subtitle">
+                                    <%= v_average_3 %>%
+                                        <% if(v_3 >= v_compare_3){%>
+                                            <i class="ti-arrow-up text-success"></i> เมื่อเทียบจากค่าเฉลี่ย</h6>
+                                <% }else{ %>
+                                    <i class="ti-arrow-down text-danger"></i> เมื่อเทียบจากค่าเฉลี่ย</h6>
+                                    <% } %>
+                            </div>
+                            <div class="ms-auto p-right">
+                                <% if (data[2].status==0) { %>
+                                    <i id="heart-3" text="1" onclick="heart_3()" style="font-size: 150%;transition-delay: 250ms;" class="mdi mdi-heart-outline cursor-icon"></i>
+                                    <% }else{ %>
+                                        <i id="heart-3" text="1" onclick="heart_3_f()" style="cursor: pointer;font-size: 150%;color:red;" class="mdi mdi-heart"></i>
+                                        <%}%>
+                                            <!--<i class="mdi mdi-reorder-horizontal cursor-icon"></i> -->
+
+                                            <i id="close-3" class="mdi mdi-close-octagon cursor-icon" onclick="close_3()"></i>
+                                            <!-- <i class="mdi mdi-close-octagon cursor-icon"></i> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div id="chart3_v2"></div>
+                    </div>
+                    <div class="card-body">
+                        <p>จำนวนการเตือน 7 วัน</p>
+                        <div class="card" style="margin-bottom: 1px;height: 200px;">
+                            <div class="table-responsive">
+                                <table id="mainTable" class="table editable-table table-bordered table-striped m-b-0" style="height: 100px;">
+                                    <thead>
+                                        <tr>
+                                            <th>คำเตือน /ระบบ</th>
+                                            <th>Device</th>
+                                            <th>วันที่</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% if (data12.length > 0) { %>
+
+                                            <% for (var i = 0; i< data12.length; i++) { %>
+                                                <tr>
+                                                    <td>
+                                                        <%= data12[i].type_alert %>
+                                                    </td>
+                                                    <td>
+                                                        <%= data12[i].name %>
+                                                    </td>
+                                                    <td>
+                                                        <%= data12[i].date %>
+                                                    </td>
+                                                </tr>
+                                                <% } %>
+                                                    <% }else{%>
+                                                        <tr>
+                                                            <td>
+                                                                ไม่มีข้อมูล
+                                                            </td>
+                                                            <td>
+                                                                ไม่มีข้อมูล
+                                                            </td>
+                                                            <td>
+                                                                ไม่มีข้อมูล
+                                                            </td>
+                                                        </tr>
+
+                                                        <% }%>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Column -->
+            <div class="col-lg-12" id="chart5">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="d-flex align-items-start">
+                                    <div>
+                                        <h4 class="card-title">ปริมาณ Log ที่จัดเก็บทั้งหมด</h4>
+
+                                    </div>
+                                    <div class="ms-auto p-right">
+                                        <% if (data[4].status==0) { %>
+                                            <i id="heart-5" text="1" onclick="heart_5()" style="font-size: 150%;transition-delay: 250ms;" class="mdi mdi-heart-outline cursor-icon"></i>
+                                            <% }else{ %>
+                                                <i id="heart-5" text="1" onclick="heart_5_f()" style="cursor: pointer;font-size: 150%;color:red;" class="mdi mdi-heart"></i>
+                                                <%}%>
+                                                    <!--<i class="mdi mdi-reorder-horizontal cursor-icon"></i> -->
+
+                                                    <i id="close-5" class="mdi mdi-close-octagon cursor-icon" onclick="close_5()"></i>
+                                                    <!-- <i class="mdi mdi-close-octagon cursor-icon"></i> -->
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 revenue">
+                                <div id="revenue-statistics-3" style="height: 350px;">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+            <!-- Column -->
+
+        </div>
+        <!-- Row -->
+
+        <!-- Row -->
+        <div class="row">
+            <!-- Column -->
+            <div class="col-lg-6 col-md-6" id="chart6">
+                <div class="card bg-primary">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div class="me-3 align-self-center">
+                                <h1 class="text-white"><i class="ti-pie-chart"></i></h1>
+                            </div>
+                            <div>
+                                <h2 class="card-title text-white">ประมาณจำนวนพื้นที่จัดเก็บปัจจุบัน</h2>
+                                <h5 class="card-subtitle text-white dis-in" id="mem-persen">0.3% <i class="ti-arrow-up text-success"></i>
+                                </h5>
+                                <h5 class="card-subtitle text-white dis-in">เมื่อเทียบจากค่าเฉลี่ย</h5>
+                            </div>
+                            <div class="ms-auto p-right">
+                                <% if (data[5].status==0) { %>
+                                    <i id="heart-6" text="1" onclick="heart_6()" style="font-size: 150%;transition-delay: 250ms;color: whitesmoke" class="mdi mdi-heart-outline cursor-icon"></i>
+                                    <% }else{ %>
+                                        <i id="heart-6" text="1" onclick="heart_6_f()" style="cursor: pointer;font-size: 150%;color:red;" class="mdi mdi-heart"></i>
+                                        <%}%>
+                                            <!-- <i class="mdi mdi-reorder-horizontal cursor-icon"
+                                            style="color: whitesmoke;"></i> -->
+                                            <i id="close-6" onclick="close_6()" class="mdi mdi-close-octagon cursor-icon" style="color: whitesmoke;"></i>
+                                            <!-- <i class="mdi mdi-close-octagon cursor-icon"></i> -->
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4 align-self-center">
+                                <font class="display-6 text-white" id="mem-2"></font>
+                            </div>
+                            <div class="col-8 align-self-center">
+                                <div class="usage chartist-chart" style="height:120px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+            <!-- Column -->
+            <div class="col-lg-6 col-md-6" id="chart7">
+                <div class="card bg-secondary">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <div class="me-3 align-self-center">
+                                <h1 class="text-white"><i class="icon-cloud-download"></i></h1>
+                            </div>
+                            <div>
+                                <h2 class="card-title text-white">จำนวนการ Download 20 วันที่ผ่านมา</h2>
+
+                                <% if(v_6 != null){%>
+                                    <% if(v_6 >= v_compare_6){%>
+                                        <h5 class="card-subtitle text-white">
+                                            <i class="ti-arrow-up text-success"></i>
+                                            <%= v_average_6 %>% เมื่อเทียบจากค่าเฉลี่ย
+                                        </h5>
+                                        <% }else{ %>
+                                            <h5 class="card-subtitle text-white">
+                                                <i class="ti-arrow-down text-danger"></i>
+                                                <%= v_average_6 %>% เมื่อเทียบจากค่าเฉลี่ย
+                                            </h5>
+
+                                            <% } %>
+                                                <% }else{ %>
+                                                    0.00% เมื่อเทียบจากค่าเฉลี่ย
+                                                    <% } %>
+                                                        </h5>
+                            </div>
+                            <div class="ms-auto p-right">
+                                <% if (data[6].status==0) { %>
+                                    <i id="heart-7" text="1" onclick="heart_7()" style="font-size: 150%;transition-delay: 250ms;color: whitesmoke" class="mdi mdi-heart-outline cursor-icon"></i>
+                                    <% }else{ %>
+                                        <i id="heart-7" text="1" onclick="heart_7_f()" style="cursor: pointer;font-size: 150%;color:red;" class="mdi mdi-heart"></i>
+                                        <%}%>
+                                            <i id="close-7" onclick="close_7()" class="mdi mdi-close-octagon cursor-icon" style="color: whitesmoke;"></i>
+
+                                            <!-- <i class="mdi mdi-close-octagon cursor-icon"></i> -->
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4 align-self-center">
+                                <font class="display-6 text-white">
+
+                                    <% if (data8) { %>
+                                        <%= data8[0].size %> kB</font>
+                                <% }else{%>
+                                    -
+                                    <% } %>
+                            </div>
+                            <div class="col-8  text-end">
+                                <div class="spark-count" style="height:120px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-12" id="chart8">
+                <div class="card">
+                    <div class="ms-auto p-right">
+                        <% if (data[7].status==0) { %>
+                            <i id="heart-8" text="1" onclick="heart_8()" style="font-size: 150%;transition-delay: 250ms;" class="mdi mdi-heart-outline cursor-icon"></i>
+                            <% }else{ %>
+                                <i id="heart-8" text="1" onclick="heart_8_f()" style="cursor: pointer;font-size: 150%;color:red;" class="mdi mdi-heart"></i>
+                                <%}%>
+                                    <i class="mdi mdi-fullscreen cursor-icon"></i>
+                                    <i id="close-8" onclick="close_8()" class="mdi mdi-close-octagon cursor-icon"></i>
+                                    <!-- <i class="mdi mdi-close-octagon cursor-icon"></i> -->
+
+                    </div>
+                    <div class="">
+                        <div class="row">
+                            <div class="col-lg-3"></div>
+                            <div class="col-lg-12">
+                                <div class="card-body calender-sidebar">
+                                    <div id="calendar"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+        <!-- END MODAL -->
+        <%- include('../_footer') -%>
+
+            <!--This page JavaScript -->
+            <script src="/UI/assets/libs/chartist/dist/chartist.min.js"></script>
+            <script src="/UI/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+            <script src="/UI/assets/libs/echarts/dist/echarts-en.min.js"></script>
+            <script src="/UI/assets/libs/flot/excanvas.min.js"></script>
+            <script src="/UI/assets/libs/flot/jquery.flot.js"></script>
+            <script src="/UI/assets/libs/jquery.flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+            <script src="/UI/assets/libs/d3/dist/d3.min.js"></script>
+            <script src="/UI/assets/libs/c3/c3.min.js"></script>
+            <script src="/UI/assets/libs/gaugeJS/dist/gauge.min.js"></script> -->
+            <script src="/UI/dist/js/pages/widget/widget-charts.js"></script>
+            <script src="/UI/assets/libs/apexcharts/dist/apexcharts.js"></script>
+            <script src="/UI/dist/js/pages/widget/card-custom.js"></script>
+
+            <!-- This Page table bootstrap-->
+            <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+            <script src="/UI/assets/libs/bootstrap-table/dist/bootstrap-table.min.js"></script>
+            <script src="/UI/assets/libs/bootstrap-table/dist/bootstrap-table-locale-all.min.js"></script>
+            <script src="/UI/assets/libs/bootstrap-table/dist/extensions/export/bootstrap-table-export.min.js"></script>
+            <script src="/UI/dist/js/pages/tables/bootstrap-table.init.js"></script>
+
+
+
+
+            <!-- Custom fullcalendar -->
+
+            <script src="/UI/assets/extra-libs/taskboard/js/jquery.ui.touch-punch-improved.js"></script>
+            <script src="/UI/assets/extra-libs/taskboard/js/jquery-ui.min.js"></script>
+
+            <script src="/UI/assets/libs/moment/min/moment.min.js"></script>
+            <script src="/UI/assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
+
+
+
+
+            <script src="/UI/dist/js/pages/echarts/line/line-charts.js"></script>
+
+            <script src="/UI/dist/js/pages/chartsLog/ative_icon.js"></script>
+            <script>
+                $(function() {
+
+
+                    $.get("/log_chart_1", function(data) {
+
+
+                        $.ajax({
+                            url: "/getperformance",
+                            type: "get",
+
+                            success: function(data) {
+                                var performance = data.data[0]
+                                var traffic = data.data2[0]
+
+                                $('#cpuusedper').css('width', parseInt(performance.cpuused) + '%')
+                                $('#memusedper').css('width', parseInt(performance.memused) + '%')
+                                $('#storageusedper').css('width', parseInt(performance.storageper))
+
+                                $('#cpuused').text(performance.cpuused + '%')
+                                $('#memused').text(parseFloat(performance.memused).toFixed(2) + '%')
+                                $('#mem-2').text(performance.storageused)
+                                $('#mem-persen').text(performance.storageper)
+
+                                $('#mem').text(parseFloat(performance.mem).toFixed(2) + 'GB')
+                                $('#storageall').text(performance.storageused + '(' + performance.storageper + ')')
+                                $('#storage').text(performance.storage)
+
+
+                                $('#rxkB').text(traffic.rxkB + 'kB/s')
+                                $('#txkB').text(traffic.txkB + 'kB/s')
+                                    // console.log(performance);
+                            }
+                        });
+
+
+
+                        value_chart = [];
+                        time_chart = [];
+
+                        value_chart_3 = [];
+                        date_chart_3 = [];
+
+                        value_chart_5 = [];
+                        date_chart_5 = [];
+
+
+
+
+
+
+                        for (let index = 0; index < data.data.length; index++) { //chart-1
+                            value_chart.push(data.data[index].sum)
+                            time_chart.push(data.data[index].time)
+                        }
+
+                        for (let index = 0; index < data.data_chart3.length; index++) { //chart-3
+                            value_chart_3.push(data.data_chart3[index].cs)
+                            date_chart_3.push(data.data_chart3[index].date)
+                        }
+
+                        for (let index = 0; index < data.data_chart5.length; index++) { //chart 5
+                            value_chart_5.push(data.data_chart5[index].sum)
+                            date_chart_5.push(data.data_chart5[index].ldate)
+                        }
+
+
+                        console.log(value_chart_5);
+                        console.log(date_chart_5);
+                        //console.log(data.data_chart1[0].hostname);
+
+
+                        let hostname = document.getElementById("hostname");
+                        let device_ip = document.getElementById("device_ip");
+
+                        let log_time = document.getElementById("log_time");
+                        let data_log_1 = document.getElementById("data_log_1");
+
+
+
+                        hostname.innerText = `${data.data_chart1[0].hostname}`
+                        device_ip.innerText = `${data.data_chart1[0].de_ip}`
+
+                        log_time.innerText = `${data.data_chart1[0].date}`
+                        data_log_1.innerText = `${data.data_chart1[0].msg}`
+
+                        // console.log(time_chart);
+                        // console.log(value_chart);
+
+                        value_chart_2 = [];
+                        date_chart_2 = [];
+
+                        var data_c2 = data.data_chart2;
+                        // console.log(data_c2);
+
+                        for (let aa = 0; aa < data_c2.length; aa++) {
+                            value_chart_2.push(data_c2[aa].sdate)
+                            date_chart_2.push(data_c2[aa].date)
+
+                        }
+                        console.log(value_chart_2);
+                        console.log(date_chart_2);
+
+
+                        var chart_1_v2 = {
+                            series: [{
+                                name: "Log Volume",
+                                data: value_chart,
+                            }],
+                            chart: {
+                                fontFamily: 'Rubik,sans-serif',
+                                height: 350,
+                                type: "area",
+                                toolbar: {
+                                    show: false,
+                                },
+                            },
+                            fill: {
+                                type: 'solid',
+                                opacity: 0.2,
+                                colors: ["#009efb", "#39c449"],
+                            },
+                            grid: {
+                                show: true,
+                                borderColor: "rgba(0,0,0,0.1)",
+                                strokeDashArray: 3,
+                                xaxis: {
+                                    lines: {
+                                        show: true
+                                    }
+                                },
+                            },
+                            colors: ["#39c449", "#009efb"],
+                            dataLabels: {
+                                enabled: false,
+                            },
+                            stroke: {
+                                curve: "smooth",
+                                width: 1,
+                                colors: ["#009efb", "#39c449"],
+                            },
+                            markers: {
+                                size: 3,
+                                colors: ["#009efb", "#39c449"],
+                                strokeColors: "transparent",
+                            },
+                            xaxis: {
+                                axisBorder: {
+                                    show: true,
+                                },
+                                axisTicks: {
+                                    show: true,
+                                },
+                                categories: time_chart,
+                                labels: {
+                                    style: {
+                                        colors: "#a1aab2",
+                                    },
+                                },
+                            },
+                            yaxis: {
+                                tickAmount: 9,
+                                labels: {
+                                    style: {
+                                        colors: "#a1aab2",
+                                    },
+                                },
+                            },
+                            tooltip: {
+                                x: {
+                                    format: "dd/MM/yy HH:mm",
+                                },
+                                theme: "dark",
+                            },
+                            legend: {
+                                show: false,
+                            },
+                        };
+                        var chart_area_spline_1 = new ApexCharts(document.querySelector("#chart1_v2"), chart_1_v2);
+                        chart_area_spline_1.render();
+
+
+                        var chart_2_v2 = {
+                            series: [{
+                                name: "Log Volume",
+                                data: value_chart_2,
+                            }],
+                            chart: {
+                                fontFamily: 'Rubik,sans-serif',
+                                height: 350,
+                                type: "area",
+                                toolbar: {
+                                    show: false,
+                                },
+                            },
+                            fill: {
+                                type: 'solid',
+                                opacity: 0.2,
+                                colors: ["#009efb", "#39c449"],
+                            },
+                            grid: {
+                                show: true,
+                                borderColor: "rgba(0,0,0,0.1)",
+                                strokeDashArray: 3,
+                                xaxis: {
+                                    lines: {
+                                        show: true
+                                    }
+                                },
+                            },
+                            colors: ["#39c449", "#009efb"],
+                            dataLabels: {
+                                enabled: false,
+                            },
+                            stroke: {
+                                curve: "smooth",
+                                width: 1,
+                                colors: ["#009efb", "#39c449"],
+                            },
+                            markers: {
+                                size: 3,
+                                colors: ["#009efb", "#39c449"],
+                                strokeColors: "transparent",
+                            },
+                            xaxis: {
+                                axisBorder: {
+                                    show: true,
+                                },
+                                axisTicks: {
+                                    show: true,
+                                },
+                                categories: date_chart_2,
+                                labels: {
+                                    style: {
+                                        colors: "#a1aab2",
+                                    },
+                                },
+                            },
+                            yaxis: {
+                                tickAmount: 9,
+                                labels: {
+                                    style: {
+                                        colors: "#a1aab2",
+                                    },
+                                },
+                            },
+                            tooltip: {
+                                x: {
+                                    format: "dd/MM/yy HH:mm",
+                                },
+                                theme: "dark",
+                            },
+                            legend: {
+                                show: false,
+                            },
+                        };
+
+                        var chart_area_spline_2 = new ApexCharts(document.querySelector("#chart2_v2"), chart_2_v2);
+                        chart_area_spline_2.render();
+
+                        var chart_3_v2 = {
+                            series: [{
+                                name: "Log Volume",
+                                data: value_chart_3,
+                            }],
+                            chart: {
+                                fontFamily: 'Rubik,sans-serif',
+                                height: 350,
+                                type: "area",
+                                toolbar: {
+                                    show: false,
+                                },
+                            },
+                            fill: {
+                                type: 'solid',
+                                opacity: 0.2,
+                                colors: ["#009efb", "#39c449"],
+                            },
+                            grid: {
+                                show: true,
+                                borderColor: "rgba(0,0,0,0.1)",
+                                strokeDashArray: 3,
+                                xaxis: {
+                                    lines: {
+                                        show: true
+                                    }
+                                },
+                            },
+                            colors: ["#39c449", "#009efb"],
+                            dataLabels: {
+                                enabled: false,
+                            },
+                            stroke: {
+                                curve: "smooth",
+                                width: 1,
+                                colors: ["#009efb", "#39c449"],
+                            },
+                            markers: {
+                                size: 3,
+                                colors: ["#009efb", "#39c449"],
+                                strokeColors: "transparent",
+                            },
+                            xaxis: {
+                                axisBorder: {
+                                    show: true,
+                                },
+                                axisTicks: {
+                                    show: true,
+                                },
+                                categories: date_chart_3,
+                                labels: {
+                                    style: {
+                                        colors: "#a1aab2",
+                                    },
+                                },
+                            },
+                            yaxis: {
+                                tickAmount: 9,
+                                labels: {
+                                    style: {
+                                        colors: "#a1aab2",
+                                    },
+                                },
+                            },
+                            tooltip: {
+                                x: {
+                                    format: "dd/MM/yy HH:mm",
+                                },
+                                theme: "dark",
+                            },
+                            legend: {
+                                show: false,
+                            },
+                        };
+                        var chart_area_spline_3 = new ApexCharts(document.querySelector("#chart3_v2"), chart_3_v2);
+                        chart_area_spline_3.render();
+
+                        var Revenue_Statistics = {
+                            series: [{
+                                name: "Log Volume",
+                                data: value_chart_5,
+                            }],
+                            chart: {
+                                fontFamily: 'Rubik,sans-serif',
+                                height: 350,
+                                type: "area",
+                                toolbar: {
+                                    show: false,
+                                },
+                            },
+                            fill: {
+                                type: 'solid',
+                                opacity: 0.2,
+                                colors: ["#009efb", "#39c449"],
+                            },
+                            grid: {
+                                show: true,
+                                borderColor: "rgba(0,0,0,0.1)",
+                                strokeDashArray: 3,
+                                xaxis: {
+                                    lines: {
+                                        show: true
+                                    }
+                                },
+                            },
+                            colors: ["#39c449", "#009efb"],
+                            dataLabels: {
+                                enabled: false,
+                            },
+                            stroke: {
+                                curve: "smooth",
+                                width: 1,
+                                colors: ["#009efb", "#39c449"],
+                            },
+                            markers: {
+                                size: 3,
+                                colors: ["#009efb", "#39c449"],
+                                strokeColors: "transparent",
+                            },
+                            xaxis: {
+                                axisBorder: {
+                                    show: true,
+                                },
+                                axisTicks: {
+                                    show: true,
+                                },
+                                categories: date_chart_5,
+                                labels: {
+                                    style: {
+                                        colors: "#a1aab2",
+                                    },
+                                },
+                            },
+                            yaxis: {
+                                tickAmount: 9,
+                                labels: {
+                                    style: {
+                                        colors: "#a1aab2",
+                                    },
+                                },
+                            },
+                            tooltip: {
+                                x: {
+                                    format: "dd/MM/yy HH:mm",
+                                },
+                                theme: "dark",
+                            },
+                            legend: {
+                                show: false,
+                            },
+                        };
+                        var chart_area_spline = new ApexCharts(document.querySelector("#revenue-statistics-3"), Revenue_Statistics);
+                        chart_area_spline.render();
+
+
+
+                    });
+                });
+            </script>
+
+            <script>
+                ! function($) {
+                    "use strict";
+
+                    var CalendarApp = function() {
+                        this.$body = $("body")
+                        this.$calendar = $('#calendar'),
+                            this.$event = ('#calendar-events div.calendar-events'),
+                            this.$categoryForm = $('#add-new-event form'),
+                            this.$extEvents = $('#calendar-events'),
+                            this.$modal = $('#my-event'),
+                            this.$saveCategoryBtn = $('.save-category'),
+                            this.$calendarObj = null
+                    };
+
+
+                    /* on drop */
+                    CalendarApp.prototype.onDrop = function(eventObj, date) {
+                            var $this = this;
+                            // retrieve the dropped element's stored Event Object
+                            var originalEventObject = eventObj.data('eventObject');
+                            var $categoryClass = eventObj.attr('data-class');
+                            // we need to copy it, so that multiple events don't have a reference to the same object
+                            var copiedEventObject = $.extend({}, originalEventObject);
+                            // assign it the date that was reported
+                            copiedEventObject.start = date;
+                            if ($categoryClass)
+                                copiedEventObject['className'] = [$categoryClass];
+                            // render the event on the calendar
+                            $this.$calendar.fullCalendar('renderEvent', copiedEventObject, true);
+                            // is the "remove after drop" checkbox checked?
+                            if ($('#drop-remove').is(':checked')) {
+                                // if so, remove the element from the "Draggable Events" list
+                                eventObj.remove();
+                            }
+                        },
+                        /* on click on event */
+                        CalendarApp.prototype.onEventClick = function(calEvent, jsEvent, view) {
+                            var $this = this;
+                            var form = $("<form></form>");
+                            form.append("<label>Change event name</label>");
+                            form.append("<div class='input-group'><input class='form-control' type=text value='" + calEvent.title + "' /><span class='input-group-btn'><button type='submit' class='btn btn-success waves-effect waves-light'><i class='fa fa-check'></i> Save</button></span></div>");
+                            $this.$modal.modal({
+                                backdrop: 'static'
+                            });
+                            $this.$modal.find('.delete-event').show().end().find('.save-event').hide().end().find('.modal-body').empty().prepend(form).end().find('.delete-event').unbind('click').click(function() {
+                                $this.$calendarObj.fullCalendar('removeEvents', function(ev) {
+                                    return (ev._id == calEvent._id);
+                                });
+                                $this.$modal.modal('hide');
+                            });
+                            $this.$modal.find('form').on('submit', function() {
+                                calEvent.title = form.find("input[type=text]").val();
+                                $this.$calendarObj.fullCalendar('updateEvent', calEvent);
+                                $this.$modal.modal('hide');
+                                return false;
+                            });
+                        },
+                        /* on select */
+                        CalendarApp.prototype.onSelect = function(start, end, allDay) {
+                            var $this = this;
+                            $this.$modal.modal({
+                                backdrop: 'static'
+                            });
+                            var form = $("<form></form>");
+                            form.append("<div class='row'></div>");
+                            form.find(".row")
+                                .append("<div class='col-md-6'><div class='form-group'><label class='control-label'>Event Name</label><input class='form-control' placeholder='Insert Event Name' type='text' name='title'/></div></div>")
+                                .append("<div class='col-md-6'><div class='form-group'><label class='control-label'>Category</label><select class='form-control' name='category'></select></div></div>")
+                                .find("select[name='category']")
+                                .append("<option value='bg-danger'>Danger</option>")
+                                .append("<option value='bg-success'>Success</option>")
+                                .append("<option value='bg-primary'>Primary</option>")
+                                .append("<option value='bg-info'>Info</option>")
+                                .append("<option value='bg-warning'>Warning</option></div></div>");
+                            $this.$modal.find('.delete-event').hide().end().find('.save-event').show().end().find('.modal-body').empty().prepend(form).end().find('.save-event').unbind('click').click(function() {
+                                form.submit();
+                            });
+                            $this.$modal.find('form').on('submit', function() {
+                                var title = form.find("input[name='title']").val();
+                                var beginning = form.find("input[name='beginning']").val();
+                                var ending = form.find("input[name='ending']").val();
+                                var categoryClass = form.find("select[name='category'] option:checked").val();
+                                if (title !== null && title.length != 0) {
+                                    $this.$calendarObj.fullCalendar('renderEvent', {
+                                        title: title,
+                                        start: start,
+                                        end: end,
+                                        allDay: false,
+                                        className: categoryClass
+                                    }, true);
+                                    $this.$modal.modal('hide');
+                                } else {
+                                    alert('You have to give a title to your event');
+                                }
+                                return false;
+
+                            });
+                            $this.$calendarObj.fullCalendar('unselect');
+                        },
+                        CalendarApp.prototype.enableDrag = function() {
+                            //init events
+                            $(this.$event).each(function() {
+                                // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
+                                // it doesn't need to have a start or end
+                                var eventObject = {
+                                    title: $.trim($(this).text()) // use the element's text as the event title
+                                };
+                                // store the Event Object in the DOM element so we can get to it later
+                                $(this).data('eventObject', eventObject);
+                                // make the event draggable using jQuery UI
+                                $(this).draggable({
+                                    zIndex: 999,
+                                    revert: true, // will cause the event to go back to its
+                                    revertDuration: 0 //  original position after the drag
+                                });
+                            });
+                        }
+                        /* Initializing */
+                    CalendarApp.prototype.init = function() {
+                            this.enableDrag();
+                            /*  Initialize the calendar  */
+                            var date = new Date();
+                            var d = date.getDate();
+                            var m = date.getMonth();
+                            var y = date.getFullYear();
+                            var form = '';
+                            var today = new Date($.now());
+                            var datax = <%-JSON.stringify(data7)%>;
+
+                            var defaultEvents = datax;
+
+                            var $this = this;
+                            $this.$calendarObj = $this.$calendar.fullCalendar({
+                                slotDuration: '00:15:00',
+                                /* If we want to split day time each 15minutes */
+                                minTime: '08:00:00',
+                                maxTime: '19:00:00',
+                                defaultView: 'month',
+                                handleWindowResize: true,
+
+                                header: {
+                                    left: 'prev,next today',
+                                    center: 'title',
+                                    right: 'month,agendaWeek,agendaDay'
+                                },
+                                events: defaultEvents,
+                                editable: true,
+                                droppable: true, // this allows things to be dropped onto the calendar !!!
+                                eventLimit: true, // allow "more" link when too many events
+                                selectable: true,
+                                drop: function(date) {
+                                    $this.onDrop($(this), date);
+                                },
+                                select: function(start, end, allDay) {
+                                    $this.onSelect(start, end, allDay);
+                                },
+                                eventClick: function(calEvent, jsEvent, view) {
+                                    $this.onEventClick(calEvent, jsEvent, view);
+                                }
+
+                            });
+
+                            //on new event
+                            this.$saveCategoryBtn.on('click', function() {
+                                var categoryName = $this.$categoryForm.find("input[name='category-name']").val();
+                                var categoryColor = $this.$categoryForm.find("select[name='category-color']").val();
+                                if (categoryName !== null && categoryName.length != 0) {
+                                    $this.$extEvents.append('<div class="calendar-events m-b-20" data-class="bg-' + categoryColor + '" style="position: relative;"><i class="fa fa-circle text-' + categoryColor + ' m-r-10" ></i>' + categoryName + '</div>')
+                                    $this.enableDrag();
+                                }
+
+                            });
+                        },
+
+                        //init CalendarApp
+                        $.CalendarApp = new CalendarApp, $.CalendarApp.Constructor = CalendarApp
+
+
+
+                }(window.jQuery),
+
+                //initializing CalendarApp
+                $(window).on('load', function() {
+                    $.CalendarApp.init()
+                });
+            </script>

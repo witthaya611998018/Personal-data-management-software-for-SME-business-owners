@@ -1,0 +1,583 @@
+<%- include ("../_header") %>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">ดูรายละเอียดการละเมิด</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item"><a href="/appeal/infraction/list">รับเรื่องร้องเรียน
+                                    การละเมิด</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">ดูรายละเอียดการละเมิด</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-7 justify-content-end align-self-center d-none d-md-flex">
+                <div class="d-flex">
+                    <div class="dropdown me-2">
+                        <a href="/appeal/infraction/list" class="btn btn-secondary">ย้อนกลับ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="border-bottom title-part-padding">
+                <h4 class="card-title mb-0">ดูรายละเอียดการละเมิด</h4>
+            </div>
+            <div class="card-body">
+                <div class="row mb-2 ">
+                    <div class="col-md-6 align-items-center d-md-flex justify-content-end">
+                        <h5 for="recipient-name" class="control-label">เลขที่ร้องเรียน :</h5>
+                    </div>
+                    <div class="col-md-5">
+                        <label>
+                            <%=infraction[0].infraction_complaint_number%>
+                        </label>
+                    </div>
+                </div>
+                <div class="row mb-2 ">
+                    <div class="col-md-6 align-items-center d-md-flex justify-content-end">
+                        <h5 for="recipient-name" class="control-label">วันที่ร้องเรียน :</h5>
+                    </div>
+                    <div class="col-md-5">
+                        <label>
+                            <%=infraction[0].day_complaint%>
+                        </label>
+                    </div>
+                </div>
+                <div class="row mb-2 ">
+                    <div class="col-md-6 align-items-center d-md-flex justify-content-end">
+                        <h5 for="recipient-name" class="control-label">ช่องทางการรับเรื่องร้องเรียน :</h5>
+                    </div>
+                    <div class="col-md-5">
+                        <label>
+                            <% if (infraction[0].infraction_email=="" ){%>
+                                -
+                                <%}else {%>
+                                    <%=infraction[0].infraction_email%>
+                                        <%}%>
+                        </label>
+                    </div>
+                </div>
+                <div class="row mb-2 ">
+                    <div class="col-md-6 align-items-center d-md-flex justify-content-end">
+                        <h5 for="recipient-name" class="control-label">ชื่อ-นามสกุล ผู้แจ้งเรื่องการละเมิด :</h5>
+                    </div>
+                    <div class="col-md-5 justify-content-start d-flex">
+                        <label>
+                            <%=infraction[0].prefix_name%>
+                        </label>
+                        <label>
+                            <%=infraction[0].infraction_firstname%>
+                                <%=infraction[0].infraction_lastname%>
+                        </label>
+                    </div>
+                </div>
+                <div class="row mb-2 ">
+                    <div class="col-md-6 align-items-center d-md-flex justify-content-end">
+                        <h5 for="recipient-name" class="control-label">ที่อยู่/เบอร์โทร ข้อมูลติดต่อกลับ :</h5>
+                    </div>
+                    <div class="col-md-5">
+                        <label>
+                            <%if (infraction[0].infraction_address=="" ) {%>
+                                -
+                                <%}else {%>
+                                    <%=infraction[0].infraction_address%>
+                                        <%}%>
+                        </label>
+                    </div>
+                </div>
+                <div class="row mb-2 ">
+                    <div class="col-md-6 align-items-center d-md-flex justify-content-end">
+                        <h5 for="recipient-name" class="control-label">ช่องทางติดต่อกลับ :</h5>
+                    </div>
+                    <div class="col-md-5">
+                        <label>
+
+                            <%if (infraction[0].infraction_contact=="" ) {%>
+                                -
+                                <%}else {%>
+                                    <%=infraction[0].infraction_contact%>
+                                        <%}%>
+                        </label>
+                    </div>
+                </div>
+                <div class="row mb-2 ">
+                    <div class="col-md-6 align-items-center d-md-flex justify-content-end">
+                        <h5 for="recipient-name" class="control-label">กิจกรรมการประมวลผล :</h5>
+                    </div>
+                    <div class="col-md-5">
+                        <label>
+                            <%=infraction[0].classify_name%>
+                        </label>
+                    </div>
+                </div>
+                <div class="row mb-2 ">
+                    <div class="col-md-6 align-items-center d-md-flex justify-content-end">
+                        <h5 for="recipient-name" class="control-label">ข้อมูลที่ลูกค้าแจ้งละเมิด :</h5>
+                    </div>
+                    <div class="col-md-5">
+                        <label>
+                            <%if (infraction[0].infraction_infringement_customer=="" ) {%>
+                                -
+                                <%}else {%>
+                                    <%=infraction[0].infraction_infringement_customer%>
+                                        <%}%>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row mb-2 ">
+                    <div class="col-md-6 align-items-center d-md-flex justify-content-end">
+                        <h5 for="recipient-name" class="control-label">ประเมินความน่าเชื่อถือของข้อมูล :</h5>
+                    </div>
+                    <div class="col-md-5">
+                        <label>
+                            <% if (infraction[0].infraction_assess_credibility==1) {%>
+                                <font class="text-success">น่าเชื่อถือ</font>
+                                <%}else if (infraction[0].infraction_assess_credibility==2) {%>
+                                    <font class="text-danger">ไม่น่าเชื่อถือ</font>
+                                    <%}else {%>
+                                        <font class="text-secondary">ไม่แน่ใจ</font>
+                                        <%}%>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row mb-2 ">
+                    <div class="col-md-6 align-items-center d-md-flex justify-content-end">
+                        <h5 for="recipient-name" class="control-label">อธิบาย :</h5>
+                    </div>
+                    <div class="col-md-5">
+                        <label>
+                            <%if (infraction[0].infraction_assess_credibility_explain=='' ) {%>
+                                -
+                                <%}else {%>
+                                    <%=infraction[0].infraction_assess_credibility_explain%>
+                                        <%}%>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row mb-2 ">
+                    <div class="col-md-6 align-items-center d-md-flex justify-content-end">
+                        <h5 for="recipient-name" class="control-label">เป็นการละเมิดหรือไม่ :</h5>
+                    </div>
+                    <div class="col-md-5">
+                        <label>
+                            <% if (infraction[0].infraction_infringement==1) {%>
+                                <font class="text-success">ใช่การละเมิด</font>
+                                <%}else if (infraction[0].infraction_infringement==2) {%>
+                                    <font class="text-danger">ไม่ใช่การละเมิด</font>
+                                    <%}%>
+                        </label>
+                    </div>
+                </div>
+                <%if (infraction[0].infraction_infringement==1) {%>
+                    <div class="row mb-2 ">
+                        <div class="col-md-6 align-items-center d-md-flex justify-content-end">
+                            <h5 for="recipient-name" class="control-label">
+                                (ถ้าละเมิด) ประเภทของการการละเมิดประเมินความเสี่ยง :
+                            </h5>
+                        </div>
+                        <div class="col-md-5">
+                            <label>
+                                <%=violation_name%>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2 ">
+                        <div class="col-md-6 align-items-center d-md-flex justify-content-end">
+                            <h5 for="recipient-name" class="control-label">
+                                ชื่อการละเมิด :
+                            </h5>
+                        </div>
+                        <div class="col-md-5">
+                            <label>
+                                <%if (infraction[0].combined_infringement_name=="" ) {%>
+                                    -
+                                    <%}else {%>
+                                        <%=infraction[0].combined_infringement_name%>
+                                            <%}%>
+                            </label>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row mb-2 ">
+                        <div class="col-md-6 align-items-center d-md-flex justify-content-end">
+                            <h5 for="recipient-name" class="control-label">
+                                (1) ลักษณะและประเภทของการละเมิดข้อมูลส่วนบุคคล :
+                            </h5>
+                        </div>
+                        <div class="col-md-5">
+                            <label>
+                                <%if (infraction[0].personal_data_breach_explain=="" ) {%>
+                                    -
+                                    <%}else {%>
+                                        <%=infraction[0].personal_data_breach_explain%>
+                                            <%}%>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2 ">
+                        <div class="col-md-6 align-items-center d-md-flex justify-content-end">
+                            <h5 for="recipient-name" class="control-label">
+                                (2) ลักษณะหรือประเภทของข้อมูลส่วนบุคคลที่เกี่ยวข้องกับการละเมิด :
+                            </h5>
+                        </div>
+                        <div class="col-md-5">
+                            <label>
+                                <%if (data_type_persanal=='' ) {%>
+                                    -
+                                    <%}else {%>
+                                        <%=data_type_persanal%>
+                                            <%}%>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row mb-2 ">
+                        <div class="col-md-6 align-items-center d-md-flex justify-content-end">
+                            <h5 for="recipient-name" class="control-label">
+                                อธิบาย :
+                            </h5>
+                        </div>
+                        <div class="col-md-5">
+                            <label>
+                                <%if (infraction[0].data_type_explain=="" ) {%>
+                                    -
+                                    <%}else {%>
+                                        <%=infraction[0].data_type_explain%>
+                                            <%}%>
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-2 ">
+                        <div class="col-md-6 align-items-center d-md-flex justify-content-end">
+                            <h5 for="recipient-name" class="control-label">
+                                (3) ปริมาณของข้อมูลส่วนบุคคลที่เกี่ยวข้องกับการละเมิด/จำนวนรายการ (records) :
+                            </h5>
+                        </div>
+                        <div class="col-md-5">
+                            <label>
+                                <%if (infraction[0].personal_information_records_explain=='' ) {%>
+                                    -
+                                    <%}else {%>
+                                        <%=infraction[0].personal_information_records_explain%>
+                                            <%}%>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2 ">
+                        <div class="col-md-6 align-items-center d-md-flex justify-content-end">
+                            <h5 for="recipient-name" class="control-label">
+                                (4) ลักษณะประเภทหรือสถานะของเจ้าของข้อมูลส่วนบุคคลที่ได้รับผลกระทบ :
+                            </h5>
+                        </div>
+                        <div class="col-md-5">
+                            <label>
+                                <%if (effect_name=="" ) {%>
+                                    -
+                                    <%}else {%>
+                                        <%=effect_name%>
+                                            <%}%>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2 ">
+                        <div class="col-md-6 align-items-center d-md-flex justify-content-end">
+                            <h5 for="recipient-name" class="control-label">
+                                อธิบาย :
+                            </h5>
+                        </div>
+                        <div class="col-md-5">
+                            <label>
+                                <%if (infraction[0].infractiontype_effect_id_explain=='' ) {%>
+                                    -
+                                    <%}else {%>
+                                        <%=infraction[0].infractiontype_effect_id_explain%>
+                                            <%}%>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2 ">
+                        <div class="col-md-6 align-items-center d-md-flex justify-content-end"
+                            style="text-align: right;">
+                            <h5 for="recipient-name" class="control-label">
+                                (5) ความร้ายแรงของผลกระทบและความเสียหายที่เกิดขึ้น <br>
+                                (5.1)ผลกระทบและความเสียหายที่เกิดขึ้นหรืออาจเกิดขึ้นกับเจ้าของข้อมูล:
+                            </h5>
+                        </div>
+                        <div class="col-md-5">
+                            <label>
+                                <%if (infraction[0].severity_impact_explain=="" ) {%>
+                                    -
+                                    <%}else {%>
+                                        <%=infraction[0].severity_impact_explain%>
+                                            <%}%>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2 ">
+                        <div class="col-md-6 align-items-center d-md-flex justify-content-end">
+                            <h5 for="recipient-name" class="control-label">
+                                (5.2) กระทบต่อประสิทธิผลของมาตรการที่ผู้ควบคุมข้อมูลส่วนบุคคล :
+                            </h5>
+                        </div>
+                        <div class="col-md-5">
+                            <label>
+                                <%if (effectiveness_name=="" ) {%>
+                                    -
+                                    <%}else {%>
+                                        <%=effectiveness_name%>
+                                            <%}%>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2 ">
+                        <div class="col-md-6 align-items-center d-md-flex justify-content-end">
+                            <h5 for="recipient-name" class="control-label">
+                                อธิบาย :
+                            </h5>
+                        </div>
+                        <div class="col-md-5">
+                            <label>
+                                <%if (infraction[0].infractiontype_effectiveness_id_explain=="" ) {%>
+                                    -
+                                    <%}else {%>
+                                        <%=infraction[0].infractiontype_effectiveness_id_explain%>
+                                            <%}%>
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-2 ">
+                        <div class="col-md-6 align-items-center d-md-flex justify-content-end">
+                            <h5 for="recipient-name" class="control-label">
+                                (5.3) การเยี่ยวยาหรือการบรรเทาผลกระทบที่เกิดขึ้นต่อเจ้าของข้อมูล :
+                            </h5>
+                        </div>
+                        <div class="col-md-5">
+                            <label>
+                                <%if (infraction[0].infractiontype_healing_explain=="" ) {%>
+                                    -
+                                    <%}else {%>
+                                        <%=infraction[0].infractiontype_healing_explain%>
+                                            <%}%>
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-2 ">
+                        <div class="col-md-6 align-items-center d-md-flex justify-content-end">
+                            <h5 for="recipient-name" class="control-label">
+                                (6) ผลกระทบในวงกว้างต่อธุรกิจหรือการดำเนินการหรือต่อสาธารณะจากเหตุการละเมิด :
+                            </h5>
+                        </div>
+                        <div class="col-md-5">
+                            <label>
+                                <%if (infraction[0].violation_action_explain=="" ) {%>
+                                    -
+                                    <%}else {%>
+                                        <%=infraction[0].violation_action_explain%>
+                                            <%}%>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2 ">
+                        <div class="col-md-6 align-items-center d-md-flex " style="text-align: right;">
+                            <h5 for="recipient-name" class="control-label">
+                                (7) ลักษณะของระบบการจัดเก็บข้อมูลส่วนบุคคลที่เกี่ยวข้องกับการละเมิด
+                                และมาตรการรักษาความมั่นคงปลอดภัยที่เกี่ยวข้องของผู้ควบคุมข้อมูลส่วนบุคคล <br>
+                                (7.1) มาตรการรักษาความมั่นคงปลอดภัยโดยทั่วไป (General Measures) :
+                            </h5>
+                        </div>
+                        <div class="col-md-5 d-flex align-items-end">
+                            <label>
+                                <%if (measures_name=="" ) {%>
+                                    -
+                                    <%}else {%>
+                                        <%=measures_name%>
+                                            <%}%>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2 ">
+                        <div class="col-md-6 align-items-start d-md-flex justify-content-end">
+                            <h5 for="recipient-name" class="control-label">
+                                (7.2) มาตราการต้องสามารถระบุความเสี่ยงที่สำคัญที่อาจจะเกิด (Risk-based Approach) :
+                            </h5>
+                        </div>
+                        <div class="col-md-2   align-items-start">
+                            <label for="Information assets">Information assets</label>
+                            <label>
+                                <%if (approach_name_assets=="" ) {%>
+                                    -
+                                    <%}else {%>
+                                        <%=approach_name_assets%>
+                                            <%}%>
+                            </label>
+                        </div>
+                        <div class="col-md-2  align-items-start">
+                            <label for="Network and Equipment">Network and Equipment</label>
+                            <label>
+                                <%if (approach_name_newwork=="" ) {%>
+                                    -
+                                    <%}else {%>
+                                        <%=approach_name_newwork%>
+                                            <%}%>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2 ">
+                        <div class="col-md-6 align-items-center d-md-flex justify-content-end">
+                            <h5 for="recipient-name" class="control-label">
+                                (7.3) มาตราการรักษาความปลอดภัยขั้นต่ำที่PDPAกำหนด (PDPA Specific Measures) :
+                            </h5>
+                        </div>
+                        <div class="col-md-5 d-flex align-items-center">
+                            <label>
+                                <%if (specific_name=='' ) {%>
+                                    -
+                                    <%}else {%>
+                                        <%=specific_name%>
+                                            <%}%>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row mb-2 ">
+                        <div class="col-md-6 align-items-center d-md-flex justify-content-end">
+                            <h5 for="recipient-name" class="control-label">
+                                (8) สถานะทางกฎหมายของผู้ควบคุมข้อมูลส่วนบุคคล :
+                            </h5>
+                        </div>
+                        <div class="col-md-5 d-flex align-items-center">
+                            <label>
+                                <%if (effectiveness_name=="" ) {%>
+                                    -
+                                    <%}else {%>
+                                        <%=effectiveness_name%>
+                                            <%}%>
+                            </label>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row mb-2 ">
+                        <div class="col-md-6 align-items-center d-md-flex justify-content-end">
+                            <h5 for="recipient-name" class="control-label">
+                                เอกสารPDPA :
+                            </h5>
+                        </div>
+                        <div class="col-md-5">
+                            <label>
+                                <%for (let i=0;i<doc_detail.length;i++){%>
+                                    <%=doc_detail[i].doc_name%>
+                                        <a class="text-info" target="_blank" href="/paper/<%=doc_detail[i].doc_id%>"><i
+                                                class=" fas fa-file-alt fa-2x"></i></a>
+                                        <%}%>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2 ">
+                        <div class="col-md-6 align-items-center d-md-flex justify-content-end">
+                            <h5 for="recipient-name" class="control-label">
+                                ระยะเวลาทบทวนมาตราการ :
+                            </h5>
+                        </div>
+                        <div class="col-md-5">
+                            <label>
+                                <%=infraction[0].day_measures%> - <%=day_last%>
+                                        จำนวน
+                                        <font class="text-success p-1">
+                                            <%= infraction[0].infraction_measures_date_count%>
+                                        </font> วัน
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2 ">
+                        <div class="col-md-6 align-items-center d-md-flex justify-content-end">
+                            <h5 for="recipient-name" class="control-label">
+                                ผู้ดูแลข้อมูลหรือผู้ดูแลระบบหรือผู้ควบคุมมาตราการ :
+                            </h5>
+                        </div>
+                        <div class="col-md-5">
+                            <label>
+                                <%if (infraction[0].infraction_measures_supervisor=="" ) {%>
+                                    -
+                                    <%}else {%>
+                                        <%=infraction[0].infraction_measures_supervisor%>
+                                            <%}%>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2 ">
+                        <div class="col-md-6 align-items-center d-md-flex justify-content-end">
+                            <h5 for="recipient-name" class="control-label">
+                                หมายเหต :
+                            </h5>
+                        </div>
+                        <div class="col-md-5">
+                            <label>
+                                <%if (infraction[0].combined_annotation=="" ) {%>
+                                    -
+                                    <%}else {%>
+                                        <%=infraction[0].combined_annotation%>
+                                            <%}%>
+                            </label>
+                        </div>
+                    </div>
+
+                    <%}%>
+
+
+                        <div class="row mb-2 ">
+                            <div class="col-md-6 align-items-center d-md-flex justify-content-end">
+                                <h5 for="recipient-name" class="control-label">
+                                    ร่างบันทึกขอความคิดเห็นจากที่ปรึกษา :
+                                </h5>
+                            </div>
+                            <div class="col-md-5">
+                                <label>
+                                    <%if (infraction[0].infraction_measures_consult==1){%>
+                                        <font class="text-success">
+                                            มี
+                                        </font>
+                                        <%}else {%>
+                                            <font class="text-danger">
+                                                ไม่มี
+                                            </font>
+                                            <%}%>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="justify-content: center;">
+                            <a href="/appeal/infraction/list" class="btn btn-secondary">ย้อนกลับ</a>
+                        </div>
+            </div>
+        </div>
+    </div>
+    <%- include ("../_footer") %>

@@ -1,0 +1,196 @@
+<%- include('../_header') -%>
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-md-5 align-self-center">
+            <h3 class="page-title">สร้าง Service Agent</h3>
+            <div class="d-flex align-items-center" style="margin-top: 1%;">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+                        <li class="breadcrumb-item"><a href="/agent_manage">Agent Management</a></li>
+                        <li class="breadcrumb-item active">สร้าง Service Agent</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid" id="a_new">
+    <!-- Row -->
+    <div class="row">
+        <!-- Column -->
+        <div class="col-12">
+            <div class="card">
+                <div class="border-bottom title-part-padding">
+                    <h4 class="card-title mb-0">สร้าง Service Agent ที่ต้องการ<span class="text-secondary"></span></h4>
+                </div>
+                <div class="card-body">
+                    <form action="/agent_manage/add" method="POST" class="needs-validation" novalidate>
+                        <div class="form-group">
+                            <table class="table table-boardless">
+                                <th width="12%" style="text-align: left;">
+                                    <label for="name-agent" style="font-weight: bold;">ชื่อกำกับการใช้งาน</label>
+                                </th>
+                                <td style="text-align: left;">
+                                    <input id="name-agent" name="agm_name" type="text" placeholder="กรุณาป้อนชื่อ..." class="form-control" required/>
+                                    <div class="invalid-feedback">
+                                        กรุณาป้อนชื่อกำกับการใช้งาน!!!
+                                    </div>
+                                    <div id="checkName" style="margin-top: 1%;">
+                                    </div>
+                                </td>
+                            </table>
+                            <table class="table table-boardless">
+                                <th width="12%" style="text-align: left;">
+                                    <label for="select-agent" style="font-weight: bold;">เลือกชนิด Agent</label>
+                                </th>
+                                <td style="text-align: left;">
+                                    <select id="select-agent" name="ags_id" class="form-control" style="width: 100%; display: inline;" required>
+                                        <option value="" disabled selected>กรุณาเลือก</option>
+                                        <% for(i in agent){%>
+                                            <option value="<%= agent[i].ags_id %>"><%= agent[i].name %></option>
+                                        <%}%>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        กรุณาเลือกชนิดของ Agent!!!
+                                    </div>
+                                </td>
+                            </table>
+                            <table id="head-agent" class="table table-boardless" style="display: none;">
+                                <th width="12%" style="text-align: left; font-weight: bold;"> รายละเอียดของ <span id="name"></span></th>
+                            </table>
+                            <div id="content-agent">
+                            </div>
+                            <table class="table table-boardless">
+                                <th style="text-align: left; width: 12%;">
+                                    <label for="select-device" style="font-weight: bold;">อุปกรณ์ที่ต้องการติดตั้ง</label>
+                                </th>
+                                <td style="text-align: left;">
+                                    <input id="select-device" name="device_plugin" type="text" placeholder="กรุณาป้อนอุปกรณ์..." class="form-control" style="width: 100%; display: inline; vertical-align: -20px;" required>
+                                    <div class="invalid-feedback">
+                                        กรุณาป้อนอุปกรณ์ที่จะติดตั้ง!!!
+                                    </div>
+                                </td>
+                            </table>
+                            <table class="table table-boardless">
+                                <th style="width: 12%; text-align: left;">
+                                    <label for="select-ip" style="font-weight: bold;">IP Address</label>
+                                </th>
+                                <td style="text-align: left;">
+                                    <input id="select-ip" name="ip_plugin" type="text" placeholder="กรุณาป้อนIP..." class="form-control" style="width: 100%; display: inline; vertical-align: -20px;" required/>
+                                    <div class="invalid-feedback">
+                                        กรุณาป้อนIP Address ที่จะติดตั้ง
+                                    </div>
+                                </td>
+                            </table>
+                            <input type="text" name="acc_id" value="<%= session.acc_id %>" readonly hidden />
+                            <div id="detail-config">
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success">ยืนยัน</button>
+                            <a href="javascript:history.back();" class="btn btn-danger">ยกเลิก</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Error Column -->
+        <div id="alert-column" class="swal2-container swal2-center swal2-fade swal2-shown" style="overflow-y: auto; display: none;">
+            <div aria-labelledby="swal2-title" aria-describedby="swal2-content" class="swal2-popup swal2-modal swal2-show" tabindex="-1" role="dialog" aria-live="assertive" aria-modal="true" style="display: flex;">
+                <div class="swal2-header">
+                    <ul class="swal2-progress-steps" style="display: none;"></ul>
+                    <div class="swal2-icon swal2-error swal2-animate-error-icon" style="display: flex;">
+                        <span class="swal2-x-mark"><span class="swal2-x-mark-line-left"></span>
+                            <span class="swal2-x-mark-line-right">
+                            </span>
+                        </span>
+                    </div>
+                    <h2 class="swal2-title" id="swal2-title" style="display: flex;">เกิดข้อผิดพลาด...</h2>
+                </div>
+                <div class="swal2-content">
+                    <div id="swal2-content" style="display: block;">ไม่สามารถลบได้!!</div>
+                </div>
+                <div class="swal2-actions" style="display: flex;">
+                    <button id="alert-column" type="button" class="swal2-cancel swal2-styled" aria-label="" style="display: inline-block;">ปิด</button>
+                </div>
+            </div>
+        </div>
+        <!-- Modal confirm delete column -->
+        <div id="alert-confirm-column" class="swal2-container swal2-center swal2-fade swal2-shown" style="overflow-y: auto; display: none;">
+            <div aria-labelledby="swal2-title" aria-describedby="swal2-content" class="swal2-popup swal2-modal swal2-show" tabindex="-1" role="dialog" aria-live="assertive" aria-modal="true" style="display: flex;">
+                <div class="swal2-header">
+                    <div class="swal2-icon swal2-warning swal2-animate-warning-icon" style="display: flex;"></div>
+                    <h2 class="swal2-title" id="swal2-title" style="display: flex;">คุณต้องการจะลบ Column</h2>
+                </div>
+                <div class="swal2-content">
+                    <div id="swal2-content" style="display: block;">
+                        <span id="column-name-modal"></span>&nbsp;นี้จริงไหม?<br/>
+                        <div style="margin-top:2%;">คุณจะไม่สามารถย้อนกลับได้!</div>
+                    </div>
+                </div>
+                <div class="swal2-actions" style="display: flex;">
+                    <button id="alert-confirm-column-yes" type="button" class="swal2-confirm swal2-styled btn btn-danger" aria-label="" style="display: inline-block;">ยืนยัน</button>
+                    <button id="alert-confirm-column-no" type="button" class="swal2-cancel swal2-styled btn btn-secondary" aria-label="" style="display: inline-block;">ยกเลิก</button>
+                </div>
+            </div>
+        </div>
+        <!-- Modal confirm delete table -->
+        <div id="alert-confirm" class="swal2-container swal2-center swal2-fade swal2-shown" style="overflow-y: auto; display: none;">
+            <div aria-labelledby="swal2-title" aria-describedby="swal2-content" class="swal2-popup swal2-modal swal2-show" tabindex="-1" role="dialog" aria-live="assertive" aria-modal="true" style="display: flex;">
+                <div class="swal2-header">
+                    <div class="swal2-icon swal2-warning swal2-animate-warning-icon" style="display: flex;"></div>
+                    <h2 class="swal2-title" id="swal2-title" style="display: flex;">คุณต้องการจะลบ Table</h2>
+                </div>
+                <div class="swal2-content">
+                    <div id="swal2-content" style="display: block;">
+                        <span id="table-name"></span>&nbsp;นี้จริงไหม?<br/>
+                        <div style="margin-top:2%;">คุณจะไม่สามารถย้อนกลับได้!</div>
+                    </div>
+                </div>
+                <div class="swal2-actions" style="display: flex;">
+                    <button id="alert-confirm-yes" type="button" class="swal2-confirm swal2-styled btn btn-danger" aria-label="" style="display: inline-block;">ยืนยัน</button>
+                    <button id="alert-confirm-no" type="button" class="swal2-cancel swal2-styled btn btn-secondary" aria-label="" style="display: inline-block;">ยกเลิก</button>
+                </div>
+            </div>
+        </div>
+        <!-- Modal test connect success -->
+        <div id="alert-success" class="swal2-container swal2-center swal2-fade swal2-shown" style="overflow-y: auto; display: none;">
+            <div aria-labelledby="swal2-title" aria-describedby="swal2-content" class="swal2-popup swal2-modal swal2-show" tabindex="-1" role="dialog" aria-live="assertive" aria-modal="true" style="display: flex;">
+                <div class="swal2-header">
+                    <div id="alert-warning-icon" class="swal2-icon swal2-warning swal2-animate-warning-icon" style="display: none;"></div>
+                    <div id="alert-success-icon" class="swal2-icon swal2-success swal2-animate-success-icon" style="display: none;">
+                        <span class="swal2-success-line-tip"></span>
+                        <span class="swal2-success-line-long"></span>
+                        <div class="swal2-success-ring"></div>
+                    </div>
+                    <h2 id="alert-success" class="swal2-title" style="display: flex;"></h2>
+                </div>
+                <div id="alert-content-success" class="swal2-content text-center">
+                </div>
+                <div class="swal2-actions" style="display: flex;">
+                    <button id="alert-success" type="button" class="swal2-confirm swal2-styled" aria-label="" style="display: inline-block; border-left-color: rgb(48, 133, 214); border-right-color: rgb(48, 133, 214);">ปิด</button>
+                </div>
+                <div class="swal2-footer" style="display: none;">
+                </div>
+            </div>
+        </div>
+        <!-- Modal loading -->
+        <div id="alert-loading" class="swal2-container swal2-center swal2-fade swal2-shown" style="overflow-y: auto; display: none;">
+            <div aria-labelledby="swal2-title" aria-describedby="swal2-content" class="swal2-popup swal2-modal swal2-show" tabindex="-1" role="dialog" aria-live="assertive" aria-modal="true" style="display: flex;">
+                <div class="swal2-header">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+                <div class="swal2-content text-center">
+                    <br/>
+                    กำลังโหลดข้อมูลโปรดรอสักครู่
+                </div>
+                <div class="swal2-footer" style="display: none;">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../_footer') -%>

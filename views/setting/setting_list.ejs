@@ -1,0 +1,300 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md5 align-self-center">
+                <h3 class="page-title">ตั้งค่าระบบ</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item"><a href="/index2">การจัดการระบบ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">ตั้งค่าระบบ</li>
+
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- ============================================================== --
+        <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="row">
+                        <div class="card-body">
+                            <div class="card-body border-bottom">
+                                <h4 class="card-title  mb-0">ตั้งค่าระบบ</h4>
+                            </div>
+                            <form class="form-horizontal needs-validation" novalidate action="/settingadd" method="post"
+                                id="Formadd">
+                                <div class="card-body" style="min-height: 650px;">
+
+                                    <div class="mb-3 row">
+                                        <label for="num_admin"
+                                            class="col-sm-3 text-end control-label col-form-label  text-secondary">จำนวนผู้ดูแลระบบ</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control border border-info" id="num_admin"
+                                                placeholder="จำนวนคน" required value="<%=data[0].num_admin%>"
+                                                name="num_admin" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="num_user"
+                                            class="col-sm-3 text-end control-label col-form-label text-secondary">จำนวนผู้ดูแลข้อมูล</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control border border-info" id="num_user"
+                                                placeholder="จำนวนคน" required value="<%=data[0].num_user%>" readonly
+                                                name="num_user">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="pw_keep"
+                                            class="col-sm-3 text-end control-label col-form-label text-secondary">ระยะเวลาในการเปลี่ยนรหัสผ่าน</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control border border-info" id="pw_keep"
+                                                placeholder="จำนวนวัน" required value="<%=data[0].day_keep%>"
+                                                name="pw_keep">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="ntp"
+                                            class="col-sm-3 text-end control-label col-form-label text-secondary"
+                                            for="sender">เครื่องแม่ข่ายที่ให้บริการปรับเทียบเวลา (NTP)</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control border border-info" id="ntp"
+                                                placeholder="ชื่อไอพี หรือ ชื่อโฮสติ้ง" required
+                                                value="<%=data[0].ntp%>" name="ntp">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="email"
+                                            class="col-sm-3 text-end control-label col-form-label text-secondary">เขตเวลา</label>
+                                        <div class="col-sm-6">
+                                            <select class=".select2-with-border border-info form-control"
+                                                style="width: 100%; height:36px;" name="timezone">
+                                                <option value="Asia/Bangkok">Asia/Bangkok</option>
+                                                <% if(data2){ %>
+                                                    <% for (var i=0; i < data2.length; i++) { %>
+
+                                                        <option value="<%= data2[i].name %>">
+                                                            <%= data2[i].name %>
+                                                        </option>
+                                                        <% } }%>
+                                            </select>
+                                        </div>
+                                    </div><br>
+                                    <hr>
+                                    <div class="mb-3 row">
+                                        <label for="ip"
+                                            class="col-sm-3 text-end control-label col-form-label text-secondary">IP
+                                            Address</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control border border-info" id="ip" name="ip"
+                                                required value="<%=data3[0].ip%>" placeholder="192.168.1.1">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="netmark"
+                                            class="col-sm-3 text-end control-label col-form-label text-secondary">Netmark</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control border border-info" id="netmark"
+                                                name="netmark" required value="<%=data3[0].netmark%>"
+                                                placeholder="255.255.255.0">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="gateway"
+                                            class="col-sm-3 text-end control-label col-form-label text-secondary">Gateway</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control border border-info" id="gateway"
+                                                name="gateway" required value="<%=data3[0].gateway%>"
+                                                placeholder="192.168.1.1">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="dns"
+                                            class="col-sm-3 text-end control-label col-form-label text-secondary">DNS</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control border border-info" id="dns"
+                                                name="dns" required value="<%=data3[0].dns%>" placeholder="8.8.8.8">
+                                        </div>
+                                    </div><br>
+                                    <hr><br>
+                                    <div class="mb-3 row">
+                                        <label for="dns"
+                                            class="col-sm-3 text-end control-label col-form-label text-secondary">การนำออกไฟล์ล็อก</label>
+                                        <div class="col-sm-2">
+                                            <select class=".select2-with-border border-info form-control"
+                                                style="width: 100%; height:36px;" name="view_hash_log_export">
+                                                <%if(data[0].view_hash_log_export=='md5' ){ %>
+                                                    <option value="md5"> MD-5 </option>
+                                                    <%}else if(data[0].view_hash_log_export=='sha1' ){%>
+                                                        <option value="sha1"> SHA-1 </option>
+                                                        <%}else if(data[0].view_hash_log_export=='sha256' ){%>
+                                                            <option value="sha256"> SHA-256 </option>
+                                                            <%}%>
+                                                            <option value="md5"> MD-5 </option>
+                                                                <option value="sha1"> SHA-1 </option>
+                                                                <option value="sha256"> SHA-256 </option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="dns"
+                                            class="col-sm-3 text-end control-label col-form-label text-secondary">ประวัติการใช้งาน</label>
+
+                                        <div class="col-sm-2">
+                                            <select class=".select2-with-border border-info form-control"
+                                                style="width: 100%; height:36px;" name="view_hash_access_history">
+                                                <%if(data[0].view_hash_access_history=='md5' ){ %>
+                                                    <option value="md5"> MD-5 </option>
+                                                    <%}else if(data[0].view_hash_access_history=='sha1' ){%>
+                                                        <option value="sha1"> SHA-1 </option>
+                                                        <%}else if(data[0].view_hash_access_history=='sha256' ){%>
+                                                            <option value="sha256"> SHA-256 </option>
+                                                            <%}%>
+                                                            <option value="md5"> MD-5 </option>
+                                                                <option value="sha1"> SHA-1 </option>
+                                                                <option value="sha256"> SHA-256 </option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="dns"
+                                            class="col-sm-3 text-end control-label col-form-label text-secondary">การนำออกข้อมูล
+                                            (PDPA)</label>
+                                        <div class="col-sm-2">
+                                            <select class=".select2-with-border border-info form-control"
+                                                style="width: 100%; height:36px;" name="view_hash_pdpa_dataout">
+                                                <%if(data[0].view_hash_pdpa_dataout=='md5' ){ %>
+                                                    <option value="md5"> MD-5 </option>
+                                                    <%}else if(data[0].view_hash_pdpa_dataout=='sha1' ){%>
+                                                        <option value="sha1"> SHA-1 </option>
+                                                        <%}else if(data[0].view_hash_pdpa_dataout=='sha256' ){%>
+                                                            <option value="sha256"> SHA-256 </option>
+                                                            <%}%>
+                                                            <option value="md5"> MD-5 </option>
+                                                                <option value="sha1"> SHA-1 </option>
+                                                                <option value="sha256"> SHA-256 </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+
+                                    <hr><br>
+
+
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <button type="submit"
+                                                class="btn btn-success waves-effect waves-light">แก้ไข</button>
+                                            <a href="/index2"> <button type="button"
+                                                    class="btn btn-secondary waves-effect waves-light">กลับ</button></a>
+
+                                        </div>
+
+                                        <div class="col-sm-5">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- -------------------------------------------------------------- -->
+    <!-- End PAge Content -->
+    <!-- -------------------------------------------------------------- -->
+    <!--start overlay-->
+    <%- include('../_footer') -%>
+        <script src="/UI/assets/libs/select2/dist/js/select2.full.min.js"></script>
+        <script src="/UI/assets/libs/select2/dist/js/select2.min.js"></script>
+        <script src="/UI/dist/js/pages/forms/select2/select2.init.js"></script>
+        <script>
+            function myFunction() {
+                var popup = document.getElementById("sa-bg23");
+                popup.classList.toggle("sa-bg23");
+            }
+            $("#sa-bg23").click(function () {
+                Swal.fire({
+                    title: 'Custom width, padding, background.',
+                    width: 600,
+                    padding: '3em',
+                    background: '#fff url(../assets/images/background/active-bg.png)',
+                    backdrop: `
+                            rgba(0,0,123,0.4)
+                            url("../assets/images/background/nyan-cat.gif")
+                            center left
+                            no-repeat
+                        `
+                })
+            });
+        </script>
+
+        <script>
+            var userid = <% -JSON.stringify(session.userid) %>;
+
+            // var z = <%-JSON.stringify(data2)%>;
+            // var select = {};
+            // var select2 = {};
+            // for (let i = 0; i < x.length; i++) {
+            //     select[x[i].group_id] = x[i].g_name
+            // }
+            // for (let i = 0; i < z.length; i++) {
+            //     select2[z[i].acc_id] = z[i].name
+            // }
+            $("#sa-chain3").click(function () {
+
+                Swal.mixin({
+                    input: 'text',
+                    confirmButtonText: 'Next &rarr;',
+                    showCancelButton: true,
+                    progressSteps: ['1', '2']
+                }).queue([{
+                    title: 'การยืนยันแบบ 2 ขั้นตอน',
+                    text: 'ยันยืนรหัสผ่าน'
+                }, {
+                    title: 'การยืนยันแบบ 2 ขั้นตอน',
+                    text: 'OTP by Google Authenticator'
+                }]).then((result) => {
+
+                    // var data1 = JSON.stringify(result.value)
+
+                    if (result.value) {
+                        var request1 = function () {
+                            console.log(result);
+                            result["userid"] = userid;
+                            $.ajax({
+                                url: "http://119.81.44.155:8081/ajaxcheckuser",
+                                type: "post",
+                                data: result,
+                                success: function (data) {
+                                    var result = data.data;
+                                    if (result.length == 0) {
+                                        alert("ใส่รหัสผ่านผิด")
+                                        setInterval('location.reload()', 200);
+                                    } else {
+                                        $('#Formadd').trigger('submit');
+                                        alert("บันทึกข้อมูลเรียบร้อย");
+                                    }
+
+                                }
+                            });
+                        }
+                        request1();
+                    }
+                })
+            });
+        </script>

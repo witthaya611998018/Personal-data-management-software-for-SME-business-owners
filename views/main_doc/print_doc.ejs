@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input id="code" value="<%=code%>" readonly hidden />
+    <input id='code1' value="<%=code1%>" readonly hidden />
+    <input id='code_name' value="<%=code_name%>" readonly hidden />
+
+    <input id="site_name" value="<%=user_list[0].Name1%>" readonly hidden />
+    <input id='short_name' value="<%=user_list[0].Name1%>" readonly hidden />
+    <input id='image' value="<%=user_list[0].image%>" readonly hidden />
+    <input id="address_company" value="<%=user_list[0].shortDesciption1%>" readonly hidden />
+    <input id='phone_company' value="<%=user_list[0].phone1%>" readonly hidden />
+    <input id='email_company' value="<%=user_list[0].emailAddress1%>" readonly hidden />
+
+
+    <div id="setprint">
+        <% for (var i=0;i<data.length;i++){%>
+            <div>
+                <%-data[i].page_content%>
+            </div>
+            <%}%>
+    </div>
+
+</body>
+<style>
+    body {
+        font-size: 16px;
+        font-family: sans-serif;
+        color: coral;
+    }
+
+    .header {
+        display: block;
+    }
+
+    @media print {
+        @page {
+            size: A4;
+            margin: 2.5cm;
+        }
+
+        body {
+            font-size: 12pt;
+            font-family: serif;
+            color: black;
+        }
+
+        .header {
+            display: none;
+        }
+        header, footer, aside, nav, form, iframe, .menu, .hero, .adslot {
+            display: none;
+        }
+        
+        
+    }
+    
+</style>
+<style type="text/css" media="print">
+    @page 
+    {
+        size:  auto;   /* auto is the initial value */
+        margin: 0mm;  /* this affects the margin in the printer settings */
+    }
+
+    html
+    {
+        background-color: #FFFFFF; 
+        margin: 0px;  /* this affects the margin on the html before sending to printer */
+    }
+
+    body
+    {
+        border: solid 0px blue ;
+        margin: 10mm 15mm 10mm 15mm; /* margin you want for the content */
+    }
+    </style>
+
+<script src="/UI/assets/libs/jquery/dist/jquery.min.js"></script>
+
+<script>
+    summernote_replace();
+    function summernote_replace() {
+        $("#setprint").html($('#myEditor1').val());
+        let text = document.getElementById("setprint").innerHTML;
+        const site_name = document.getElementById("site_name").value;
+        const short_name = document.getElementById('short_name').value;
+        const image = document.getElementById('image').value;
+        const email_company = document.getElementById("email_company").value;
+        const phone_company = document.getElementById('phone_company').value;
+        const address_company = document.getElementById('address_company').value;
+        const number_company = 'number';
+
+        let page_content_replace_company = [];
+        let company_replace =
+            [
+                "@@company_name",
+                "@@short_company_name",
+                "@@logo_company",
+                "@@email_company",
+                "@@phone_company",
+                "@@address_company",
+                "@@number_company",
+            ];
+        let regex =
+            new RegExp(
+                company_replace[0],
+                "ig"
+            );
+        let regex_short =
+            new RegExp(
+                company_replace[1],
+                "ig"
+            );
+        let regex_logo =
+            new RegExp(
+                company_replace[2],
+                "ig"
+            );
+        let regex_email_company =
+            new RegExp(
+                company_replace[3],
+                "ig"
+            );
+        let regex_phone_company =
+            new RegExp(
+                company_replace[4],
+                "ig"
+            );
+        let regex_address_company =
+            new RegExp(
+                company_replace[5],
+                "ig"
+            );
+        let regex_number_company =
+            new RegExp(
+                company_replace[6],
+                "ig"
+            );
+        text = text.replace(
+            regex, site_name
+        );
+        text = text.replace(
+            regex_short, short_name
+        );
+        text = text.replace(
+            regex_logo, 'logo.png'
+        );
+        text = text.replace(
+            regex_email_company, email_company
+        );
+        text = text.replace(
+            regex_phone_company, phone_company
+        );
+        text = text.replace(
+            regex_address_company, address_company
+        );
+        text = text.replace(
+            regex_number_company, number_company
+        );
+        page_content_replace_company.push(
+            text
+        );
+        document.getElementById("setprint").innerHTML = page_content_replace_company
+    }
+
+</script>
+
+<script type="text/javascript">
+    let text = document.getElementById("setprint").innerHTML;
+    const code = document.getElementById("code").value
+    const code1 = document.getElementById('code1').value
+    const code_name = document.getElementById('code_name').value;
+
+    let sort_code = code.split(',')
+    let sort_code1 = code1.split(',')
+    let sort_code2 = code_name.split(',')
+    let obj = []
+    for (i in sort_code1) {
+        obj.push({ "data_id": sort_code[i], "data_code": sort_code1[i], "data_name": sort_code2[i] })
+    }
+    for (j in obj) {
+        var x = obj[j].data_code
+        let position = text.search(x);
+        if (position > -1) {
+            text = text.replaceAll(obj[j].data_code, obj[j].data_name)
+            document.getElementById("setprint").innerHTML = text
+        }
+    }
+    // window.onafterprint = setTimeout(function () { window.close(); }, 500);
+    window.print();
+</script>
+
+</html>

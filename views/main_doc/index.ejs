@@ -1,0 +1,725 @@
+<%- include('../_header') -%>
+    <!-- <%=JSON.stringify(html)%> -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-6 align-self-center">
+                <h3 class="page-title">เอกสารนโยบาย</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item">เอกสารนโยบาย</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+
+            <!-- <div class="col-md-6" style="float: right;text-align: right;">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#add_policydoc"><i
+                        class="fas fa-plus"></i>
+                    เพิ่มเอกสาร</button>
+            </div> -->
+
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- <form action="/SearchPolicy" method="POST">
+            <div class="row-6" align="center">
+                <div class="col-md-6">
+                    <h4 class="card-title" style="float: left;">เลือกประเภทเอกสาร</h4>
+                    <div class="col-md-12 justify-content-end align-self-center d-block d-md-flex">
+
+                        <div class="input-group mb-12">
+                            <a href="/index" class="btn btn-outline-warning"><svg xmlns="http://www.w3.org/2000/svg"
+                                    width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    class="feather feather-refresh-cw">
+                                    <polyline points="23 4 23 10 17 10"></polyline>
+                                    <polyline points="1 20 1 14 7 14"></polyline>
+                                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15">
+                                    </path>
+                                </svg></a>
+                            <select name="search_doc_type" class="form-control" onchange="this.form.submit()" required>
+                                <option selected disabled value="">
+                                    เลือก.. </option>
+                                <% if(doc_type){ %>
+                                    <% for(var i=0;i<doc_type.length;i++){%>
+                                        <option value="<%= doc_type[i].doc_type_id %>">
+                                            <%= doc_type[i].doc_type_name %>
+                                        </option>
+                                        <% } %>
+                                            <% } %>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form> -->
+        <div class="tab-content">
+            <div id="note-full-container" class="note-has-grid row">
+                <input id="doc_i" value="<%=doc_i%>" readonly hidden />
+                <input id='doc_n' value="<%=doc_n%>" readonly hidden />
+                <input id="doc_r" value="<%=doc_r%>" readonly hidden />
+                <input id='doc_t' value="<%=doc_t%>" readonly hidden />
+                <input id="doc_status" value="<%=doc_status%>" readonly hidden />
+                <input id="doc_consent_status" value="<%=doc_consent_status%>" readonly hidden />
+
+                <input type="hidden" id="HOST" value="<%=host%>" readonly />
+                <input type="hidden" id="HTML" value="<%=html%>" readonly />
+
+                <input type="hidden" id="Data_set" value="<%= JSON.stringify(doc) %>" readonly />
+                <input type="hidden" id="my_user" value="<%=my_user[0].name%>" readonly />
+
+                <div class="card">
+                    <div class="border-bottom title-part-padding">
+                        <h4 class="card-title mb-0">เอกสารนโยบาย</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row pb-3">
+                            <div class="col-md-5">
+                                <%if (session.limit.policy===-1 || doc.length < session.limit.policy) {%>
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                        data-bs-target="#add_policydoc"><i class="fas fa-plus"></i>
+                                        เพิ่มเอกสาร</button>
+                                    <%}else {%>
+                                        <button type="button" class="btn btn-success" disabled>
+                                            <i class="fas fa-plus"></i>
+                                            เพิ่มเอกสาร</button>
+                                        <% } %>
+                            </div>
+                            <div class="col-md-7 justify-content-end align-self-center d-block d-md-flex">
+                                <form action="/SearchPolicy" method="POST">
+                                    <div class="input-group mb-2 ">
+                                        <a class="btn btn-outline-warning" href="/index"><i
+                                                data-feather="repeat"></i></a>
+                                        <select name="search_doc_type" class="form-control"
+                                            onchange="this.form.submit()" required>
+                                            <option selected disabled value="">
+                                                เลือก.. </option>
+                                            <% if(doc_type){ %>
+                                                <% for(var i=0;i<doc_type.length;i++){%>
+                                                    <option value="<%= doc_type[i].doc_type_id %>">
+                                                        <%= doc_type[i].doc_type_name %>
+                                                    </option>
+                                                    <% } %>
+                                                        <% } %>
+                                        </select>
+                                        <span class="input-group-text">หรือ</span>
+                                        <input type="text" value="" class="form-control" placeholder="ค้นหา..."
+                                            id="input_search">
+                                        <button class="btn btn-outline-warning" type="button" id="search_type_policy"><i
+                                                class="fas fa-search"></i></button>
+                                    </div>
+                                </form>
+                                <!-- </div> -->
+                            </div>
+                        </div>
+
+                        <div class="table-responsive" id="DataTable-Policydoc"> </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6 text-secondary">
+                                <div class="row">
+                                    <span>แสดงผล <a id="show"></a> ถึง <a id="to_show"></a> ทั้งหมด <a
+                                            id="show_all"></a>
+                                        รายการ</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                                <nav aria-label="Page navigation example" class="mt-2">
+                                    <ul class="pagination">
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <form action="/paper" method="POST">
+        <div class="modal fade" id="add_policydoc" class="modal fade" tabindex="-1"
+            aria-labelledby="success-header-modalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                        <h3 style="color:black" class="modal-title " ">
+                            เพิ่มเอกสาร</h3>
+                        <button type=" button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card-body">
+                            <div class="mb row">
+                                <label for="fname" class="col-sm-4 text-start control-label col-form-label">
+                                    ชื่อเอกสาร:</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="doc_name" placeholder="กรอกชื่อเอกสาร.."
+                                        class="form-control" required style="margin-bottom: 10px;">
+                                </div>
+                            </div>
+                            <div class="mb-2 row">
+                                <label for="lname" class="col-sm-4 text-start control-label col-form-label">ประเภทเอกสาร
+                                    :
+                                </label>
+                                <div class="col-sm-8 ">
+                                    <select name="doc_type_id" class="form-control" value="<%=search_doc_type[0]%>"
+                                        required>
+                                        <option selected disabled value="">
+                                            เลือก.. </option>
+                                        <% if(doc_type){ %>
+                                            <% for(var i=0;i<doc_type.length;i++){%>
+                                                <%if(doc_type[i].doc_type_id==153) {%>
+                                                    <option selected value="<%= doc_type[i].doc_type_id %>">
+                                                        <%= doc_type[i].doc_type_name %>
+                                                    </option>
+                                                    <%}else {%>
+                                                        <option value="<%= doc_type[i].doc_type_id %>">
+                                                            <%= doc_type[i].doc_type_name %>
+                                                        </option>
+                                                        <%}%>
+                                                            <% } %>
+                                                                <% } %>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mb-2 row">
+                                <label for="email1" class="col-sm-4 text-start control-label col-form-label">หมายเหตุ
+                                    :</label>
+                                <div class="col-sm-8">
+                                    <textarea name="doc_remark" class="form-control"
+                                        placeholder="หมายเหตุ.."></textarea>
+                                </div>
+                            </div>
+                            <input type="text" name="doc_date_create" id="" value="<%= data3[0].new %>" readonly hidden>
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-success">
+                            บันทึกเอกสาร </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            ปิด
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form action="/updatedoc" method="POST">
+        <div class="modal fade" id="edit_doc" class="modal fade" tabindex="-1"
+            aria-labelledby="success-header-modalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                        <h3 style="color:black" class="modal-title " ">
+                            กำหนดสถานะเอกสาร</h3>
+                        <button type=" button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div align="left" class="modal-body">
+                        <div class="card-body" id="editdoc">
+
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-warning">
+                            บันทึกเอกสาร </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            ปิด
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form action="/deletedoc" method="POST">
+        <div class="modal fade" id="del_doc" class="modal fade" tabindex="-1"
+            aria-labelledby="success-header-modalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                        <h3 style="color:black" class="modal-title " ">
+                            ยืนยันการลบเอกสาร</h3>
+                        <button type=" button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card-body" id="deletedoc">
+
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-danger">
+                            ลบเอกสาร </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            ปิด
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form action="/copydoc_save" method="POST">
+        <div id="copydoc-modal" class="modal fade show" tabindex="-1" aria-labelledby="info-header-modalLabel"
+            aria-modal="true" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header modal-colored-header bg-info text-white">
+                        <h4 class="modal-title" id="info-header-modalLabel">
+                            คัดลอกเอกสาร
+                        </h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="copydoc_input">
+
+                    </div>
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-info font-weight-medium">ยืนยัน</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form action="/sent_mail" method="POST" id="submitalert">
+        <div id="setlink-modal" class="modal fade show" tabindex="-1" aria-labelledby="info-header-modalLabel"
+            aria-modal="true" role="dialog">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header modal-colored-header bg-info text-white">
+                        <h4 class="modal-title" id="info-header-modalLabel">
+                            แชร์เอกสาร
+                        </h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <input type="email" name="email_outside" class="form-control" placeholder="อีเมลล์ผู้รับ"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" name="subject" class="form-control" placeholder="หัวข้อ"
+                                onkeyup="updatehead(this.value)" required>
+                        </div>
+                        <h2 class="bold">Preview <span id="updatename"></span></h2>
+                        <div style="border-style:solid ;padding: 3%;" id="setcode">
+                            <%-html%>
+                        </div>
+                        <input id="setdoc_id" type="hidden" name="link_doc_id" readonly>
+                        <input id="comment_doc_id" type="hidden" name="doc_id" readonly>
+                        <input id="server_doc_path" type="hidden" name="server_doc_path" readonly>
+                        <div class="card-body" align="left">
+                            <br />
+                            <div class="form-group">
+                                <textarea id="myEditor2" class="summernote" name="page_content"
+                                    style="display: none;"><%-html%></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3  text-center">
+                        <a onclick="submitalert()" class="btn btn-info font-weight-medium">ส่ง</a>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+    </form>
+    <style>
+        .note-insert {
+            display: none;
+        }
+    </style>
+    <script>
+        function submitalert() {
+            Swal.fire({
+
+                type: 'success',
+                title: 'จัดส่ง เรียบร้อย',
+                showConfirmButton: false,
+                timer: 1500
+            }).then(() => {
+                $("#submitalert").submit();
+            })
+        }
+
+        function checked_doc_consent() {
+            if (document.getElementById('checked_doc_consent').checked) {
+                document.getElementById('checked_doc_consent').value = 0
+            } else {
+                document.getElementById('checked_doc_consent').value = 1
+            }
+        }
+        function updatehead(value) {
+            document.getElementById('updatename').innerHTML = value
+        }
+        // function edit_checked_doc_consent(){
+        //     if(document.getElementById('edit_checked_doc_consent').checked){
+        //         document.getElementById('edit_checked_doc_consent').value = 0
+        //         document.getElementById('edit_checked_doc_consent').attributes('checked',false)
+        //     }else{
+        //         document.getElementById('edit_checked_doc_consent').value = 1
+        //         document.getElementById('edit_checked_doc_consent').attributes('checked',true)
+        //     } 
+        // }
+
+        function setlink(id, name) {
+            var server = window.location.hostname;
+            var host = document.getElementById('HOST').value
+            document.getElementById('setdoc_id').value = id
+            document.getElementById('comment_doc_id').value = id
+            document.getElementById('server_doc_path').value = host
+            var html = document.getElementById('HTML').value
+            var repalce = html.replaceAll("#descrips", name);
+            repalce = repalce.replaceAll("#host", host + '/show_slide/' + id);
+            $("#setcode").html(repalce);
+            $(".summernote").summernote("code", repalce);
+            console.log($('#myEditor2').val());
+
+        }
+
+        function copydoc(data) {
+            document.getElementById('copydoc_input').innerHTML =
+                `<h5 align="center">ยืนยันการคัดลอกเอกสาร : ${$(data).attr('policy')}</h5>
+        <input type="hidden" name="doc_id" value="${data.id}" readonly>`
+        }
+
+
+        function editdoc(id) {
+            const doc_id = document.getElementById("doc_i").value //doc_id
+            const doc_name = document.getElementById('doc_n').value //doc_name
+            const doc_type_id = document.getElementById('doc_t').value //doc_type_id
+            const doc_remark = document.getElementById('doc_r').value //doc_remark
+            const doc_status = document.getElementById('doc_status').value //doc_status
+            const doc_consent_status = document.getElementById('doc_consent_status').value //doc_consent_status
+
+            let sort_doc_id = doc_id.split(',')
+            let sort_doc_name = doc_name.split(',')
+            let sort_doc_type_id = doc_type_id.split(',')
+            let sort_doc_remark = doc_remark.split(',')
+            let sort_doc_status = doc_status.split(',')
+            let sort_doc_consent_status = doc_consent_status.split(',')
+
+            let obj = []
+            var editdoc = document.getElementById("editdoc");
+
+            for (i in sort_doc_id) {
+                obj.push({ "doc_id": sort_doc_id[i], "doc_name": sort_doc_name[i], "doc_type_id": sort_doc_type_id[i], "doc_remark": sort_doc_remark[i], "doc_status": sort_doc_status[i], "doc_consent_status": sort_doc_consent_status[i] })
+            }
+
+            for (j in obj) {
+                if (id == obj[j].doc_id) {
+                    if (obj[j].doc_consent_status == 1) {
+                        editdoc.innerHTML = '<div class="mb-2 row"><label for="fname" class="col-sm-4 text-start control-label col-form-label"> ชื่อเอกสาร :</label><div class="col-sm-8"><input type="text" name="doc_name" value="' + obj[j].doc_name + '" placeholder="กรุณาป้อนชื่อเอกสาร.." class="form-control" required></div></div>'
+                            + '<div class="mb-2 row"><label for="lname" class="col-sm-4 text-start control-label col-form-label">ชนิดเอกสาร : </label><div class="col-sm-8"><select id="doc_edit_type" name="doc_type_id" class="form-control" required><option name="" value="">เลือก..</option><% if(doc_type){ %><% for(var i=0;i<doc_type.length;i++){%><option id="option_edit_doc" value="<%= doc_type[i].doc_type_id %>"><%= doc_type[i].doc_type_name %></option> <% } %><% } %></select></div></div>'
+                            + '<div class="mb-2 row"><label for="fname" class="col-sm-4 text-start control-label col-form-label"> สถานะเอกสาร :</label><div class="col-sm-8"><select id="edit_status" class="form-control" name="doc_status" > <option  value="0">ร่าง</option><option  value="1">ต้นฉบับ</option><option value="2"> ใช้งาน</option><option value="3"> ยกเลิก</option></select></div></div>'
+                            + '<div class="mb-2 row"><label for="fname" class="col-sm-4 text-start control-label col-form-label"> หมายเหตุ :</label><div class="col-sm-8"><textarea style="height:100px" name="doc_remark" cols="30" rows="10"class="form-control" placeholder="หมายเหตุ..">' + obj[j].doc_remark + '</textarea></div></div>'
+                            + '<input type="hidden" name="doc_id" value="' + obj[j].doc_id + '" readonly>'
+                    }
+                    else {
+                        editdoc.innerHTML = '<div class="mb-2 row"><label for="fname" class="col-sm-4 text-start control-label col-form-label"> ชื่อเอกสาร :</label><div class="col-sm-8"><input type="text" name="doc_name" value="' + obj[j].doc_name + '" placeholder="กรุณาป้อนชื่อเอกสาร.." class="form-control" required></div></div>'
+                            + '<div class="mb-2 row"><label for="lname" class="col-sm-4 text-start control-label col-form-label">ชนิดเอกสาร : </label><div class="col-sm-8"><select id="doc_edit_type" name="doc_type_id" class="form-control" required><option name="" value="">เลือก..</option><% if(doc_type){ %><% for(var i=0;i<doc_type.length;i++){%><option id="option_edit_doc" value="<%= doc_type[i].doc_type_id %>"><%= doc_type[i].doc_type_name %></option> <% } %><% } %></select></div></div>'
+                            + ' <div class="mb-2 row"><label for="fname" class="col-sm-4 text-start control-label col-form-label"> สถานะเอกสาร :</label><div class="col-sm-8"><select id="edit_status" class="form-control" name="doc_status" > <option  value="0">ร่าง</option><option  value="1">ต้นฉบับ</option><option value="2"> ใช้งาน</option><option value="3"> ยกเลิก</option></select></div></div>'
+                            + '<div class="mb-2 row"><label for="fname" class="col-sm-4 text-start control-label col-form-label"> หมายเหตุ :</label><div class="col-sm-8"><textarea style="height:100px" name="doc_remark" cols="30" rows="10"class="form-control" placeholder="หมายเหตุ..">' + obj[j].doc_remark + '</textarea></div></div>'
+                            + '<input type="hidden" name="doc_id" value="' + obj[j].doc_id + '" readonly>'
+                    }
+                }
+            }
+            var re = new RegExp("[0-9]");
+            var selected = $('select#doc_edit_type')
+            for (j in obj) {
+                if (id == obj[j].doc_id) {
+                    console.log(id, obj[j].doc_id)
+                    var option = $('option#option_edit_doc').map(function () {
+                        return $(this).val()
+                    })
+                    for (k in option) {
+                        if (option[k] == obj[j].doc_type_id) {
+                            selected.find('option[value=' + option[k] + ']').attr('selected', 'selected');
+                        }
+                    }
+                }
+            }
+
+            var selected_doc = $('select#edit_status').find('option').map(function () {
+                return $(this).val()
+            })
+            for (a in selected_doc) {
+                for (b in obj) {
+                    if (obj[b].doc_id == id) {
+                        if (obj[b].doc_status == selected_doc[a]) {
+                            $('select#edit_status').find('option[value=' + selected_doc[a] + ']').attr('selected', true)
+                        }
+                    }
+                }
+            }
+        }
+
+        function deldoc(id) {
+            const doc_id = document.getElementById("doc_i").value //doc_id
+            const doc_name = document.getElementById('doc_n').value //doc_name
+            const doc_type_id = document.getElementById('doc_t').value //doc_type_id
+            const doc_remark = document.getElementById('doc_r').value //doc_remark
+
+
+            let sort_doc_id = doc_id.split(',')
+            let sort_doc_name = doc_name.split(',')
+            let sort_doc_type_id = doc_type_id.split(',')
+            let sort_doc_remark = doc_remark.split(',')
+
+
+            let obj = []
+            var deletedoc = document.getElementById("deletedoc");
+            for (i in sort_doc_id) {
+                obj.push({ "doc_id": sort_doc_id[i], "doc_name": sort_doc_name[i], "doc_type_id": sort_doc_type_id[i], "doc_remark": sort_doc_remark[i] })
+            }
+            for (j in obj) {
+                if (id == obj[j].doc_id) {
+                    deletedoc.innerHTML = '<div class="form-group row py-3"><label class="control-label text-end col-md-4 font-weight-medium">ชื่อเอกสาร :</label><div class="col-md-8"><p class="form-control-static" style="display: inline">' + obj[j].doc_name + ' </p></div></div>'
+                        + '<input type="hidden" name="doc_id" value="' + obj[j].doc_id + '" readonly>'
+                }
+            }
+        }
+
+        function DatabTable() {
+            var dataget = JSON.parse(document.getElementById('Data_set').value)
+            var my_user = document.getElementById('my_user').value
+            let dataset = []
+            for (let i = 0; i < dataget.length; i++) {
+                dataset.push({
+                    'no': i + 1,
+                    'check_doc': dataget[i].check_doc,
+                    'doc_action': dataget[i].doc_action,
+                    'doc_consent_status': dataget[i].doc_consent_status,
+                    'doc_date_create': dataget[i].doc_date_create,
+                    'doc_id': dataget[i].doc_id,
+                    'doc_name': dataget[i].doc_name,
+                    'doc_remark': dataget[i].doc_remark,
+                    'doc_status': dataget[i].doc_status,
+                    'doc_type_id': dataget[i].doc_type_id,
+                    'type': dataget[i].type,
+                    'user_id': dataget[i].user_id,
+                    'doc_type_name': dataget[i].doc_type_name
+                })
+            }
+            var state = {
+                'querySet': dataset,
+                'page': 1,
+                'rows': 30, // จำนวน row
+                'window': 10000, // จำนวนหน้าที่เเสดง
+            }
+            buildTable()
+            function pagination(querySet, page, rows) {
+                var trimStart = (page - 1) * rows
+                var trimEnd = trimStart + rows
+                var trimmedData = querySet.slice(trimStart, trimEnd)
+                var pages = Math.ceil(querySet.length / rows); // Math.ceil ปัดทศนิยมขึ้น Math.round ปัดทศนิยมลง
+                return {
+                    'querySet': trimmedData,
+                    'pages': pages,
+                }
+            }
+
+            function pageButtons(pages) {
+                var wrapper = document.querySelector('.pagination')
+                wrapper.innerHTML = ``
+                var maxLeft = (state.page - Math.floor(state.window / 2))
+                var maxRight = (state.page + Math.floor(state.window / 2))
+
+                if (maxLeft < 1) {
+                    maxLeft = 1
+                    maxRight = state.window
+                }
+                if (maxRight > pages) {
+                    maxLeft = pages - (state.window - 1)
+                    if (maxLeft < 1) {
+                        maxLeft = 1
+                    }
+                    maxRight = pages
+                }
+
+                // เช็คหน้าเเรก (ปุ่มย้อนกลับ)
+                var num = 1
+                if (maxRight > 5) {
+                    if (state.page > (maxRight / 2)) {
+                        if ((state.page + 1) > (maxRight / 2)) {
+                            wrapper.innerHTML += '<li class="page-item"><button class="page page-link" value=1>1</button></li>';
+                            wrapper.innerHTML += '<li class="page-item disabled"><a class="page-link" href="javascript:void(0)">..</a></li>';
+                        }
+                    }
+                    for (var page = maxLeft; page <= maxRight; page++) {
+                        if ((page >= state.page - 2) && (page <= state.page + 2)) {
+                            if (page == state.page) {
+                                wrapper.innerHTML += `<li value=${page} class="page page-item active"><button class="page-link">${page}</button></li>`
+                            }
+                            else {
+                                wrapper.innerHTML += `<li value=${page} class="page page-item "><button class="page-link">${page}</button></li>`
+                            }
+                        }
+                    }
+                    if ((state.page) <= (maxRight / 2)) {
+                        mp = maxRight - 1;
+                        wrapper.innerHTML += '<li class="page-item disabled"><a class="page-link" href="javascript:void(0)">..</a></li>';
+                        wrapper.innerHTML += '<li class="page-item "><button class="page page-link" value=' + maxRight + '>' + maxRight + '</button></li>';
+                    }
+                }
+                else {
+                    for (var page = maxLeft; page <= maxRight; page++) {
+                        if (state.page == page) {
+                            wrapper.innerHTML += `<li value=${page} class="page page-item active"><button class="page-link">${page}</button></li>`
+                        } else {
+                            wrapper.innerHTML += `<li value=${page} class="page page-item "><button class="page-link">${page}</button></li>`
+                        }
+                    }
+                }
+                if (state.page == 1) {
+                    wrapper.innerHTML = `<li  class="page-item disabled"><button class="page-link" tabindex="-1">ย้อนกลับ</button></li>` + wrapper.innerHTML
+                } else {
+                    wrapper.innerHTML = `<li value=${state.page - 1} class="page page-item "><button class="page-link" tabindex="-1">ย้อนกลับ</button></li>` + wrapper.innerHTML
+                }
+                // เช็คหน้าสุดท้าย (ปุ่มถัดไป)
+                if (state.page == pages) {
+                    wrapper.innerHTML += `<li  class=" page-item disabled"><button class="page-link">ถัดไป</button></li>`
+                } else {
+                    wrapper.innerHTML += `<li value=${state.page + 1} class="page page-item"><button class="page-link">ถัดไป</button></li>`
+                }
+
+                $('.page').on('click', function () {
+                    $('#table-body').empty()
+                    $('#table-thead').empty()
+                    $('#table_sortable').remove()
+                    state.page = Number($(this).val())
+                    buildTable()
+                })
+            }
+
+            function buildTable() {
+                var content = '<table class="tablesaw no-wrap  table-bordered table-hover table" id="table_sortable">'
+                content += '<thead id="table-thead"> </thead>' + '<tbody id="table-body"></tbody>';
+                content += '</table>'
+                $('#DataTable-Policydoc').append(content);
+                var table = $('#table-body');
+                var table_thead = $('#table-thead');
+                var data = pagination(state.querySet, state.page, state.rows)
+                var myList = data.querySet
+                var show = [];
+                var thead =
+                    `<tr>          
+                    <th>ลำดับ </th>
+                    <th> ชื่อเอกสาร </th>
+                    <th> สถานะ </th>
+                    <th> ใช้เอกสาร </th>
+                    <th> ดูข้อมูล </th>
+                    <th> กำหนดสถานะ </th>
+                    <th> วันที่สร้าง </th>
+                    <th> ผู้สร้าง </th>
+                    <th> วันที่เริ่มใช้งาน </th>
+                    <th> วันที่ยกเลิก </th>
+                    <th> ประเภทเอกสาร </th>        
+                    <th> ลบข้อมูล </th>
+                </tr> `;
+                table_thead.append(thead)
+                for (var i in myList) {
+                    let status = "";
+                    var GetScript = {
+                        "share": `<a href="#"
+        onclick="setlink(${myList[i].doc_id},'${myList[i].doc_name}')"
+        title="คลิกเพื่อส่ง Email" data-bs-toggle="modal"
+        data-bs-target="#setlink-modal"><i class="mdi mdi-email-outline" style="font-size: 25px;"></i></a>`,
+
+                        "printer": `
+        <a href="/print_doc_policy/${myList[i].doc_id}"
+        title="คลิกพิมพ์เอกสาร" target="_blank" class="col-md-1">
+        <i class=" mdi mdi-printer" style="font-size: 25px;"></i></a>
+        `,
+
+                        "copy": `
+        <a href="#" id="${myList[i].doc_id}" onclick="copydoc(this)" policy="${myList[i].doc_name}"
+        data-bs-toggle="modal" data-bs-target="#copydoc-modal"
+        class="col-md-1"><i class="mdi mdi-content-copy" style="font-size: 23px;"></i></a>
+        `,
+
+                        "branch": `
+        <a href="/api_support/${myList[i].doc_id}"
+        title="คลิกเพื่อรับ Link" class="col-md-1"><i
+        class="fas fa-code-branch"
+        style="font-size: 25px;"></i> </a>
+        `,
+
+                        "link": `
+        <a href="/show_slide/${myList[i].doc_id}"
+         title="คลิกแชร์เอกสาร" target="_blank">
+         <i class="mdi mdi-link " style="font-size: 26px;"></i></a>
+        `,
+                    };
+
+
+
+                    let status_name = "";
+                    if (myList[i].doc_status == 0) {
+                        status = GetScript.link + GetScript.share + GetScript.printer
+
+                        status_name = `<p id="status-${i}"
+                        class="form-control-static text-secondery">ร่าง</p>`
+                    } else if (myList[i].doc_status == 1) {
+                        status = GetScript.link + GetScript.share + GetScript.printer + GetScript.copy
+                        status_name = `<p id="status-${i}"
+                        class="form-control-static text-info">ต้นฉบับ</p>`
+                    } else if (myList[i].doc_status == 2) {
+                        status = GetScript.link + GetScript.share + GetScript.printer + GetScript.branch + GetScript.copy
+                        status_name = `<p id="status-${i}"
+                        class="form-control-static text-success">ใช้งาน</p>`
+                    } else {
+                        status = "-"
+                        status_name = `<p id="status-${i}"
+                        class="form-control-static text-danger">ยกเลิก</p>`
+                    }
+                    var row = `<tr><td>` + myList[i].no +
+                        `</td><td  style="width: 30%;">` + myList[i].doc_name +
+                        `</td><td>` + status_name +
+                        `</td><td> ${status}` +
+                        '</td><td>' + `<a class="text-info"  href="/paper/${myList[i].doc_id}"><i class=" fas fa-file-alt fa-2x"></i></a>` +
+                        `</td><td>
+                                <a id="${myList[i].doc_id}" href="#" onclick="editdoc(this.id)"
+                                class="text-warning" data-bs-toggle="modal"
+                                data-bs-target="#edit_doc"><i class="fas fa-pencil-alt fa-2x"></i>
+                                 </a>` +
+                        '</td><td>' + myList[i].doc_date_create +
+                        '</td><td>' + my_user +
+                        `</td><td>` + myList[i].doc_date_create +
+                        '</td><td>' + '-' +
+                        `</td><td>` + myList[i].doc_type_name +
+                        `</td><td>
+                            <a id="${myList[i].doc_id}" href="#" onclick="deldoc(this.id)"
+                             class="text-danger" data-bs-toggle="modal"
+                             data-bs-target="#del_doc"><i class="fas fa-trash-alt fa-2x"></i>
+                             </a>`+
+                        '</td></tr>'
+                    table.append(row)
+                    show.push(myList[i].no)
+                }
+                if (state.querySet.length == 0) {
+                    show[0] = 0
+                }
+                document.querySelector("#show").innerHTML = show[0];  //  แสดงถึง row เเรกของหน้า 
+                document.querySelector("#to_show").innerHTML = show[show.length - 1];  //  แสดงถึง row สุดท้ายของหน้า
+                document.querySelector("#show_all").innerHTML = state.querySet.length;  //  แสดงถึงจำนวนข้อมูลทั้งหมดของหน้า
+                pageButtons(data.pages)
+            }
+
+        };
+        DatabTable()
+
+    </script>
+
+    <%- include('../_footer') -%>

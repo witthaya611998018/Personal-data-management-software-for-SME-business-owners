@@ -1,0 +1,715 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-12 align-self-center">
+                <h3 class="page-title"><i class="fas fa-id-card"></i> แก้ไขรูปแบบประเภทข้อมูล</h3>
+                <div class="d-flex align-items-center" style="margin-top: 1%;">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index">หน้าแรก</a></li>
+                            <!-- <li class="breadcrumb-item active">การป้องกันข้อมูลสู่ภายนอก (Export)</li> -->
+                            <li class="breadcrumb-item active"><a href="/classification">ค้นหาข้อมูลและจัดการประเภท</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">แก้ไขรูปแบบประเภทข้อมูล</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid" id="c_edit" data-mark="<%= classify[0].classify_id%>">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="border-bottom title-part-padding">
+                        <h4 class="card-title mb-0">แก้ไขรูปแบบประเภทข้อมูลที่จะนำไปใช้ตามกิจกรรมการประมวลผล <span class="text-secondary"></span></h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="/classification/update<%=classify[0].classify_id%>" method="POST">
+                            <div>
+                                <table class="table table-boardless">
+                                    <tr>
+                                        <td style="vertical-align: left; text-align: left;">
+                                            <h5 style="font-weight: bold; display: inline;">ประเภทของข้อมูลที่กำหนดไว้แล้ว (เลือกข้อมูลที่กำหนด Pattern ไว้แล้ว) </h5><a href="#select-pattern" data-bs-toggle="modal" class="option-pattern" style="margin-left: 5%; display: inline;">เลือกข้อมูลที่กำหนด Pattern ไว้แล้ว</a>
+                                            <textarea name="example_pattern" class="form-control" style="height: 240px; resize: none; margin-top: 0.5%;" readonly></textarea>
+                                            <input type="text" name="pattern_id" value="<%=classify[0].pattern_id%>" readonly hidden />
+                                            <% let classify_name = classify[0].classify_name.split(/[`()`]/)%>
+                                                <input type="text" name="classify_name_part1" value="<%= classify_name[0] %>" readonly hidden />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div>
+                                <table class="table table-boardless">
+                                    <tr>
+                                        <td width="13%">
+                                            <h5 style="font-weight: bold;">ชื่อกิจกรรมการประมวลผล:</h5>
+                                        </td>
+                                        <td style="text-align: left;">
+                                            <input type="text" name="event_process_id" value="<%= classify[0].event_process_id %>" readonly hidden/>
+                                            <input type="text" name="classify_name_part2" value="<%= classify_name[1] %>" placeholder="กรุณาเลือกกิจกรรม..." class="form-control" style="width: 50%; display: inline;" readonly/> &nbsp;&nbsp;
+                                            <a href="#select-event-process" data-bs-toggle="modal" style="display: inline;" class="h5 font-bold">ดูข้อมูล&nbsp;&nbsp;<i class="fas fa-file-alt fa-2x text-info"style="vertical-align: -5px;"></i></a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div>
+                                <table class="table table-boardless">
+                                    <tr>
+                                        <td width="34%" style="text-align: left;">
+                                            <h5 style="font-weight: bold;">อธิบายความจำเป็นที่จะต้องนำข้อมูลส่วนบุคคลไปใช้ในกิจกรรมนี้ (ประมวลผล) </h5>
+                                        </td>
+                                        <td style="text-align: left;">
+                                            <input type="text" name="classify_explain_process" placeholder="กรุณาป้อนคำอธิบาย..." value="<%= classify[0].classify_explain_process %>" class="form-control" style="width: 70%; display: inline;" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div>
+                                <table class="table table-boardless">
+                                    <tr>
+                                        <td width="15%" style="text-align: left;">
+                                            <h5 style="font-weight: bold;">ผู้ใช้งาน/ผู้เข้าถึงข้อมูล<br/></h5>
+                                            <span class="h5" style="font-weight: bold; margin-top: 1%;">ประมวลผลนี้</span>
+                                        </td>
+                                        <td style="text-align: left;">
+                                            <input type="checkbox" class="form-check-input" name="classify_user_access_info_process_inside" id="customCheck1" style="vertical-align: -5px;" <% if(classify[0].classify_user_access_info_process_inside==1 ){%>checked
+                                            <%}%>
+                                                />
+                                                <label for="customCheck1" class="font-bold" style="display: inline;">ภายใน</label>&emsp;
+                                                <input type="text" name="classify_user_access_info_process_inside_from_pattern_not_use" placeholder="ข้อมูลจากPattern..." class="form-control" style="width: 30%; display: inline;" readonly hidden />
+                                                <input type="text" name="classify_user_access_info_process_inside_from_pattern" value="<%= classify[0].classify_user_access_info_process_inside %>" readonly hidden />
+                                                <span id="user_access_information_process_inside"></span>
+                                                <span></span>
+                                                <br/>
+                                                <input type="checkbox" class="form-check-input" name="classify_user_access_info_process_outside" id="customCheck2" style="margin-top: 1%;" <% if(classify[0].classify_user_access_info_process_outside==1 ){%>checked
+                                                <%}%>/>
+                                                    <label for="customCheck2" style="margin-top: 1%;" class="font-bold">ภายนอก</label>&nbsp;
+                                                    <input type="text" name="classify_user_access_info_process_outside_from_pattern_not_use" placeholder="ข้อมูลจากPattern..." class="form-control" style="width: 30%; display: inline;" readonly hidden />
+                                                    <input type="text" name="classify_user_access_info_process_outside_from_pattern" value="<%= classify[0].classify_user_access_info_process_outside %>" readonly hidden />
+                                                    <span id="user_access_information_process_outside"></span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div>
+                                <table class="table table-boardless">
+                                    <tr>
+                                        <td width="15%" style="text-align: left;">
+                                            <h5 style="font-weight: bold;">ระยะเวลาการประมวลผล</h5>
+                                        </td>
+                                        <td style="text-align: left; width: 48%;">
+                                            <input type="number" name="classify_period_process" placeholder="กรุณาป้อนจำนวนระยะเวลา..." value="<%= classify[0].classify_period_process %>" class="form-control" style="width: 95%; display: inline;" /> &nbsp;
+                                            <h5 style="font-weight: bold; display: inline;">วัน</h5>
+                                        </td>
+                                        <td style="text-align: left;">
+                                            <input type="checkbox" id="customCheck3" name="classify_period_proccess_follow_policy" class="form-check-input" style="vertical-align: -5px;" <% if(classify[0].classify_period_proccess_follow_policy==1 ){%>checked
+                                            <%}%>/>
+                                                <label for="customCheck3" class="font-bold" style="display: inline;">ตามระยะเวลาจัดเก็บ (Policy)</label>
+                                                <span id="period_process_follow_policy"></span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div>
+                                <table class="table table-boardless">
+                                    <tr>
+                                        <td width="15%" style="text-align: left;">
+                                            <h5 style="font-weight: bold;">ระยะเวลาสิ้นสุด</h5>
+                                        </td>
+                                        <td style="text-align: left; width: 48%;">
+                                            <input type="number" name="classify_period_end" placeholder="กรุณาป้อนจำนวนระยะเวลา..." value="<%= classify[0].classify_period_end%>" class="form-control" style="width: 95%; display: inline;" /> &nbsp;
+                                            <h5 style="font-weight: bold; display: inline;">วัน</h5>
+                                        </td>
+                                        <td style="text-align: left;">
+                                            <input type="checkbox" id="customCheck4" name="classify_period_end_follow_pattern" class="form-check-input" style="vertical-align: -5px" <% if(classify[0].classify_period_end_follow_pattern==1 ){%>checked
+                                            <%}%>
+                                                />
+                                                <label for="customCheck4" class="font-bold" style="display: inline;">ภายหลังจากหมดระยะเวลาจัดเก็บ (Pattern)</label>&nbsp;
+                                                <input type="text" name="classify_period_end_follow_pattern_total" class="form-control" placeholder="กรุณเลือกPattern..." ่ value="<%= classify[0].classify_period_end_follow_pattern_total%>" style="display: inline; width: 35.5%" hidden readonly />&nbsp;&nbsp;&nbsp;
+                                                <span id="day_end_pattern" class="font-bold" hidden>วัน<span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div>
+                            <table class="table table-boardless">
+                                <tr>
+                                    <td width="15%" style="text-align: left;">
+                                        <h5 style="font-weight: bold;">ประเภทข้อมูลที่ใช้ในกิจกรรม</h5> 
+                                    </td>
+                                    <td style="text-align: left;">
+                                        <p>
+                                            <input type="checkbox" id="customeCheck4" name="classify_type_data_in_event_personal" class="form-check-input" style="vertical-align: -5px;" <% if(classify[0].classify_type_data_in_event_personal == 1){%>checked<%}%>/>
+                                            <label for="customeCheck4" class="font-bold">ข้อมูลส่วนบุคคล</label>
+                                            <a href="#set-datamark" data-bs-toggle="modal" class="btn btn-success" style="margin-left: 10%"><i class="mdi mdi-pen"></i>&nbsp;&nbsp;สร้างเครื่องหมายให้ข้อมูล</a>
+                                        </p>
+                                        <p style="margin-top: 1%;">
+                                            <input type="checkbox" id="customeCheck5" name="classify_type_data_in_event_special_personal_sensitive" class="form-check-input" <% if(classify[0].classify_type_data_in_event_special_personal_sensitive == 1){%>checked<%}%> />
+                                            <label for="customeCheck5" class="font-bold">ข้อมูลส่วนบุคคล (อ่อนไหว)</label>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="select_processing_base" >
+                            <table class="table table-boardless">
+                                <tr>
+                                    <td width="15%" style="text-align: left;">
+                                        <h5 style="font-weight: bold;">ฐานการประมวลผล</h5>
+                                    </td>
+                                    <td style="text-align: left;">
+                                        <select class="form-control" name="pattern_processing_base_id" id="" style="width: 53%; display: inline;">
+                                            <option value="" disabled selected>กรุณาเลือก</option>
+                                            <% for(var i=0;i<process.length;i++) {%>
+                                                <% if(classify[0].pattern_processing_base_id == process[i].pattern_processing_base_id){%>
+                                                    <option value="<%= process[i].pattern_processing_base_id %>" selected><%= process[i].pattern_processing_base_name%></option>
+                                                <%}else{%>
+                                                    <option value="<%= process[i].pattern_processing_base_id %>"><%= process[i].pattern_processing_base_name%></option>
+                                                <%}%>
+                                            <%}%>
+                                        </select>&nbsp;&nbsp;
+                                        <a id="btn_add_processing_base" href="#add-processing-base" data-bs-toggle="modal" class="option-pattern">เพิ่มฐานการประมวล</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div>
+                            <table class="table table-boardless">
+                                <tr>
+                                    <td width="15%" style="text-align: left;">
+                                        <h5 style="font-weight: bold;">อธิบายเพิ่มเติม</h5>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="classify_processing_base_explain" value="<%= classify[0].classify_processing_base_explain%>" placeholder="กรุณาป้อนคำอธิบาย..." class="form-control" style="width: 53%;"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="select_special_conditions">
+                            <table class="table table-boardless">
+                                <tr>
+                                    <td width="15%" style="text-align: left;">
+                                        <h5 style="font-weight: bold;">เงื่อนไขพิเศษเพิ่มเติม</h5>
+                                    </td>
+                                    <td style="text-align: left;">
+                                        <select class="form-control" name="classification_special_conditions_id" id="" style="width: 53%; display: inline;" />
+                                            <option value="" disabled selected>กรุณาเลือก</option>
+                                            <% for( i in special ) {%>
+                                                <% if(classify[0].classification_special_conditions_id == special[i].classification_special_conditions_id){%>
+                                                    <option value="<%= special[i].classification_special_conditions_id %>" selected><%= special[i].classification_special_conditions_name %></option>
+                                                <%}else{%>
+                                                    <option value="<%= special[i].classification_special_conditions_id %>"><%= special[i].classification_special_conditions_name %></option>
+                                                <%}%>
+                                            <%}%>
+                                        </select>&nbsp;&nbsp;
+                                        <a id="btn_add_special_conditions" href="#add_special_conditions" data-bs-toggle="modal" class="option-pattern">เพิ่มเงื่อนไขพิเศษ</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div>
+                            <table class="table table-boardless">
+                                <tr>
+                                    <td width="15%" style="text-align: left;">
+                                        <h5 style="font-weight: bold;">อธิบายเพิ่มเติม</h5>
+                                    </td>
+                                    <td style="text-align: left;">
+                                        <input type="text" name="classify_special_conditiion_explain" value="<%= classify[0].classify_special_conditiion_explain %>" placeholder="กรุณาป้อนคำอธิบาย..." class="form-control" style="width: 53%;" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="background-color: #e9ecef;">
+                            <table class="table table-boardless">
+                                <tr>
+                                    <td style="text-align: left;">
+                                        <h5 style="font-weight: bold;">การป้องกันข้อมูล</h5>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left;">
+                                        <p class="font-bold" style="display: inline;">จำกัดปริมาณข้อมูลที่ใช้ประมวลผลไม่เกิน</p>
+                                    </td>
+                                    <td style="text-align: left;">
+                                        <input type="number" name="classify_protect_data_limit_process" value="<%= classify[0].classify_protect_data_limit_process%>" placeholder="กรุณาป้อนปริมาณ..." class="form-control" style="width: 50%; display: inline;" />
+                                        &nbsp;&nbsp; <span class="font-bold">ชุดข้อมูล (Row)<span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left;">
+                                        <p class="font-bold" style="display: inline;">กำหนดเวลาเข้าถึงข้อมูลเฉพาะ</p>
+                                    </td>
+                                    <td style="text-align: left;">
+                                        <input type="checkbox" name="classify_protect_data_limit_follow_datetime" id="customCheck6" class="form-check-input1" <% if(classify[0].classify_protect_data_limit_follow_datetime == 1){%>checked<%}%>/>
+                                        <label class="font-bold" for="customCheck6" style="margin-left: 1%;">จันทร์ - ศุกร์ เวลา 08.00 น. - 17.00 น.</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left; width: 27%">
+                                        <p class="font-bold" style="display: inline;">กำหนดการเข้าถึงข้อมูลภายใน Alltra ใช้ 2 Factor ในการเข้าถึง</p>
+                                    </td>
+                                    <td style="text-align: left;">
+                                        <input type="checkbox" name="classify_approach_protect_used_two_factor_from_google_authen" id="customeCheck7" class="form-check-input1" <% if(classify[0].classify_approach_protect_used_two_factor_from_google_authen == 1){%>checked<%}%>/>
+                                        <label class="font-bold" for="customeCheck7" style="margin-left: 1%;">Google Authen</label>&emsp;
+                                        <input type="checkbox" name="classify_approach_protect_used_two_factor_from_email" id="customeCheck8" class="form-check-input1" <% if(classify[0].classify_approach_protect_used_two_factor_from_email == 1){%>checked<%}%>/>
+                                        <label class="font-bold" for="customeCheck8" style="margin-left: 1%;">E-mail</label>&emsp;
+                                        <input type="checkbox" name="classify_approach_protect_used_two_factor_from_sms" id="customeCheck9" class="form-check-input1" <% if(classify[0].classify_approach_protect_used_two_factor_from_sms == 1){%>checked<%}%>/>
+                                        <label class="font-bold" for="customeCheck9" style="margin-left: 1%;">SMS (Option)</label>&emsp;
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div>
+                            <table class="table table-boardless">
+                                <tr>
+                                    <td style="text-align: left;" >
+                                        <h5 style="font-weight: bold;">กำหนดข้อมูลยกเว้น หรือ ไม่จำเป็น (Filter)</h5><br/>
+                                        <p class="font-bold" style="display: inline;">ชื่อรูปแบบข้อมูล</p>
+                                        <input type="text" name="classify_data_exception_or_unnecessary_filter_name" value="<%= classify[0].classify_data_exception_or_unnecessary_filter_name %>" placeholder="ถ้าระบุได้..." class="form-control" style="width: 45.5%; display: inline; margin-left: 8%;" /><br/><br/>
+                                        <p class="font-bold" style="display: inline;">Tag</p>
+                                        <input type="text" name="classify_data_exception_or_unnecessary_filter_tag" value="<%= classify[0].classify_data_exception_or_unnecessary_filter_tag %>"placeholder="ถ้าระบุได้..." class="form-control" style="width: 45.5%; display: inline; margin-left: 13.2%;" /><br/><br/>
+                                        <p class="font-bold" style="display: inline;">Label</p>
+                                        <input type="text" name="classify_data_exception_or_unnecessary_filter_label" value="<%= classify[0].classify_data_exception_or_unnecessary_filter_label %>" placeholder="ถ้าระบุได้..." class="form-control" style="width: 45.5%; display: inline; margin-left: 12.3%;" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="background-color: #f0e4ca;">
+                            <table class="table table-boardless">
+                                <tr>
+                                    <td style="text-align: left;">
+                                        <h5 style="font-weight: bold; color: red;">ประเมินความเสี่ยงของข้อมูล (เฉพาะ DPO)</h5>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left; width: 20%;">
+                                        <p class="font-bold">ข้อมูลส่วนบุคคล สามารถระบุตัวบุคคลได้</p>
+                                    </td>
+                                    <td style="text-align: left;">
+                                        <input type="radio" id="customRadio1" name="classify_risk_assess_only_dpo_data_personal_can_specify" class="form-check-input" value="1" <% if(classify[0].classify_risk_assess_only_dpo_data_personal_can_specify == 1){%>checked<%}%>/>
+                                        <label for="customeRadio1" style="margin-left: 1%">ได้โดยตรง</label>&emsp;
+                                        <input type="radio" id="customRadio2" name="classify_risk_assess_only_dpo_data_personal_can_specify" class="form-check-input" value="2" <% if(classify[0].classify_risk_assess_only_dpo_data_personal_can_specify == 2){%>checked<%}%>/>
+                                        <label for="customRadio2" style="margin-left: 1%">เป็นข้อมูลไม่ระบุได้โดยตรง</label>&emsp;
+                                        <input type="radio" id="customRadio3" name="classify_risk_assess_only_dpo_data_personal_can_specify" class="form-check-input" value="3" <% if(classify[0].classify_risk_assess_only_dpo_data_personal_can_specify == 3){%>checked<%}%>/>
+                                        <label for="customRadio3" style="margin-left: 1%">มีการทำข้อมูลแฝง</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left; width: 20%;">
+                                        <p class="font-bold">ปริมาณข้อมูลทั้งหมดที่ใช้ประมวลผล</p>
+                                    </td>
+                                    <td style="text-align: left;">
+                                        <input type="radio" id="customRadio4" name="classify_risk_assess_only_dpo_data_number_all_used_process_many" class="form-check-input" value="1" <% if(classify[0].classify_risk_assess_only_dpo_data_number_all_used_process_many == 1){%>checked<%}%> />
+                                        <label for="customRadio4" style="margin-left: 1%">มาก</label>&emsp;
+                                        <input type="radio" id="customRadio5" name="classify_risk_assess_only_dpo_data_number_all_used_process_many" class="form-check-input" value="0" <% if(classify[0].classify_risk_assess_only_dpo_data_number_all_used_process_many == 0){%>checked<%}%>/>
+                                        <label for="customRadio5" style="margin-left: 1%">น้อย</label>&emsp;
+                                        <span id="risk_assess_only_dpo_data_number_all_used_process_total"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left; width: 20%;">
+                                            <p class="font-bold">การควบคุมการเข้าถึงข้อมูลใน Alltra</p>
+                                        </td>
+                                        <td style="text-align: left;">
+                                            <input type="radio" id="customRadio6" name="classify_risk_assess_only_dpo_access_control_inside" class="form-check-input" value="1" <% if(classify[0].classify_risk_assess_only_dpo_access_control_inside==1 ){%>checked
+                                            <%}%>
+                                                />
+                                                <label for="customRadio6" style="margin-left: 1%">มี</label>&emsp;
+                                                <input type="radio" id="customRadio7" name="classify_risk_assess_only_dpo_access_control_inside" class="form-check-input" value="0" <% if(classify[0].classify_risk_assess_only_dpo_access_control_inside==0 ){%>checked
+                                                <%}%>/>
+                                                    <label for="customRadio7" style="margin-left: 1%">ไม่มี</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left; width: 20%;">
+                                            <p class="font-bold">การควบคุมการเข้าถึงข้อมูลระบบนอก Alltra</p>
+                                        </td>
+                                        <td style="text-align: left;">
+                                            <input type="radio" id="customRadio8" name="classify_risk_assess_only_dpo_access_control_outside" class="form-check-input" value="1" <% if(classify[0].classify_risk_assess_only_dpo_access_control_outside==1 ){%>checked
+                                            <%}%>/>
+                                                <label for="customRadio8" style="margin-left: 1%">มี</label>&emsp;
+                                                <input type="radio" id="customRadio9" name="classify_risk_assess_only_dpo_access_control_outside" class="form-check-input" value="0" <% if(classify[0].classify_risk_assess_only_dpo_access_control_outside==0 ){%>checked
+                                                <%}%>/>
+                                                    <label for="customRadio9" style="margin-left: 1%">ไม่มี</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left; width: 20%;">
+                                            <p class="font-bold">การป้องกันข้อมูลจากระบบ Alltra</p>
+                                        </td>
+                                        <td style="text-align: left;">
+                                            <input type="radio" id="customRadio10" name="classify_risk_assess_only_dpo_protect_data_inside" class="form-check-input" value="1" <% if(classify[0].classify_risk_assess_only_dpo_protect_data_inside==1 ){%>checked
+                                            <%}%>/>
+                                                <label for="customRadio10" style="margin-left: 1%">มี</label>&emsp;
+                                                <input type="radio" id="customRadio11" name="classify_risk_assess_only_dpo_protect_data_inside" class="form-check-input" value="0" <% if(classify[0].classify_risk_assess_only_dpo_protect_data_inside==0 ){%>checked
+                                                <%}%>/>
+                                                    <label for="customRadio11" style="margin-left: 1%">ไม่มี</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left; width: 20%;">
+                                            <p class="font-bold">การป้องกันข้อมูลจากระบบนอก Alltra</p>
+                                        </td>
+                                        <td style="text-align: left;">
+                                            <input type="radio" id="customRadio12" name="classify_risk_assess_only_dpo_protect_data_outside" class="form-check-input" value="1" <% if(classify[0].classify_risk_assess_only_dpo_protect_data_outside==1 ){%>checked
+                                            <%}%>/>
+                                                <label for="customRadio12" style="margin-left: 1%">มี</label>&emsp;
+                                                <input type="radio" id="customRadio13" name="classify_risk_assess_only_dpo_protect_data_outside" class="form-check-input" value="0" <% if(classify[0].classify_risk_assess_only_dpo_protect_data_outside==0 ){%>checked
+                                                <%}%>/>
+                                                    <label for="customRadio13" style="margin-left: 1%">ไม่มี</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left; width: 20%;">
+                                            <p class="font-bold">ประเมินผลกระทบต่อเจ้าของข้อมูล</p>
+                                        </td>
+                                        <td style="text-align: left;">
+                                            <input type="radio" id="customRadio14" name="classify_risk_assess_only_dpo_assess_the_impact_of_data" class="form-check-input" value="1" <% if(classify[0].classify_risk_assess_only_dpo_assess_the_impact_of_data==1 ){%>checked
+                                            <%}%>
+                                                />
+                                                <label for="customRadio14" style="margin-left: 1%">มีสูง</label>&emsp;
+                                                <input type="radio" id="customRadio15" name="classify_risk_assess_only_dpo_assess_the_impact_of_data" class="form-check-input" value="2" <% if(classify[0].classify_risk_assess_only_dpo_assess_the_impact_of_data==2 ){%>checked
+                                                <%}%>/>
+                                                    <label for="customRadio15" style="margin-left: 1%">มีปานกลาง</label>
+                                                    <input type="radio" id="customRadio16" name="classify_risk_assess_only_dpo_assess_the_impact_of_data" class="form-check-input" value="3" <% if(classify[0].classify_risk_assess_only_dpo_assess_the_impact_of_data==3 ){%>checked
+                                                    <%}%>/>
+                                                        <label for="customRadio16" style="margin-left: 1%">มีต่ำ</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left; width: 28%">
+                                            <p class="font-bold">วิธีแก้ไขเมื่อเกิดข้อมูลรั่วไหลหรือผลกระทบต่อเจ้าของข้อมูล</p>
+                                        </td>
+                                        <td style="text-align: left;">
+                                            <input type="text" name="classify_risk_assess_only_dpo_fix_a_leak_of_data" value="<%= classify[0].classify_risk_assess_only_dpo_fix_a_leak_of_data %>" placeholder="กรุณาป้อนวิธีแก้ไข..." class="form-control" style="width: 60%;" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left; width: 20%;">
+                                            <p class="font-bold">ประเมินผลกระทบต่อองค์กร</p>
+                                        </td>
+                                        <td style="text-align: left;">
+                                            <input type="radio" id="customRadio17" name="classify_risk_assess_only_dpo_assess_the_impact_of_organization" class="form-check-input" value="1" <% if(classify[0].classify_risk_assess_only_dpo_assess_the_impact_of_organization==1 ){%>checked
+                                            <%}%>
+                                                />
+                                                <label for="customRadio17" style="margin-left: 1%">มีสูง</label>&emsp;
+                                                <input type="radio" id="customRadio18" name="classify_risk_assess_only_dpo_assess_the_impact_of_organization" class="form-check-input" value="2" <% if(classify[0].classify_risk_assess_only_dpo_assess_the_impact_of_organization==2 ){%>checked
+                                                <%}%>/>
+                                                    <label for="customRadio18" style="margin-left: 1%">มีปานกลาง</label>
+                                                    <input type="radio" id="customRadio19" name="classify_risk_assess_only_dpo_assess_the_impact_of_organization" class="form-check-input" value="3" <% if(classify[0].classify_risk_assess_only_dpo_assess_the_impact_of_organization==3 ){%>checked
+                                                    <%}%>/>
+                                                        <label for="customRadio16" style="margin-left: 1%">มีต่ำ</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left; width: 28%">
+                                            <p class="font-bold">วิธีแก้ไขเมื่อเกิดข้อมูลรั่วไหลหรือผลกระทบต่อเจ้าของข้อมูล</p>
+                                        </td>
+                                        <td style="text-align: left;">
+                                            <input type="text" name="classify_risk_assess_only_dpo_fix_a_leak_of_organization" value="<%= classify[0].classify_risk_assess_only_dpo_fix_a_leak_of_organization%>" placeholder="กรุณาป้อนวิธีแก้ไข..." class="form-control" style="width: 60%;" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="text-center">
+                                <input type="text" name="acc_id" value="<%= session.userid %>" readonly hidden/>
+                                <button type="submit" class="btn btn-success">ยืนยัน</button>
+                                <a href="javascript:history.back();" class="btn btn-danger">ยกเลิก</a>
+                            </div>
+                            <!-- Modals Add Datamark -->
+                            <div id="set-datamark" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel" aria-hidden="true" style="display: none; margin-top: 5%">
+                                <div class="modal-dialog modal-lm">
+                                    <div class="modal-content">
+                                        <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                                            <h4 class="modal-title" style="color: black; font-weight: bold;">
+                                                สร้างเครื่องหมายให้ข้อมูล
+                                            </h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <table class="table table-boardless">
+                                                    <td style="width: 35%; text-align: right;">
+                                                        <input type="radio" id="customRadio20" name="classify_type_data_in_event_personal_datamark_check" value="0" class="form-check-input" <% if(classify[0].classify_type_data_in_event_personal_datamark_check==0 ){%>checked
+                                                        <%}%>/>
+                                                            <label for="customRadio20" class="font-bold" style="margin-left: 1%;">ไม่ต้องการ</label>
+                                                    </td>
+                                                    <td style="width: 65%;">
+                                                        <input type="radio" id="customRadio21" name="classify_type_data_in_event_personal_datamark_check" value="1" class="form-check-input" <% if(classify[0].classify_type_data_in_event_personal_datamark_check==1 ){%>checked
+                                                        <%}%>/>
+                                                            <label for="customRadio21" class="font-bold" style="margin-left: 1%;">ต้องการ</label>
+                                                    </td>
+                                                </table>
+                                                <span id="event_personal_datamark"></span>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <div class="" style="margin-right: 45%;">
+                                                <button type="button" class="btn btn-success font-weight-large" data-bs-dismiss="modal"> ยืนยัน </button>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modals Add Pattern -->
+    <div id="select-pattern" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel" aria-hidden="true" style="display: none; margin-top: 5%">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                    <h4 class="modal-title" style="color: black; font-weight: bold;">
+                        รูปแบบข้อมูล
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="h5" style="font-weight: bold;">
+                        เลือกรูปแบบข้อมูล
+                    </div>
+                    <div>
+                        <table class="table table-boardless">
+                            <tbody id="table-body-pattern-add">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 justify-content-center align-self-center d-block d-md-flex">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination" id="pagination-wapper-pattern-add">
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-12 text-secondary">
+                            <span>แสดงผล <span id="start-pattern-add"></span> ถึง <span id="end-pattern-add"></span> ทั้งหมด <span id="total-pattern-add"></span> รายการ </span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div style="margin-right: 42%;">
+                            <button type="button" class="btn btn-danger font-weight-large" data-bs-dismiss="modal">ยกเลิก</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+    <!-- Modals Add Event Process -->
+    <div id="select-event-process" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel" aria-hidden="true" style="display: none; margin-top: 5%">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                    <h4 class="modal-title" style="color: black; font-weight: bold;">
+                        กิจกรรมการประมวลผล
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="h5" style="font-weight: bold;">
+                        เลือกกิจกรรมการประมวลผลที่ต้องการใช้งาน
+                    </div>
+                    <div>
+                        <table class="table table-boardless">
+                            <tbody id="table-body-event-add">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 justify-content-center align-self-center d-block d-md-flex">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination" id="pagination-wapper-event-add">
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-12 text-secondary">
+                            <span>แสดงผล <span id="start-event-add"></span> ถึง <span id="end-event-add"></span> ทั้งหมด <span id="total-event-add"></span> รายการ </span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div style="margin-right: 42%;">
+                            <button type="button" class="btn btn-danger font-weight-large" data-bs-dismiss="modal"> ยกเลิก </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+    <!-- Modals Add Users (Inside) -->
+    <div id="select-users-inside" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel" aria-hidden="true" style="display: none; margin-top: 5%">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                    <h4 class="modal-title" style="color: black; font-weight: bold;">
+                        สมาชิกในระบบ Alltra
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="h5" style="font-weight: bold;">
+                        เลิือกสมาชิกในระบบ Alltra ที่ต้องการใช้งาน
+                    </div>
+                    <div>
+                        <table class="table table-boardless">
+                            <tbody id="table-body-user-inside-add">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 justify-content-center align-self-center d-block d-md-flex">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination" id="pagination-wapper-user-inside-add">
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-12 text-secondary">
+                            <span> แสดงผล <span id="start-user-inside-add"></span> ถึง <span id="end-user-inside-add"></span> ทั้งหมด <span id="total-user-inside-add"></span> รายการ </span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div style="margin-right: 42%;">
+                            <button type="button" class="btn btn-danger font-weight-large" data-bs-dismiss="modal"> ยกเลิก </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+    <!-- Modals Add Users (Outside) -->
+    <div id="select-users-outside" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel" aria-hidden="true" style="display: none; margin-top: 5%">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                    <h4 class="modal-title" style="color: black; font-weight: bold;">
+                        สมาชิกในระบบ Alltra
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="h5" style="font-weight: bold;">
+                        เลือกสมาชิกในระบบ Alltra ที่ต้องการใช้งาน
+                    </div>
+                    <div>
+                        <table class="table table-boardless">
+                            <tbody id="table-body-users-outside-add">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 justify-content-center align-self-center d-block d-md-flex">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination" id="pagination-wapper-users-outside-add">
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-12 text-secondary">
+                            <span> แสดงผล <span id="start-users-outside-add"></span> ถึง <span id="end-users-outside-add"></span> ทั้งหมด <span id="total-users-outside-add"></span> รายการ </span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div style="margin-right: 42%;">
+                            <button type="button" class="btn btn-danger font-weight-large" data-bs-dismiss="modal"> ยกเลิก </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+    <!-- Modals Add Processing_base -->
+    <div id="add-processing-base" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel" aria-hidden="true" style="display: none; margin-top: 5%">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                    <h4 class="modal-title" style="color: black; font-weight: bold;">
+                        สร้างฐานการประมวลผล
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="h5" style="font-weight: bold;">
+                        สร้างฐานการประมวลผลที่ต้องการใช้งาน
+                    </div>
+                    <div>
+                        <table class="table table-boardless">
+                            <tbody id="">
+                                <th class="th-pattern1"> ฐานการประมวลผล : </th>
+                                <td class="td-option-pattern"><input type="text" name="pattern_processing_base_name" placeholder="กรุณป้อนฐานการประมวลผล..." class='form-control' />
+                                </td>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="button-center-success">
+                            <a id="add_processing_base" type="button" class="btn btn-success font-weight-large"> ยืนยัน </a>
+                        </div>
+                        <div class="button-center-danger1">
+                            <button type="button" class="btn btn-danger font-weight-large" data-bs-dismiss="modal"> ยกเลิก </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+    <!-- Modals Add Speical Conditions -->
+    <div id="add_special_conditions" class="modal fade" tabindex="-2" aria-labelledby="success-header-modalLabel" aria-hidden="true" style="display: none; margin-top: 5%">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                    <h4 class="modal-title" style="color: black; font-weight: bold;">
+                        สร้างเงื่อนไขพิเศษเพิ่มเติม
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="h5" style="font-weight: bold;">
+                        สร้างเงื่อนไขพิเศษเพิ่มเติมที่ต้องการใช้งาน
+                    </div>
+                    <div>
+                        <table class="table table-boardless">
+                            <tbody id="">
+                                <th class="th-pattern2"> เงื่อนไขพิเศษเพิ่มเติม : </th>
+                                <td class="td-option-pattern"><input type="text" name="classification_special_conditions_name" placeholder="กรุณาป้อนเงื่อนไขพิเศษ..." class='form-control' />
+                                </td>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="button-center-success">
+                            <a id="add-special-conditions" type="button" class="btn btn-success font-weight-large"> ยืนยัน </a>
+                        </div>
+                        <div class="button-center-danger1">
+                            <button type="button" class="btn btn-danger font-weight-large" data-bs-dismiss="modal"> ยกเลิก </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+    <script src="/UI/assets/libs/jquery/dist/jquery.min.js"></script>
+    <%- include('../_footer') -%>

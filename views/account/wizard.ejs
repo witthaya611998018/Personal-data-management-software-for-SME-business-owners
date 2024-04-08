@@ -1,0 +1,602 @@
+<%- include('_header') -%>
+    <!-- <div class="container-fluid"> -->
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="card col-12">
+
+                <div class="card-body wizard-content">
+                    <h1 class="text-center"><img src="/UI/assets/images/logo.png" width="128"></h1>
+                    <form action="/account/add" method="post" id="regForm" class="tab-wizard vertical  wizard-circle mt-5">
+                        <!-- Step 1 -->
+                        <h6>ข้อมูลทั่วไป</h6>
+                        <section>
+                            <div class="crad">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="firstname">ชื่อ :</label>
+                                            <input type="text" class="form-control border border-info" name="firstname" placeholder="ชื่อ" id="firstname">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="lastname">สกุล :</label>
+                                            <input type="text" class="form-control border border-info" name="lastname" id="lastname" placeholder="สกุล"> </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="name">ชื่อในระบบ :</label>
+                                            <input type="text" class="form-control border border-info" name="name" id="name" placeholder="ชื่อในระบบ"> </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="position">ตำแหน่ง :</label>
+                                            <input type="text" class="form-control border border-info" name="position" id="position" placeholder="ตำแหน่ง"> </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="email">E-mail :</label>
+                                            <input type="text" class="form-control border border-info" placeholder="example@email.com" id="email" name="email"> </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="phone">เบอร์โทรศัพท์มือถือ :</label>
+                                            <input type="text" class="form-control border border-info" placeholder="01-23456789" id="phone" name="phone"> </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="contact">เบอร์ภายใน :</label>
+                                            <input type="text" class="form-control border border-info" placeholder="00-000-000" id="contact" name="contact"> </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="ext">ต่อ :</label>
+                                            <input type="text" class="form-control border border-info" placeholder="000" id="ext" name="ext"> </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="line">LINE :</label>
+                                            <input type="text" class="form-control border border-info" placeholder="@LINE" name="line" id="line"></div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="bd">วัน เดือน ปีเกิด :</label>
+                                            <input type="date" class="form-control border border-info" name="bd" id="bd"> </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label for="descrip">รายละเอียด :</label>
+                                            <textarea type="text" rows="6" class="form-control border border-info" placeholder="Description" id="descrip" name="descrip"></textarea></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </section>
+                        <!-- Step 2 -->
+                        <h6>ตั้งค่าสมาชิก</h6>
+                        <section>
+                            <div class="row">
+                                <div class="col-2"></div>
+                                <div class="col-md-8">
+                                    <label for="jobTitle1">ชื่อผู้ใช้งาน :</label>
+                                    <input type="text" class="form-control border border-info" placeholder="Username" name="username" id="username">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2"></div>
+                                <div class="col-md-8">
+                                    <label for="p1">รหัสผ่าน :</label>
+                                    <input type="password" class="form-control border border-info" placeholder="Password" id="p1" name="password">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2"></div>
+                                <div class="col-md-8">
+                                    <label for="p2">ยืนยันรหัสผ่าน :</label>
+                                    <input type="password" class="form-control border border-info" type="password" id="p2" placeholder="Confirm Password">
+                                </div>
+                            </div><br>
+                            <hr><br>
+                            <div class="row">
+                                <div class="col-2"></div>
+                                <div class="col-md-8">
+                                    <label class="col-sm-0 text-end control-label col-form-label text-secondary">Muitifactor</label>
+                                    <div class="md-3 row">
+                                        <label class="col-sm-1 "></label>
+                                        <br>
+                                        <div class="form-check col-sm-3">
+                                            <input type="checkbox" class="form-check-input" id="otp_email" name="otp_email" disabled>
+                                            <label class="form-check-label" for="otp_email">OTP By E-mail</label>
+                                        </div>
+                                        <div class="form-check col-sm-3">
+                                            <input type="checkbox" class="form-check-input" id="otp_sms" name="otp_sms" disabled>
+                                            <label class="form-check-label" for="otp_sms">OTP By SMS</label>
+                                        </div>
+                                        <div class="form-check col-sm-3">
+                                            <input type="checkbox" class="form-check-input" id="otp_2fa" name="otp_2fa">
+                                            <label class="form-check-label" for="otp_2fa">OTP By Google Authenticator</label>
+                                        </div>
+                                    </div>
+                                </div><br>
+                                <div class="col-md-8">
+                                    <div class="md-3 row">
+                                        <label class="col-sm-4 "></label>
+                                        <div class="form-check col-sm-3">
+                                            <input type="checkbox" class="form-check-input" id="otp_login" name="otp_login">
+                                            <label class="form-check-label" for="otp_login">Only Login</label>
+                                        </div>
+                                        <div class="form-check col-sm-3">
+                                            <input type="checkbox" class="form-check-input" id="otp_system" name="otp_system">
+                                            <label class="form-check-label" for="otp_system">Setting System</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <!-- Step 3 -->
+                        <h6>Google Authenticator Guide</h6>
+                        <section>
+                            <div class="card-body">
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-md-10 m-auto">
+                                            <div class="mb-3">
+                                                <h4 style="align-content: center;">Google Authenticator Guide</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-10 m-auto">
+                                            <div class="mb-3">
+                                                <img src="/UI/assets/images/unnamed.png" width="80" height="80">
+                                            </div>
+                                            <div class="mb-3">
+                                                <h4>1.ติดตั้ง Google Authenticator สำหรับ</h4>
+                                            </div>
+                                            <div class="mb-3">
+                                                <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2" target="_blank">
+                                                    <img src="/UI/assets/images/google_play.png" width="197" height="58"></a>
+                                                <a href="https://apps.apple.com/th/app/google-authenticator/id388497605?l=th" target="_blank">
+                                                    <img src="/UI/assets/images/app_store.png" width="197" height="58"></a>
+                                            </div>
+                                            <div class="mb-3">
+                                                <h5>2.คลิกที่ <code> + </code> (Android) หรือ <code>BEGIN SETUP</code> (iOS) </h5>
+                                            </div>
+                                            <div class="mb-3">
+                                                <h5>3.จำกนั้นเลือก <code>Scan a barcode</code> แล้วทำการแสกน QR Code ที่แสดงอยู่</h5>
+
+                                            </div>
+                                            <div class="mb-2"></div>
+                                            <div class="mb-3">
+                                                <img style="text-align: center;" src="/UI/assets/images/download.png" width="250" height="250">
+                                            </div>
+                                            <div class="mb-3">
+                                                <h5>4.ระบบจะแสดงรหัส ตัวเลข 6 หลัก บนแอปพลิเคชัน Google Authenticator ของท่ำน</h5>
+                                            </div>
+                                            <div class="mb-3">
+                                                <h5>5.หากคุณเปิดใช้งานการยืนยันตัวตน 2 ขั้นตอน ทุกครั้งที่คุณ เข้าสู่ระบบ หรือ</h5>
+                                                <h5> ปรับปรุงการตั้งค่าระบบของท่านเพื่อเป็นการยืนยันตัวตนที่ปลอดภัย </h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </section>
+                        <h6>แบบสอบถาม</h6>
+                        <section>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label for="Name1">ชื่อหน่วยงาน องค์กร บริษัท :</label>
+                                        <input type="text" class="form-control border border-info" name="Name1" id="Name1" placeholder="ชื่อหน่วยงาน/องค์กร/บริษัท"> </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="firstName1">ผู้ควบคุมข้อมูล :</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+
+                                        <input type="text" class="form-control border border-info" name="firstName1" id="firstName1" placeholder="ชื่อ"> </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <input type="text" class="form-control border border-info" name="lastName1" id="lastName1" placeholder="สกุล"> </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="location1">E-mail :</label>
+                                        <input type="email" class="form-control border border-info" name="emailAddress1" id="emailAddress1" placeholder="example@email.com">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="phone1">เบอร์โทรศัพท์มือถือ :</label>
+                                        <input type="text" class="form-control border border-info" name="phone1" id="phone1" placeholder="000-0000000"> </div>
+                                </div>
+                            </div>
+                            <input type="hidden" name="shortDescription1" value="-">
+                            <!-- <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label for="shortDescription1">รายละเอียด :</label>
+                                        <textarea name="shortDescription1" name="shortDescription1" id="shortDescription1" rows="2" class="form-control border border-info"></textarea>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="md-10"><label> </label></div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="intType1">ประเภทผู้ให้บริการ :</label>
+                                    <div class="md-10">
+                                        <input name="service" class="material-inputs " type="radio" id="radio_1" value="511" />
+                                        <label for="radio_1">๕(๑) ก ผู้ประกอบกิจการโทรคมนาคมและการกระจายภาพและเสียง</label>
+                                    </div>
+                                    <div class="md-10">
+                                        <input name="service" class="material-inputs" type="radio" id="radio_2" value="512" checked />
+                                        <label for="radio_2">๕(๑) ข ผู้ให้บริการการเข้าถึงระบบเครือข่ายคอมพิวเตอร์ </label>
+                                    </div>
+                                    <div class="md-10">
+                                        <input name="service" type="radio" class="material-inputs" id="radio_3" value="513" />
+                                        <label for="radio_3">๕(๑) ค ผู้ให้บริการเช่าระบบคอมพิวเตอร์ หรือให้เช่าบริการโปรแกรมประยุกต์ต่าง ๆ</label>
+                                    </div>
+                                    <div class="md-10">
+                                        <input name="service" type="radio" id="radio_4" class="material-inputs" value="514" />
+                                        <label for="radio_4">๕(๑) ง ผู้ให้บริการร้านอินเทอร์เน็ต</label>
+                                    </div>
+                                    <div class="md-10">
+                                        <input name="service" class="material-inputs" type="radio" id="radio_5" value="52" />
+                                        <label for="radio_5">๕(๒) ผู้ให้บริการเก็บรักษาข้อมูลคอมพิวเตอร์เพื่อประโยชน์แก่บุคคลอื่น</label>
+                                    </div>
+                                    <div class="md-10"><label> </label></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="jobTitle1">ลักษณะการจัดเก็บข้อมูลจราจรทางคอมพิวเตอร์ :</label>
+                                    <div class="md-10">
+                                        <input type="checkbox" name="md_checkbox_21" id="md_checkbox_21" class="material-inputs filled-in chk-col-blue" />
+                                        <label for="md_checkbox_21">แบบดักจับข้อมูลจากเครือข่าย</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="md-10">
+                                        <input type="checkbox" name="md_checkbox_22" id="md_checkbox_22" class="material-inputs filled-in chk-col-blue" />
+                                        <label for="md_checkbox_22">แบบทำหน้าที่เป็นเกตเวย์ (gateway)</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="md-10">
+                                        <input type="checkbox" name="md_checkbox_23" id="md_checkbox_23" class="material-inputs filled-in chk-col-blue" />
+                                        <label for="md_checkbox_23">แบบใช้โปรแกรมติดตั้งที่ตัวเครื่องให้บริการ</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="md-10">
+                                        <input type="checkbox" name="md_checkbox_24" id="md_checkbox_24" class="material-inputs filled-in chk-col-blue" />
+                                        <label for="md_checkbox_24">แบบรองรับการส่งข้อมูลการเกณฑ์วิธีการสื่อสาร syslog</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12"><label> </label></div>
+                            <div class="row">
+                                <div class="md-10">
+                                    <div class="mb-3">
+                                        <label for="shortDescription2">รายการอุปกรณ์ที่จัดเก็บข้อมูลจราจรทางคอมพิวเตอร์ :</label>
+                                        <textarea name="shortDescription2" name="shortDescription2" id="shortDescription2" rows="2" class="form-control border border-info"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12"><label> </label></div>
+                            <div class="row">
+                                <div class="md-10">
+                                    <div class="mb-3">
+                                        <label for="store">ประเมินพื้นที่ที่ต้องจัดเก็บ :</label>
+                                        <input type="text" class="form-control border border-info" name="store" id="store" placeholder="10G.">
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <h6>ตรวจสอบข้อมูล</h6>
+                        <section>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="text-secondary" for="firstname2">ชื่อ :</label>
+                                        <label id="firstname2"> </label>
+                                        <!-- <input type="text" class="form-control" placeholder="First Name" id="firstname2" readonly> -->
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="text-secondary" for="lastname2">สกุล :</label>
+                                        <label id="lastname2"> </label>
+                                        <!-- <input type="text" class="form-control" id="lastname2" placeholder="Last Name" readonly> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="text-secondary" for="name2">ชื่อในระบบ :</label>
+                                        <label id="name2"></label>
+                                        <!-- <input type="text" class="form-control" id="name2" placeholder="Name" readonly> -->
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="text-secondary" for="position2">ตำแหน่ง :</label>
+                                        <label id="position2"> </label>
+                                        <!-- <input type="text" class="form-control" id="position2" placeholder="Job Title" readonly> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="text-secondary" for="email2">E-mail :</label>
+                                        <label id="email2"> </label>
+                                        <!-- <input type="text" class="form-control" placeholder="example@email.com" id="email2" readonly> -->
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="text-secondary" for="phone2">เบอร์โทรศัพท์มือถือ :</label>
+                                        <label id="phone2"> </label>
+                                        <!-- <input type="text" class="form-control" placeholder="01-23456789" id="phone2" readonly> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="text-secondary" for="contact2">เบอร์ภายใน :</label>
+                                        <label id="contact2"> </label>
+                                        <!-- <input type="text" class="form-control" placeholder="00-000-000" id="contact2" readonly> -->
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="text-secondary" for="ext">ต่อ :</label>
+                                        <label id="ext2"> </label>
+                                        <!-- <input type="text" class="form-control" placeholder="000" id="ext2" readonly> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="text-secondary" for="line">LINE :</label>
+                                        <label id="line2"> </label>
+                                        <!-- <input type="text" class="form-control" placeholder="@LINE" id="line2" readonly> -->
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="text-secondary" for="bd2">วันเกิด :</label>
+                                        <label id="bd2"> </label>
+                                        <!-- <input type="date" class="form-control" id="bd2" readonly> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="text-secondary" for="descrip2">รายละเอียด :</label>
+                                        <label id="descrip2"> </label>
+                                        <!-- <textarea type="text" rows="2" class="form-control" placeholder="Description" id="descrip2" readonly></textarea> -->
+                                    </div>
+                                </div>
+
+                            </div>
+                            <hr>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label>Muitifactor :</label>
+                                        <div class="mb-3"></div>
+                                        <div class="form-check mr-sm-2">
+                                            <input type="checkbox" class="form-check-input" id="otp_email2" disabled>
+                                            <label class="form-check-label" for="otp_email2">OTP By E-mail</label>
+                                        </div>
+                                        <div class="form-check mr-sm-2">
+                                            <input type="checkbox" class="form-check-input" id="otp_sms2" disabled>
+                                            <label class="form-check-label" for="otp_sms2">OTP By SMS</label>
+                                        </div>
+                                        <div class="form-check mr-sm-2">
+                                            <input type="checkbox" class="form-check-input" id="otp_2fa2" disabled>
+                                            <label class="form-check-label" for="otp_2fa2">OTP By 2Factor</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label></label>
+                                        <div class="mb-3"></div>
+                                        <div class="form-check mr-sm-2">
+                                            <input type="checkbox" class="form-check-input" id="otp_login2" disabled>
+                                            <label class="form-check-label" for="otp_login2">Only Login</label>
+                                        </div>
+                                        <div class="form-check mr-sm-2">
+                                            <input type="checkbox" class="form-check-input" id="otp_system2" disabled>
+                                            <label class="form-check-label" for="otp_system2">Setting System</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <labelclass="text-secondary" for="Name12">ชื่อหน่วยงาน องค์กร บริษัท :</label>
+                                            <label id="Name12"></label>
+                                            <!-- <input type="text" class="form-control border border-info" id="Name12" placeholder="ชื่อหน่วยงาน/องค์กร/บริษัท"> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="text-secondary" for="firstName12">ผู้ควบคุมข้อมูล :</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label id="firstName12"></label>
+                                        <!-- <input type="text" class="form-control border border-info" id="firstName12" placeholder="ชื่อ" readonly> -->
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label id="lastName12"></label>
+                                        <!-- <input type="text" class="form-control border border-info" id="lastName12" placeholder="สกุล" readonly> -->
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="text-secondary" for="location1">E-mail :</label>
+                                        <label id="emailAddress12"></label>
+                                        <!-- <input type="email" class="form-control border border-info" id="emailAddress12" placeholder="example@email.com" readonly> -->
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="text-secondary" for="phone12">เบอร์โทรศัพท์มือถือ :</label>
+                                        <label id="phone12"></label>
+                                        <!-- <input type="text" class="form-control border border-info" id="phone12" placeholder="000-0000000" readonly> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md-10"><label> </label></div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="text-secondary" for="intType1">ประเภทผู้ให้บริการ :</label>
+                                    <div class="md-10">
+                                        <label id="radio_12"></label>
+                                        <!-- <input class="form-control border border-info" type="text" id="radio_12" readonly /> -->
+                                    </div>
+                                    <div class="md-10"><label> </label></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="text-secondary" for="jobTitle1">ลักษณะการจัดเก็บข้อมูลจราจรทางคอมพิวเตอร์ :</label>
+                                    <div class="md-10">
+                                        <input type="checkbox" id="md_checkbox_212" class="form-check-input" disabled/>
+                                        <label for="md_checkbox_212">แบบดักจับข้อมูลจากเครือข่าย</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="md-10">
+                                        <input type="checkbox" id="md_checkbox_222" class="form-check-input" disabled />
+                                        <label for="md_checkbox_222">แบบทำหน้าที่เป็นเกตเวย์ (gateway)</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="md-10">
+                                        <input type="checkbox" id="md_checkbox_232" class="form-check-input" disabled />
+                                        <label for="md_checkbox_232">แบบใช้โปรแกรมติดตั้งที่ตัวเครื่องให้บริการ</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="md-10">
+                                        <input type="checkbox" id="md_checkbox_242" class="form-check-input" disabled />
+                                        <label for="md_checkbox_242">แบบรองรับการส่งข้อมูลการเกณฑ์วิธีการสื่อสาร syslog</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12"><label> </label></div>
+                            <div class="row">
+                                <div class="md-10">
+                                    <div class="mb-3">
+                                        <label for="shortDescription22" class="text-secondary">รายการอุปกรณ์ที่จัดเก็บข้อมูลจราจรทางคอมพิวเตอร์ :</label>
+                                        <label id="shortDescription22"></label>
+                                        <!-- <textarea id="shortDescription22" rows="2" class="form-control border border-info" readonly></textarea> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="md-10">
+                                    <div class="mb-3">
+                                        <label class="text-secondary" for="store2">ประเมินพื้นที่ที่ต้องจัดเก็บ :</label>
+                                        <label id="store2"></label>
+                                        <!-- <input type="text" class="form-control border border-info" id="store2" placeholder="10G." readonly> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <!-- Step 4 -->
+                        <h6>นโยบาย</h6>
+                        <section>
+                            <div class="row">
+                                <!-- <h3 class="text-center">นโยบาย</h3> -->
+
+                                <div class="col-md-12">
+                                    <h5>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel turpis laoreet orci porta consectetur.<br> Vestibulum at metus in mauris iaculis venenatis. Ut condimentum iaculis
+                                        aliquam.
+                                        <br> Phasellus aliquam commodo dui, ac euismod tortor molestie at. Maecenas a suscipit felis.<br> Praesent in lorem lacus. Aenean mauris tortor, varius sed quam venenatis, mattis sollicitudin nisi.<br> Duis efficitur
+                                        aliquet lorem, non faucibus mauris blandit ut. Vestibulum viverra enim ac convallis pretium.<br> Aliquam ultrices leo id sapien ullamcorper, id bibendum magna suscipit.
+                                    </h5> <br>
+                                    <h5>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Phasellus luctus pretium justo in hendrerit. Donec sed sapien congue, ultricies nunc in, pulvinar tortor. <br>Aliquam sit amet feugiat orci, eu semper ligula. Maecenas tincidunt id
+                                        eros sit amet varius. Fusce eget ultrices odio.<br> Ut sed fringilla turpis, at blandit ligula. Vivamus viverra sed metus quis tincidunt.
+                                    </h5><br>
+                                    <h5>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fusce viverra dignissim purus, sit amet cursus enim vulputate a. Etiam vel pharetra nibh. <br>Maecenas semper lectus et elit tristique blandit. Nullam vel sem nec ex egestas dapibus.
+                                        Ut a aliquet erat. <br>Sed tempus, dui sit amet semper blandit, nulla erat pharetra tortor, eu pharetra enim arcu ut quam. <br>Fusce volutpat, ligula vel blandit posuere, quam nisi sollicitudin risus, ut semper
+                                        risus lectus quis magna. <br>Donec hendrerit rhoncus diam sed tristique. Vestibulum malesuada lacus sed nulla consequat gravida.
+                                    </h5><br>
+                                    <h5>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Integer commodo est ipsum, sit amet hendrerit nibh congue sit amet.Curabitur eget turpis fermentum, <br>venenatis sapien non, tincidunt dui. Nam massa diam, consectetur quis diam quis,
+                                        venenatis faucibus metus.
+                                        <br> Sed nibh felis, mattis in consequat quis, ornare at arcu. Proin rutrum porta nunc.Nullam placerat sapien sed iaculis mattis. <br> Mauris dignissim lectus dolor, lobortis pretium justo porta quis. Maecenas gravida
+                                        nisl orci, ut fringilla elit tempor finibus. <br> Vivamus ac lacus et mauris ornare fermentum a sed elit. Ut tempus, metus a varius varius, <br>enim urna scelerisque ex, elementum rhoncus nulla ex at risus. Nulla
+                                        facilisis euismod purus. <br>In facilisis tortor velit, vel rutrum libero pretium a. Sed mauris est, venenatis in tellus vitae, <br> imperdiet commodo elit. Aenean odio nibh, sagittis ut mauris sit amet, ullamcorper
+                                        laoreet odio. <br> Aenean fermentum lobortis erat, id sagittis lectus consectetur at.
+                                    </h5><br>
+                                    <h5>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pellentesque id elit vitae ipsum tempus mollis in et dolor. Curabitur sed sem a sapien euismod aliquet. <br>Cras porttitor nisi a orci dignissim, sed tincidunt ligula ornare. Nunc lobortis
+                                        nulla a placerat euismod. <br>Proin leo mi, fermentum vel mi a, vulputate facilisis felis. Nam nisi nisi, laoreet quis orci vitae, facilisis faucibus nisl. <br>Nunc ut sagittis neque. Aenean dapibus porttitor augue
+                                        maximus lacinia. Nam elementum ullamcorper ipsum ac accumsan. <br>Donec ullamcorper urna eu ipsum sollicitudin commodo.
+                                    </h5>
+                                </div>
+                            </div>
+                        </section>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <%- include('_footer') -%>

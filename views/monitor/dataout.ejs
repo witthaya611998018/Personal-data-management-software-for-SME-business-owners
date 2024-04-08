@@ -1,0 +1,562 @@
+<%- include('../_header') -%>
+
+
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">Monitor</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/monitor">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">ข้อมูลออก</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-12 ">
+                        <div class="card" style=" height: auto;">
+                            <div class="card-body pd-1px">
+
+                                <div class="col-lg-12 ">
+                                    <div class="card" style="margin-left: 10px;">
+                                        <div class="card-body pd-1px ">
+                                            <div class="row">
+                                                <div style="text-align: center;">
+
+                                                    <% if (data13) { %>
+                                                        <% for (var i = 0; i< data13.length; i++) { %>
+                                                            <div class="dis-in">
+                                                                <i class="mdi mdi-server-network fs100px"></i>
+                                                                <p class="fsxsmall">
+                                                                    <%= data13[i].name%>
+                                                                </p>
+                                                            </div>
+                                                            <div class="dis-in">
+                                                                <div class="connect" style="display: inline-block;"></div>
+                                                            </div>
+                                                            <%}%>
+                                                                <%}%>
+                                                                    <div class="dis-in">
+                                                                        <i class="mdi mdi-server fs100px c-green"></i>
+                                                                        <p class="fsxsmall c-green">AllTra</p>
+                                                                    </div>
+                                                                    <% if (data14) { %>
+                                                                        <% for (var i = 0; i< data14.length; i++) { %>
+                                                                            <div class="dis-in">
+                                                                                <div class="connect" style="display: inline-block;"></div>
+                                                                            </div>
+                                                                            <div class="dis-in">
+                                                                                <i class="mdi mdi-server-security fs100px c-gray"></i>
+                                                                                <p class="fsxsmall">
+                                                                                    <%= data14[i].name%>
+                                                                                </p>
+                                                                            </div>
+                                                                            <%}%>
+                                                                                <%}%>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Column -->
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="row">
+                    <div class="col-lg-6 col-md-12">
+                        <div class="card">
+                            <div class="d-flex flex-wrap">
+                                <div>
+                                    <p class="p_st h3-mg-8px">จำนวน Log ของแต่ละอุปกรณ์</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div id="chart1_datain_v2"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-12">
+                        <div class="card">
+
+                            <div class="card-body analytics-info pd-b-20px">
+                                <div class="row mb-2">
+                                    <div class="col-sm-4">
+                                        <p class="p_st h3-mg-8px p-right" style="font-size: 30px;">Total Log</p>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <p class="p_st h3-mg-8px"><i class="ti-arrow-up text-success"></i> High then last month</p>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div style="width: 100%">
+                                            <div class="dropdown me-2">
+                                                <%if(data19.length>0){%>
+                                                    <div class="input-group mb-3" style="width: 100%">
+                                                        <select name="" id="data_post" class="form-control">
+                                                                <% if(data19){ %>
+                                                                    <% for (var i=0; i < data19.length; i++) { %>
+                                                                        <option value="<%= data19[i].date %>">
+                                                                            <%= data19[i].date %>
+                                                                        </option>
+                                                                        <% } }%>
+                                                            </select>
+                                                        <button class="btn btn-outline-warning" onclick="getMenu()"><i
+                                                                    class="fas fa-search"></i></button>
+                                                    </div>
+                                                    <%}%>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4 bd-right">
+                                        <p class="p_st h3-mg-8px">Overall Growth</p>
+                                        <p class="p_st h3-mg-8px" id="id_a" style="font-size: 25px;">%</p>
+                                    </div>
+                                    <div class="col-sm-4 bd-right">
+                                        <p class="p_st h3-mg-8px">Montly</p>
+                                        <p class="p_st h3-mg-8px" id="id_b" style="font-size: 25px;">%</p>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <p class="p_st h3-mg-8px">Day</p>
+                                        <p class="p_st h3-mg-8px" id="id_c" style="font-size: 25px;">%</p>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div id="chart2_datain_v2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+     
+        </div>
+        <div class="col-lg-12 col-md-12">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="row">
+                            <div class="card-body">
+                             
+                                <div class="row">
+                                    <div class="col-md-8 justify-content-start align-self-center d-none d-md-flex">
+                                        <h4 class="card-title mb-0">ประวัติการส่บันทึกและส่งออก
+                                        </h4>
+                                    </div>
+                                    <div
+                                        class="col-md-4 justify-content-end align-self-center d-none d-md-flex space">
+                                        <a class="btn btn-info" id="csv">CSV</a>
+                                        <a class="btn btn-success ms-2" id="excel">Excel</a>
+                                        <a class="btn btn-warning ms-2" id="pdf"> PDF</a>
+                                    </div>
+                                </div>
+                                <div class="card-body" style="min-height: 450px;">
+                                    <div class="row pb-3" style="overflow-x: scroll;">
+                                        <div class="col-md-8">
+                                            &nbsp;
+    
+                                        </div>
+                                        <table class="tablesaw no-wrap table-striped table-bordered table-hover table" data-tablesaw-mode="stack" data-tablesaw-sortable id="myTable">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" data-tablesaw-priority="1" class="border">ชื่อ File</th>
+                                                    <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4" class="border">การส่งข้อมูลออก</th>
+                                                    <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2" class="border">วิธีจัดส่ง</th>
+                                                    <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4" class="border">Hash(Log3)</th>
+                                                    <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1" class="border">แหล่งกำเนิด</th>
+                                                    <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2" class="border">วันที่จัดเก็บ</th>
+                                                    <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1" class="border">Hash(Log1)</th>
+                                                    <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4" class="border">Check</th>
+                                                    <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4" class="border">การบันทึกข้อมูล</th>
+                                                    <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4" class="border">Hash(Log0)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% if (data18){ for (var x = 0; x < data18.length; x++) { %>
+                                                    <tr>
+                                                        <td>
+                                                            <%= data18[x].fname %>
+                                                        </td>
+                                                        <td>
+                                                            -
+                                                        </td>
+                                                        <td>
+                                                            <%= data18[x].sender %>
+                                                        </td>
+                                                        <td>
+                                                            **********
+                                                        </td>
+                                                        <td>
+                                                            <%= data18[x].name %>
+                                                        </td>
+                                                        <td>
+                                                            <%= data18[x].date %>
+                                                        </td>
+                                                        <td>
+                                                           
+                                                            <%= data18[x].hash %>
+                                                        </td>
+                                                        <td>
+                                                            N/A
+                                                        </td>
+                                                        <td>
+                                                            MySQL
+                                                        </td>
+                                                        <td>
+                                                            -
+                                                        </td>
+    
+                                                    </tr>
+                                                    <%  }}%>
+                                                        <% if (data18.length == 0){%>
+                                                            <tr>
+                                                                <td class="title align-top" style="text-align: center; color: rgb(228, 20, 20);" colspan="5">
+                                                                    ไม่พบข้อมูล
+                                                                </td>
+                                                            </tr>
+                                                            <%}%>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <%- include('../_footer') -%>
+            <!-- ============================================================== -->
+            <!-- All Jquery -->
+
+            <!--This page JavaScript -->
+            <script src="/dist/js/views_js/report_js/export_dataout.js"></script>
+            <script type="text/javascript" src="/dist/js/xlsx.full.min.js"></script>
+            <script src="/UI/assets/libs/chartist/dist/chartist.min.js"></script>
+            <script src="/UI/assets/libs/echarts/dist/echarts-en.min.js"></script>
+            <script src="/UI/assets/libs/flot/excanvas.min.js"></script>
+            <script src="/UI/assets/libs/flot/jquery.flot.js"></script>
+            <script src="/UI/assets/libs/jquery.flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+            <script src="/UI/assets/libs/d3/dist/d3.min.js"></script>
+            <script src="/UI/assets/libs/c3/c3.min.js"></script>
+            <script src="/UI/assets/libs/gaugeJS/dist/gauge.min.js"></script>
+            <script src="/UI/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+            <script src="/UI/dist/js/pages/widget/card-custom.js"></script>
+
+
+
+            <!-- This Page charts LOG-->
+            <script src="/UI/dist/js/pages/chartsLog/chartsLog.js"></script>
+
+            <!-- Custom fullcalendar -->
+
+            <script src="/UI/assets/extra-libs/taskboard/js/jquery.ui.touch-punch-improved.js"></script>
+            <script src="/UI/assets/extra-libs/taskboard/js/jquery-ui.min.js"></script>
+
+            <script src="/UI/assets/libs/moment/min/moment.min.js"></script>
+            <script src="/UI/assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
+            <script src="/UI/dist/js/pages/calendar/cal-init.js"></script>
+
+            <!-- Custom fullcalendar -->
+            <script src="/UI/assets/libs/bootstrap-switch/dist/js/bootstrap-switch.min.js"></script>
+
+
+
+            <!-- This Date JS -->
+            <script src="/UI/assets/libs/moment/moment.js"></script>
+            <script src="/UI/assets/libs/daterangepicker/daterangepicker.js"></script>
+
+
+
+
+            <!--This page repeater -->
+            <script src="/UI/assets/libs/jquery.repeater/jquery.repeater.min.js"></script>
+            <script src="/UI/assets/extra-libs/jquery.repeater/repeater-init.js"></script>
+            <script src="/UI/assets/extra-libs/jquery.repeater/dff.js"></script>
+
+            <script src="/UI/dist/js/pages/sparkline/jquery.charts-sparkline.js"></script>
+
+
+
+            <script src="/UI/assets/libs/raphael/raphael.min.js"></script>
+            <script src="/UI/assets/libs/morris.js/morris.min.js"></script>
+            <script src="/UI/dist/js/pages/morris/morris-data.js"></script>
+
+            <!--This page table -->
+            <script src="/UI/assets/libs/datatables/media/js/jquery.dataTables.min.js"></script>
+            <script src="/UI/dist/js/pages/datatable/custom-datatable.js"></script>
+            <script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+            <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.flash.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+            <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
+            <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
+            <script src="/UI/dist/js/pages/datatable/datatable-advanced.init.js"></script>
+
+            <script src="/UI/assets/libs/echarts/dist/echarts-en.min.js"></script>
+            <script src="/UI/assets/libs/dragula/dist/dragula.min.js"></script>
+            <link rel="stylesheet" type="text/css" href="/UI/assets/libs/dragula/dist/dragula.min.css">
+
+            <script src="/UI/dist/js/pages/datatable/datatable-basic.init.js "></script>
+            <script>
+                $(document).ready(function() {
+                    $('#myTable').DataTable();
+                });
+            </script>
+
+
+            <script>
+                $(function() {
+                    var a = <%-JSON.stringify(data2)%>;
+                    var b = <%-JSON.stringify(data3)%>;
+                    var d = <%-JSON.stringify(data5)%>;
+
+
+
+                    var chart_1_v2 = {
+                        series: a,
+                        chart: {
+                            fontFamily: 'Rubik,sans-serif',
+                            height: 350,
+                            type: "area",
+                            toolbar: {
+                                show: false,
+                            },
+                        },
+                        fill: {
+                            type: 'solid',
+                            opacity: 0.2,
+                            colors: d,
+                        },
+                        grid: {
+                            show: true,
+                            borderColor: "rgba(0,0,0,0.1)",
+                            strokeDashArray: 3,
+                            xaxis: {
+                                lines: {
+                                    show: true
+                                }
+                            },
+                        },
+                        colors: d,
+                        dataLabels: {
+                            enabled: false,
+                        },
+                        stroke: {
+                            curve: "smooth",
+                            width: 1,
+                            colors: d,
+                        },
+                        markers: {
+                            size: 3,
+                            colors: d,
+                            strokeColors: "transparent",
+                        },
+                        xaxis: {
+                            axisBorder: {
+                                show: true,
+                            },
+                            axisTicks: {
+                                show: true,
+                            },
+                            categories: b,
+                            labels: {
+                                style: {
+                                    colors: "#a1aab2",
+                                },
+                            },
+                        },
+                        yaxis: {
+                            tickAmount: 9,
+                            labels: {
+                                style: {
+                                    colors: "#a1aab2",
+                                },
+                            },
+                        },
+                        tooltip: {
+                            x: {
+                                format: "dd/MM/yy HH:mm",
+                            },
+                            theme: "dark",
+                        },
+                        legend: {
+                            show: false,
+                        },
+                    };
+                    var chart_area_spline_1 = new ApexCharts(document.querySelector("#chart1_datain_v2"), chart_1_v2);
+                    chart_area_spline_1.render();
+
+
+
+
+                    start_g(a, b, d)
+
+                });
+
+                function start_g(a, b, d) {
+
+                    var chart_2_v2 = {
+                        series: a,
+                        chart: {
+                            fontFamily: 'Rubik,sans-serif',
+                            height: 218,
+                            type: "area",
+                            toolbar: {
+                                show: false,
+                            },
+                        },
+                        fill: {
+                            type: 'solid',
+                            opacity: 0.2,
+                            colors: d,
+                        },
+                        grid: {
+                            show: true,
+                            borderColor: "rgba(0,0,0,0.1)",
+                            strokeDashArray: 3,
+                            xaxis: {
+                                lines: {
+                                    show: true
+                                }
+                            },
+                        },
+                        colors: d,
+                        dataLabels: {
+                            enabled: false,
+                        },
+                        stroke: {
+                            curve: "smooth",
+                            width: 1,
+                            colors: d,
+                        },
+                        markers: {
+                            size: 3,
+                            colors: d,
+                            strokeColors: "transparent",
+                        },
+                        xaxis: {
+                            axisBorder: {
+                                show: true,
+                            },
+                            axisTicks: {
+                                show: true,
+                            },
+                            categories: b,
+                            labels: {
+                                style: {
+                                    colors: "#a1aab2",
+                                },
+                            },
+                        },
+                        yaxis: {
+                            tickAmount: 9,
+                            labels: {
+                                style: {
+                                    colors: "#a1aab2",
+                                },
+                            },
+                        },
+                        tooltip: {
+                            x: {
+                                format: "dd/MM/yy HH:mm",
+                            },
+                            theme: "dark",
+                        },
+                        legend: {
+                            show: false,
+                        },
+                    };
+                    var chart_area_spline_2 = new ApexCharts(document.querySelector("#chart2_datain_v2"), chart_2_v2);
+                    chart_area_spline_2.render();
+                    chart_area_spline_2.resetSeries();
+                }
+            </script>
+
+            <script>
+                $(function() {
+                    var inputs = $('.input');
+                    var paras = $('.description-flex-container').find('p');
+                    inputs.click(function() {
+                        var t = $(this),
+                            ind = t.index(),
+                            matchedPara = paras.eq(ind);
+
+                        t.add(matchedPara).addClass('active');
+                        inputs.not(t).add(paras.not(matchedPara)).removeClass('active');
+                    });
+                });
+            </script>
+
+            <script>
+                function getMenu() {
+                    var d = <%-JSON.stringify(data5)%>;
+                    const menu = document.getElementById('data_post')
+                        // console.log(menu.value);
+                    let a = document.getElementById('id_a');
+                    let b = document.getElementById('id_b');
+                    let c = document.getElementById('id_c');
+
+                    $.get(`/datain_1/${menu.value}`, function(data) {
+                        // console.log(data.data[0].date);
+                        value_chart = [];
+                        time_chart = [];
+                        for (let index = 0; index < data.data.length; index++) { //chart-1
+                            value_chart.push(data.data[index].data_s)
+                            time_chart.push(data.data[index].date)
+                        }
+
+
+                        a.innerHTML = `${data.og}%`
+                        b.innerHTML = `${data.m}%`
+                        c.innerHTML = `${data.v_day}%`
+
+                        console.log(data.datax);
+                        console.log(data.data_date);
+                        console.log(data.color_r);
+
+                        start_g(data.datax, data.data_date, d)
+
+                    });
+                }
+
+                // var id = {
+                //     name: "heart-8",
+                //     status: '0'
+                // };
+                // $.ajax({
+                //     url: '/up',
+                //     type: 'post',
+                //     dataType: 'json',
+                //     data: id,
+
+                //     success: function(data) {
+                //         console.log(data);
+                //     },
+                // });
+            </script>

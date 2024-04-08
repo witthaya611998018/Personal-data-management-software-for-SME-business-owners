@@ -1,0 +1,153 @@
+<%- include('../_header') -%>
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">ข้อมูลกลุ่มผู้ใช้</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item"><a href="/index2">การจัดการผู้ใช้</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">ข้อมูลกลุ่มผู้ใช้
+                            </li>
+
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-7 justify-content-end align-self-center d-none d-md-flex">
+                <div class="d-flex">
+                    <div class="dropdown me-2">
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="row">
+                        <div class="card-body">
+
+                            <div class="border-bottom title-part-padding">
+                                <h4 class="card-title mb-0">ข้อมูลกลุ่มผู้ใช้</h4>
+                            </div>
+                            <div class="card-body" style="min-height: 650px;">
+                                <div class="mb-3">
+                                    <button id="sa-chain2" class="btn btn-success">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus fill-white feather-sm"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> เพิ่มกลุ่มผู้ใช้</button>
+                
+                                </div>
+                                <table class="tablesaw no-wrap table-striped table-bordered table-hover table" id="myTable7">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-sortable-default-col data-tablesaw-priority="3" class="border text-center" style="width: 2%;">ลำดับ</th>
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist" class="border text-center">ชื่อกลุ่ม</th>
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2" class="border text-center">จำนวนผู้ใช้</th>
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1" class="border text-center">จำนวนอุปกรณ์</th>
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1" class="border text-center">จัดการ</th>
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1" class="border text-center">ตรวจสอบ</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% if (data){ for (var i = 0; i < data.length; i++) { %>
+                                            <tr>
+                                                <td class="title align-top text-center">
+                                                    <%= (i+1) %>
+                                                </td>
+                                                <td class="align-top">
+                                                    <%= data[i].g_name%>
+                                                </td>
+                                                <td class="align-top">
+                                                    <%if(data[i].acc_id == null){%>0
+                                                        <%}else {%>
+                                                            <%= data[i].num%>
+                                                                <%}%>
+                                                </td>
+                                                <td class="align-top">
+                                                    <%if(data4[i].dm_id == null){%>0
+                                                        <%}else {%>
+                                                            <%= data4[i].num%>
+                                                                <%}%>
+                                                </td>
+                                                <td style="text-align: center;">
+                                                    
+
+                                                    <a href="/group/new/<%= data[i].group_id%>"><i class="fas fa-pencil-alt fa-2x" style="color:#ffbc34"></i> 
+                                                    </a> 
+
+                                                            
+                                                </td>
+                                                <td style="text-align: center;">
+                                                    <a href="/group/check/<%= data[i].group_id%>"><i class="fas fa-file-alt fa-2x"></i></a> 
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            <%  }} %>
+
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../_footer') -%>
+        <script>
+            $("#sa-chain2").click(function() {
+                Swal.mixin({
+                    input: 'text',
+                    confirmButtonText: 'ยืนยัน',
+                    showCancelButton: true,
+                    cancelButtonText: 'ยกเลิก',
+                    // progressSteps: [1]
+                }).queue([{
+                    title: 'กำหนดชื่อกลุ่ม',
+                }]).then((result) => {
+                    if (result.value) {
+                        Swal.fire({
+                            title: 'All done!',
+                            html: 'ชื่อกลุ่มของคุณ: <pre><code>' +
+                                JSON.stringify(result.value) +
+                                '</code></pre>',
+                            confirmButtonText: 'สร้าง'
+                        })
+                    }
+                    var data1 = JSON.stringify(result.value)
+                    if (result.value) {
+                        var request1 = function() {
+                            $.ajax({
+                                url: "/group/add",
+                                type: "post",
+                                data: JSON.stringify(result.value),
+                                success: function() {
+
+                                    setInterval('location.reload()', 500);
+                                }
+                            });
+                        }
+                        request1();
+                    }
+                })
+            });
+        </script>
+        
+        <!-- <script src="/UI/assets/libs/sweetalert2/dist/sweetalert2.all.min.js"></script> -->
+        <script src="/UI/assets/libs/datatables/media/js/jquery.dataTables.min.js"></script>
+        <script src="/UI/dist/js/pages/datatable/custom-datatable.js"></script>
+        <script src="/UI/dist/js/pages/datatable/datatable-basic.init.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#myTable7').DataTable();
+            });
+        </script>

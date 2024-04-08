@@ -1,0 +1,161 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">ข้อมูลส่วนบุคคล</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item"><a href="/personal_data">ข้อมูลส่วนบุคคล</a></li>
+                            <li class="breadcrumb-item">ดูข้อมูลส่วนบุคคล</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" style="margin-top: 1%;margin-bottom: 5%;">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="border-bottom title-part-padding">
+                        <h4 class="card-title mb-0">ดูข้อมูลส่วนบุคคล<span class="text-secondary"></span></h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row-12" align="left">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="col-md-12">
+                                                    <div class="row col-12">
+                                                        <div class="col-2 font-bold">
+                                                            ระดับของข้อมูลส่วนตัว :
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <%= level[0].level_name%>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="row col-12">
+                                                        <div class="col-2 font-bold">
+                                                            Code :
+                                                        </div>
+                                                        <div class="col-10">
+                                                            #<%= personal_name[1] %>
+
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+
+                                                    <div class="row col-12">
+                                                        <div class="col-2 font-bold">
+                                                            ชื่อข้อมูลส่วนบุคคล :
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <%=personal[0].data_name%>
+
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+
+                                                    <div class="row col-12">
+                                                        <div class="col-2 font-bold">
+                                                            ประเภทของข้อมูลส่วนตัว :
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <%=data_type[0].data_type_name%>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+
+                                                    <div class="row col-12">
+                                                        <div class="col-2 font-bold">
+                                                            รายละเอียดเพิ่มเติม :
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <%=personal[0].data_detail%>
+
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+
+                                                    <div class="row col-12">
+                                                        <div class="col-2 font-bold">
+                                                            เริ่ม :
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <%=personal[0].data_date_start%>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="row col-12">
+                                                        <div class="col-2 font-bold">
+                                                            สิ้นสุด :
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <%=personal[0].data_date_end%>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="row col-12">
+                                                        <div class="col-2 font-bold">
+                                                            สถานที่จัดเก็บข้อมูล :
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <%=personal[0].data_location_name%>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="row col-12">
+                                                        <div class="col-2 font-bold">
+                                                            รายละเอียดเพิ่มเติมของสถานที่จัดเก็บข้อมูล :
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <%=personal[0].data_location_detail%>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="d-md-flex align-items-center mt-3">
+                                                    <div class="ms-auto mt-3 mt-md-0">
+                                                        <a href="/personal_data"
+                                                            class="btn btn-secondary font-weight-medium ">
+                                                            ย้อนกลับ
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        const tag_name = document.getElementById('tag_name').value;
+        let sort_tag_name = tag_name.split(',')
+        let tag_name_new = []
+        for (i in sort_tag_name) {
+            tag_name_new.push(sort_tag_name[i])
+        }
+        // var tag = document.getElementById("tag");
+        // for(var j=0;j<tag_name_new.length;j++) {
+        //     tag.innerHTML = tag_name_new[j];
+        // }
+    </script>
+
+
+
+    <%- include('../_footer') -%>

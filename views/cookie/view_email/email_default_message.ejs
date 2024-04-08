@@ -1,0 +1,107 @@
+<%- include ("../../_header") %>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-7 align-self-center">
+                <h3 class="page-title">ข้อความเริ่มต้น
+                    <%if (type==0) {%>
+                        การส่งข้อมูลไปยังคณะกรรมการ เขียน E-mail
+                        <%}else {%>
+                            การแจ้งการละเมิด เขียน E-mail
+                            <%}%>
+                </h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item"><a href="javascript:history.back();">เขียน E-mail</a></li>
+                            <li class="breadcrumb-item">ข้อความเริ่มต้น</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-5 justify-content-end align-self-center d-none d-md-flex">
+                <a href="javascript:history.back();" class="btn btn-secondary ">ย้อนกลับ</a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="border-bottom title-part-padding">
+                <div style="justify-content:start" class="align-items-center d-none d-md-flex">
+                    <h4 class="card-title mb-0">ข้อความเริ่มต้น</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <form action="/default-messgaes/add" method="post">
+                    <div class="mb-3 row">
+                        <div class="col-md-6 form-group">
+                            <label class="mb-1">หัวเรื่อง</label>
+                            <input type="hidden" value="<%=type%>" name="message_type">
+                            <%if (select_default.length>0 ) {%>
+                                <input type="hidden" value="<%=select_default[0].message_id%>" name="message_id">
+                                <input type="text" name="message_subject" id="subject" class="form-control"
+                                    value="<%=select_default[0].message_subject%>" placeholder="หัวเรื่อง..." required>
+                                <%}else {%>
+                                    <input type="text" name="message_subject" id="subject" class="form-control" value=""
+                                        placeholder="หัวเรื่อง..." required>
+                                    <%}%>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <h4>ข้อความ</h4>
+                        <textarea id="message" name="message_content">
+                                        <% if (select_default.length>0 ){%>
+                                            <%-select_default[0].message_content%>
+                                                <%}%>
+                                    </textarea>
+                    </div>
+                    <div class="modal-footer" style="justify-content: center;">
+                        <button type="submit" class="btn btn-success">บันทึก</button>
+                        <button type="button" class="btn btn-secondary" id="throw_away">ทิ้ง</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="/UI/assets/extra-libs/summernote/summernote-lite.min.js"></script>
+    <script>
+        document.getElementById("throw_away").addEventListener("click", function (event) {
+            console.log(event);
+            let subject = document.getElementById("subject");
+            if (subject != null) {
+                subject.value = "";
+            }
+            $('.note-editable').empty()
+        })
+        $('#message').summernote({
+            fontSizes: ['8', '9', '10', '11', '12', '13', '14', '15', '16', '18', '20', '22', '24'],
+            toolbar: [
+                ['style', ['style']],
+                ['fontname', ['fontname']],
+                ['fontsize', ['fontsize']],
+                ['font', ['bold', 'Sarabun', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['paragraph', 'ul', 'ol']],
+                ['height', ['height']],
+                ['insert', ['link', 'picture', 'hr']],
+                // ['table', ['table']],
+                ['view', ['undo', 'redo']],
+            ],
+            fontNames: ['Sarabun', 'Sans Serif', 'Arial', 'Arial Black', 'Tahoma'],
+            fontNamesIgnoreCheck: ['Sarabun', 'Sans Serif', 'Arial', 'Arial Black', 'Tahoma'],
+            focus: false,
+            height: 350, // set minimum height of editor
+            callbacks: {
+                onChange: function (e) {
+                    setTimeout(function () {
+                        $("#message").val($('.note-editable').html());
+                    }, 100);
+                },
+            }
+        });
+
+        $('#message').summernote('fontName', 'Sarabun');
+        $('#message').summernote('fontSize', '16');
+
+    </script>
+    <%- include ("../../_footer") %>

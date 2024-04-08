@@ -1,0 +1,206 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">ประเภทข้อมูลส่วนบุคคล</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item">ประเภทข้อมูลส่วนบุคคล</a></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-7 align-self-center justify-content-end d-flex">
+                <a href="/index" class="btn btn-secondary">ย้อนกลับ</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="border-bottom title-part-padding">
+                        <h4 class="card-title mb-0">ประเภทข้อมูลส่วนบุคคล<span class="text-secondary"></span></h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="/data_type" method="POST">
+                            <div class="row pb-3">
+                                <div class="col-md-8">
+                                    <button type="button" class="btn btn-success px-4" data-bs-toggle="modal"
+                                        data-bs-target="#new_data_type">
+                                        <i class="fas fa-plus"></i>
+                                        เพิ่มข้อมูลประเภทข้อมูลส่วนบุคคล</button>
+                                </div>
+                                <div class="col-md-4 justify-content-end align-self-center d-block d-md-flex">
+                                    <div class="input-group mb-2">
+                                        <a href="/data_type" class="btn btn-outline-warning"><i
+                                                data-feather="refresh-cw"></i></a>
+                                        <input type="text" class="form-control" placeholder="ค้นหา.." id="myInput"
+                                            name="search" aria-label="" aria-describedby="button-addon2"
+                                            value="<%=keyword%>">
+                                        <button type="submit" class="btn btn-outline-warning"> <i
+                                                class="fas fa-search"></i> </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive" style="min-height: 470px;">
+                                <table id="myTable"
+                                    class="tablesaw no-wrap table-striped table-bordered table-hover table"
+                                    data-tablesaw-mode="stack" data-tablesaw-sortable>
+                                    <thead>
+                                        <tr>
+
+                                            <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col
+                                                data-tablesaw-priority="3" class="border">ลำดับ</th>
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist"
+                                                class="border">ประเภทข้อมูลส่วนบุคคล</th>
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4"
+                                                class="border">สถานะ</th>
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4"
+                                                class="border">แก้ไขข้อมูล</th>
+                                            <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="5"
+                                                class="border">ลบข้อมูล</th>
+                                        </tr>
+                                    </thead>
+                                    <input id="data_type1" value="<%=data_type1%>" readonly hidden />
+                                    <input id='data_type2' value="<%=data_type2%>" readonly hidden />
+                                    <input id='data_check' value="<%= check_used_data %>" readonly hidden />
+                                    <tbody id="table-body">
+                                    </tbody>
+                                </table>
+                        </form>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 text-secondary">
+                            <span>แสดงผล <span id="start"></span> ถึง <span id="end"></span> ทั้งหมด
+                                <%=data_type.length%> รายการ
+                            </span>
+                        </div>
+                        <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                            <nav aria-label="Page navigation example" class="mt-2">
+                                <ul class="pagination" id="pagination-wapper">
+
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <form action="/save_data_type" method="POST">
+        <div id="new_data_type" class="modal fade" tabindex="-1" aria-labelledby="success-header-modalLabel"
+            aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header modal-colored-header  border-bottom title-part-padding">
+                        <h4 class="modal-title" style="color: black;">
+                            เพิ่มข้อมูลประเภทข้อมูลส่วนบุคคล
+                        </h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div align="left" class="modal-body">
+                        <table class='table table-borderless'>
+                            <th class="col-md-4">
+                                ประเภทข้อมูลส่วนบุคคล :
+                            </th>
+                            <td class="col-md-8">
+                                <input type="text" name="data_type_name" placeholder="กรุณาป้อนประเภทข้อมูลส่วนบุคคล.."
+                                    class="form-control " required>
+                            </td>
+                        </table>
+
+
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="submit" class="btn btn-success font-weight-medium">บันทึกข้อมูล
+                        </button>
+
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+    </form>
+
+    <form action="/update_data_type" method="POST">
+        <div id="edit_data_type" class="modal fade" tabindex="-1" aria-labelledby="info-header-modalLabel"
+            aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header modal-colored-header  border-bottom title-part-padding">
+                        <h4 class="modal-title" style="color: black;">
+                            แก้ไขข้อมูลประเภทข้อมูลส่วนบุคคล
+                        </h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <table class='table table-borderless'>
+                            <th class="col-md-4">
+                                ประเภทข้อมูลส่วนบุคคล :
+                            </th>
+                            <td class="col-md-8" id="edata_type1">
+
+                            </td>
+                        </table>
+
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="submit" class="btn btn-warning font-weight-medium">แก้ไขข้อมูล</button>
+
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+    </form>
+
+    <form action="/delete_data_type" method="POST">
+        <div id="delete_data_type" class="modal fade" tabindex="-1" aria-labelledby="danger-header-modalLabel"
+            aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                        <h4 class="modal-title" style="color: black;">
+                            ยืนยันการลบข้อมูลประเภทข้อมูลส่วนบุคคล
+                        </h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <table class='table table-borderless'>
+                            <th class="col-md-4">
+                                ประเภทข้อมูลส่วนบุคคล :
+                            </th>
+                            <td class="col-md-8" id="deldata_type1">
+
+                            </td>
+                        </table>
+
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="submit" class="btn btn-danger font-weight-medium">ยืนยัน</button>
+
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+    </form>
+
+    <script src="/UI/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="/UI/dist/js/pagination_data_type.js"></script>
+
+
+
+    <%- include('../_footer') -%>

@@ -1,0 +1,83 @@
+<%- include('../_header') -%>
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">ข้อมูลส่วนบุคคล</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item"><a href="/personal_data">ข้อมูลส่วนบุคคล</a></li>
+                            <li class="breadcrumb-item">ยืนยันการลบข้อมูลส่วนบุคคล</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="container-fluid" style="margin-top: 1%;">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="border-bottom title-part-padding">
+                                <h4 class="card-title mb-0">ยืนยันการลบข้อมูลส่วนบุคคล<span
+                                        class="text-secondary"></span></h4>
+                            </div>
+                            <div class="card-body" style="min-height: 708px;">
+                                <div class="row-6" align="center">
+                                    <div class="col-6">
+                                        <!-- ----------------------------------------- -->
+                                        <!-- 1. Basic Form -->
+                                        <!-- ----------------------------------------- -->
+                                        <div class="card" >
+                                            <div class="card-body" >
+                                                <form action="/delete_personal/<%=personal[0].data_id%>" method="POST">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+
+                                                            <table class='table table-borderless'>
+                                                                    
+                                                                    <th >ชื่อข้อมูลส่วนบุคคล :<br><br>
+                                                                    Code :</th>
+                                                                    
+                                                                    <td>
+                                                                        <%=personal[0].data_name%><br><br>
+                                                                        <%=codes1%><br><br>
+                                                                    </td>
+                                                            </table>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="d-md-flex align-items-center mt-3">
+                                                                <div class="ms-auto mt-3 mt-md-0">
+                                                                    <button type="submit"
+                                                                        class="btn btn-danger font-weight-medium ">
+                                                                        ยืนยัน
+                                                                    </button>
+                                                                    <a href="/personal_data"
+                                                                        class="btn btn-secondary font-weight-medium ">
+                                                                        ยกเลิก
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- -------------------------------------------------------------- -->
+            <!-- Start Page Content -->
+            <!-- -------------------------------------------------------------- -->
+
+        </div>
+    
+
+
+
+
+    <%- include('../_footer_policy') -%>

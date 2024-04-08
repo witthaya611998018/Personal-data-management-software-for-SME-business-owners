@@ -1,0 +1,212 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-6 align-self-center">
+                <h3 class="page-title">ลงทะเบียบอุปกรณ์ต้นทาง</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item"><a href="/index2">การจัดการระบบ</a></li>
+                            <li class="breadcrumb-item"><a href="/device/input">ลงทะเบียบอุปกรณ์ต้นทาง</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">เพิ่มอุปกรณ์สำหรับจัดเก็บข้อมูล
+                            </li>
+
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- ============================================================== --
+        <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- -------------------------------------------------------------- -->
+        <!-- Start Page Content -->
+        <!-- -------------------------------------------------------------- -->
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body border-bottom">
+                    <h4 class="card-title">เพิ่มอุปกรณ์สำหรับจัดเก็บข้อมูล</h4>
+                </div>
+                <form class="form-horizontal needs-validation" novalidate action="/device/add" enctype="multipart/form-data" method="post">
+                    <input type="hidden" value="<%=data[0].input_id%>" name="input_id">
+                    <div class="card-body">
+                        <div class="mb-3 row">
+                            <label for="firstname" class="col-sm-3 text-end control-label col-form-label text-secondary"></label>
+                            <div class="col-sm-6">
+                                <center class="mt-4"> <i class="me-2 mdi mdi-plus-box-outline  fa-10x"></i>
+                                    <!-- <img src="/UI/assets/images/white-plus-plus-icon-white-texture-white-board-clothing-apparel-transparent-png-425162.png" height="250" width="350" /> -->
+                                    <!-- <div class="row text-center justify-content-md-center">
+                                    <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-people"></i> <font class="font-weight-medium">254</font></a></div>
+                                    <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-picture"></i> <font class="font-weight-medium">54</font></a></div>
+                                </div> -->
+
+                                </center><br>
+                                <input type="file" id="img" name="img" class="form-control" accept="image/*">
+                                <input type="hidden" name="image" value="1200px-Circle-icons-computer.svg.png">
+                            </div>
+                        </div><br>
+                        <hr><br>
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 text-end control-label col-form-label text-secondary">สถานะอุปกรณ์</label>
+                            <div class="col-sm-6">
+                                <select class=" form-control border border-info" name="status">
+                                    <option>กรุณาเลือก</option>
+                                    <option >เตรียม</option>
+                                    <option >ใช้งาน</option>
+                                    <option >ยกเลิก</option>  
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 text-end control-label col-form-label text-secondary">ประเภทอุปกรณ์</label>
+                            <div class="col-sm-6">
+                                <select class=" form-control border border-info" name="de_type">
+                                    <option>กรุณาเลือก</option>
+                                    <option>เครื่องแม่ข่าย</option>
+                                    <option>PC Client</option>
+                                    <option>Appliance</option>
+                                    <option>Firewall</option>
+                                    <option>DataBase/Server</option>
+                                    <option>อื่นๆ</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 text-end control-label col-form-label text-secondary">ประเภทข้อมูล</label>
+                            <div class="col-sm-6">
+                                <select class=" form-control border border-info" name="data_type">
+                                    <option>กรุณาเลือก</option>
+                                    <option>ข้อมูลจราจรทางคอมพิวเตอร์จากการเชื่อต่อเข้าถึงระบบเครือข่าย (Internet Access)</option>
+                                    <option>ข้อมูลจราจรทางคอมพิวเตอร์จากเครื่องผู้ให้บริการจดหมายอิเล็กทรอนิกส์ (E-mal)</option>
+                                    <option>ข้อมูลจราจรทางคอมพิวเตอร์จากการโอนแฟ้มข้อมูลบนเครื่องในบริการโอนแฟ้มข้อมูล (FTP)</option>
+                                    <option>ข้อมูลจราจรทางคอมพิวเตอร์จากเครื่องผู้ให้บริการเว็บ (Web)</option>
+                                    <option>ข้อมูลจราจรทางคอมพิวเตอร์จากเครือข่ายคอมพิวเตอร์ขนาดใหญ่ (Usenet)</option>
+                                    <option>ข้อมูลจราจรทางคอมพิวเตอร์จากการโต้ตอบกันบนเครือข่ายคอมพิวเตอร์ (IRC)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 text-end control-label col-form-label text-secondary" for="sender">ประเภทการจัดส่งข้อมูลมาจัดเก็บ</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control border border-info" id="sender" placeholder="Syslog,FTP,Text,Agent,API,Mirror Port etc." name="sender" required>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="de_ip" class="col-sm-3 text-end control-label col-form-label text-secondary">IP ที่ใช้ติดต่อกับ Server</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control border border-info" id="de_ip" name="de_ip" value="<%=data[0].input_ip%>" readonly>
+                            </div>
+                            <div class="col-sm-2">
+                                <select class=" form-control border border-info " name="eth">
+                                    <option>เลือก</option>
+                                    <option>Eth0</option>
+                                    <option>Eth1</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="port" class="col-sm-3 text-end control-label col-form-label text-secondary">Port ที่ใช้ติดต่อกับ Server</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control border border-info" id="port" required>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="cono1" class="col-sm-3 text-end control-label col-form-label text-secondary">ระบบตรวจสอบความถูกต้องของข้อมูล</label>
+                            <div class="col-sm-9" id="cono1">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input danger check-outline outline-danger" type="radio" name="hash" id="hash" value=NULL required>
+                                    <label class="form-check-label" for="hash">ไม่มี</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input warning check-outline outline-warning" type="radio" name="hash" id="hash0" value="0">
+                                    <label class="form-check-label" for="hash0">ไม่ทราบ</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input success check-outline outline-success" type="radio" name="hash" id="hash1" value="1">
+                                    <label class="form-check-label" for="hash1">มี</label>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="port" class="col-sm-3 text-end control-label col-form-label text-secondary">จำนวนวันที่จัดเก็บข้อมูล</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control border border-info" id="com1" placeholder="วัน" name="keep">
+                            </div>
+                        </div>
+                        <!-- <div class="mb-3 row">
+                            <label class="col-sm-3 text-end control-label col-form-label text-secondary">แจ้งเตือนหากพบไม่มีการส่งล็อก</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control border border-info" placeholder="วัน" name="time">
+                            </div>
+                        </div> -->
+                        <hr>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="mb-3 row">
+                            <label for="com2" class="col-sm-3 text-end control-label col-form-label text-secondary">ชื่ออุปกรณ์</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control border border-info" id="com2" placeholder="กำหนดชื่ออุปกรณ์" name="hostname" value="<%=data[0].hostname%>" readonly>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 text-end control-label col-form-label text-secondary" for="com3">ชื่อที่ใช้ในระบบ</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control border border-info" id="com3" placeholder="กำหนดชื่ออุปกรณ์ใช้ในระบบ" name="name" required>
+                            </div>
+                        </div>
+                        <!-- <div class="mb-3 row">
+                            <label class="col-sm-3 text-end control-label col-form-label text-secondary" for="spec">คุณลักษณะ</label>
+                            <div class="col-sm-6">
+                                <textarea type="text" row="6" class="form-control border border-info" id="spec" name="spec" value="-"></textarea>
+                            </div>
+                        </div> -->
+                        <hr>
+                    </div><br>
+
+                    <!-- <div class="p-3 border-top">
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-info rounded-pill px-4 waves-effect waves-light">ยันยัน</button>
+                            <a href="/device/input"> <button type="button" class="btn btn-dark rounded-pill px-4 waves-effect waves-light">กลับ</button></a>
+                        </div>
+                    </div> -->
+                    <!-- <div class="row">
+                        <div class="col-sm-4">
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="submit" class="btn btn-success rounded-pill px-4 waves-effect waves-light">ยืนยัน</button>
+                        </div>
+                        <div class="col-sm-4">
+                            <a href="/device/input"> <button type="button" class="btn btn-secondary rounded-pill px-4 waves-effect waves-light">กลับ</button></a>
+                        </div>
+                    </div><br> -->
+                    <div class="row">
+                        <div class="col-sm-5">
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="submit" class="btn btn-success waves-effect waves-light">ยืนยัน</button>
+                            <a href="/device/input"> <button type="button" class="btn btn-secondary waves-effect waves-light ">กลับ</button></a>
+
+                        </div>
+                        <div class="col-sm-1">
+                        </div>
+                        <div class="col-sm-5">
+                        </div>
+                    </div><br>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Row -->
+
+
+    <!-- -------------------------------------------------------------- -->
+    <!-- End PAge Content -->
+    <!-- -------------------------------------------------------------- -->
+    <!--start overlay-->
+    <%- include('../_footer') -%>

@@ -1,0 +1,885 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">กำหนดรูปแบบข้อมูล</h3>
+                <div class="d-flex align-items-center" style="margin-top: 1%;">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index2">หน้าแรก</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">กำหนดรูปแบบข้อมูล (Pattern)</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid" id="index">
+        <!-- Row -->
+        <!-- <div class="row"> -->
+        <!-- Column -->
+        <!-- <div class="col-lg-4 col-md-6" >
+                <a href="/pattern/datatype">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">รูปแบบข้อมูล</h4>
+                            <div class="text-end">
+                                <h2 class="fw-light mb-0">
+                                    <%= pm.length %>
+                                </h2>
+                                <span class="text-muted">ณ วันที่ <%= (new Date().getDate())+"/"+((new
+                                        Date().getMonth())+1)+"/"+(new Date().getFullYear()) + " " + (new
+                                        Date().getHours()) + ":" + (new Date().getMinutes()) %></span>
+                            </div>
+                            <span class="text-success" id="bar1">100%</span>
+                            <div class="progress">
+                                <div id='progress-bar1' class="progress-bar bg-success" role="progressbar"
+                                    aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div> -->
+        <!-- Column -->
+        <!-- Column -->
+        <!-- <div class="col-lg-4 col-md-6">
+                <a href="javascript:void(0);">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">พื้นที่จัดเก็บ ตามรูปแบบ GB</h4>
+                            <div class="text-end">
+                                <h2 class="fw-light mb-0"><span id="diskSpace">
+                                        <%= checkDiskSpace.size %>
+                                    </span></h2>
+                                <span class="text-muted">ณ วันที่ <%= (new Date().getDate())+"/"+((new
+                                        Date().getMonth())+1)+"/"+(new Date().getFullYear()) + " " + (new
+                                        Date().getHours()) + ":" + (new Date().getMinutes()) %></span>
+                            </div>
+                            <span class="text-info" id="bar2">
+                                <%= 100-(((parseInt(checkDiskSpace.free)/parseInt(checkDiskSpace.size))*100).toFixed(0))
+                                    %>%
+                            </span>
+                            <div class="progress">
+                                <div id='progress-bar2' class="progress-bar bg-info" role="progressbar" aria-valuenow=""
+                                    aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div> -->
+        <!-- Column -->
+        <!-- Column -->
+        <!-- <div class="col-lg-4 col-md-6">
+                <a href="javascript:void(0);">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">การใช้งานรูปแบบ</h4>
+                            <div class="text-end">
+                                <h2 class="fw-light mb-0">
+                                    <%= used %>
+                                </h2>
+                                <span class="text-muted">ณ วันที่ <%= (new Date().getDate())+"/"+((new
+                                        Date().getMonth())+1)+"/"+(new Date().getFullYear()) + " " + (new
+                                        Date().getHours()) + ":" + (new Date().getMinutes()) %></span>
+                            </div>
+                            <span class="text-purple" id="bar3">
+                                <%= used_length %>%
+                            </span>
+                            <div class="progress">
+                                <div id='progress-bar3' class="progress-bar bg-purple" role="progressbar"
+                                    aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div> -->
+        <!-- Column -->
+        <!-- </div> -->
+        <!-- Row -->
+        <!-- Row -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="border-bottom title-part-padding">
+                        <h4 class="card-title mb-0">สร้างรูปแบบข้อมูล สำหรับค้นหาตรวจสอบ และ ป้องกัน<span
+                                class="text-secondary"></span></h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="javascript:void(0);" method="post">
+                            <div class="row">
+                                <div class="col-md-8" id="limit">
+                                    <a href="/pattern/new" class='btn btn-success'>
+                                        <i class="fas fa-plus"></i>
+                                        เพิ่มรูปแบบข้อมูล
+                                    </a>
+
+                                </div>
+                                <div class="col-md-4 justify-content-end align-self-center d-block d-md-flex">
+                                    <div class="input-group mb-2">
+                                        <a href="/pattern" class="btn btn-outline-warning"><i
+                                                data-feather="repeat"></i></a>
+                                        <input type="text" class="form-control" placeholder="ค้นหา.." id="myInput"
+                                            name="search" aria-label="" aria-describedby="button-addon2" value="">
+                                        <button type="submit" class="btn btn-outline-warning"> <i
+                                                class="fas fa-search"></i> </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div style="min-height: 470px;">
+                            <p class="h4 split-para">รูปแบบข้อมูลส่วนบุคคล </p>
+                            <table id="myTable" class="tablesaw table-striped table-bordered table-hover table"
+                                data-tablesaw-mode="stack" data-tablesaw-sortable style="margin-top: 1%;">
+                                <thead>
+                                    <tr style="text-align: center;">
+                                        <th data-tablesaw-sortable-default-col data-tablesaw-priority="3"
+                                            class="border text-center no">ลำดับ</th>
+                                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist"
+                                            class="border text-center">
+                                            ชื่อรูปแบบ</th>
+                                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4"
+                                            class="border text-center">
+                                            ข้อมูลส่วนบุคคล</th>
+                                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="5"
+                                            class="border text-center">
+                                            วันที่สร้าง</th>
+
+                                        <!-- <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="5"
+                                            class="border text-center">
+                                            วันที่ใช้</th>
+                                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="5"
+                                            class="border text-center">
+                                            วันที่สิ้นสุด</th> -->
+
+                                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="5"
+                                            class="border text-center">
+                                            ผู้สร้าง</th>
+                                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="5"
+                                            class="border text-center" style="vertical-align: middle;">
+                                            อุปกรณ์/Agent/<br />Database ภายนอก</th>
+                                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="5"
+                                            class="border text-center">
+                                            ดูข้อมูล</th>
+                                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="5"
+                                            class="border text-center">
+                                            แก้ไขข้อมูล</th>
+                                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="5"
+                                            class="border text-center">
+                                            ลบข้อมูล</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-body">
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 text-secondary" style="margin-left: 1%;">
+                                <span>แสดงผล <span id="start-1"></span> ถึง <span id="end"></span> ทั้งหมด <%= pm.length
+                                        %>
+                                        รายการ</span>
+                            </div>
+                            <div class="col-md justify-content-end align-self-center d-block d-md-flex">
+                                <nav aria-label="Page navigation example" style="margin-right: 2%;">
+                                    <ul class="pagination" id="pagination-wapper">
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <br />
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row -->
+            <!-- <div class="col-12">
+                <div class="card">
+                    <div class="border-bottom title-part-padding">
+                        <h4 class="card-title mb-0">เอกสารกิจกรรม/เอกสารนโยบายข้อมูลส่วนบุคคล (Policy)
+                            ที่ยังไม่ได้ดำเนินการจัดรูปแบบ (Pattern)<span class="text-secondary"></span></h4>
+                    </div>
+                    <div class="card-body col-12">
+                        <div style="min-height: 470px;">
+                            <p class="h4 split-para">เอกสารกิจกรรม/เอกสารนโยบายข้อมูลส่วนบุคคล </p>
+                            <table id="myTable1" class="tablesaw  table-striped table-bordered table-hover table"
+                                data-tablesaw-mode="stack" data-tablesaw-sortable style="margin-top: 1%;">
+                                <thead>
+                                    <tr>
+                                        <th data-tablesaw-sortable-default-col data-tablesaw-priority="3"
+                                            class="border text-center no">ลำดับ</th>
+                                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist"
+                                            class="border text-left">
+                                            ชื่อเอกสาร</th>
+                                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4"
+                                            class="border text-center">
+                                            ประเภทเอกสาร</th>
+                                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="5"
+                                            class="border text-center">
+                                            วัน/เวลาที่สร้าง</th>
+                                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="5"
+                                            class="border text-center">
+                                            ผู้สร้าง</th>
+                                        <th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="5"
+                                            class="border text-center">
+                                            ดูเอกสาร</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-body-policy">
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 text-secondary" style="margin-left: 1%;">
+                                <span>แสดงผล <span id="start-policy"></span> ถึง <span id="end-policy"></span> ทั้งหมด
+                                    <span id="total-policy"></span> รายการ</span>
+                            </div>
+                            <div class="col-md justify-content-end align-self-center d-block d-md-flex">
+                                <nav aria-label="Page navigation example" style="margin-right: 2%;">
+                                    <ul class="pagination" id="pagination-wapper-policy">
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+       
+       
+        </div>
+
+        <form id="del_pattern" method="POST">
+            <div id="delete_pattern" class="modal fade modal-scroll">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header modal-colored-header border-bottom title-part-padding">
+                            <h4 class="modal-title" style="color: black; font-weight: bold;">
+                                ยืนยันลบกำหนดรูปแบบข้อมูล
+                            </h4>
+                        </div>
+                        <div id="modal-del-pattern" class="modal-body">
+                            <table class="table table-boardless">
+                                <th style="width: 30%; text-align: right;">ชื่อรูปแบบ: </th>
+                                <td id="p_name"></td>
+                            </table>
+                            <table class="table table-boardless">
+                                <th style="width: 30%; text-align: right;">ข้อมูลส่วนบุคคล: </th>
+                                <td id="p_data"></td>
+
+                                <table class="table table-boardless">
+                                    <th style="width: 30%; text-align: right;">วันที่สร้าง: </th>
+                                    <td id="p_create"></td>
+                                </table>
+                                <table class="table table-boardless">
+                                    <th style="width: 30%; text-align: right;">ผู้สร้าง: </th>
+                                    <td id="p_user"></td>
+                                </table>
+                                <table class="table table-boardless">
+                                    <th class="text-center">อุปกรณ์/Agnet/Database ภายนอก</th>
+                                </table>
+                                <table class="table table-boardless">
+                                    <td id="p_options" class="text-center"></td>
+                                </table>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="button-center-success">
+                                <button type="submit" id="sub_del_pattern"
+                                    class="btn btn-danger font-weight-large">ยืนยัน</button>
+                            </div>
+                            <div class="button-center-danger2">
+                                <button type="button" class="btn btn-secondary font-weight-large"
+                                    data-bs-dismiss="modal">ยกเลิก</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+    <script src="/UI/assets/libs/jquery/dist/jquery.min.js"></script>
+    <!-- <script src="/UI/dist/js/all_function_pattern.js"></script> -->
+    <!-- <script type="text/html" src="/UI/dist/js/all_function_classification.js"></script> -->
+
+
+    <script>
+
+
+
+
+
+        // ================================ Data Format =================================
+        function convert_date(date) {
+            var month = date.getMonth() + 1;
+            var day = date.getDate();
+            if (month.toString().length == 1) {
+                month = "0" + month.toString()
+            }
+            if (day.toString().length == 1) {
+                day = "0" + day.toString()
+            }
+            return day.toString() + "/" + month.toString() + "/" + date.getFullYear()
+        }
+
+        Date.prototype.addDays = function (days) {
+            var dat = new Date(this.valueOf())
+            dat.setDate(dat.getDate() + days);
+            return dat;
+        }
+
+        function getDates(startDate, stopDate) {
+            var dateArray = new Array();
+            var currentDate = startDate;
+            while (currentDate <= stopDate) {
+                dateArray.push(currentDate)
+                currentDate = currentDate.addDays(1);
+            }
+            return dateArray;
+        }
+
+        function date_diff(date, total) {
+            var dateArray = getDates(new Date(date), (new Date()).addDays(total));
+            return dateArray[dateArray.length - 1]
+        }
+
+        function convert_datetime(date) {
+            var month = date.getMonth() + 1;
+            var day = date.getDate();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var seconds = date.getSeconds();
+            if (month.toString().length == 1) {
+                month = "0" + month.toString()
+            }
+            if (day.toString().length == 1) {
+                day = "0" + day.toString()
+            }
+            if (hours.toString().length == 1) {
+                hours = "0" + hours.toString()
+            }
+            if (minutes.toString().length == 1) {
+                minutes = "0" + minutes.toString()
+            }
+            if (seconds.toString().length == 1) {
+                seconds = "0" + seconds.toString()
+            }
+            return day.toString() + "/" + month.toString() + "/" + date.getFullYear() + " " + hours.toString() + ":" + minutes.toString() + ":" + seconds.toString()
+        }
+
+        // ================================== Equal Set =================================
+        function eqSet(s1, s2) {
+            if (s1.size !== s2.size) return false
+            for (var i of s1) if (!s2.has(i)) return false
+            return true
+        }
+
+        // ================================== Check Tag =================================
+        function checkTag(all, name, index) {
+            if (all[index] == name) {
+                return true
+            } else if (index == all.length) {
+                return false
+            } else {
+                return checkTag(all, name, (index + 1))
+            }
+        }
+
+        // ================================= Check Users ================================
+        function checkUser(all, name, index) {
+            if (all[index] == name) {
+                return true
+            } else if (index == all.length) {
+                return false
+            } else {
+                return checkUser(all, name, (index + 1))
+            }
+        }
+
+        // ================================ Data Format =================================
+        var date_now = new Date();
+        $('#start_time').val(convert_date(date_now));
+        // ================================ Statics =====================================
+        var convert1 = $('#bar1').text().split('%')
+        $('#progress-bar1').css({ 'width': $('#bar1').text(), 'height': '6px' })
+        $('#progress-bar1').attr('aria-valuenow', convert1[0])
+        var convert2 = $('#bar2').text().split('%')
+        $('#progress-bar2').css({ 'width': $('#bar2').text(), 'height': '6px' })
+        $('#progress-bar2').attr('aria-valuenow', convert2[0])
+        var convert3 = $('#bar3').text().split('%')
+        $('#progress-bar3').css({ 'width': $('#bar3').text(), 'height': '6px' })
+        $('#progress-bar3').attr('aria-valuenow', convert3[0])
+        // ======================== Convert Bytes to GB =================================
+        var convert_gb = parseInt($('#diskSpace').text()) * (10 ** (-9))
+        $('#diskSpace').text(convert_gb.toFixed(0))
+        // ========================= NOTE SET STATE ROWS PAGINATION =====================
+        // rows must have all data or rows not less all data divide 2 CAN NOT divide 3
+        // =============================== Table Pattern ================================
+
+        var test_DATA = []
+        $.ajax({
+            url: "/pattern",
+            method: "POST",
+            data: { value: 1 },
+            success: function (result) {
+                test_DATA.push([...result.pattern]);
+
+
+
+
+
+
+
+
+
+
+
+                let text = ""
+                if (result.limit.pattern === -1 || result.pattern.length < result.limit.pattern) {
+                    // text = `
+                    // <a href="/pattern/new" class='btn btn-success'>
+                    //                         <i class="fas fa-plus"></i>
+                    //                         เพิ่มรูปแบบข้อมูล
+                    //                     </a>
+                    // `
+                } else {
+                    text = `
+                <button class='btn btn-success' disabled>
+                <i class="fas fa-plus"></i>
+                เพิ่มรูปแบบข้อมูล
+                 </button>
+                `
+                }
+                // document.getElementById('limit').innerHTML = text
+                if (result.pattern.length == 0) {
+                    // var table = $('#table-body')
+                    // var row = '<tr class="odd"><td valign="top" colspan="11" class="dataTables_empty text-center" style="color: red;">ไม่พบข้อมูล</td></tr>'
+                    // table.append(row)
+                    // $('#start-1').text(0)
+                    // $('#end').text(0)
+                    // $('#total').text(0)
+                } else {
+                    // ============================== Create Prepare ============================
+                    var end_count = 0 // จำนวนทั้งหมดในแต่ละหน้า
+
+                    var state = {
+                        'querySet': result.pattern,
+                        'page': 1,
+                        'rows': 5,
+                        'window': 10,
+                    }
+
+                    buildTable()
+
+                    function pagination(querySet, page, rows) {
+
+                        var trimStart = (page - 1) * rows
+                        var trimEnd = trimStart + rows
+
+                        var trimmedData = querySet.slice(trimStart, trimEnd)
+
+                        var pages = Math.ceil(querySet.length / rows);
+                        var start_count = 1
+                        document.getElementById('start-1').innerHTML = start_count
+
+                        return {
+                            'querySet': trimmedData,
+                            'pages': pages,
+                        }
+
+
+                    }
+                    // ============================== Create Pagination ============================
+                    function pageButtons(pages) {
+                        var wrapper = document.getElementById('pagination-wapper')
+                        wrapper.innerHTML = ``
+                        var maxLeft = (state.page - Math.floor(state.window / 2))
+                        var maxRight = (state.page + Math.floor(state.window / 2))
+
+                        if (maxLeft < 1) {
+                            maxLeft = 1
+                            maxRight = state.window
+                        }
+
+                        if (maxRight > pages) {
+                            maxLeft = pages - (state.window - 1)
+                            if (maxLeft < 1) {
+                                maxLeft = 1
+                            }
+                            maxRight = pages
+                        }
+
+                        if (state.page > 1) {
+                            wrapper.innerHTML = `<li class="page-item"><button value=${state.page - 1} class="page page-link"> ย้อนกลับ</button></li>`
+                        } else {
+                            wrapper.innerHTML = `<li class="page-item disabled"><button value=${state.page - 1} class="page page-link" > ย้อนกลับ</button></li>`
+                        }
+
+
+                        num = 1
+                        if (maxRight > 5) {
+                            if (state.page > (maxRight / 2)) {
+                                if ((state.page + 1) > (maxRight / 2)) {
+                                    wrapper.innerHTML += '<li class="page-item"><button class="page page-link" value=1>1</button></li>';
+                                    wrapper.innerHTML += '<li class="page-item disabled"><a class="page-link" href="javascript:void(0)">..</a></li>';
+                                }
+                            }
+                            for (var page = maxLeft; page <= maxRight; page++) {
+                                if ((page >= state.page - 2) && (page <= state.page + 2)) {
+                                    if (page == state.page) {
+                                        wrapper.innerHTML += `<li class="page-item active"><button class="page page-link" value=${page}>${page}</button></li>`;
+                                    }
+                                    else {
+                                        p = page - 1;
+                                        wrapper.innerHTML += `<li class="page-item "><button class="page page-link" value=${page}>${page}</button></li>`;
+                                    }
+                                }
+                            }
+                            if ((state.page) <= (maxRight / 2)) {
+                                mp = maxRight - 1;
+                                wrapper.innerHTML += '<li class="page-item disabled"><a class="page-link" href="javascript:void(0)">..</a></li>';
+                                wrapper.innerHTML += '<li class="page-item "><button class="page page-link" value=' + maxRight + '>' + maxRight + '</button></li>';
+                            }
+                        }
+                        else {
+                            for (var page = maxLeft; page <= maxRight; page++) {
+                                if (state.page == page) {
+                                    wrapper.innerHTML += `<li class="page-item active"><button class="page page-link" value=${page}>${page}</button></li>`
+                                } else {
+                                    wrapper.innerHTML += `<li class="page-item "><button class="page page-link" value=${page}>${page}</button></li>`
+                                }
+                            }
+                        }
+
+                        if (state.page < pages) {
+                            wrapper.innerHTML += `<li class="page-item"></i><button value=${state.page + 1} class="page page-link" >ถัดไป </button>`
+                        } else {
+                            wrapper.innerHTML += `<li class="page-item disabled"></i><button value=${state.page + 1} class="page page-link" >ถัดไป </button>`
+                        }
+
+                        $('.page').on('click', function () {
+                            $('#table-body').empty()
+                            state.page = Number($(this).val())
+                            buildTable()
+                        })
+                    }
+                    // ============================== Create Table ============================
+                    function buildTable() {
+                        var table = $('#table-body')
+                        var data = pagination(state.querySet, state.page, state.rows)
+                        var myList = data.querySet
+                        for (y in myList) {
+                            if (myList[y].pattern_id != "" && state.page == 1) {
+                                var check = '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" style="width:110px"><b class="tablesaw-cell-label">ลบรูปแบบ</b> <span class="tablesaw-cell-content"><a id="' + result.id_pattern[y].pattern_id + '" onClick="del(this.id)" href="#delete_pattern" class="text-danger" data-bs-toggle="modal"><i class="fas fa-trash-alt fa-2x"></i></a></span></td>'
+                                var device = ""
+                                var agent = ""
+                                var database_out = ""
+                                if (myList[y].pattern_storage_method_outside == 1) {
+                                    if (myList[y].pattern_storage_method_outside_device == 1) {
+                                        device = myList[y].pattern_storage_method_outside_device_name
+                                    } else {
+                                        device = "<span style='color:red;'>ไม่มี</span>"
+                                    }
+                                    if (myList[y].pattern_storage_method_outside_agent == 1) {
+                                        agent = myList[y].pattern_storage_method_outside_agent_name
+                                    } else {
+                                        agent = "<span style='color:red;'>ไม่มี</span>"
+                                    }
+                                    if (myList[y].pattern_storage_method_outside_database_outside == 1) {
+                                        database_out = myList[y].pattern_storage_method_outside_database_outside_name
+                                    } else {
+                                        database_out = "<span style='color:red;'>ไม่มี</span>"
+                                    }
+                                }
+                                //Keep in mind we are using "Template Litterals to create rows"
+                                var row = '<tr>' +
+                                    '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" ><b class="tablesaw-cell-label">ลำดับที่:' +
+                                    '</b> <span class="tablesaw-cell-content">' + myList[y].pattern_id + '</span></td>' +
+                                    '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" ><b class="tablesaw-cell-label">ชื่อรูปแบบ</b> <span class="tablesaw-cell-content">' + myList[y].pattern_name + ' </span></td>' +
+                                    // '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" style="width:250px"><b class="tablesaw-cell-label">ข้อมูลที่ใช้</b> <span class="tablesaw-cell-content">' + String(result.data_name_total).replaceAll(',', ", ") + '</span></td>' +
+                                    '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" style="width:250px"><b class="tablesaw-cell-label">ข้อมูลที่ใช้</b> <span class="tablesaw-cell-content">' + String(result.pattern_data[y]).replaceAll(',', ", ") + '</span></td>' +
+                                    '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" ><b class="tablesaw-cell-label">วันที่สร้าง</b> <span class="tablesaw-cell-content">' + convert_datetime(new Date(myList[y].pattern_create)) + '</span></td>' +
+                                    // '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" ><b class="tablesaw-cell-label">วันที่ใช้</b> <span class="tablesaw-cell-content">' + convert_date(new Date(myList[y].pattern_start_date)) + '</span></td>' +
+                                    // '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" ><b class="tablesaw-cell-label">วันที่สิ้นสุด</b> <span class="tablesaw-cell-content">' + convert_date(new Date(date_diff(myList[y].pattern_start_date, myList[y].pattern_total_date))) + '</span></td>' +
+                                    '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" ><b class="tablesaw-cell-label">ผู้สร้าง</b> <span class="tablesaw-cell-content">' + myList[y].firstname + " " + myList[y].lastname + '</span></td>' +
+                                    '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" ><b class="tablesaw-cell-label">อุปกรณ์/Agent</b> <span class="tablesaw-cell-content"> ' + result.pattern_storage_method_inside_import_id[y] + " / " + result.pattern_storage_method_inside_agent_name[y] + " / " + result.pattern_storage_method_outside_name[y] + '</span></td>' +
+                                    '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" style="width:110px"><b class="tablesaw-cell-label">ดูรูปแบบ</b> <span class="tablesaw-cell-content"><a href="/pattern/detail' + result.id_pattern[y].pattern_id + '" class="text-info"><i class="fas fa-file-alt fa-2x"></i></a></td>' +
+                                    '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" style="widht:110px"><b class="tablesaw-cell-label">แก้ไขรูปแบบ</b><span class="tablesaw-cell-content"><a href="/pattern/edit' + result.id_pattern[y].pattern_id + '" class="text-warning"><i class="fas fa-pencil-alt fa-2x"></i></a></td>' +
+                                    check +
+                                    '</tr>'
+                                table.append(row)
+                                end_count = myList[y].pattern_id
+                            } else if (myList[y].pattern_id != "" && state.page > 1) {
+                                var check = '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" style="width:110px"><b class="tablesaw-cell-label">ลบรูปแบบ</b> <span class="tablesaw-cell-content"><a id="' + result.id_pattern[parseInt(state.rows) + parseInt(y)].pattern_id + '" onClick="del(this.id)" href="#delete_pattern" class="text-danger" data-bs-toggle="modal"><i class="fas fa-trash-alt fa-2x"></i></a></span></td>'
+                                var device = ""
+                                var agent = ""
+                                var database_out = ""
+                                if (myList[y].pattern_storage_method_outside == 1) {
+                                    if (myList[y].pattern_storage_method_outside_device == 1) {
+                                        device = myList[y].pattern_storage_method_outside_device_name
+                                    } else {
+                                        device = "<span style='color:red;'>ไม่มี</span>"
+                                    }
+                                    if (myList[y].pattern_storage_method_outside_agent == 1) {
+                                        agent = myList[y].pattern_storage_method_outside_agent_name
+                                    } else {
+                                        agent = "<span style='color:red;'>ไม่มี</span>"
+                                    }
+                                    if (myList[y].pattern_storage_method_outside_database_outside == 1) {
+                                        database_out = myList[y].pattern_storage_method_outside_database_outside_name
+                                    } else {
+                                        database_out = "<span style='color:red;'>ไม่มี</span>"
+                                    }
+                                }
+                                //Keep in mind we are using "Template Litterals to create rows"
+                                var row = '<tr>' +
+                                    '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" ><b class="tablesaw-cell-label">ลำดับที่:' +
+                                    '</b> <span class="tablesaw-cell-content">' + myList[y].pattern_id + '</span></td>' +
+                                    '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" ><b class="tablesaw-cell-label">ชื่อรูปแบบ</b> <span class="tablesaw-cell-content">' + myList[y].pattern_name + '</span></td>' +
+                                    '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" style="width:250px"><b class="tablesaw-cell-label">ข้อมูลที่ใช้</b> <span class="tablesaw-cell-content">' + String(result.data_name_total).replaceAll(',', ", ") + '</span></td>' +
+                                    '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" ><b class="tablesaw-cell-label">วันที่สร้าง</b> <span class="tablesaw-cell-content">' + convert_datetime(new Date(myList[y].pattern_create)) + '</span></td>' +
+                                    '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" ><b class="tablesaw-cell-label">วันที่ใช้</b> <span class="tablesaw-cell-content">' + convert_date(new Date(myList[y].pattern_start_date)) + '</span></td>' +
+                                    '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" ><b class="tablesaw-cell-label">วันที่สิ้นสุด</b> <span class="tablesaw-cell-content">' + convert_date(new Date(date_diff(myList[y].pattern_start_date, myList[y].pattern_total_date))) + '</span></td>' +
+                                    '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" ><b class="tablesaw-cell-label">ผู้สร้าง</b> <span class="tablesaw-cell-content">' + myList[y].firstname + " " + myList[y].lastname + '</span></td>' +
+                                    '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" ><b class="tablesaw-cell-label">อุปกรณ์/Agent</b> <span class="tablesaw-cell-content">' + device + " / " + agent + " / " + database_out + '</span></td>' +
+                                    '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" style="width:110px"><b class="tablesaw-cell-label">ดูรูปแบบ</b> <span class="tablesaw-cell-content"><a href="/pattern/detail' + result.id_pattern[parseInt(state.rows) + parseInt(y)].pattern_id + '" class="text-info"><i class="fas fa-file-alt fa-2x"></i></a></td>' +
+                                    '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" style="widht:110px"><b class="tablesaw-cell-label">แก้ไขรูปแบบ</b><span class="tablesaw-cell-content"><a href="/pattern/edit' + result.id_pattern[parseInt(state.rows) + parseInt(y)].pattern_id + '" class="text-warning"><i class="fas fa-pencil-alt fa-2x"></i></a></td>' +
+                                    check +
+                                    '</tr>'
+                                table.append(row)
+                                end_count = myList[y].pattern_id
+                            }
+                        }
+                        if (myList.length == 0) {
+                            var row = '<tr class="odd"><td valign="top" colspan="10" class="dataTables_empty text-center" style="color: red;">ไม่พบข้อมูล</td></tr>'
+                            table.append(row)
+                            $('#start-1').text(0)
+                            $('#end').text(0)
+                            $('#total').text(0)
+                        } else {
+                            if (myList[0].pattern_id != "") {
+                                $('#start-1').text(myList[0].pattern_id)
+                            }
+                        }
+                        $('#end').text(end_count)
+                        pageButtons(data.pages)
+                        // end_count = table.find('tr').length
+                    }
+                }
+            }
+        })
+        // ============================ Table Document Policy ===========================
+
+
+
+
+
+        // $.ajax({
+        //     url: '/policy',
+        //     method: "POST",
+        //     data: { value: 1 },
+        //     success: function (result) {
+        //         // ============================== Create Prepare ============================
+        //         var end_count = 0 // จำนวนทั้งหมดในแต่ละหน้า
+
+        //         var state = {
+        //             'querySet': result.policy,
+        //             'page': 1,
+        //             'rows': 5,
+        //             'window': 5,
+        //         }
+
+        //         buildTable()
+
+        //         function pagination(querySet, page, rows) {
+        //             var trimStart = (page - 1) * rows
+        //             var trimEnd = trimStart + rows
+
+        //             var trimmedData = querySet.slice(trimStart, trimEnd)
+
+        //             var pages = Math.ceil(querySet.length / rows);
+        //             var start_count = 1
+        //             document.getElementById('start-policy').innerHTML = start_count
+
+        //             return {
+        //                 'querySet': trimmedData,
+        //                 'pages': pages,
+        //             }
+
+        //         }
+        //         // ============================== Create Pagination ============================
+        //         function pageButtons(pages) {
+        //             var wrapper = document.getElementById('pagination-wapper-policy')
+        //             wrapper.innerHTML = ``
+        //             var maxLeft = (state.page - Math.floor(state.window / 2))
+        //             var maxRight = (state.page + Math.floor(state.window / 2))
+
+        //             if (maxLeft < 1) {
+        //                 maxLeft = 1
+        //                 maxRight = state.window
+        //             }
+
+        //             if (maxRight > pages) {
+        //                 maxLeft = pages - (state.window - 1)
+        //                 if (maxLeft < 1) {
+        //                     maxLeft = 1
+        //                 }
+        //                 maxRight = pages
+        //             }
+
+        //             if (state.page > 1) {
+        //                 wrapper.innerHTML = `<li class="page-item"><button value=${state.page - 1} class="page page-link"> ย้อนกลับ</button></li>`
+        //             } else {
+        //                 wrapper.innerHTML = `<li class="page-item disabled"><button value=${state.page - 1} class="page page-link" > ย้อนกลับ</button></li>`
+        //             }
+
+
+        //             num = 1
+        //             if (maxRight > 5) {
+        //                 if (state.page > (maxRight / 2)) {
+        //                     if ((state.page + 1) > (maxRight / 2)) {
+        //                         wrapper.innerHTML += '<li class="page-item"><button class="page page-link" value=1>1</button></li>';
+        //                         wrapper.innerHTML += '<li class="page-item disabled"><a class="page-link" href="javascript:void(0)">..</a></li>';
+        //                     }
+        //                 }
+        //                 for (var page = maxLeft; page <= maxRight; page++) {
+        //                     if ((page >= state.page - 2) && (page <= state.page + 2)) {
+        //                         if (page == state.page) {
+        //                             wrapper.innerHTML += `<li class="page-item active"><button class="page page-link" value=${page}>${page}</button></li>`;
+        //                         }
+        //                         else {
+        //                             p = page - 1;
+        //                             wrapper.innerHTML += `<li class="page-item "><button class="page page-link" value=${page}>${page}</button></li>`;
+        //                         }
+        //                     }
+        //                 }
+        //                 if ((state.page) <= (maxRight / 2)) {
+        //                     mp = maxRight - 1;
+        //                     wrapper.innerHTML += '<li class="page-item disabled"><a class="page-link" href="javascript:void(0)">..</a></li>';
+        //                     wrapper.innerHTML += '<li class="page-item "><button class="page page-link" value=' + maxRight + '>' + maxRight + '</button></li>';
+        //                 }
+        //             }
+        //             else {
+        //                 for (var page = maxLeft; page <= maxRight; page++) {
+        //                     if (state.page == page) {
+        //                         wrapper.innerHTML += `<li class="page-item active"><button class="page page-link" value=${page}>${page}</button></li>`
+        //                     } else {
+        //                         wrapper.innerHTML += `<li class="page-item "><button class="page page-link" value=${page}>${page}</button></li>`
+        //                     }
+        //                 }
+        //             }
+
+        //             if (state.page < pages) {
+        //                 wrapper.innerHTML += `<li class="page-item"></i><button value=${state.page + 1} class="page page-link" >ถัดไป </button>`
+        //             } else {
+        //                 wrapper.innerHTML += `<li class="page-item disabled"></i><button value=${state.page + 1} class="page page-link" >ถัดไป </button>`
+        //             }
+
+        //             $('.page').on('click', function () {
+        //                 $('#table-body-policy').empty()
+        //                 state.page = Number($(this).val())
+        //                 buildTable()
+        //             })
+        //         }
+        //         // ============================== Create Table ============================
+        //         function buildTable() {
+        //             var table = $('#table-body-policy')
+        //             var data = pagination(state.querySet, state.page, state.rows)
+        //             var myList = data.querySet
+        //             for (y in myList) {
+        //                 if (myList[y].doc_id != "" && myList[y].doc_action != 1 && myList[y].doc_status == 2 && state.page == 1) {
+        //                     //Keep in mind we are using "Template Litterals to create rows"
+        //                     var row = '<tr>' +
+        //                         '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" ><b class="tablesaw-cell-label">ลำดับที่:' +
+        //                         '</b> <span class="tablesaw-cell-content">' + myList[y].doc_id + '</span></td>' +
+        //                         '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-left" ><b class="tablesaw-cell-label">ชื่อเอกสาร</b> <span class="tablesaw-cell-content">' + myList[y].doc_name + '</span></td>' +
+        //                         '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" ><b class="tablesaw-cell-label">ชนิดเอกสาร</b> <span class="tablesaw-cell-content">' + myList[y].doc_type_name + '</span></td>' +
+        //                         '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" ><b class="tablesaw-cell-label">วัน/เวลาที่สร้าง</b> <span class="tablesaw-cell-content">' + convert_datetime(new Date(myList[y].doc_date_create)) + '</span></td>' +
+        //                         '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" ><b class="tablesaw-cell-label">ผู้สร้าง</b> <span class="tablesaw-cell-content">' + myList[y].firstname + " " + myList[y].lastname + '</span></td>' +
+        //                         '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" ><b class="tablesaw-cell-label">ดูเอกสาร</b> <span class="tablesaw-cell-content"><a href="/paper/' + result.id_document[y].doc_id + '" class="text-info"><i class="fas fa-file-alt fa-2x"></i></a></td>' +
+        //                         '</tr>'
+        //                     table.append(row)
+        //                     end_count = myList[y].doc_id
+        //                 } else if (myList[y].doc_id != "" && myList[y].doc_action != 1 && myList[y].doc_status == 2 && state.page > 1) {
+        //                     var row = '<tr>' +
+        //                         '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" ><b class="tablesaw-cell-label">ลำดับที่:' +
+        //                         '</b> <span class="tablesaw-cell-content">' + myList[y].doc_id + '</span></td>' +
+        //                         '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-left" ><b class="tablesaw-cell-label">ชื่อเอกสาร</b> <span class="tablesaw-cell-content">' + myList[y].doc_name + '</span></td>' +
+        //                         '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" ><b class="tablesaw-cell-label">ชนิดเอกสาร</b> <span class="tablesaw-cell-content">' + myList[y].doc_type_name + '</span></td>' +
+        //                         '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" ><b class="tablesaw-cell-label">วัน/เวลาที่สร้าง</b> <span class="tablesaw-cell-content">' + convert_datetime(new Date(myList[y].doc_date_create)) + '</span></td>' +
+        //                         '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" ><b class="tablesaw-cell-label">ผู้สร้าง</b> <span class="tablesaw-cell-content">' + myList[y].firstname + " " + myList[y].lastname + '</span></td>' +
+        //                         '<td class="title align-top tablesaw-swipe-cellhidden tablesaw-swipe-cellpersist text-center" ><b class="tablesaw-cell-label">ดูเอกสาร</b> <span class="tablesaw-cell-content"><a href="/paper/' + result.id_document[parseInt(state.rows) + parseInt(y)].doc_id + '" class="text-info"><i class="fas fa-file-alt fa-2x"></i></a></td>' +
+        //                         '</tr>'
+        //                     table.append(row)
+        //                     end_count = myList[y].doc_id
+        //                 }
+        //             }
+        //             if (myList.length == 0) {
+        //                 var row = '<tr class="odd"><td valign="top" colspan="6" class="dataTables_empty text-center" style="color: red;">ไม่พบข้อมูล</td></tr>'
+        //                 table.append(row)
+        //                 $('#total-policy').text(0)
+        //                 $('#start-policy').text(0)
+        //             } else {
+        //                 if (myList[0].doc_id != "" && myList[0].doc_action != 1 && myList[0].doc_status == 2) {
+        //                     $('#start-policy').text(myList[0].doc_id)
+        //                 }
+        //                 pageButtons(data.pages)
+        //                 $('#total-policy').text(result.policy.length)
+        //             }
+        //             $('#end-policy').text(end_count)
+        //             // end_count = table.find('tr').length
+        //         }
+        //     }
+        // })
+
+
+
+
+        // ======================== Modal Delete Pattern ======================
+
+
+
+        function del(id) {
+            let url = '/pattern/delete' + id
+            $.post('/pattern/del', { value: "P@tternDe1ete", id: id }).done(function (result) {
+                $('td#p_name').text(result.pattern[0].pattern_name)
+                $('td#p_data').text(result.pattern_data)
+                $('td#p_create').text(convert_datetime(new Date(result.pattern[0].pattern_create)))
+                // $('td#p_start').text(convert_date(new Date(result.pattern[0].pattern_start_date)))
+                // $('td#p_end').text(convert_date(new Date(date_diff(result.pattern[0].pattern_start_date, result.pattern[0].pattern_total_date))))
+                $('td#p_user').text(result.pattern[0].firstname + " " + result.pattern[0].lastname)
+                let mixOptions, device, agent, database_out = ""
+                if (result.pattern[0].pattern_storage_method_outside == 0) {
+                    mixOptions = "ไม่มี"
+                } else {
+                    if (result.pattern[0].pattern_storage_method_outside_device == 0) {
+                        device = "ไม่มี"
+                    } else {
+                        device = result.pattern[0].pattern_storage_method_outside_device_name
+                    }
+                    if (result.pattern[0].pattern_storage_method_outside_agent == 0) {
+                        agent = "ไม่มี"
+                    } else {
+                        agent = result.pattern[0].pattern_storage_method_outside_agent_name
+                    }
+                    if (result.pattern[0].pattern_storage_method_outside_database_outside == 0) {
+                        database_out = "ไม่มี"
+                    } else {
+                        database_out = result.pattern[0].pattern_storage_method_outside_database_outside_name
+                    }
+                    mixOptions = device + " / " + agent + " / " + database_out
+                }
+                $('td#p_options').text(result.pattern_storage_method_inside_import_id + '/' + result.pattern_storage_method_inside_agent_name + '/' + result.pattern_storage_method_outside_name)
+            })
+            $('button#sub_del_pattern').on('click', function () {
+                $('form#del_pattern').attr('action', url).submit();
+            })
+        }
+
+    </script>
+    <%- include('../_footer') -%>

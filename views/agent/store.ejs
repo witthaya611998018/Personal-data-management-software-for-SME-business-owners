@@ -1,0 +1,60 @@
+<%- include('../_header') -%>
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-md-5 align-self-center">
+            <h3 class="page-title">Agent Store</h3>
+            <div class="d-flex align-items-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Agent Store</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid" id="a-store">
+    <!-- Row -->
+    <div class="row">
+        <!-- Column -->
+        <div class="col-12">
+            <div class="card">
+                <div class="border-bottom title-part-padding">
+                    <h4 class="card-title mb-0">รายการ Service Agent ทั้งหมด<span class="text-secondary"></span></h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-boardless">
+                                <thead>
+                                    <th> ลำดับ </th>
+                                    <th> ชื่อ Service </th>
+                                    <th> จำนวนที่สามารถใช้ </th>
+                                    <!-- <th> วัน / เวลา ที่สร้าง </th> -->
+                                    <th> เปิด / ปิดให้บริการ </th>
+                                </thead>
+                                <tbody id="table-body-store">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 text-secondary">
+                            <span>แสดงผล <span id="start-store"></span> ถึง <span id="end-store"></span> ทั้งหมด <span id="total-store"></span> รายการ</span>
+                        </div>
+                        <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                            <nav aria-label="Page navigation example" class="mt-2">
+                                <ul class="pagination" id="pagination-wrapper-store">
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Column -->
+    </div>
+    <!-- Row -->
+</div>
+<%- include('../_footer') -%>

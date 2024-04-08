@@ -1,0 +1,158 @@
+<%- include('../_header') -%>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">การคืนข้อมูล</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">การคืนข้อมูล</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <!-- <div class="col-md-7 justify-content-end align-self-center d-none d-md-flex">
+                <div class="d-flex">
+                    <div class="dropdown me-2">
+                        <form action="/access_history/search" method="post">
+                            <div class="input-group mb-3">
+                                <input class="form-control" type="datetime-local" name="date1" required>
+                                <span class="input-group-text" id="basic-addon1">ถึง</span>
+                                <input class="form-control" type="datetime-local" name="date2" required>
+                                <button class="btn btn-outline-warning" type="submit"><i
+                                        class="fas fa-search"></i></button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row col-12">
+                <div class="card">
+                    <div class="row">
+                        <div class="card-body" style="min-height: 650px;">
+                            <div class="row ">
+                                <div class="col-7">
+                                    <h4 class="card-title mb-0 ">ประวัติการคืนค่าฐานข้อมูล</h4>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <form action="filerestore" method="post" enctype="multipart/form-data">
+                                            <label for="firstname"class="col-sm-3 text-end control-label col-form-label text-secondary"></label>
+                                            <div class="row">
+                                                <div class="col-8">
+                                                    <input type="file" id="filerestore" name="filerestoreconfig"class="form-control" multiple>
+                                                </div>
+                                                <div class="col-4">
+                                                    <button class="btn btn-outline-warning text-end" type="submit"><i class="fas fa-search"></i>คืนค่าการตั้งค่าข้อมูล</button>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="type" value="config">
+                                        </from>
+                                    </div>
+                                    <div class="col-6">
+                                        <form action="filerestore" method="post" enctype="multipart/form-data">
+                                            <label for="firstname"class="col-sm-3 text-end control-label col-form-label text-secondary"></label>
+                                            <div class="row">
+                                                <div class="col-8">
+                                                    <input type="file" id="filerestore" name="filerestoredatabase" class="form-control" multiple />
+                                                </div>
+                                                <div class="col-4">
+                                                    <button class="btn btn-outline-warning text-end" type="submit"><i class="fas fa-search"></i>คืนค่าฐานข้อมูล</button>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="type" value="database">
+                                        </from>
+                                    </div>
+                                </div>
+                                <div class="card-body " style="min-height: 650px;">
+                                    <table class="tablesaw no-wrap table-striped table-bordered table-hover table"id="myTable">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" style="width: 10%;">ลำดับ</th>
+                                                <th class="text-center">วัน เวลา</th>
+                                                <th class="text-center">ชื่อไฟล์</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% if (data){ for (var i=0; i < data.length; i++) { %>
+                                                <tr>
+                                                    <td class="title align-top "><%= (i+1) %></td>
+                                                    <td class="align-top "><%=data[i].date%></td>
+                                                    <td class="align-top "><%=data[i].file_name%></td>
+                                                </tr>
+                                                <% }}%>
+                                                    <% if (data.length==0){%>
+                                                        <tr>
+                                                            <td class="title align-top "style="text-align: center; color: rgb(228, 20, 20); "colspan="5 ">
+                                                                ไม่พบข้อมูล
+                                                            </td>
+                                                        </tr>
+                                                    <%}%>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+      
+        <%- include('../_footer') -%>
+            <script src="/UI/assets/libs/datatables/media/js/jquery.dataTables.min.js "></script>
+            <script src="/UI/dist/js/pages/datatable/custom-datatable.js "></script>
+            <script src="/UI/dist/js/pages/datatable/datatable-basic.init.js "></script>
+            <script src="/UI/assets/libs/apexcharts/dist/apexcharts.min.js "></script>
+
+            <script src="/UI/assets/libs/chartist/dist/chartist.min.js "></script>
+            <script src="/UI/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js "></script>
+            <script src="/UI/assets/libs/flot/jquery.flot.js "></script>
+
+            <script src="/UI/dist/js/pages/widget/widget-charts.js "></script>
+
+            <script src="/UI/dist/js/app.min.js "></script>
+
+            <script src="/UI/assets/libs/datatables/media/js/jquery.dataTables.min.js "></script>
+            <script src="/UI/dist/js/pages/datatable/custom-datatable.js "></script>
+            <script src="/UI/dist/js/pages/datatable/datatable-basic.init.js "></script>
+            <script>
+                $(document).ready(function () {
+                    $('#myTable').DataTable();
+                });
+           
+                function backupdb() {
+                    var result = 'backup database'
+                    var request2 = function () {
+                        $.ajax({
+                            url: "/ajaxbackup",
+                            type: "post",
+                            data: {
+                                types: 'backup database'
+                            },
+                            success: function (data) {
+                                var result = data.data;
+                                // if (result.length == 0) {
+                                //     alert("ใส่รหัสผ่านผิด")
+                                //     setInterval('location.reload()', 200);
+                                // } else {
+                                //     $.ajax({
+                                //         url: "/deleteftp/" + id,
+                                //         type: "post",
+
+                                //     });
+                                //     alert("ลบนำเข้าข้อมูลต่างๆด้วยFTPเรียบร้อย");
+                                //     setInterval('location.reload()', 200);
+                                // }
+                            }
+                        });
+                    }
+                    request2();
+                };
+            </script>
+            

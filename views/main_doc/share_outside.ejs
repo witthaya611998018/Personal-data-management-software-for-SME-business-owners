@@ -1,0 +1,486 @@
+<%- include('../_header') -%>
+    <div class="email-app">
+        <!-- -------------------------------------------------------------- -->
+        <!-- Left Part -->
+        <!-- -------------------------------------------------------------- -->
+        <div class="left-part">
+            <a class="ti-menu ti-close btn btn-success show-left-part d-block d-md-none" href="javascript:void(0)"></a>
+            <div class="scrollable" style="height: calc(100vh - 25px);">
+                <div class="p-3">
+                    <a id="compose_mail" class="waves-effect waves-light btn btn-success d-block" href="javascript: void(0)">เขียน e-mail</a>
+                </div>
+                <div class="divider"></div>
+                <ul class="list-group">
+                    <li>
+                        <small class="p-3 d-block text-uppercase text-dark font-weight-medium">แฟ้ม</small>
+                    </li>
+                    <li class="list-group-item border-0 p-0">
+                        <a href="javascript:void(0)" class="active list-group-item-action d-flex align-items-center"><i data-feather="inbox" class="feather-sm fill-white me-2"></i> Inbox <span class="badge bg-light-success text-success px-3 rounded-pill font-weight-medium ms-auto">6</span></a>
+                    </li>
+                    <li class="list-group-item border-0 p-0">
+                        <a href="javascript:void(0)" class="active list-group-item-action d-flex align-items-center"><i data-feather="inbox" class="feather-sm fill-white me-2"></i> Outbox <span class="badge bg-light-success text-success px-3 rounded-pill font-weight-medium ms-auto">6</span></a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- -------------------------------------------------------------- -->
+        <!-- Right Part -->
+        <!-- -------------------------------------------------------------- -->
+        <div class="right-part mail-list bg-white overflow-auto">
+            <div class="p-3 border-bottom">
+                <div class="d-md-flex align-items-center">
+                    <div>
+                        <h4>Mailbox </h4>
+                        <span>Here is the list of mail</span>
+                    </div>
+                    <div class="ms-auto mt-3 mt-md-0">
+                        <input placeholder="Search Mail" id="" type="text" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <!-- Action part -->
+            <!-- Button group part -->
+            <div class="bg-light p-3 d-md-flex align-items-center">
+                <div class="btn-group mt-1 mb-1">
+                    <div class="form-check">
+                        <input type="checkbox" class="sl-all form-check-input danger check-light-danger" id="cstall">
+                        <label class="form-check-label" for="cstall">Check All</label>
+                    </div>
+                </div>
+                <div class="ms-auto">
+                    <div class="btn-group me-2" role="group" aria-label="Button group with nested dropdown">
+                        <button type="button" class="btn btn-outline-secondary fs-5"><i class="mdi mdi-reload"></i></button>
+                        <button type="button" class="btn btn-outline-secondary fs-5"><i class="mdi mdi-alert-octagon"></i></button>
+                        <button type="button" class="btn btn-outline-secondary fs-5"><i class="mdi mdi-delete"></i></button>
+                    </div>
+                    <div class="btn-group me-2" role="group" aria-label="Button group with nested dropdown">
+                        <div class="btn-group" role="group">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-folder fs-5 "></i> </button>
+                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1"> <a class="dropdown-item" href="javascript:void(0)">Dropdown link</a> <a class="dropdown-item" href="javascript:void(0)">Dropdown link</a> </div>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-label fs-5"></i> </button>
+                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1"> <a class="dropdown-item" href="javascript:void(0)">Dropdown link</a> <a class="dropdown-item" href="javascript:void(0)">Dropdown link</a> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Action part -->
+            <!-- Mail list-->
+            <div class="table-responsive">
+                <table class="table email-table no-wrap table-hover v-middle">
+                    <tbody>
+                        <!-- row -->
+                        <tr class="unread">
+                            <!-- label -->
+                            <td class="chb">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="cst1">
+                                    <label class="form-check-label" for="cst1">&nbsp;</label>
+                                </div>
+                            </td>
+                            <!-- star -->
+                            <td class="starred"><i class="far fa-star"></i></td>
+                            <!-- User -->
+                            <td class="user-image"><img src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="30"></td>
+                            <td class="user-name">
+                                <h6 class="mb-0">Hanna Gover</h6>
+                            </td>
+                            <!-- Message -->
+                            <td class="max-texts text-truncate px-1 py-3 no-wrap"> <a class="link" href="javascript: void(0)"><span class="badge bg-light-danger text-danger font-weight-medium rounded-pill px-3 me-2">Work</span> <span class="blue-grey-text text-darken-4">Lorem ipsum perspiciatis-</span> unde omnis iste natus error sit voluptatem</a></td>
+                            <!-- Attachment -->
+                            <td class="clip"><i class="fa fa-paperclip"></i></td>
+                            <!-- Time -->
+                            <td class="time"> 12:30 PM </td>
+                        </tr>
+                        <!-- row -->
+                        <tr class="unread">
+                            <!-- label -->
+                            <td class="chb">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="cst2">
+                                    <label class="form-check-label" for="cst2">&nbsp;</label>
+                                </div>
+                            </td>
+                            <!-- star -->
+                            <td class="starred"><i class="far fa-star"></i></td>
+                            <!-- User -->
+                            <td class="user-image"><img src="assets/images/users/2.jpg" alt="user" class="rounded-circle" width="30"></td>
+                            <td class="user-name">
+                                <h6 class="mb-0">Genelia Roshan</h6>
+                            </td>
+                            <!-- Message -->
+                            <td class="max-texts text-truncate px-1 py-3 no-wrap"> <a class="link" href="javascript: void(0)"><span class="badge bg-light-info text-info font-weight-medium rounded-pill px-3 me-2">Business</span> <span class="blue-grey-text text-darken-4">Inquiry about license </span>for Admin Template please provide us the license detail </a></td>
+                            <!-- Attachment -->
+                            <td class="clip"><i class="fa fa-paperclip"></i></td>
+                            <!-- Time -->
+                            <td class="time"> 11:30 AM </td>
+                        </tr>
+                        <!-- row -->
+                        <tr class="unread">
+                            <!-- label -->
+                            <td class="chb">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="cst3">
+                                    <label class="form-check-label" for="cst3">&nbsp;</label>
+                                </div>
+                            </td>
+                            <!-- star -->
+                            <td class="starred"><i class="far fa-star"></i></td>
+                            <!-- User -->
+                            <td class="user-image"><img src="assets/images/users/3.jpg" alt="user" class="rounded-circle" width="30"></td>
+                            <td class="user-name max-texts text-truncate px-1 py-3 no-wrap">
+                                <h6 class="mb-0">Ritesh Deshmukh</h6>
+                            </td>
+                            <!-- Message -->
+                            <td class="max-texts text-truncate px-1 py-3 no-wrap"> <a class="link" href="javascript: void(0)"><span class="badge bg-light-warning text-warning font-weight-medium px-3 rounded-pill me-2">Friend</span> <span class="blue-grey-text text-darken-4">Bitbucket (commit Pushed) by Ritesh</span>Lorem ipsum perspiciatis unde omnis iste natus error sit voluptatem</a></td>
+                            <!-- Attachment -->
+                            <td class="clip"><i class="fa fa-paperclip"></i></td>
+                            <!-- Time -->
+                            <td class="time"> 10:30 AM </td>
+                        </tr>
+                        <!-- row -->
+                        <tr class="">
+                            <!-- label -->
+                            <td class="chb">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="cst4">
+                                    <label class="form-check-label" for="cst4">&nbsp;</label>
+                                </div>
+                            </td>
+                            <!-- star -->
+                            <td class="starred"><i class="far fa-star"></i></td>
+                            <!-- User -->
+                            <td class="user-image"><img src="assets/images/users/4.jpg" alt="user" class="rounded-circle" width="30"></td>
+                            <td class="user-name">
+                                <h6 class="mb-0">Akshay Kumar</h6>
+                            </td>
+                            <!-- Message -->
+                            <td class="max-texts text-truncate px-1 py-3 no-wrap"> <a class="link" href="javascript: void(0)"><span class="badge bg-light-info text-info font-weight-medium rounded-pill px-3 me-2">Work</span>Perspiciatis unde omnis- iste Lorem ipsum perspiciatis unde omnis iste natus error sit voluptatem</a></td>
+                            <!-- Attachment -->
+                            <td class="clip"><i class="fa fa-paperclip"></i></td>
+                            <!-- Time -->
+                            <td class="time"> 9:30 AM </td>
+                        </tr>
+                        <!-- row -->
+                        <tr class="">
+                            <!-- label -->
+                            <td class="chb">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="cst5">
+                                    <label class="form-check-label" for="cst5">&nbsp;</label>
+                                </div>
+                            </td>
+                            <!-- star -->
+                            <td class="starred"><i class="far fa-star"></i></td>
+                            <!-- User -->
+                            <td class="user-image"><img src="assets/images/users/5.jpg" alt="user" class="rounded-circle" width="30"></td>
+                            <td class="user-name">
+                                <h6 class="mb-0">John Abraham</h6>
+                            </td>
+                            <!-- Message -->
+                            <td class="max-texts text-truncate px-1 py-3 no-wrap"> <a class="link" href="javascript: void(0)"><span class="badge bg-light-success text-success font-weight-medium rounded-pill px-3 me-2">Work</span> Lorem ipsum perspiciatis- unde omnis iste natus error sitnatus error sit voluptatem voluptatem</a></td>
+                            <!-- Attachment -->
+                            <td class="clip"><i class="fa fa-paperclip"></i></td>
+                            <!-- Time -->
+                            <td class="time"> Mar 10 </td>
+                        </tr>
+                        <!-- row -->
+                        <tr class="">
+                            <!-- label -->
+                            <td class="chb">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="cst6">
+                                    <label class="form-check-label" for="cst6">&nbsp;</label>
+                                </div>
+                            </td>
+                            <!-- star -->
+                            <td class="starred"><i class="far fa-star"></i></td>
+                            <!-- User -->
+                            <td class="user-image"><img src="assets/images/users/4.jpg" alt="user" class="rounded-circle" width="30"></td>
+                            <td class="user-name">
+                                <h6 class="mb-0">Akshay Kumar</h6>
+                            </td>
+                            <!-- Message -->
+                            <td class="max-texts text-truncate px-1 py-3 no-wrap"> <a class="link" href="javascript: void(0)"> Lorem ipsum perspiciatis - unde omnis iste natus error sit voluptatem</a></td>
+                            <!-- Attachment -->
+                            <td class="clip"><i class="fa fa-paperclip"></i></td>
+                            <!-- Time -->
+                            <td class="time"> Mar 09 </td>
+                        </tr>
+                        <!-- row -->
+                        <tr class="">
+                            <!-- label -->
+                            <td class="chb">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="cst7">
+                                    <label class="form-check-label" for="cst7">&nbsp;</label>
+                                </div>
+                            </td>
+                            <!-- star -->
+                            <td class="starred"><i class="far fa-star"></i></td>
+                            <!-- User -->
+                            <td class="user-image"><img src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="30"></td>
+                            <td class="user-name">
+                                <h6 class="mb-0">Hanna Gover</h6>
+                            </td>
+                            <!-- Message -->
+                            <td class="max-texts text-truncate px-1 py-3 no-wrap"> <a class="link" href="javascript: void(0)"> Unde omnis Lorem ipsum perspiciatis - unde omnis iste natus error sit voluptatem</a></td>
+                            <!-- Attachment -->
+                            <td class="clip"><i class="fa fa-paperclip"></i></td>
+                            <!-- Time -->
+                            <td class="time"> Mar 09 </td>
+                        </tr>
+                        <!-- row -->
+                        <tr class="">
+                            <!-- label -->
+                            <td class="chb">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="cst8">
+                                    <label class="form-check-label" for="cst8">&nbsp;</label>
+                                </div>
+                            </td>
+                            <!-- star -->
+                            <td class="starred"><i class="far fa-star"></i></td>
+                            <!-- User -->
+                            <td class="user-image"><img src="assets/images/users/4.jpg" alt="user" class="rounded-circle" width="30"></td>
+                            <td class="user-name">
+                                <h6 class="mb-0">Akshay Kumar</h6>
+                            </td>
+                            <!-- Message -->
+                            <td class="max-texts text-truncate px-1 py-3 no-wrap"> <a class="link" href="javascript: void(0)"> Iste natus error sit lorem - ipsum perspiciatis unde omnis iste natus error sit voluptatem</a></td>
+                            <!-- Attachment -->
+                            <td class="clip"><i class="fa fa-paperclip"></i></td>
+                            <!-- Time -->
+                            <td class="time"> Mar 09 </td>
+                        </tr>
+                        <!-- row -->
+                        <tr class="">
+                            <!-- label -->
+                            <td class="chb">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="cst9">
+                                    <label class="form-check-label" for="cst9">&nbsp;</label>
+                                </div>
+                            </td>
+                            <!-- star -->
+                            <td class="starred"><i class="far fa-star"></i></td>
+                            <!-- User -->
+                            <td class="user-image"><img src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="30"></td>
+                            <td class="user-name">
+                                <h6 class="mb-0">Hanna Gover</h6>
+                            </td>
+                            <!-- Message -->
+                            <td class="max-texts text-truncate px-1 py-3 no-wrap"> <a class="link" href="javascript: void(0)"><span class="badge bg-light-danger text-danger font-weight-medium rounded-pill px-3 me-2">Work</span> Lorem ipsum perspiciatis unde omnis iste natus error sit voluptatem</a></td>
+                            <!-- Attachment -->
+                            <td class="clip"><i class="fa fa-paperclip"></i></td>
+                            <!-- Time -->
+                            <td class="time"> 12:30 PM </td>
+                        </tr>
+                        <!-- row -->
+                        <tr class="">
+                            <!-- label -->
+                            <td class="chb">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="cst10">
+                                    <label class="form-check-label" for="cst10">&nbsp;</label>
+                                </div>
+                            </td>
+                            <!-- star -->
+                            <td class="starred"><i class="far fa-star"></i></td>
+                            <!-- User -->
+                            <td class="user-image"><img src="assets/images/users/4.jpg" alt="user" class="rounded-circle" width="30"></td>
+                            <td class="user-name">
+                                <h6 class="mb-0">Akshay Kumar</h6>
+                            </td>
+                            <!-- Message -->
+                            <td class="max-texts text-truncate px-1 py-3 no-wrap"> <a class="link" href="javascript: void(0)"> Lorem ipsum perspiciatis - unde omnis iste natus error sit voluptatem</a></td>
+                            <!-- Attachment -->
+                            <td class="clip"><i class="fa fa-paperclip"></i></td>
+                            <!-- Time -->
+                            <td class="time"> Mar 09 </td>
+                        </tr>
+                        <!-- row -->
+                        <tr class="">
+                            <!-- label -->
+                            <td class="chb">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="cst11">
+                                    <label class="form-check-label" for="cst11">&nbsp;</label>
+                                </div>
+                            </td>
+                            <!-- star -->
+                            <td class="starred"><i class="far fa-star"></i></td>
+                            <!-- User -->
+                            <td class="user-image"><img src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="30"></td>
+                            <td class="user-name">
+                                <h6 class="mb-0">Hanna Gover</h6>
+                            </td>
+                            <!-- Message -->
+                            <td class="max-texts text-truncate px-1 py-3 no-wrap"> <a class="link" href="javascript: void(0)"> Unde omnis Lorem ipsum perspiciatis - unde omnis iste natus error sit voluptatem</a></td>
+                            <!-- Attachment -->
+                            <td class="clip"><i class="fa fa-paperclip"></i></td>
+                            <!-- Time -->
+                            <td class="time"> Mar 09 </td>
+                        </tr>
+                        <!-- row -->
+                        <tr class="">
+                            <!-- label -->
+                            <td class="chb">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="cst12">
+                                    <label class="form-check-label" for="cst12">&nbsp;</label>
+                                </div>
+                            </td>
+                            <!-- star -->
+                            <td class="starred"><i class="far fa-star"></i></td>
+                            <!-- User -->
+                            <td class="user-image"><img src="assets/images/users/4.jpg" alt="user" class="rounded-circle" width="30"></td>
+                            <td class="user-name">
+                                <h6 class="mb-0">Akshay Kumar</h6>
+                            </td>
+                            <!-- Message -->
+                            <td class="max-texts text-truncate px-1 py-3 no-wrap"> <a class="link" href="javascript: void(0)"> Iste natus error sit lorem - ipsum perspiciatis unde omnis iste natus error sit voluptatem</a></td>
+                            <!-- Attachment -->
+                            <td class="clip"><i class="fa fa-paperclip"></i></td>
+                            <!-- Time -->
+                            <td class="time"> Mar 09 </td>
+                        </tr>
+                        <!-- row -->
+                        <tr class="">
+                            <!-- label -->
+                            <td class="chb">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="cst13">
+                                    <label class="form-check-label" for="cst13">&nbsp;</label>
+                                </div>
+                            </td>
+                            <!-- star -->
+                            <td class="starred"><i class="far fa-star"></i></td>
+                            <!-- User -->
+                            <td class="user-image"><img src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="30"></td>
+                            <td class="user-name">
+                                <h6 class="mb-0">Hanna Gover</h6>
+                            </td>
+                            <!-- Message -->
+                            <td class="max-texts text-truncate px-1 py-3 no-wrap"> <a class="link" href="javascript: void(0)">Lorem ipsum perspiciatis unde omnis iste natus error sit voluptatem</a></td>
+                            <!-- Attachment -->
+                            <td class="clip"><i class="fa fa-paperclip"></i></td>
+                            <!-- Time -->
+                            <td class="time"> 12:30 PM </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="p-3 mt-4">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item"><a class="page-link" href="javascript:void(0)">Previous</a></li>
+                        <li class="page-item"><a class="page-link" href="javascript:void(0)">1</a></li>
+                        <li class="page-item"><a class="page-link" href="javascript:void(0)">2</a></li>
+                        <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
+                        <li class="page-item"><a class="page-link" href="javascript:void(0)">Next</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- -------------------------------------------------------------- -->
+        <!-- Right Part  Mail Compose -->
+        <!-- -------------------------------------------------------------- -->
+        <div class="right-part mail-compose bg-white overflow-auto" style="display: none;">
+            <div class="p-4 border-bottom">
+                <div class="d-flex align-items-center">
+                    <div>
+                        <h4>Compose</h4>
+                        <span>create new message</span>
+                    </div>
+                    <div class="ms-auto">
+                        <button id="cancel_compose" class="btn btn-dark">Back</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Action part -->
+            <!-- Button group part -->
+            <div class="card-body">
+                <form>
+                    <div class="mb-3">
+                        <input type="email" id="example-email" name="example-email" class="form-control" placeholder="To">
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" id="example-subject" name="example-subject" class="form-control" placeholder="Subject">
+                    </div>
+                    <div id="summernote"></div>
+                    <h4>Attachment</h4>
+                    <div class="dropzone" id="dzid">
+                        <div class="fallback">
+                            <input name="file" type="file" multiple />
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success mt-3"><i class="far fa-envelope"></i> Send</button>
+                    <button type="submit" class="btn btn-dark mt-3">Discard</button>
+                </form>
+                <!-- Action part -->
+            </div>
+        </div>
+        <!-- -------------------------------------------------------------- -->
+        <!-- Right Part  Mail detail -->
+        <!-- -------------------------------------------------------------- -->
+        <div class="right-part mail-details bg-white overflow-auto" style="display: none;">
+            <div class="card-body bg-light">
+                <button type="button" id="back_to_inbox" class="btn btn-outline-secondary fs-5 me-2"><i class="mdi mdi-arrow-left"></i></button>
+                <div class="btn-group me-2" role="group" aria-label="Button group with nested dropdown">
+                    <button type="button" class="btn btn-outline-secondary fs-5"><i class="mdi mdi-reply"></i></button>
+                    <button type="button" class="btn btn-outline-secondary fs-5"><i class="mdi mdi-alert-octagon"></i></button>
+                    <button type="button" class="btn btn-outline-secondary fs-5"><i class="mdi mdi-delete"></i></button>
+                </div>
+                <div class="btn-group me-2" role="group" aria-label="Button group with nested dropdown">
+                    <div class="btn-group" role="group">
+                        <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-folder fs-5 "></i> </button>
+                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1"> <a class="dropdown-item" href="javascript:void(0)">Dropdown link</a> <a class="dropdown-item" href="javascript:void(0)">Dropdown link</a> </div>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-label fs-5"></i> </button>
+                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1"> <a class="dropdown-item" href="javascript:void(0)">Dropdown link</a> <a class="dropdown-item" href="javascript:void(0)">Dropdown link</a> </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body border-bottom">
+                <h4 class="mb-0">Your Message title goes here</h4>
+            </div>
+            <div class="card-body border-bottom">
+                <div class="d-flex no-block align-items-center mb-5">
+                    <div class="me-2"><img src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="45"></div>
+                    <div class="">
+                        <h5 class="mb-0 fs-4 font-weight-medium">Hanna Gover <small> ( hgover@gmail.com )</small></h5><span>to Suniljoshi19@gmail.com</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-11">
+                        <h4 class="mb-3">Hey Hi,</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <h4><i class="fa fa-paperclip me-2 mb-2"></i> Attachments <span>(3)</span></h4>
+                <div class="row">
+                    <div class="col-md-2">
+                        <a href="javascript:void(0)"> <img class="img-thumbnail img-responsive" alt="attachment" src="assets/images/big/img1.jpg"> </a>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="javascript:void(0)"> <img class="img-thumbnail img-responsive" alt="attachment" src="assets/images/big/img2.jpg"> </a>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="javascript:void(0)"> <img class="img-thumbnail img-responsive" alt="attachment" src="assets/images/big/img3.jpg"> </a>
+                    </div>
+                </div>
+                <div class="border mt-3 p-3">
+                    <p class="pb-3">click here to <a href="javascript:void(0)">Reply</a> or <a href="javascript:void(0)">Forward</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<%- include('../_footer_policy') -%>

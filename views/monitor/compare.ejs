@@ -1,0 +1,697 @@
+<%- include( '../_header') -%>
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">Monitor</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/monitor">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">เปรียบเทียบอุปกรณ์</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <div class="row">
+            <% if (data) { %>
+                <% for (var i = 0; i< data.length; i++) { %>
+                    <div class="col-md-4" id="test1">
+                        <div class="card">
+                            <div class="card-body pd-10px">
+                                <div class="d-flex align-items-start bd-b">
+                                    <div>
+
+                                        <h4 class="card-title mt-5px"><i class="me-2 mdi mdi-bullseye icon-status"></i>
+                                            <%= data[i].hostname %>
+                                        </h4>
+                                    </div>
+                                    <div class="ms-auto p-right">
+                                        <!-- <i class="mdi mdi-reorder-horizontal cursor-icon"></i>
+
+                                        <i class="mdi mdi-close-octagon cursor-icon"></i> -->
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="card-body pd-10px">
+                                <div class="row" style=" margin-bottom: 1px;">
+                                    <div class="col-sm-6">
+                                        <div>
+                                            <p style="font-size: x-small;font-weight: bold;">ชื่อที่ใช่ในโปรแกรม</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div>
+                                            <p style="font-size: x-small;
+                                    color: #90a4ae;">
+                                                <%= data[i].hostname %>
+                                            </p>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-6">
+                                        <div>
+                                            <p style="font-size: x-small;font-weight: bold;">ชื่ออุปกรณ์</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div>
+                                            <p style="font-size: x-small;
+                                    color: #90a4ae;">
+                                                <%= data[i].name %>
+                                            </p>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-6">
+                                        <div>
+                                            <p style="font-size: x-small;font-weight: bold;">คุณลักษณะ Spec</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div>
+                                            <p style="font-size: x-small;
+                                    color: cornflowerblue;">
+                                                <%= data[i].spec %>
+                                            </p>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-6">
+                                        <div>
+                                            <p style="font-size: x-small;font-weight: bold;">ประเภทข้อมูล</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div>
+                                            <p style="font-size: x-small;
+                                    color: #90a4ae;">
+                                                <%= data[i].hostname %>
+                                            </p>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-6">
+                                        <div>
+                                            <p style="font-size: x-small;font-weight: bold;">ประเภทการจัดส่งข้อมูลมาจัดเก็บ</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div>
+                                            <p style="font-size: x-small;
+                                    color: #90a4ae;">
+                                                <%= data[i].data_type %>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div>
+                                            <p style="font-size: x-small;font-weight: bold;">วันที่เริ่มมีข้อมูล</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div>
+                                            <p style="font-size: x-small;
+                                    color: #90a4ae;">
+                                                <%= data9[i].start_file %> - ปัจจุบัน</p>
+                                        </div>
+                                    </div>
+
+
+                                    <div>
+                                        <p style="font-size: xx-small;
+                                color: blueviolet;">ปริมาณ Log ทั้งหมด</p>
+
+                                    </div>
+
+                                    <div class="col-10 col-xl-12 align-items-center">
+                                        <% if(data10.length >0){%>
+                                            <% for (var u = 0; u< data10.length; u++) { %>
+                                                <% if(data10[u].device_id == data[i].device_id){ %>
+                                                    <p class="dis-in">
+                                                        <%= data10[u].s_size * 0.001 %>
+                                                    </p>
+                                                    <% } %>
+                                                        <%  }%>
+                                                            <% }else{%>
+                                                                -
+                                                                <% } %>
+                                                                    <p class="dis-in">
+                                                                        kB
+                                                                    </p>
+                                                                    <div>
+
+                                                                        <p style="font-size: xx-small;
+                                color: #90a4ae;" id="persen-<%=data[i].device_id%>" class="dis-in"> 14% </p>
+                                                                        <p style="font-size: xx-small;color: #90a4ae;" class="dis-in">เมื่อเทียบจากค่าเฉลี่ย</p>
+
+                                                                    </div>
+                                                                    <div>
+
+                                                                    </div>
+                                    </div>
+                                    <div>
+                                        <div id="morris-line-chart-<%=data[i].device_id%>"></div>
+                                    </div>
+
+                                    <div style="margin-top: 10px;"></div>
+
+                                    <div class="col-sm-4">
+                                        <div>
+                                            <p class="t-center" style="font-size: x-small;font-weight: bold;">ข้อมูลจัดเก็บที่</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div>
+                                            <% if(data8){%>
+                                                        <p class="t-center" style="font-size: x-small;color: #90a4ae;">
+                                                            /var/log/
+                                                        </p>
+                                                                <% }else{%>
+                                                                    <p class="t-center" style="font-size: x-small;color: #90a4ae;">
+                                                                        -
+                                                                    </p>
+                                                                    <% } %>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div>
+                                            <p class="t-center" style="font-size: x-small;color: #90a4ae;">SHA 256</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div>
+                                            <p class="t-center" style="font-size: x-small;font-weight: bold;">IP address</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div>
+                                            <p class="t-center" style="font-size: x-small;color: #90a4ae;">
+                                                <%= data[i].de_ip %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div>
+                                            <p class="t-center" style="font-size: x-small;color: #90a4ae;">
+                                                <%= data[i].eth %>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div>
+                                            <p class="t-center" style="font-size: x-small;font-weight: bold;">Port</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div>
+                                            <p class="t-center" style="font-size: x-small;color: #90a4ae;"></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-8">
+                                        <div>
+                                            <p style="font-size: x-small;font-weight: bold;">ระบบตรวจสอบความถูกต้องของข้อมูล</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div>
+                                            <p style="font-size: x-small;color: #90a4ae;">SHA 256</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-8">
+                                        <div>
+                                            <p style="font-size: x-small;font-weight: bold;">ระยะเวลาการจัดเก็บข้อมูล</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div>
+                                            <p style="font-size: x-small;color: #90a4ae;">
+                                                <%= data9[i].keep %>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <!-- <div class="col-sm-8">
+                                        <div>
+                                            <p style="font-size: x-small;font-weight: bold;">การสำรองข้อมูล</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div>
+                                            <p style="font-size: x-small;color: #90a4ae;">-</p>
+                                        </div>
+                                    </div> -->
+
+
+                                    <!-- <div class="col-sm-12">
+                                        <div>
+                                            <p style="font-size: x-small;font-weight: bold;">การเตือน/การส่งข้อมูล</p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class='input-group mb-3'>
+                                            <input style="font-size: 9px;" type='text' class="form-control dateranges" />
+
+                                            <span class="input-group-text">
+                                            <i data-feather="calendar" class="feather-sm"></i>
+                                        </span>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+
+                                    </div> -->
+
+<!-- 
+                                    <div class="email-repeater col-sm-12">
+                                        <div data-repeater-list="repeater-group">
+                                            <div data-repeater-item class="row">
+                                                <div class="col-sm-10" style="padding-right: 1px;">
+                                                    <input type="checkbox" checked data-size="mini" />
+                                                    <i class="mdi mdi-bell-plus"></i>
+                                                    <input type="email" class="form-control" style="font-size: xx-small;color: #90a4ae;display: inline-block;width: 75%;" placeholder="Email">
+                                                </div>
+                                                <div class="col-sm-2" style="padding: 1px;">
+                                                    <i data-repeater-delete="" class="me-2 mdi mdi-close-circle-outline"></i>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <p style="font-size: xx-small;color: #90a4ae; margin-bottom: 1px; display: inline-block;position: relative;
+                                                    top: -15%;">ความถี่ในการเตือน</p>
+                                                    <input type="checkbox" checked data-size="mini" />
+                                                    <p style="font-size: xx-small;color: #90a4ae; margin-bottom: 1px; display: inline-block;position: relative;
+                                                    top: -15%;">1 ครั้งต่อ</p>
+                                                    <input type="text" style="    display: inline-block;
+                                                    width: 15px;
+                                                    font-size: 7px;
+                                                    height: 15px;
+                                                    position: relative;
+                                                    top: -10%;display: inline-block;" placeholder="24">
+                                                    <p style="font-size: xx-small;color: #90a4ae; margin-bottom: 1px; display: inline-block;position: relative;
+                                                    top: -15%;">ชั่วโมง</p>
+                                                    <input type="checkbox" checked data-size="mini" />
+                                                    <p style="font-size: xx-small;color: #90a4ae; margin-bottom: 1px; display: inline-block;position: relative;
+                                                    top: -15%;">เมื่อพบข้อมูล</p>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <i data-repeater-create="" class="me-2 mdi mdi-plus-circle-outline"></i>
+
+                                    </div> -->
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <%}%>
+                        <%}%>
+
+
+
+
+                            <!-- Column -->
+
+                            <%- include('../_footer') -%>
+
+                                <!--This page JavaScript -->
+                                <script src="/UI/assets/libs/chartist/dist/chartist.min.js"></script>
+                                <script src="/UI/assets/libs/echarts/dist/echarts-en.min.js"></script>
+                                <script src="/UI/assets/libs/flot/excanvas.min.js"></script>
+                                <script src="/UI/assets/libs/flot/jquery.flot.js"></script>
+                                <script src="/UI/assets/libs/jquery.flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+                                <script src="/UI/assets/libs/d3/dist/d3.min.js"></script>
+                                <script src="/UI/assets/libs/c3/c3.min.js"></script>
+                                <script src="/UI/assets/libs/gaugeJS/dist/gauge.min.js"></script>
+                                <script src="/UI/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+                                <script src="/UI/dist/js/pages/widget/card-custom.js"></script>
+
+
+
+                                <!-- This Page charts LOG-->
+                                <script src="/UI/dist/js/pages/chartsLog/chartsLog.js"></script>
+
+                                <!-- Custom fullcalendar -->
+
+                                <script src="/UI/assets/extra-libs/taskboard/js/jquery.ui.touch-punch-improved.js"></script>
+                                <script src="/UI/assets/extra-libs/taskboard/js/jquery-ui.min.js"></script>
+
+                                <script src="/UI/assets/libs/moment/min/moment.min.js"></script>
+                                <script src="/UI/assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
+                                <script src="/UI/dist/js/pages/calendar/cal-init.js"></script>
+
+                                <!-- Custom fullcalendar -->
+                                <script src="/UI/assets/libs/bootstrap-switch/dist/js/bootstrap-switch.min.js"></script>
+
+
+                                <!-- <script src="/UI/assets/libs/echarts/dist/echarts-en.min.js"></script>
+            <script src="/UI/dist/js/pages/echarts/line/line-charts.js"></script> -->
+
+
+                                <script src="/UI/assets/libs/moment/moment.js"></script>
+                                <script src="/UI/assets/libs/daterangepicker/daterangepicker.js"></script>
+                                <script>
+                                    /*******************************************/
+                                    // Basic Date Range Picker
+                                    /*******************************************/
+                                    $('.daterange').daterangepicker();
+
+                                    /*******************************************/
+                                    // Date & Time
+                                    /*******************************************/
+                                    $('.datetime').daterangepicker({
+                                        timePicker: true,
+                                        timePickerIncrement: 30,
+                                        locale: {
+                                            format: 'MM/DD/YYYY h:mm A'
+                                        }
+                                    });
+
+                                    /*******************************************/
+                                    //Calendars are not linked
+                                    /*******************************************/
+                                    $('.timeseconds').daterangepicker({
+                                        timePicker: true,
+                                        timePickerIncrement: 30,
+                                        timePicker24Hour: true,
+                                        timePickerSeconds: true,
+                                        locale: {
+                                            format: 'MM-DD-YYYY h:mm:ss'
+                                        }
+                                    });
+
+                                    /*******************************************/
+                                    // Single Date Range Picker
+                                    /*******************************************/
+                                    $('.singledate').daterangepicker({
+                                        singleDatePicker: true,
+                                        showDropdowns: true
+                                    });
+
+                                    /*******************************************/
+                                    // Auto Apply Date Range
+                                    /*******************************************/
+                                    $('.autoapply').daterangepicker({
+                                        autoApply: true,
+                                    });
+
+                                    /*******************************************/
+                                    // Calendars are not linked
+                                    /*******************************************/
+                                    $('.linkedCalendars').daterangepicker({
+                                        linkedCalendars: false,
+                                    });
+
+                                    /*******************************************/
+                                    // Date Limit
+                                    /*******************************************/
+                                    $('.dateLimit').daterangepicker({
+                                        dateLimit: {
+                                            days: 7
+                                        },
+                                    });
+
+                                    /*******************************************/
+                                    // Show Dropdowns
+                                    /*******************************************/
+                                    $('.showdropdowns').daterangepicker({
+                                        showDropdowns: true,
+                                    });
+
+                                    /*******************************************/
+                                    // Show Week Numbers
+                                    /*******************************************/
+                                    $('.showweeknumbers').daterangepicker({
+                                        showWeekNumbers: true,
+                                    });
+
+                                    /*******************************************/
+                                    // Date Ranges
+                                    /*******************************************/
+                                    $('.dateranges').daterangepicker({
+                                        ranges: {
+                                            'Today': [moment(), moment()],
+                                            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                                            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                                            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                                            'This Month': [moment().startOf('month'), moment().endOf('month')],
+                                            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                                        }
+                                    });
+
+                                    /*******************************************/
+                                    // Always Show Calendar on Ranges
+                                    /*******************************************/
+                                    $('.shawCalRanges').daterangepicker({
+                                        ranges: {
+                                            'Today': [moment(), moment()],
+                                            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                                            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                                            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                                            'This Month': [moment().startOf('month'), moment().endOf('month')],
+                                            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                                        },
+                                        alwaysShowCalendars: true,
+                                    });
+
+                                    /*******************************************/
+                                    // Top of the form-control open alignment
+                                    /*******************************************/
+                                    $('.drops').daterangepicker({
+                                        drops: "up" // up/down
+                                    });
+
+                                    /*******************************************/
+                                    // Custom button options
+                                    /*******************************************/
+                                    $('.buttonClass').daterangepicker({
+                                        drops: "up",
+                                        buttonClasses: "btn",
+                                        applyClass: "btn-info",
+                                        cancelClass: "btn-danger"
+                                    });
+
+                                    /*******************************************/
+                                    // Language
+                                    /*******************************************/
+                                    $('.localeRange').daterangepicker({
+                                        ranges: {
+                                            "Aujourd'hui": [moment(), moment()],
+                                            'Hier': [moment().subtract('days', 1), moment().subtract('days', 1)],
+                                            'Les 7 derniers jours': [moment().subtract('days', 6), moment()],
+                                            'Les 30 derniers jours': [moment().subtract('days', 29), moment()],
+                                            'Ce mois-ci': [moment().startOf('month'), moment().endOf('month')],
+                                            'le mois dernier': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+                                        },
+                                        locale: {
+                                            applyLabel: "Vers l'avant",
+                                            cancelLabel: 'Annulation',
+                                            startLabel: 'Date initiale',
+                                            endLabel: 'Date limite',
+                                            customRangeLabel: 'SÃ©lectionner une date',
+                                            // daysOfWeek: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi','Samedi'],
+                                            daysOfWeek: ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa'],
+                                            monthNames: ['Janvier', 'fÃ©vrier', 'Mars', 'Avril', 'ÐœÐ°i', 'Juin', 'Juillet', 'AoÃ»t', 'Septembre', 'Octobre', 'Novembre', 'Decembre'],
+                                            firstDay: 1
+                                        }
+                                    });
+                                </script>
+
+
+                                <script>
+                                    $(".bt-switch input[type='checkbox'], .bt-switch input[type='radio']").bootstrapSwitch();
+                                    var radioswitch = function() {
+                                        var bt = function() {
+                                            $(".radio-switch").on("switch-change", function() {
+                                                $(".radio-switch").bootstrapSwitch("toggleRadioState")
+                                            }), $(".radio-switch").on("switch-change", function() {
+                                                $(".radio-switch").bootstrapSwitch("toggleRadioStateAllowUncheck")
+                                            }), $(".radio-switch").on("switch-change", function() {
+                                                $(".radio-switch").bootstrapSwitch("toggleRadioStateAllowUncheck", !1)
+                                            })
+                                        };
+                                        return {
+                                            init: function() {
+                                                bt()
+                                            }
+                                        }
+                                    }();
+                                    $(document).ready(function() {
+                                        radioswitch.init()
+                                    });
+                                </script>
+
+
+
+                                <!-- This Date JS -->
+                                <script src="/UI/assets/libs/moment/moment.js"></script>
+                                <script src="/UI/assets/libs/daterangepicker/daterangepicker.js"></script>
+
+
+                                <!--This page repeater -->
+                                <script src="/UI/assets/libs/jquery.repeater/jquery.repeater.min.js"></script>
+                                <script src="/UI/assets/extra-libs/jquery.repeater/repeater-init.js"></script>
+                                <script src="/UI/assets/extra-libs/jquery.repeater/dff.js"></script>
+
+
+
+                                <script src="/UI/assets/libs/raphael/raphael.min.js"></script>
+                                <script src="/UI/assets/libs/morris.js/morris.min.js"></script>
+
+
+                                <script>
+                                    // Dashboard 1 Morris-chart
+                                    $(function() {
+
+
+                                        var x = <%-JSON.stringify(data4)%>;
+                                        var y_5 = <%-JSON.stringify(data5)%>;
+                                        var z = <%-JSON.stringify(data6)%>;
+                                        var f = <%-JSON.stringify(data7)%>;
+
+                                        // console.log(f);
+                                        // LINE CHART
+                                        for (let index = 0; index < f.length; index++) {
+                                            const element = f[index];
+                                            data_v = [];
+                                            data_t = [];
+                                            // console.log(x);
+
+                                            for (let i = 0; i < x.length; i++) {
+                                                if (x[i] == f[index]) {
+                                                    data_v.push(y_5[i])
+                                                    data_t.push(z[i])
+
+                                                }
+
+
+                                            }
+
+                                            console.log(data_v);
+                                            console.log(data_t);
+
+                                            $.get(`/data_compare/${f[index]}`, function(data) {
+                                                // console.log(data.data);
+
+                                                let data_persen = document.getElementById(`persen-${f[index]}`);
+                                                data_persen.innerText = `${data.data}%`
+
+                                            });
+
+                                            var chart_1_v2 = {
+                                                series: [{
+                                                    name: "Log Volume",
+                                                    data: data_v,
+                                                }],
+                                                chart: {
+                                                    fontFamily: 'Rubik,sans-serif',
+                                                    height: 350,
+                                                    type: "area",
+                                                    toolbar: {
+                                                        show: false,
+                                                    },
+                                                },
+                                                fill: {
+                                                    type: 'solid',
+                                                    opacity: 0.2,
+                                                    colors: ["#009efb", "#39c449"],
+                                                },
+                                                grid: {
+                                                    show: true,
+                                                    borderColor: "rgba(0,0,0,0.1)",
+                                                    strokeDashArray: 3,
+                                                    xaxis: {
+                                                        lines: {
+                                                            show: true
+                                                        }
+                                                    },
+                                                },
+                                                colors: ["#39c449", "#009efb"],
+                                                dataLabels: {
+                                                    enabled: false,
+                                                },
+                                                stroke: {
+                                                    curve: "smooth",
+                                                    width: 1,
+                                                    colors: ["#009efb", "#39c449"],
+                                                },
+                                                markers: {
+                                                    size: 3,
+                                                    colors: ["#009efb", "#39c449"],
+                                                    strokeColors: "transparent",
+                                                },
+                                                xaxis: {
+                                                    axisBorder: {
+                                                        show: true,
+                                                    },
+                                                    axisTicks: {
+                                                        show: true,
+                                                    },
+                                                    categories: data_t,
+                                                    labels: {
+                                                        style: {
+                                                            colors: "#a1aab2",
+                                                        },
+                                                    },
+                                                },
+                                                yaxis: {
+                                                    tickAmount: 9,
+                                                    labels: {
+                                                        style: {
+                                                            colors: "#a1aab2",
+                                                        },
+                                                    },
+                                                },
+                                                tooltip: {
+                                                    x: {
+                                                        format: "dd/MM/yy HH:mm",
+                                                    },
+                                                    theme: "dark",
+                                                },
+                                                legend: {
+                                                    show: false,
+                                                },
+                                            };
+                                            var chart_area_spline_1 = new ApexCharts(document.querySelector(`#morris-line-chart-${f[index]}`), chart_1_v2);
+                                            chart_area_spline_1.render();
+                                        }
+
+
+                                        // Morris donut chart
+
+                                    });
+                                </script>

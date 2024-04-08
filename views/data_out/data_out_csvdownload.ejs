@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, monster admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, ">
+    <meta name="description" content="monster is powerful and clean admin dashboard template">
+    <meta name="robots" content="noindex,nofollow">
+    <title> All Inclusive Security</title>
+    <link rel="canonical" href="https://www.wrappixel.com/templates/monsteradmin/" />
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/UI/assets/images/favicon_bak.png">
+    <!-- Custom CSS -->
+    <link href="/UI/dist/css/style.min.css" rel="stylesheet">
+    <link href="/UI/assets/libs/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+<script language="javascript">
+    function init() {
+        document.getElementById('username').focus();
+    }
+</script>
+
+<body onLoad="init();" style="background:  #373b44 ;">
+    <div class="main-wrapper">
+        <!-- -------------------------------------------------------------- -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- -------------------------------------------------------------- -->
+        <div class="preloader">
+            <svg class="tea lds-ripple" width="37" height="48" viewbox="0 0 37 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M27.0819 17H3.02508C1.91076 17 1.01376 17.9059 1.0485 19.0197C1.15761 22.5177 1.49703 29.7374 2.5 34C4.07125 40.6778 7.18553 44.8868 8.44856 46.3845C8.79051 46.79 9.29799 47 9.82843 47H20.0218C20.639 47 21.2193 46.7159 21.5659 46.2052C22.6765 44.5687 25.2312 40.4282 27.5 34C28.9757 29.8188 29.084 22.4043 29.0441 18.9156C29.0319 17.8436 28.1539 17 27.0819 17Z" stroke="#2962FF" stroke-width="2"></path>
+          <path d="M29 23.5C29 23.5 34.5 20.5 35.5 25.4999C36.0986 28.4926 34.2033 31.5383 32 32.8713C29.4555 34.4108 28 34 28 34" stroke="#2962FF" stroke-width="2"></path>
+          <path id="teabag" fill="#2962FF" fill-rule="evenodd" clip-rule="evenodd" d="M16 25V17H14V25H12C10.3431 25 9 26.3431 9 28V34C9 35.6569 10.3431 37 12 37H18C19.6569 37 21 35.6569 21 34V28C21 26.3431 19.6569 25 18 25H16ZM11 28C11 27.4477 11.4477 27 12 27H18C18.5523 27 19 27.4477 19 28V34C19 34.5523 18.5523 35 18 35H12C11.4477 35 11 34.5523 11 34V28Z"></path>
+          <path id="steamL" d="M17 1C17 1 17 4.5 14 6.5C11 8.5 11 12 11 12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#2962FF"></path>
+          <path id="steamR" d="M21 6C21 6 21 8.22727 19 9.5C17 10.7727 17 13 17 13" stroke="#2962FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        </div>
+        <!-- -------------------------------------------------------------- -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- -------------------------------------------------------------- -->
+        <!-- -------------------------------------------------------------- -->
+        <!-- Login box.scss -->
+        <!-- -------------------------------------------------------------- -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9/core.js"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9/sha256.js"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js" integrity="sha512-E8QSvWZ0eCLGk4km3hxSsNmGWbLtSCSUcewDQPQWZF6pEU8GlT8a5fF32wOl1i8ftdMhssTrF/OhyGWwonTcXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <div class="row auth-wrapper gx-0" >
+            <div class="col-12 d-flex align-items-center justify-content-center">
+                <div class="row justify-content-center w-100 mt-4 mt-lg-0">
+                    <div class="col-lg-4 col-xl-4 col-md-6">
+                        <div class="card" id="loginform" style="background:  #373b44 ;">
+                            <div class="card-body">
+                                <h1 class="text-center"><img src="/UI/assets/images/logo.png" width="128"></h1>
+                                <div class="text-center text-muted fs-4">All Inclusive Security</div>
+                                <%if(data){%>
+                                <%if(data.length>0){%>
+                                <form class="form-horizontal mt-4 pt-3 needs-validation" novalidate action="/loginemail/showdataoutfilter/" method="post">
+                                        <center>
+                                            <a class="btn btn-info btn-lg px-4" target="_blank" onclick="download_csv_file()"> Download CSV </a>
+                                        </center>
+                                        
+                                </form>
+                                <%}else{%>
+                                    <center>
+                                        <h3 style="color: white;">ข้อมูลในระบบหมดอายุแล้ว</h3>
+                                    </center>
+                                    <%}}%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- -------------------------------------------------------------- -->
+        <!-- Login box.scss -->
+        <!-- -------------------------------------------------------------- -->
+    </div>
+    <script>
+        //create CSV file data in an array
+        var randomkey = makekeygen(8);
+        var csvFileData = <%-JSON.stringify(data)%>;
+        var namefile = <%-JSON.stringify(dataout[0])%>;
+        var token = namefile.res_link
+        namefile = namefile.classify_name+"_"+namefile.pattern_name+"_"+namefile.datecreate+"_"+namefile.firstname+"_"+namefile.lastname+"_"+randomkey
+          
+        //create a user-defined function to download CSV file 
+        function download_csv_file() {
+      let timerInterval;
+      Swal.fire({
+        confirmButtonText: "ยืนยัน",
+        showCancelButton: true,
+        cancelButtonText: "ยกเลิก",
+        title: "Download CSV",
+        html:
+          '<br><label class="text-secondary" > ชื่อไฟล์ </label> <label >' +
+            namefile +
+          "</label> <br>" +
+          '<label class="text-secondary" "> token </label> <label >' +
+            token +
+          "</label> <br>",
+      }).then((result) => {
+        if (result.value) {
+            var strhash = ""
+            var csv = csvFileData[0].toString()+"\n";
+            csvFileData.shift();
+            
+            //merge the data with CSV
+            csvFileData.forEach(function(row) {
+                    csv += row.join(',');
+                    csv += "\n";
+            });
+         
+            //display the created CSV data on the web browser 
+           
+            for(x in csv){
+                strhash = strhash+csv[x]
+            }
+            // strhash = strhash.replaceAll('(\r\n|\r)','\n');
+            // console.log(strhash);
+            var hashTextSHA1 = CryptoJS.SHA1(strhash).toString();;
+            var hashTextSHA256 = CryptoJS.SHA256(strhash).toString();;
+            var hashTextMD5 = CryptoJS.MD5(strhash).toString();;
+            // navigator.clipboard.writeText(strhash);
+            // alert(hashTextSHA1+"  "+hashTextSHA256+"  "+hashTextMD5)
+            
+            // const digest = await window.crypto.subtle.digest('SHA-256', hiddenElement);
+            // alert(digest)
+            var hashsum = {hashTextSHA1:hashTextSHA1,hashTextSHA256:hashTextSHA256,hashTextMD5:hashTextMD5,filename:namefile}
+
+          var request1 = function () {
+            $.ajax({
+              url: "/dataoutaddhash/" + token,
+              type: "post",
+              dataType:"json",
+              data: JSON.stringify(hashsum),
+              contentType: "application/json; charset=utf-8",
+              success: function (data) {
+                console.log(data);
+                if(data.status == "success"){
+                    // document.write(csv);
+            var universalBOM = "\uFEFF";
+            var hiddenElement = document.createElement('a');
+            hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(universalBOM+csv);
+            //provide the name for the CSV file to be downloaded
+            hiddenElement.download = namefile;
+                    hiddenElement.click();
+                    window.location.reload();
+                }else{
+                    alert("การ hash มีปัญหา")
+                }
+              },
+            });
+          };
+          request1();
+        }
+      });
+        }
+        
+        function makekeygen(length) {
+        var result = "";
+        var characters =
+          "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        var charactersLength = characters.length;
+        for (var i = 0; i < length; i++) {
+          result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+      }
+        </script>
+    <!-- -------------------------------------------------------------- -->
+    <!-- All Required js -->
+    <!-- -------------------------------------------------------------- -->
+    <script src="/UI/assets/libs/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="/UI/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+    <script src="/UI/dist/js/pages/dashboards/dashboard1.js"></script>
+    <script src="/UI/dist/js/feather.min.js"></script>
+    <script src="/UI/dist/js/custom.min.js"></script>
+    <script src="/UI/assets/libs/sweetalert2/dist/sweetalert2.all.min.js"></script>
+</body>
+
+</html>

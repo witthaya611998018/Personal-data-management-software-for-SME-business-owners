@@ -1,0 +1,159 @@
+<%- include('../_header') -%>
+    <script src="/UI/dist/js/go.js"></script>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-12 align-self-center">
+                <h3 class="page-title">Dataflow กระบวนการทำงาน</h3>
+                <div class="d-flex align-items-center" style="margin-top: 1%;">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index">หน้าแรก</a></li>
+                            <!-- <li class="breadcrumb-item active">การป้องกันข้อมูลสู่ภายนอก (Export)</li> -->
+                            <li class="breadcrumb-item active" aria-current="page">Dataflow กระบวนการทำงาน
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid" id="dataflow">
+        <!-- Row -->
+        <div class="row">
+            <!-- Column -->
+            <div class="col-12">
+                <div class="card">
+                    <div id="main-search" class="card-header">
+                        <form id="search">
+                            <div id="first-line">
+                                <label for="select-policy" style="display: inline;">เลือกตามเอกสารกิจกรรม / Policy </label>
+                                <select id="select-policy" name="policy" class="form-control" style="display: inline; width: 15%; margin-left: 5px;">
+                <option value="" disabled selected>กรุณเลือก</option>
+                <% for(i in policy){%>
+                  <option value="<%= policy[i].doc_id %>"><%= policy[i].doc_name %></option>
+                <%}%>
+              </select>&nbsp;&nbsp;
+                                <label for="select-pattern" style="display: inline;">เลือก Pattern </label>
+                                <select id="select-pattern" name="pattern" class="form-control" style="display: inline; width: 15%; margin-left: 5px;">
+                <option value="" disabled selected>กรุณเลือก</option>
+                <% for(i in pattern){%>
+                  <option value="<%= pattern[i].pattern_id %>"><%= pattern[i].pattern_name %></option>
+                <%}%>
+              </select>&nbsp;&nbsp;
+                                <label for="select-classify" style="display: inline;">เลือก Classification </label>
+                                <select id="select-classify" name="classify" class="form-control" style="display: inline; width: 15%; margin-left: 5px;">
+                <option value="" disabled selected>กรุณเลือก</option>
+                <% for(i in classify){%>
+                  <option value="<%= classify[i].classify_id%>"><%= classify[i].classify_name %></option>
+                <%}%>
+              </select>&nbsp;&nbsp;
+                                <label for="select-users" style="display: inline;">เลือกบุคคล (ผู้สร้าง)</label>
+                                <select id="select-users" name="account" class="form-control" style="display: inline; width: 15%; margin-left: 5px;">
+                <option value="" disabled selected>กรุณาเลือก</option>
+                <% for(i in account){%>
+                  <option value="<%= account[i].acc_id %>"><%= account[i].firstname%>&nbsp;&nbsp;<%=account[i].lastname%></option>
+                <%}%>
+              </select>&nbsp;&nbsp;
+                            </div><br/>
+                            <div id="second-line" style="margin-top: 10px; margin-left: 4.8%; display: inline;">
+                                <label for="select-personal-data" style="display: inline;">เลือกข้อมูลส่วนบุคคล</label>
+                                <select id="select-personal-data" name="data" class="form-control" style="display: inline; width: 15%; margin-left: 5px;">
+                <option value="" disabled selected>กรุณาเลือก</option>
+                <% for(i in data){%>
+                  <option value="<%= data[i].data_id %>"><%= data[i].data_name%></option>
+                <%}%>
+              </select>
+                            </div>
+                            <div style="float: right; margin-right: 1.5%;">
+                                <button id="download-pdf" value='Take screenshot' class="btn btn-secondary" type="button" style="vertical-align: -.5px;"><i class="fas fa-file-pdf"></i></button>
+                                <!-- PDF -->
+                                <button id="preview-print" value='Take screenshot' class="btn btn-secondary" type="button" style="vertical-align: -.5px;"><i class="icon-printer"></i></button>
+                                <!-- พิมพ์ -->
+
+                                <button id="search-dataflow" class="btn btn-success" type="button" style="vertical-align: -.5px;">ค้นหา</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-body" id="body-1">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body" id="card-list" style="border-radius: 30px; background-color: ; font-size: 14.5px;">
+                                        <p><img src="/UI/assets/images/circle/White_full.png" style="border-radius: 50%; width:20px; height:20px; vertical-align: -4px;">&nbsp;&nbsp;เอกสารตามกิจกรรม / Policy &emsp;<img id="p-2" src="/UI/assets/images/circle/Yellow_orange_drop.png"
+                                                style="border-radius: 50%; width:21px; height:21px; vertical-align: -4px; border: ">&nbsp;&nbsp;ข้อมูลจัดเก็บตาม Pattern ไม่ได้จัดเก็บใน Alltra &emsp;<img src="/UI/assets/images/circle/Yellow_orange_drop.png"
+                                                style="border-radius: 50%; width:20px; height:20px; vertical-align: -4px;">&nbsp;&nbsp;ข้อมูลจัดเก็บตาม Pattern จัดเก็บใน Alltra &emsp;<img src="/UI/assets/images/circle/Sky_blue.png" style="border-radius: 50%; width:20px; height:20px; vertical-align: -4px;">&nbsp;&nbsp;ข้อมูลใช้ในกิจกรรม/ประมวลผล
+                                            Classification &emsp;<img src="/UI/assets/images/circle/Green.png" style="border-radius: 50%; width:20px; height:20px; vertical-align: -4px;">&nbsp;&nbsp;ผู้ใช้งานข้อมูล(ประมวลผล)ภายใน &emsp;<img src="/UI/assets/images/circle/Red.png"
+                                                style="border-radius: 50%; width:20px; height:20px; vertical-align: -4px;">&nbsp;&nbsp;ผู้ใช้งานข้อมูล(ประมวลผล)ภายนอก</p>
+                                        <!-- <p><img src="/UI/assets/images/circle/Yellow_orange.png" style="border-radius: 50%; width:21px; height:21px; vertical-align: -4px; border: 2px solid white;">&emsp;ข้อมูลจัดเก็บตาม Pattern ไม่ได้จัดเก็บใน Alltra</p>
+                  <p><img src="/UI/assets/images/circle/Yellow_orange.png" style="border-radius: 50%; width:20px; height:20px; vertical-align: -4px;">&emsp;ข้อมูลจัดเก็บตาม Pattern จัดเก็บใน Alltra</p>
+                  <p><img src="/UI/assets/images/circle/Sky_blue.png" style="border-radius: 50%; width:20px; height:20px; vertical-align: -4px;">&emsp;ข้อมูลใช้ในกิจกรรม/ประมวลผล Classification</p>
+                  <p><img src="/UI/assets/images/circle/Green.png" style="border-radius: 50%; width:20px; height:20px; vertical-align: -4px;">&emsp;ผู้ใช้งานข้อมูล(ประมวลผล)ภายใน</p>
+                  <p><img src="/UI/assets/images/circle/Red.png" style="border-radius: 50%; width:20px; height:20px; vertical-align: -4px;">&emsp;ผู้ใช้งานข้อมูล(ประมวลผล)ภายนอก</p> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="main-content" class="col-12">
+                                <div id="data-content" class="row">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="swal2-dataflow" class="swal2-container swal2-center swal2-fade swal2-shown" style="display: none; overflow-y: auto;">
+        <div aria-labelledby="swal2-title" aria-describedby="swal2-content" class="swal2-popup swal2-modal swal2-show" tabindex="-1" role="dialog" aria-live="assertive" aria-modal="true" style="display: flex;">
+            <div class="swal2-header">
+                <ul class="swal2-progress-steps" style="display: none;">
+                </ul>
+                <div class="swal2-icon swal2-error swal2-animate-error-icon" style="display: flex;">
+                    <span class="swal2-x-mark">
+          <span class="swal2-x-mark-line-left"></span>
+                    <span class="swal2-x-mark-line-right"></span>
+                    </span>
+                </div>
+                <div class="swal2-icon swal2-question" style="display: none;"></div>
+                <div class="swal2-icon swal2-warning" style="display: none;"></div>
+                <div class="swal2-icon swal2-info" style="display: none;"></div>
+                <div class="swal2-icon swal2-success" style="display: none;">
+                    <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
+                    <span class="swal2-success-line-tip"></span>
+                    <span class="swal2-success-line-long"></span>
+                    <div class="swal2-success-ring"></div>
+                    <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
+                    <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
+                </div>
+                <img class="swal2-image" style="display: none;">
+                <h2 class="swal2-title" id="swal2-title" style="display: flex;">เกิดข้อผิดพลาด...</h2>
+            </div>
+            <div class="swal2-content">
+                <div id="swal2-content" style="display: block;">กรุณาค้นหาข้อมูลก่อน...</div>
+                <input class="swal2-input" style="display: none;">
+                <input type="file" class="swal2-file" style="display: none;">
+                <div class="swal2-range" style="display: none;">
+                    <input type="range">
+                    <output></output>
+                </div>
+                <select class="swal2-select" style="display: none;"></select>
+                <div class="swal2-radio" style="display: none;"></div>
+                <label for="swal2-checkbox" class="swal2-checkbox" style="display: none;">
+        <input type="checkbox"><span class="swal2-label"></span>
+      </label>
+                <textarea class="swal2-textarea" style="display: none;"></textarea>
+                <div class="swal2-validation-message" id="swal2-validation-message" style="display: none;"></div>
+            </div>
+            <div class="swal2-actions" style="display: flex;">
+                <button id="alert-close" type="button" class="swal2-confirm swal2-styled" aria-label="" style="display: inline-block; border-left-color: rgb(48, 133, 214); border-right-color: rgb(48, 133, 214);">ปิด</button>
+            </div>
+        </div>
+    </div>
+    <!-- <div id="printer">
+</div> -->
+    <script src="/UI/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="/UI/dist/js/jspdf.umd.min.js"></script>
+    <script type="text/javascript" src="/UI/dist/js/html2canvas.min.js"></script>
+    <%- include('../_footer') -%>

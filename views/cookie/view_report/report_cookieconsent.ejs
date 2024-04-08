@@ -1,0 +1,127 @@
+<%-include ("../../_header")%>
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-12 align-self-center">
+                <h3 class="page-title">รายงาน Cookie Consent</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/management/cookies">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">รายงาน Cookie Consent</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid note-has-grid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-wrap">
+                            <h4>ปริมาณข้อมูลตอบกลับ Cookie Consent</h4>
+                            <div class="ms-auto">
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <h6 class="text-muted">
+                                            <i class="fa fa-circle me-1 text-danger"></i>
+                                            ปฏิเสธทั้งหมด
+                                        </h6>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <h6 class="text-muted">
+                                            <i class="fa fa-circle me-1 text-info"></i>
+                                            อนุญาตตามที่เลือก
+                                        </h6>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <h6 class="text-muted">
+                                            <i class="fa fa-circle me-1 text-success"></i>
+                                            อนุญาตทั้งหมด
+                                        </h6>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="revenue-statistics" style="height:370px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>สัดส่วนข้อมูลตอบกลับ Cookie Consent</h4>
+                        <div class="card-body analytics-info">
+                            <div id="basic-pie-paper" style="height:345px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="border-bottom title-part-padding">
+                <div class="row">
+                    <div class="col-md-8 justify-content-start align-self-center d-none d-md-flex">
+                        <h4 class="card-title mb-0">รายงาน Cookie Consent</h4>
+                    </div>
+                    <div class="col-md-4 justify-content-end align-self-center d-none d-md-flex space">
+                        <div class="not_allowed">
+                            <a class="btn btn-info" id="csv">CSV</a>
+                            <a class="btn btn-success" id="excel">Excel</a>
+                            <a class="btn btn-warning" id="pdf"> PDF</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card-body">
+                <div class="row pb-2 justify-content-end">
+                    <div class="col-md-8 justify-content-start align-self-center d-none d-md-flex">
+                        <div class="d-flex">
+                            <div class="input-group mb-3">
+                                <input class="form-control" type="date" value="" id="firstDay">
+                                <span class="input-group-text" id="basic-addon1">ถึง</span>
+                                <input class="form-control" type="date" value="" id="lastDay">
+                                <button class="btn btn-outline-warning" type="button" id="search_date"><i
+                                        class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group mb-2 ">
+                            <a class="btn btn-outline-warning" id="reface"><i data-feather="refresh-cw"></i></a>
+                            <input type="text" class="form-control" placeholder="ค้นหา.." aria-label="" value=""
+                                id="Srearch" aria-describedby="button-addon2">
+                            <button class="btn btn-outline-warning" type="button" id="button-addon2"><i
+                                    class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div style="min-height: 400px;" class="table-responsive">
+                    <div id="table_Data-cookie"> </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6 text-secondary ">
+                        <div class="row">
+                            <span>แสดงผล <a id="show"></a> ถึง <a id="to_show"></a> ทั้งหมด <a id="show_all"></a>
+                                รายการ</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                        <nav aria-label="Page navigation example" class="mt-2">
+                            <ul class="pagination">
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/dist/js/views_js/report_js/js_report_cookie.js"></script>
+    <script type="text/javascript" src="/dist/js/xlsx.full.min.js"></script>
+    <%-include ("../../_footer")%>

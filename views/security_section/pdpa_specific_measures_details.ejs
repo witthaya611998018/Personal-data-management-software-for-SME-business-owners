@@ -1,0 +1,333 @@
+<%- include ("../_header") %>
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-10 align-self-center">
+                <h3 class="page-title">ดูรายละเอียดมาตรการรักษาความปลอดภัย</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/<%=process.env.SUBFOLDER%>index2">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item">
+                                <a href="/<%=process.env.SUBFOLDER%>security/section/Specific-Measures">
+                                    มาตรการรักษาความปลอดภัยขั้นต่ำที่ PDPA กำหนด (PDPA Specific Measures)
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">ดูรายละเอียดมาตรการรักษาความปลอดภัย </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-2 d-flex justify-content-end align-items-center">
+                <a href="/<%=process.env.SUBFOLDER%>security/section/Specific-Measures" class="btn btn-secondary">ย้อนกลับ</a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="d-flex border-bottom title-part-padding align-items-center">
+                <h4 class="card-title mb-0">
+                    ดูรายละเอียด มาตรการรักษาความปลอดภัยขั้นต่ำที่PDPA กำหนด (PDPA Specific Measures)
+                </h4>
+            </div>
+            <div class="card-body">
+                <form action="/<%=process.env.SUBFOLDER%>General-Measures/save" method="post">
+
+                    <div class="row mb-2">
+                        <div class="col-md-5  justify-content-end align-items-center d-flex ">
+                            กิจกรรมการประมวลผล :
+                        </div>
+                        <div class="col-md-5 d-flex align-items-center">
+                            <%=specific[0].event_process_name%>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-5 d-flex justify-content-end">
+                            ชื่อมาตราการ :
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <%=specific[0].measures_section_name%>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-5 d-flex justify-content-end">
+                            คำอธิบาย / รายละเอียด :
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <%=specific[0].measures_detail%>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-5 d-flex justify-content-end align-content-center">
+                            เอกสารPDPA :
+                        </div>
+                        <div class="col-md-6 d-flex align-content-center">
+                            <%if (specific[0].doc_id==0) {%>
+                                -
+                                <% }else {%>
+                                    <%for (let i=0;i<arr_doc.length;i++){%>
+                                        <%for (let j=0;j<doc.length;j++) {%>
+                                            <%if (arr_doc[i]==doc[j].doc_id) {%>
+                                                <p class="ms-2">
+                                                    <%=doc[j].doc_name%>
+                                                        <a class="text-info ms-2" target="_blank"
+                                                            href="/<%=process.env.SUBFOLDER%>paper/<%=doc[j].doc_id%>"><i
+                                                                class=" fas fa-file-alt fa-2x"></i>
+                                                        </a>
+                                                </p>
+                                                <%}%>
+                                                    <%}%>
+                                                        <%}%>
+
+                                                            <%}%>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-5 d-flex  align-items-center justify-content-end">
+                            <label style="text-align: right;">
+                                การควบคุมการเข้าถึงข้อมูลส่วนบุคคล (Access Control) :
+                            </label>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-between">
+                            <%if (specific[0].specific_access_control==1) {%>
+                                <font class="text-success">มี</font>
+                                <%}else {%>
+                                    <font class="text-danger">ไม่มี</font>
+                                    <%}%>
+
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-5 d-flex  align-items-center justify-content-end">
+                            <label>
+                                อธิบาย :
+                            </label>
+                        </div>
+                        <div class="col-md-5 d-flex justify-content-start align-items-center ">
+                            <% if (specific[0].specific_access_control_explain=="" ||
+                                specific[0].specific_access_control_explain==null) {%>
+                                -
+                                <% }else {%>
+                                    <%=specific[0].specific_access_control_explain%>
+                                        <%}%>
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-2">
+                        <div class="col-md-5 d-flex justify-content-end align-items-center">
+                            <label style="text-align: right;">
+                                การบริหารจัดการการเข้าถึงของผู้ใช้งาน (user Access Management) :
+                            </label>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-between">
+                            <%if (specific[0].specific_user_access_management==1) {%>
+                                <font class="text-success">มี</font>
+                                <%}else {%>
+                                    <font class="text-danger">ไม่มี</font>
+                                    <%}%>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-5 d-flex  align-items-center justify-content-end">
+                            <label>
+                                อธิบาย :
+                            </label>
+                        </div>
+                        <div class="col-md-5 d-flex justify-content-start align-items-center ">
+                            <% if (specific[0].specific_user_access_management_explain=="" ||
+                                specific[0].specific_user_access_management_explain==null) {%>
+                                -
+                                <% }else {%>
+                                    <%=specific[0].specific_user_access_management_explain%>
+                                        <%}%>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row mb-2">
+                        <div class="col-md-5 d-flex justify-content-end align-items-center">
+                            <label style="text-align: right;">
+                                การกำหนดหน้าที่ความรับผิดชอบของผู้ใช้งาน (User Responsibilitites) :
+                            </label>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-between">
+                            <%if (specific[0].specific_user_responsibilitites==1) {%>
+                                <font class="text-success">มี</font>
+                                <%}else {%>
+                                    <font class="text-danger">ไม่มี</font>
+                                    <%}%>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-5 d-flex  align-items-center justify-content-end">
+                            <label>
+                                อธิบาย :
+                            </label>
+                        </div>
+                        <div class="col-md-5 d-flex justify-content-start align-items-center ">
+                            <% if (specific[0].specific_user_responsibilitites_explain=="" ||
+                                specific[0].specific_user_responsibilitites_explain==null) {%>
+                                -
+                                <% }else {%>
+                                    <%=specific[0].specific_user_responsibilitites_explain%>
+                                        <%}%>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-5 d-flex justify-content-end align-items-center">
+                            <label style="text-align: right;">
+                                การจัดให้มีวิธีการเพื่อให้สามารถตรวจสอบย้อนหลังเกี่ยวกับการเข้าถึงเปลียนแปลงแก้ไขหรือลบ
+                                (Audit Trails) :
+                            </label>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-between">
+                            <%if (specific[0].specific_audit_trails==1) {%>
+                                <font class="text-success">มี</font>
+                                <%}else {%>
+                                    <font class="text-danger">ไม่มี</font>
+                                    <%}%>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-5 d-flex  align-items-center justify-content-end">
+                            <label>
+                                อธิบาย :
+                            </label>
+                        </div>
+                        <div class="col-md-5 d-flex justify-content-start align-items-center ">
+                            <% if (specific[0].specific_audit_trails_explain=="" ||
+                                specific[0].specific_audit_trails_explain==null) {%>
+                                -
+                                <% }else {%>
+                                    <%=specific[0].specific_audit_trails_explain%>
+                                        <%}%>
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-2">
+                        <div class="col-md-5 d-flex justify-content-end align-items-center">
+                            <label style="text-align: right;">
+                                การสร้างเสริมความตระหนักรู้ด้านความสำคัญของการคุ้มครองข้อมูลส่วนบุคคลและการรักษาความมั่นคงปลอดภัย
+                                (privacy and security Awareness) :
+                            </label>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-between">
+                            <%if (specific[0].specific_privacy_security_awareness==1) {%>
+                                <font class="text-success">มี</font>
+                                <%}else {%>
+                                    <font class="text-danger">ไม่มี</font>
+                                    <%}%>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-5 d-flex  align-items-center justify-content-end">
+                            <label>
+                                อธิบาย :
+                            </label>
+                        </div>
+                        <div class="col-md-5 d-flex justify-content-start align-items-center ">
+                            <% if (specific[0].specific_privacy_security_awareness_explain=="" ||
+                                specific[0].specific_privacy_security_awareness_explain==null) {%>
+                                -
+                                <% }else {%>
+                                    <%=specific[0].specific_privacy_security_awareness_explain%>
+                                        <%}%>
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-2">
+                        <div class="col-md-5 d-flex justify-content-end align-items-center">
+                            <label style="text-align: right;">
+                                การแจ้งนโยบายการแจ้งเตือนแนวปฏิบัติ Review and Revision (Where incident occurs) :
+                            </label>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-between">
+                            <%if (specific[0].specific_where_incident_occur==1) {%>
+                                <font class="text-success">มี</font>
+                                <%}else {%>
+                                    <font class="text-danger">ไม่มี</font>
+                                    <%}%>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-5 d-flex  align-items-center justify-content-end">
+                            <label>
+                                อธิบาย :
+                            </label>
+                        </div>
+                        <div class="col-md-5 d-flex justify-content-start align-items-center ">
+                            <% if (specific[0].specific_where_incident_occurs_explain=="" ||
+                                specific[0].specific_where_incident_occurs_explain==null) {%>
+                                -
+                                <% }else {%>
+                                    <%=specific[0].specific_where_incident_occurs_explain%>
+                                        <%}%>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row mb-2">
+                        <div class="col-md-5 d-flex justify-content-end">
+                            ระยะเวลาทบทวนมาตรการ
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <%=specific[0].day_measures%> - <%=day_last%>
+                                    จำนวน
+                                    <font class="text-success p-1">
+                                        <%= specific[0].measures_date_count%>
+                                    </font> วัน
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-5 d-flex justify-content-end align-items-center">
+                            ผู้ดูแลข้อมูลหรือผู้ดูแลระบบหรือผู้ควบคุมมาตรการ :
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <% text_sum = '' %>
+                            <% text_sum_2 = '' %>
+                            <%if(account){for (var i=0; i < account.length; i++) { %>
+                                <%if(specific[0].measures_supervisor.indexOf(account[i].acc_id)>-1){ %>
+                                        <% text_sum = text_sum + account[i].firstname + ' ' +  account[i].lastname + ','%>
+                                    <%}}}%>
+                                    
+                                    <%if(text_sum[text_sum.length - 1] == ','){%>
+                                    <% text_sum_2 = text_sum.substring(0, text_sum.length - 1)%>
+                                    <%=text_sum_2%>
+                                        <%}%>
+                                    
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-5 d-flex justify-content-end align-items-center">
+                            ร่างบันทึกขอความคิดเห็นจากที่ปรึกษา :
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <%if (specific[0].measures_consult==1) {%>
+                                <font class="text-success">มี</font>
+                                <%}else {%>
+                                    <font class="text-danger">ไม่มี</font>
+                                    <%}%>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="justify-content: center;">
+                        <a href="/<%=process.env.SUBFOLDER%>security/section/Specific-Measures" class="btn btn-secondary">ย้อนกลับ</a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <%- include ("../_footer") %>

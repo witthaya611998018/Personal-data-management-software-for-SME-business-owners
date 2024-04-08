@@ -1,0 +1,86 @@
+<%- include('../_header') -%>
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-md-5 align-self-center">
+            <h3 class="page-title">รายละเอียด Service (<%= service[0].name %>)</h3>
+            <div class="d-flex align-items-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/index2">หน้าหลัก</a></li>
+                        <li class="breadcrumb-item"><a href="/agent_store">Agent Store</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"> รายละเอียด Service (<%= service[0].name %>) </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid" id="a-store-detail">
+    <!-- Row -->
+    <div class="row">
+        <!-- Column -->
+        <div class="col-12">
+            <div class="card">
+                <div class="border-bottom title-part-padding">
+                    <h4 class="card-title mb-0">รายการ Service (<%= service[0].name %>)<span class="text-secondary"></span></h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-boardless">
+                                <th style="width: 12%; font-weight: bold; text-align: left;">
+                                    รหัสของ Agent
+                                </th>
+                                <td style="text-align: left;">
+                                    <%= service[0].code %>
+                                </td>
+                            </table>
+                            <table class="table table-boardless">
+                                <th style="width: 12%; font-weight: bold; text-align: left;">
+                                    ชนิดของ Agent
+                                </th>
+                                <td style="text-align: left;">
+                                    <%= service[0].type %>
+                                </td>
+                            </table>
+                            <table class="table table-boardless">
+                                <th style="width: 12%; font-weight: bold; text-align: left;">
+                                    คำอธิบายของ Agent
+                                </th>
+                                <td style="text-align: left;">
+                                    <%= service[0].description %>
+                                </td>
+                            </table>
+                            <table class="table table-boardless">
+                                <th style="width: 12%; font-weight: bold; text-align: left;">
+                                    จำนวนที่สามารถใช้
+                                </th>
+                                <td style="text-align: left;">
+                                    <%= service[0]._limit_ %>
+                                </td>
+                            </table>
+                            <table class="table table-boardless">
+                                <th style="width: 12%; font-weight: bold; text-align: left;">
+                                    สถานะการให้บริการ
+                                </th>
+                                <td style="text-align: left;">
+                                    <% if(service[0].status == 1){ %>
+                                        <span style="color: green;">เปิดใช้งาน</span>
+                                    <%}else{%>
+                                        <span style="color: red;">ปิดใช้งาน</span>
+                                    <%}%>
+                                </td>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-12 text-center">
+                        <a href="/agent_store" class="btn btn-secondary">ย้อนกลับ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Column -->
+    </div>
+    <!-- Row -->
+</div>
+<%- include('../_footer') -%>

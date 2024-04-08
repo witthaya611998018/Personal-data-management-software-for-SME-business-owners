@@ -1,0 +1,258 @@
+<%- include ("../_header") %>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-md-5 align-self-center">
+                <h3 class="page-title">ข้อมูลหัวเรื่องการละเมิด</h3>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/index">หน้าหลัก</a></li>
+                            <li class="breadcrumb-item">ข้อมูลหัวเรื่องการละเมิด</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="border-bottom title-part-padding">
+                <div class="align-items-center d-none d-md-flex">
+                    <h4 class="card-title mb-0">หัวเรื่องการละเมิด</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row pb-2">
+                    <div class="col-md-8 justify-content-start align-items-center d-none d-md-flex">
+                        <a href="#Add-type" data-bs-toggle="modal" class="btn btn-success"><i class="fas fa-plus"></i>
+                            เพิ่มหัวเรื่องการละเมิด</a>
+                    </div>
+                    <div class="col-md-4 justify-content-end align-self-center d-none d-md-flex">
+                        <div class="input-group mb-2 ">
+                            <a class="btn btn-outline-warning" href="/appeal/infraction/manage/type1"><i
+                                    data-feather="repeat"></i></a>
+                            <select class="select2 form-control custom-select" id="type" hidden>
+                                <option value="0" >เลือกประเภทการละเมิด...</option>
+                                <option value="1" selected>หัวเรื่องการละเมิด</option>
+                                <option value="2">ประเภทหรือสถานะเจ้าข้อมูลส่วนบุคคล</option>
+                                <option value="3">ผลกระทบ</option>
+                                <option value="4">สถานะทางกฏหมายของผู้ควบคุมข้อมูลส่วนบุคคล</option>
+                            </select>
+                            <!-- <span class="input-group-text" id="basic-addon1">/</span> -->
+                            <input type="text" class="form-control" placeholder="ค้นหา.." id="search"
+                                aria-describedby="button-search">
+                            <button class="btn btn-outline-warning" type="button" id="button-search"><i
+                                    class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <!---------------------------  table setdate  ---------------------------->
+                <div style="min-height: 470px;" class="table-responsive">
+                    <table class="tablesaw table table-striped   no-wrap table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    ลำดับ
+                                </th>
+                                <th>
+                                    ชื่อประเภทการละเมิด
+                                </th>
+                                <th>
+                                    ประเภทการละเมิด
+                                </th>
+                                <th>
+                                    เเก้ไข
+                                </th>
+                                <th>
+                                    ลบข้อมูล
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6 text-secondary ">
+                        <div class="row">
+                            <span>แสดงผล <a id="show"></a> ถึง <a id="to-show"></a> ทั้งหมด <a id="show-all"></a>
+                                รายการ</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 justify-content-end align-self-center d-block d-md-flex">
+                        <nav aria-label="Page navigation example" class="mt-2">
+                            <ul class="pagination">
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="Add-type" class="modal fade show" tabindex="-1" aria-labelledby="info-header-modalLabel" aria-modal="true"
+        role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h4 class="modal-title ">
+                        เพิ่มประเภทการละเมิด
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/appeal/infraction/add/type/save" method="POST">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4" style="text-align: right;">
+                                ชื่อประเภทการละเมิด
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" name="infractiontype_name" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4" style="text-align: right;">
+                                ประเภทการละเมิด
+                            </div>
+                            <div class="col-md-8">
+                                <select class="select2 form-control custom-select" name="" disabled>
+                                    <option value="1" selected>หัวเรื่องการละเมิด</option>
+                                    <option value="2">ประเภทหรือสถานะเจ้าข้อมูลส่วนบุคคล</option>
+                                    <option value="3">ผลกระทบ</option>
+                                    <option value="4">สถานะทางกฏหมายของผู้ควบคุมข้อมูลส่วนบุคคล</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" value="1" name="infractiontype_type">
+
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-success font-weight-medium">ยืนยัน</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="Edit-type" class="modal fade show" tabindex="-1" aria-labelledby="info-header-modalLabel" aria-modal="true"
+        role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h4 class="modal-title ">
+                        เเก้ไขประเภทการละเมิด
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/appeal/infraction/manage/type/edit/save" method="POST">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4" style="text-align: right;">
+                                ชื่อประเภทการละเมิด
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" name="infractiontype_name" class="form-control">
+                                <input type="hidden" name="infractiontype_id" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4" style="text-align: right;">
+                                ประเภทการละเมิด
+                            </div>
+                            <div class="col-md-8">
+                                <select class="select2 form-control custom-select" name="" disabled>
+                                    <option value="1" selected>หัวเรื่องการละเมิด</option>
+                                    <option value="2">ประเภทหรือสถานะเจ้าข้อมูลส่วนบุคคล</option>
+                                    <option value="3">ผลกระทบ</option>
+                                    <option value="4">สถานะทางกฏหมายของผู้ควบคุมข้อมูลส่วนบุคคล</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" value="1" name="infractiontype_type">
+
+                    <div class="mb-3  text-center">
+                        <button type="submit" class="btn btn-success font-weight-medium">ยืนยัน</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="del-type" class="modal fade show" tabindex="-1" aria-labelledby="info-header-modalLabel" aria-modal="true"
+        role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h4 class="modal-title ">
+                        ลบประเภทการละเมิด
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/appeal/infraction/manage/type/del" method="POST">
+                    
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4" style="text-align: right;">
+                                ชื่อประเภทการละเมิด
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" name="infractiontype_name" class="form-control">
+                                <input type="hidden" name="infractiontype_id" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4" style="text-align: right;">
+                                ประเภทการละเมิด
+                            </div>
+                            <div class="col-md-8">
+                                <select class="select2 form-control custom-select" name="infractiontype_type" disabled>
+                                    <option value="1" selected>หัวเรื่องการละเมิด</option>
+                                    <option value="2">ประเภทหรือสถานะเจ้าข้อมูลส่วนบุคคล</option>
+                                    <option value="3">ผลกระทบ</option>
+                                    <option value="4">สถานะทางกฏหมายของผู้ควบคุมข้อมูลส่วนบุคคล</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" value="1" name="type">
+                    <div class="mb-3  text-center">
+                        
+                        <button type="submit" class="btn btn-success font-weight-medium">ยืนยัน</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        function get_data_list(type) {
+            $.ajax({
+                type: 'get',
+                url: '/api/appeal/infraction/manage/type/list2/' + type,
+                success: async function (result) {
+                    if (result.infraction == 'ไม่มีข้อมูล') {
+                        data_null()
+                    } else {
+                        Data_Table(result)
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            })
+        }
+
+        $(document).ready(function () {
+            console.log("ready!");
+            get_data_list(1)
+
+        });
+    </script>
+    <script src="/dist/js/views_js/appeal/appeal_infraction_manage_type.js"></script>
+
+    <%- include ("../_footer") %>
