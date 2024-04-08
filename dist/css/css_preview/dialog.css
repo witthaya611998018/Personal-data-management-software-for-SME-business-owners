@@ -1,0 +1,121 @@
+.last_child {
+    border-bottom: 0;
+    border-bottom-width: 0px;
+    border-bottom-style: initial;
+    border-bottom-color: initial;
+}
+
+#Theme {
+    border: 1.5px solid grey;
+    border-radius: 5px;
+}
+
+#location {
+    border: 1.5px solid grey;
+    border-radius: 5px;
+}
+
+#location .button-height {
+    height: 37px;
+}
+
+#location .row .col h5 {
+    text-align: center;
+    margin-top: 5%;
+}
+
+#banner {
+    width: 100%;
+    border: 1.5px solid black;
+    box-sizing: border-box;
+}
+
+#banner-1 {
+    width: 100%;
+    border: 1.5px solid black;
+    border-radius: 20px;
+    padding: 5px 5px;
+}
+
+#Preview-banner {
+    border: 10px;
+    padding: 10px;
+    margin: 10px;
+    text-align: left;
+}
+
+#Preview-banner-1 {
+    border: 10px;
+    padding: 10px;
+    margin: 10px;
+    text-align: left;
+}
+
+#location-buttom {
+    left: -10%;
+    width: 120%;
+    position: relative;
+    top: 11px;
+    background-color: black;
+}
+
+#location-top {
+    position: relative;
+    left: -10%;
+    width: 120%;
+    background-color: black;
+    bottom: 10px;
+}
+
+#location-center {
+    position: relative;
+    width: 120%;
+    background-color: black;
+    left: -10%;
+}
+
+.circum-color {
+    padding: 2px;
+    border: 2px solid rgb(255, 182, 0);
+    border-radius: 5px;
+}
+
+.circum-color-theme {
+    padding: 6px;
+    border: 2px solid rgb(255, 182, 0);
+    border-radius: 5px;
+}
+
+.circum-color-theme-ready {
+    padding: 6px;
+    border-radius: 5px;
+}
+
+.cookie-policy {
+    border: 1.5px solid grey;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 1%;
+
+}
+
+.type-cookie {
+    width: 105%;
+    height: 50px;
+}
+
+.cookie-policy textarea {
+    width: 100%;
+    height: 100px;
+}
+
+#input {
+    height: 200px;
+}
+
+#alltra_cookie_consent_banner {
+    border: 1.5px solid grey;
+    border-radius: 20px;
+    padding: 20px 30px;
+    height: 150px;
+}

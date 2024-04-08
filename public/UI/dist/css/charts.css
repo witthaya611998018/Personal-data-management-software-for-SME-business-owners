@@ -1,0 +1,207 @@
+i:hover {
+    cursor: pointer;
+}
+
+.cursor-icon {
+    cursor: pointer;
+    font-size: 150%;
+}
+
+.mt-5px {
+    margin-top: 5px;
+}
+
+.mb-1px {
+    margin-bottom: 1px;
+}
+
+.pd-1px {
+    padding: 1px;
+}
+
+.p-right {
+    text-align: right;
+}
+
+.bd-right {
+    border-right: 1px solid #e9ecef;
+}
+
+.pd-b-20px {
+    padding: 20px 20px 0px 20px;
+}
+
+.icon-status {
+    color: green;
+}
+
+.pd-10px {
+    flex: 1 1 auto;
+    padding: 10px;
+}
+
+.pd-5px {
+    flex: 1 1 auto;
+    padding: 5px;
+}
+
+.bd-b {
+    margin-bottom: 1px;
+    border-bottom: 1px solid #e9ecef!important;
+}
+
+.color-w {
+    color: black;
+}
+
+.t-center {
+    text-align: center;
+}
+
+.bd-st {
+    border: 1px solid #e9ecef!important;
+    border-radius: 20px;
+}
+
+.btn-st {
+    height: 30%;
+    width: 80%;
+    font-size: 8px;
+    padding: 5px;
+}
+
+.text-color-1 {
+    color: #90a4ae;
+}
+
+.f-text-8px {
+    font-size: 12px;
+}
+
+.f-text-10px {
+    font-size: 14px;
+}
+
+.bd-1-solid {
+    border: 1px solid;
+}
+
+.text-green {
+    color: green !important;
+}
+
+.icon-right-1 {
+    position: absolute;
+    right: -20%;
+    top: 35%;
+    z-index: 1;
+    font-size: 150%;
+}
+
+.dis-in {
+    display: inline-block !important;
+}
+
+.h210px {
+    height: 250px;
+}
+
+.h3-mg-8px {
+    margin-top: 8px;
+    margin-left: 8px;
+}
+
+td,
+tr {
+    text-align: center;
+}
+
+.p_st {
+    font-size: inherit;
+    font-weight: bold;
+}
+
+.input-t {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 8px;
+    line-height: 1.5;
+    color: #54667a;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #e9ecef;
+    appearance: none;
+    border-radius: 4px;
+    box-shadow: unset;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+p {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.m-l10px {
+    margin-left: 10px;
+}
+
+.m-r10px {
+    margin-right: 10px;
+}
+
+.connect::before,
+.connect::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    text-align: center;
+    line-height: 10px;
+    border-radius: 5px;
+    background: orange;
+    margin: 0;
+    display: inline-block;
+    position: absolute;
+    top: -4px;
+}
+
+.connect::before {
+    left: -5px;
+}
+
+.connect::after {
+    right: -5px;
+}
+
+.connect {
+    width: 50px;
+    height: 2px;
+    background: darkGray;
+    position: relative;
+    top: -85px;
+}
+
+.barchat {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: top;
+}
+
+.fs100px {
+    /* icon หน้า datain */
+    font-size: 100px;
+}
+
+.fsxsmall {
+    /* icon หน้า datain */
+    font-size: small;
+}
+
+.c-green {
+    color: green;
+}
+
+.c-gray {
+    color: gray;
+}

@@ -1,0 +1,61 @@
+.select2-container {
+    z-index: 9999;
+
+}
+
+.tag-cookie {
+    background-color: #868e96;
+    /* color: black; */
+    padding: 2px;
+    /* font-size: 21px; */
+    font-weight: 500;
+    border-radius: 10px 10px 0px 0px;
+
+}
+
+.tag-cookie-use {
+    background-color: #39c449;
+    /* color: whitesmoke; */
+    padding: 2px;
+    /* font-size: 21px; */
+    font-weight: 500;
+    border-radius: 10px 10px 0px 0px;
+
+}
+
+.tag-cookie-cancel {
+    background-color: #f62d51;
+    /* color: whitesmoke; */
+    padding: 2px;
+    /* font-size: 21px; */
+    font-weight: 500;
+    border-radius: 10px 10px 0px 0px;
+
+}
+
+.spect {
+    margin-right: 0.75rem;
+    width: 18px;
+    height: 24px;
+    /* font-size: 26px; */
+    /* color: black; */
+}
+
+.icon_width {
+    margin-right: 0.5rem;
+    font-size: 15px;
+}
+
+.icon_tag {
+    margin-right: 0.25rem;
+    font-size: larger;
+}
+
+.icon_tag_select {
+    font-size: larger;
+    margin-right: 0.25rem;
+}
+
+.font_tag {
+    font-size: 15px;
+}

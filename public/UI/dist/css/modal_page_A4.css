@@ -1,0 +1,8 @@
+page[size="A4"] {
+  size: 8in 9.25in;
+  margin: 27mm 20mm 27mm 20mm;
+}
+.tab {
+    display: inline-block;
+    padding-left: 6em;
+}
