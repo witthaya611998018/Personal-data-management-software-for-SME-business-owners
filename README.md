@@ -15,7 +15,7 @@ DB_NAME= name database
 FOLDER_FILESUPLOAD = ชื่อ folder ที่ทำการ upload ข้อมูลลงไป
 COOKIE_DOMAIN= ชื่อโดเมน
 COOKIE_API= URL สำหรับส่งข้อมูลมาเก็บ Popup
-EMAIL_API= dev กรณีที่อยู่ใน dev ถ้าอยู่ใน ที่ดิน http://172.16.42.126/SMTPMailPIPR/api/SMTPMailPIPR/SendMail
+EMAIL_API= dev กรณีที่อยู่ใน dev ถ้าอยู่ใน ที่ดิน http://127.0.0.1/SMTPMailPIPR/api/SMTPMailPIPR/SendMail
 ````
 
 ### เช่น 
