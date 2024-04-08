@@ -22,13 +22,13 @@ EMAIL_API= dev กรณีที่อยู่ใน dev ถ้าอยู่
 
 ````shell
 PORT=8001
-DB_HOST=119.81.197.130
+DB_HOST=127.0.0.1
 DB_USER=users
-DB_PASSWORD=P@ssw0rd
-DB_NAME=PDPA_ROPA
+DB_PASSWORD=password
+DB_NAME=DATA
 FOLDER_FILESUPLOAD=files_upload_dev
-COOKIE_DOMAIN=http://119.81.197.130:8001
-COOKIE_API=http://119.81.197.130:8001/api/send_cookieTypes
+COOKIE_DOMAIN=http://127.0.0.1:8001
+COOKIE_API=http://127.0.0.1:8000/api/send_cookieTypes
 EMAIL_API=dev
 
 ````
