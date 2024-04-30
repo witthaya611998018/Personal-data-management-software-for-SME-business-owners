@@ -1,0 +1,5 @@
+node_modules
+test_scan.js
+.env
+files_upload_dev/file_domain/*
+files_upload_dev/files_upload/*
