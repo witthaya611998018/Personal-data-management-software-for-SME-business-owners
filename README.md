@@ -43,7 +43,7 @@ npm install
 - 3. ทำกการ copy ข้อมูลดังนี้
 
 ### 3. ตั้งค่าฐานข้อมูล  
-นำเข้าไฟล์ `/database/pdpa_schema.sql` ไปยัง MySQL
+นำเข้าไฟล์ `/data_bases/PDPA_DataBases.sql` ไปยัง MySQL
 
 ### 4. สร้างไฟล์ `.env` และกำหนดค่า
 ```
